@@ -1,0 +1,5 @@
+[gerrit]
+host=gerrit.oran-osc.org
+port=29418
+project=it/dep
+defaultbranch=master

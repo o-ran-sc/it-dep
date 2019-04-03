@@ -1,0 +1,89 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################'
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  # modify this section to point to your local testing settings
+  repository: "snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001"
+  repositoryCred:
+    user: docker
+    password: docker
+  image:
+    pullPolicy: IfNotPresent
+
+ricplt:
+  # This section is reserved for values imported from RIC Platform charts
+  
+
+ricapp:
+  # This section is for xapp.  Templates to be resolved from xApp descriptor
+  replicaCount: 1
+  xappname: &anchor-xappname xapp-std
+
+  # the name of the process that indicates the liveness of the component
+  liveness-process-name: xapp-std
+
+  image:
+    name: whoami
+    tag: 0.0.1
+
+  nameOverride: ""
+  fullnameOverride: ""
+
+  service:
+    enabled: false
+
+
+  # to be provided as property file
+  appconfigpath: /opt/etc/xapp
+  appconfig:
+    # to be present as file propfile1 under appconfigpath
+    propfile1: |
+      prop1.v1="propvalue1.1"
+      prop1.v2="propvalue1.2"
+    # to be present as file propfile2 under appconfigpath
+    propfile2: "prop2"
+
+  # to be provided as env variables
+  appenv:
+    NAME: *anchor-xappname
+    ENV1: "envvalue1"
+    ENV2: "envvalue2"
+
+  # secret
+  appsecretpath: /opt/etc/kube
+  appsecret:
+    # to be present as files under path appsecretpath
+    username: myusername
+    password: mypassword
+    
+
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+

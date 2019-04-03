@@ -1,0 +1,65 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "rtmgr.fullname" . }}
+  namespace: {{ include "common.namespace" . }}
+  labels:
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ .Chart.Name }}
+      imagePullSecrets:
+        - name: {{ .Values.image.repositoryCred }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.global.pullPolicy | default .Values.image.pullPolicy }}
+          command: ["/run_rtmgr.sh"]
+          env:
+            - name: XMURL
+              value: "http://ric-full-appmgr:8080/ric/v1/xapps"
+            - name: SOCKET
+              value: "tcp://0.0.0.0:4560"
+            - name: RTFILE
+              value: "/db/rt.json"
+            - name: NBI
+              value: "httpGetter"
+            - name: SBI
+              value: "nngpub"
+            - name: RPE
+              value: "rmr"
+            - name: SDL
+              value: "file"
+          ports:
+            - name: {{ .Values.service.nano.name }}
+              containerPort: {{ .Values.service.nano.port }}

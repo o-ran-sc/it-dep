@@ -1,0 +1,104 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Modify this section to point to Docker image repository
+image:
+  repository: "${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}"
+  repositoryCred: "docker-reg-cred"
+  pullPolicy: IfNotPresent
+  
+  # xAppmanager Docker image name and tag
+  name: xapp-manager
+  tag: latest
+
+# This section describes xAppManager
+replicaCount: 1
+
+containerPort: 8080
+
+service:
+  type: NodePort
+  appmgr:
+    port: 8080
+    name: appmgr-service
+    protocol: "TCP"
+    export: 30020
+
+
+# config
+# Path referred in xapp-manager for retrieving configuration details
+appconfigpath: /opt/ric/config
+appconfig:
+  # To be present as files under appconfigpath
+  # Use your own environment addresses
+  xapp-manager.yaml: |
+    "local":
+      # Port on which the xapp-manager REST services are provided
+      "host": ":8080"
+    "helm":
+      # Remote helm repo URL. UPDATE this as required.
+      "repo": "https://${__RUNRICENV_HELMREPO_HOST__}:${__RUNRICENV_HELMREPO_PORT__}"
+
+      # Repo name referred within the xapp-manager
+      "repo-name": "helm-repo"
+
+      # Tiller service details in the cluster. UPDATE this as required.
+      "tiller-service": "tiller-deploy"
+      "tiller-namespace": "kube-system"
+      "tiller-port": "44134"
+
+# To be provided as env variables
+appenv:
+  NAME: xappmgr
+  #ENV1: "envvalue1"
+  #ENV2: "envvalue2"
+
+# secret
+# Path referred in xapp-manager for retrieving helm repo secrets
+appsecretpath: /opt/ric/secret
+
+# Secret object with credentials that should be created in K8S cluster. 
+# Parameters in this object are currently referred by xapp-manager to connect to helm repo and these are:
+# helm_repo_username
+# helm_repo_password
+appsecretobject: xapp-mgr-creds
+
+# certificates
+# Path referred in xapp-manager for retrieving helm repo client certificates
+appcertpath: /opt/ric/certificates
+
+# configMap object in K8S cluster that holds the client side certificates to connect to helm repo.
+# Currently all certificates mounted by this object are copied to /etc/ssl/certs
+appcertobject: xapp-mgr-certs
+
+resources: {}
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

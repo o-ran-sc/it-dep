@@ -33,6 +33,11 @@ spec:
       targetPort: {{ .Values.service.http.port }}
       name: "{{ .Values.service.http.name }}"
       {{ if (eq .Values.service.type "NodePort") }}nodePort: {{ .Values.service.http.extport }} {{ end }}
+    - port: {{ .Values.service.nano.port }}
+      protocol: TCP 
+      targetPort: {{ .Values.service.nano.port }}
+      name: "{{ .Values.service.nano.name }}"
+      {{ if (eq .Values.service.type "NodePort") }}nodePort: {{ .Values.service.nano.extport }} {{ end }}
   selector:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}

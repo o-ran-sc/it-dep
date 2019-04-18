@@ -40,6 +40,9 @@ spec:
       hostname: {{ .Chart.Name }}
       imagePullSecrets:
         - name: {{ .Values.image.repositoryCred }}
+      {{- if eq .Values.ric.platform.network.implementation "hostNetwork" }}
+      hostNetwork: true
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
@@ -57,6 +60,12 @@ spec:
               value: "{{ .Values.env.print }}"
             - name: RMR_RTG_SVC
               value: "{{ .Values.env.RMR_RTG_SVC }}"
+            - RICPLT_E2TERM_NETWORK_IMPLEMENTATION
+              value: "{{ .Values.ric.platform.network.implementation }}"
+           {{- if eq .Values.ric.platform.network.implementation "hostNetwork" }}
+            - RICPLT_E2TERM_NETWORK_INTERFACE_RMR
+              value: "{{ default "cni0" .Values.ric.platform.network.network.hostNetwork.rmrInterface }}"
+           {{- end }}
           ports:
             - name: {{ .Values.service.nano.name }}
               containerPort: {{ .Values.service.nano.port }}

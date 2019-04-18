@@ -42,3 +42,10 @@ service:
     protocol: "TCP"
     name: "nano-port"
 
+ric:
+ platform:
+  e2Term:
+   network:
+    implementation: hostNetwork
+    hostNetwork:
+     rmrInterface: cni0

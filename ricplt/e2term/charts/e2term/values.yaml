@@ -26,7 +26,8 @@ image:
   name: e2
   tag: 1.0.0
   pullPolicy: IfNotPresent
-
+  init:
+   name: ricplt-init
 
 replicaCount: 1
 
@@ -42,3 +43,24 @@ service:
     protocol: "TCP"
     name: "nano-port"
 
+ric:
+ platform:
+  e2Term:
+   network:
+     implementation: hostNetwork-CNI
+     rmr:
+      type: interface
+      interface:
+        name: cni0
+      # type: vethPair
+      # vethPair:
+      #  name: veth-e2-rmr
+      #  address: 10.96.0.101
+      #  mask: 255.255.255.0
+      #  bridge: cni0
+     e2:
+      type: interface
+      interface:
+       # address: 10.0.3.101
+       network: 10.0.3.0/24
+       mask: 255.255.255.0

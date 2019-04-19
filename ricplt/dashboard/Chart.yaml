@@ -15,28 +15,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: e2mgr
-    version: 1.0.0
-    repository: '@local'
-    condition: e2mgr.enabled
-  - name: rtmgr
-    version: 0.1.0
-    repository: '@local'
-    condition: rtmgr.enabled
-  - name: e2term
-    version: 1.0.0
-    repository: '@local'
-    condition: e2term.enabled
-  - name: appmgr
-    version: 0.0.1
-    repository: '@local'
-    condition: appmgr.enabled
-  - name: dbaas
-    version: 0.1.0
-    repository: '@local'
-    condition: dbaas.enabled
-  - name: dashboard
-    version: 1.0.0
-    repository: '@local'
-    condition: dashboard.enabled
+apiVersion: v1
+appVersion: "1.0"
+description: A Helm chart for Kubernetes
+name: dashboard
+version: 1.0.0

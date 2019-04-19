@@ -23,3 +23,4 @@ export RICXAPP_NAMESPACE='ricxapp'
 export RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term"
 export RICPLT_APPMGR_EXT_PORT="30099"
 export RICPLT_E2MGR_EXT_PORT="30199"
+export RICPLT_DASHBOARD_EXT_PORT="30080"

@@ -15,28 +15,21 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: e2mgr
-    version: 1.0.0
-    repository: '@local'
-    condition: e2mgr.enabled
-  - name: rtmgr
-    version: 0.1.0
-    repository: '@local'
-    condition: rtmgr.enabled
-  - name: e2term
-    version: 1.0.0
-    repository: '@local'
-    condition: e2term.enabled
-  - name: appmgr
-    version: 0.0.1
-    repository: '@local'
-    condition: appmgr.enabled
-  - name: dbaas
-    version: 0.1.0
-    repository: '@local'
-    condition: dbaas.enabled
-  - name: dashboard
-    version: 1.0.0
-    repository: '@local'
-    condition: dashboard.enabled
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "dashboard.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/name: {{ include "dashboard.name" . }}
+    helm.sh/chart: {{ include "dashboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "dashboard.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

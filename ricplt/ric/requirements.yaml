@@ -36,3 +36,7 @@ dependencies:
     version: 0.1.0
     repository: '@local'
     condition: dbaas.enabled
+  - name: dashboard
+    version: 1.0.0
+    repository: '@local'
+    condition: dashboard.enabled

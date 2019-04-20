@@ -1,0 +1,90 @@
+This directory contains tools to generate certificates and service
+accounts for improving helm/tiller security.  The tools are intended
+to support a model where each namespace intended to be a target of
+helm deployment runs its own tiller pod and communication with that
+pod requires a client certificate trusted by tiller.  In order to
+achieve the required separation of trust, each tiller must have its
+own certificate authority.
+
+There are two scripts included:
+
+bin/certgen.sh generates a new CA, tiller certificate,
+               client certificate, and serviceaccount
+               for a given namespace
+bin/userGen.sh generates additional client certificates;
+               it will invoke certgen.sh if the CA
+               directory does not already exist.
+
+The scripts have some variables which control their behavior:
+
+$pkiDir: the destination directory; the scripts deposit
+         output in ${pkiDir}/${namespace}/ By default,
+         $pkiDir is "/opt/helm-pki".  This directory should
+         be  created prior to running the script for the
+         first time.  The base serviceaccount/role/rolebinding
+         yaml is retrieved from
+         $pkiDir/skel/tiller-svcacct.yaml.skel
+         
+$dnBase: The base Distinguished Name for the CA and issued
+         certs; client certs will have DNs of the form
+         "${dnbase}/CN=${namespace}${username}"
+$keyBits: RSA key length
+$certDays: certificate lifetime, in days
+$CADays (certgen.sh only): the CA cert lifetime, in days.
+
+
+IMPORTANT: THE NEXT STEPS GENERATE SENSITIVE KEYING MATERIAL AND STORE
+THE RESULTS IN CLEARTEXT.  THEY SHOULD BE RUN IN A SECURE ENCLAVE; THE
+CA CERT (_WITHOUT_ ITS PRIVATE KEY) AND TILLER CERT AND KEY SHOULD
+THEN BE TRANSFERRED TO THE DESTINATION KUBERNETES CLUSTER USING A
+SECURE PROTOCOL AND THE CA CERT (_WITHOUT_ ITS PRIVATE KEY) AND CLIENT
+CERTS AND KEYS TRANSFERRED TO CLIENTS.  FAILURE GENERATE THE KEYS IN A
+SECURE LOCATION, TO SECURELY AND SEPARATELY TRANSPORT THE KEYS AND
+CERTIFICATES AS DESCRIBED, OR TO MAINTAIN THE SECRECY OF THE CA KEY
+WILL FATALLY UNDERMINE THE GOAL OF SECURING TILLER.
+
+To generate a CA, tiller cert, client cert and serviceaccount, run:
+
+$ bin/certen.sh <namespace>
+
+... where <namespace> is the target namespace and <user> is the
+desired serviceaccount name.  This will create a directory named
+$pkiDir/<namespace> containing the CA certificate and private key
+(named "<namespace>.ca.cert.pem" and "<namespace>.ca.key.pem"
+respectively), certificates for tiller
+("<namespace>.tiller.cert.pem"/"<namespace>.tiller.key.pem") and a
+client certificate
+("<namespace>.helm.cert.pem"/"<namespace>.helm.key.pem").  Additional
+client certs can be generated with userGen.sh and will be deposited in
+the same directory and named
+"<namespace>.<user>.cert.pem"/"<namespace>.<user>.key.pem".  certgen
+also generates a serviceaccount, role, and rolebinding in
+"$pkiDir/<namespace>-tiller-svcacct.yaml".  The serviceaccount will be
+named "<namespace>-tiller"; its role grants it access to all verbs on
+all resources in the core, batch, extensions, and apps apigroups in
+the selected namespace.  
+
+To install helm using the generated keys and service account, first
+create the namespace if it does not already exist, then create the
+serviceaccount and role:
+
+$ kubectl apply -f <pkiDir>/<namespace>/<namespace>-tiller-svcacct.yaml
+
+Then, install tiller:
+
+$ helm init --tiller-tls --tiller-tls-verify \
+            --service-account <namespace-tiller> \
+            --tiller-namespace <namespace> \
+            --tls-ca-cert <pkiDir>/<namespace>/<namespace>.ca.cert.pem \
+            --tiller-tls-cert <pkiDir>/<namespace>/<namespace>.tiller.cert.pem \
+            --tiller-tls-key <pkiDir>/<namespace>/<namespace>.tiller.key.pem
+
+Once tiller is installed, helm can communicate with it using the
+appropriate client certificate:
+
+$ helm --tls \
+       --tiller-namespace <namespace>
+       --tls-ca-cert <pki-dir>/<namespace>/<namespace>.ca.cert.pem \
+       --tls-cert <pkiDir>/<namespace>/<namespace>.helm.cert.pem \
+       --tls-key <pkiDir>/<namespace>/<namespace>.helm.key.pem \
+       install --namespace <namespace> <chart>

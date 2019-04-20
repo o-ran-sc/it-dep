@@ -14,7 +14,9 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
+{{- $tillerKey := .Values.appmgr.tillerkey | default "ricxapp" }}
+{{- $topCtx :=  . }}
+{{- $ctx := dict "ctx" $topCtx "key" $tillerKey }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -23,8 +25,8 @@ data:
     {{- $restport := (printf ":%s" (include "common.serviceport.appmgr.http" .) ) | quote -}}
     {{- $helmrepo := include "common.helmrepository" . | quote -}}
     {{- $reponame := default "helm-repo" .Values.appmgr.reponame | quote -}}
-    {{- $tiller := include "common.helmrepositorytiller" . | quote -}}
-    {{- $tillernamespace := include "common.helmrepositorytillernamespace" . | quote -}}
-    {{- $tillerport := include "common.helmrepositorytillerport" . | quote -}}
+    {{- $tiller := include "common.servicename.tiller" $ctx | quote -}}
+    {{- $tillernamespace := include "common.tillerNameSpace" $ctx | quote -}}
+    {{- $tillerport := include "common.tillerPort" $ctx | quote -}}
     {{- $xappnamespace := include "common.namespace.xapp" . | quote -}}
     {{- (.Files.Glob "resources/appmgr.yaml").AsConfig | replace "__XAPP_NAMESPACE__" $xappnamespace | replace "__HELM_REPO__" $helmrepo | replace "__REST_PORT__" $restport | replace "__REPO_NAME__" $reponame | replace "__TILLER_SERVICE__" $tiller | replace "__TILLER_NAMESPACE__" $tillernamespace | replace "__TILLER_PORT__" $tillerport | nindent 2 }}

@@ -21,7 +21,7 @@
 global:
   # Docker registry from which RIC platform components pull the images
   repository: nexus3.o-ran-sc.org:10004
-  
+
   # Name of the K8S docker credential that is onboarded by 20-credential 
   repositoryCred: docker-reg-cred
 
@@ -29,22 +29,13 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://helm-entry"
+  helmRepository: "http://service-ricinfra-chartmuseum-http.ricinfra:8080"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
 
   # Name of the K8S secret that contains the credential of the helm repo
   helmRepositoryCred: xapp-mgr-creds
-
-  # The name of the tiller that xApp helm client talks to
-  helmRepositoryTiller: tiller-deploy
-
-  # The namespace of the xApp helm tiller
-  helmRepositoryTillerNamespace: kube-system
-
-  # The port the xApp helm tiller is listening to
-  helmRepositoryTillerPort: 44134
 
   # The ingress URL definitions for the ingress controller in four namespaces
   ingressurl:
@@ -55,7 +46,39 @@ global:
     localnexus: nexus-entry
     localhelm: helm-entry
     localdocker: docker-entry
-  
+
+  tillers:
+    ricxapp:
+      name: ricxapp
+      nameSpace: ricxapp
+      deployNameSpace: ricinfra
+      image:
+        tillerTLSSecrets:
+          repository: nexus3.o-ran-sc.org:10004
+          name: it-dep-secret
+          tag: 0.0.1
+        tiller:
+          repository: gcr.io
+          name: kubernetes-helm/tiller
+          tag: v2.12.3
+      secret:
+        create: true
+        tillerSecretName: secret-tiller-ricxapp
+        helmSecretName: secret-helm-client-ricxapp
+      tls:
+       authenticate: true
+       verify: true
+      serviceAccount:
+        name: tiller
+        role:
+        - apiGroups: [""]
+          resources: ["pods", "configmaps", "services"]
+          verbs: ["get", "list", "create", "delete"]
+        - apiGroups: ["extensions", "apps"]
+          resources: ["deployments"]
+          verbs: ["get", "list", "create", "delete"]
+      port: 44134
+
 #-------------------------------------------------------------------------
 # Auxiliary Functions
 #-------------------------------------------------------------------------

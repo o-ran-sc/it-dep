@@ -14,29 +14,7 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-{{- $tillerKey := .Values.appmgr.tillerkey | default "ricxapp" }}
-{{- $topCtx :=  . }}
-{{- $ctx := dict "ctx" $topCtx "key" $tillerKey }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.configmapname.appmgr" . }}-env
-data:
-  NAME: "xappmgr"
-  DBAAS_SERVICE_HOST: {{ include "common.servicename.dbaas.tcp" . | quote }}
-  DBAAS_SERVICE_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }}
-  DBAAS_PORT_6379_TCP_ADDR: {{ include "common.servicename.dbaas.tcp" . | quote }}
-  DBAAS_PORT_6379_TCP_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }} 
-  RMR_RTG_SVC: {{ include "common.serviceport.appmgr.rmr.route" . | quote }}
-{{- $certPath := .Values.appmgr.appcertpath | default "/opt/ric/certificates" }}
-{{- $secretPath := .Values.appmgr.appsecretpath | default "/opt/ric/secret" }}
-{{- if eq (include "common.tillerTLSVerify" $ctx) "true" }}
-  HELM_TLS_VERIFY: "true"
-  HELM_TLS_CA_CERT: "{{ $secretPath }}/tiller-ca.cert"
-  HELM_TLS_HOSTNAME: {{ include "common.servicename.tiller" $ctx | quote }}
-{{- end }}
-{{- if eq (include "common.tillerTLSAuthenticate" $ctx) "true"  }}
-  HELM_TLS_ENABLED: "true"
-  HELM_TLS_CERT: "{{ $secretPath }}/helm-client.cert"
-  HELM_TLS_KEY: "{{ $secretPath }}/helm-client.key"
-{{- end }}  
+
+dependencies:
+  - name: ric-common
+    version: ~2.0.0

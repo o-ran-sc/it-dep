@@ -75,8 +75,11 @@ appmgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: ric-plt-appmgr
-    tag: 0.1.5
+    init:
+      name: it-dep-init
+      tag: 0.0.1
+    name: appmgr
+    tag: 1.0.4
 
 
 

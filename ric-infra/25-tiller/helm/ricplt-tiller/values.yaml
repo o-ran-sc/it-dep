@@ -1,0 +1,20 @@
+images:
+ ric:
+  tiller:
+    tlsSecrets:
+     repository: docker.ric-aux.svc.cluster.local:2149
+     repositoryCred: docker-reg-cred
+     name: tiller-secrets
+    tiller:
+     repository: gcr.io
+     name: kubernetes-helm/tiller
+     tag: v2.12.3
+ric:
+ tillers:
+  - namespace: ricxapp
+    secret:
+      create: true
+      tillerSecretName: xapp-tiller-secret
+      helmSecretName: xapp-helm-secret
+    serviceAccount: tiller
+    port: 44134

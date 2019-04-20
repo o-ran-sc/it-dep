@@ -14,7 +14,10 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
+{{- $tillerKey := .Values.appmgr.tillerkey | default "ricxapp" }}
+{{- $topCtx :=  . }}
+{{- $ctx := dict "ctx" $topCtx "key" $tillerKey }}
+{{- $secretPath := .Values.appmgr.appsecretpath | default "/opt/ric/secret" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,6 +48,39 @@ spec:
       serviceAccountName: {{ include "common.serviceaccountname.appmgr" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
+{{- if or (eq ( include "common.tillerTLSVerify" $ctx ) "true" )  (eq ( include "common.tillerTLSAuthenticate" $ctx ) "true") }}
+      initContainers:
+        - name: {{ include "common.containername.appmgr" . }}-copy-tiller-secret
+          image: {{ include "common.repository" . }}/{{ .Values.appmgr.image.init.name }}:{{ .Values.appmgr.image.init.tag }}
+          imagePullPolicy: {{ default "IfNotPresent" .pullPolicy }}
+          env:
+            - name: SVCACCT_NAME
+              value: {{ include "common.serviceaccountname.appmgr" . }}
+            - name: CLUSTER_NAME
+              value: {{ default "kubernetes" .Values.global.clusterName }}
+            - name: KUBECONFIG
+              value: /tmp/kubeconfig
+            - name: K8S_API_HOST
+              value: "kubernetes.default.svc.{{ default "cluster.local" .Values.global.dnsDomain }}"
+            - name: SECRET_NAMESPACE
+              value: {{ include "common.tillerDeployNameSpace" $ctx }}
+            - name: SECRET_NAME
+              value: {{ include "common.tillerHelmClientTLSSecret" $ctx }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.appmgr" . }}-env
+          command: ["/appmgr-tiller-secret-copier.sh"]
+          volumeMounts:
+            - name: helm-secret-volume
+              mountPath: {{ $secretPath }}
+              readOnly: false
+            - name: appmgr-bin-volume
+              mountPath: /svcacct-to-kubeconfig.sh
+              subPath: svcacct-to-kubeconfig.sh
+            - name: appmgr-bin-volume
+              mountPath: /appmgr-tiller-secret-copier.sh
+              subPath: appmgr-tiller-secret-copier.sh
+{{- end }}      
       containers:
         - name: {{ include "common.containername.appmgr" . }}
           image: {{ include "common.repository" . }}/{{ .Values.appmgr.image.name }}:{{ .Values.appmgr.image.tag }}
@@ -63,10 +99,17 @@ spec:
             - name: config-volume
               mountPath: {{ .Values.appmgr.appconfigpath }}/appmgr.yaml
               subPath: appmgr.yaml
-            - name: secret-volume
-              mountPath: {{ .Values.appmgr.appsecretpath }}
             - name: cert-volume
               mountPath: {{ .Values.appmgr.appcertpath }}
+            - name: helm-secret-volume
+              mountPath: {{ $secretPath }}
+              readOnly: false
+            - name: secret-volume
+              mountPath: {{ $secretPath }}/helm_repo_username
+              subPath: helm_repo_username
+            - name: secret-volume
+              mountPath: {{ $secretPath }}/helm_repo_password
+              subPath: helm_repo_password
           envFrom:
             - configMapRef:
                 name: {{ include "common.configmapname.appmgr" . }}-env
@@ -91,9 +134,15 @@ spec:
         - name: config-volume
           configMap:
             name: {{ include "common.configmapname.appmgr" . }}-appconfig
-        - name: secret-volume
-          secret:
-            secretName: {{ include "common.helmrepositorycred" . }}
         - name: cert-volume
           configMap:
             name: {{ include "common.helmrepositorycert" . }}
+        - name: secret-volume
+          secret:
+            secretName: {{ include "common.helmrepositorycred" . }}
+        - name: helm-secret-volume
+          emptyDir: {}
+        - name: appmgr-bin-volume
+          configMap:
+            name: {{ include "common.configmapname.appmgr" . }}-bin
+            defaultMode: 0755

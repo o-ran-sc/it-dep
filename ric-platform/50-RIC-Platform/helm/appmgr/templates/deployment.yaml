@@ -14,7 +14,21 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
+{{- $certPath := .Values.appmgr.appcertpath | default "/opt/ric/certificates" }}
+{{- $secretPath := .Values.appmgr.appsecretpath | default "/opt/ric/secret" }}
+{{- $tillerNS := include "common.helmrepositorytillernamespace" . }}
+{{- $tillerTLSVerify :=  false }}
+{{- $tillerTLSAuthenticate :=  false }}
+{{- $helmTLSSecret := "" }}
+{{- if hasKey .Values.tillers $tillerNS }}
+{{- with index .Values.tillers $tillerNS }}
+{{- $tillerTLSVerify = .tls.verify | default false }}
+{{- $tillerTLSAuthenticate = .tls.authenticate | default false }}
+{{- if or $tillerTLSVerify $tillerTLSAuthenticate }}
+{{- $helmTLSSecret = .secret.helmSecretName }}
+{{- end }}
+{{- end }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -64,9 +78,24 @@ spec:
               mountPath: {{ .Values.appmgr.appconfigpath }}/appmgr.yaml
               subPath: appmgr.yaml
             - name: secret-volume
-              mountPath: {{ .Values.appmgr.appsecretpath }}
-            - name: cert-volume
-              mountPath: {{ .Values.appmgr.appcertpath }}
+              mountPath: {{ $secretPath }}/helm_repo_username
+              subPath: helm_repo_username
+            - name: secret-volume
+              mountPath: {{ $secretPath }}/helm_repo_password
+              subPath: helm_repo_password
+{{- if $tillerTLSVerify }}
+            - name: helm-secret-volume
+              mountPath: {{ $certPath }}/tiller-ca.cert
+              subPath: ca.crt
+{{- end }}              
+{{- if $tillerTLSAuthenticate }}
+            - name: helm-secret-volume
+              mountPath: {{ $secretPath }}/helm-client-cert
+              subPath: tls.crt
+            - name: helm-secret-volume
+              mountPath: {{ $secretPath }}/helm_repo_password
+              subPath: tls.key
+{{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "common.configmapname.appmgr" . }}-env
@@ -94,6 +123,8 @@ spec:
         - name: secret-volume
           secret:
             secretName: {{ include "common.helmrepositorycred" . }}
-        - name: cert-volume
-          configMap:
-            name: {{ include "common.helmrepositorycert" . }}
+{{- if or $tillerTLSVerify $tillerTLSAuthenticate }}
+        - name: helm-secret-volume
+          secret: 
+            name: {{ $helmTLSSecret }}
+{{- end }}            

@@ -97,3 +97,23 @@ chartmuseum:
 
   storagesize: 2Gi
   datapath: /tmp/chartmuseum-data/
+
+tillers:
+  ricxapp:
+    image:
+      tillerTLSSecrets:
+        repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+        name: ric-infra/tiller-secrets
+      tiller:
+        repository: gcr.io
+        name: kubernetes-helm/tiller
+        tag: v2.13.0-rc.1
+    secret:
+      create: true
+      tillerSecretName: xapp-tiller-secret
+      helmSecretName: xapp-helm-secret
+    tls:
+     authenticate: true
+     verify: true
+    serviceAccount: tiller
+    port: 44134

@@ -18,27 +18,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.configmapname.appmgr" . }}-env
+  name: {{ include "common.configmapname.appmgr" . }}-bin
 data:
-  NAME: "xappmgr"
-  DBAAS_SERVICE_HOST: {{ include "common.servicename.dbaas.tcp" . | quote }}
-  DBAAS_SERVICE_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }}
-  DBAAS_PORT_6379_TCP_ADDR: {{ include "common.servicename.dbaas.tcp" . | quote }}
-  DBAAS_PORT_6379_TCP_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }} 
-  RMR_RTG_SVC: {{ include "common.serviceport.appmgr.rmr.route" . | quote }}
-{{- $certPath := .Values.appmgr.appcertpath | default "/opt/ric/certificates" }}
-{{- $secretPath := .Values.appmgr.appsecretpath | default "/opt/ric/secret" }}
-{{- $tillerNS := include "common.helmrepositorytillernamespace" . }}
-{{- if hasKey .Values.tillers $tillerNS }}
-{{- with index .Values.tillers $tillerNS }}
-{{- if .tls.verify | default false }}
-  HELM_TLS_VERIFY: "true"
-  HELM_TLS_CA_CERT: "{{ $secretPath }}/tiller-ca.cert"
-{{- end }}
-{{- if .tls.authenticate | default false }}
-  HELM_TLS_ENABLED: "true"
-  HELM_TLS_CERT: "{{ $secretPath }}/helm-client.cert"
-  HELM_TLS_KEY: "{{ $secretPath }}/helm-client.key"
-{{- end }}  
-{{- end }}
-{{- end }}
+  appmgr-tiller-secret-copier.sh: |
+   {{-  include "appmgr/templates/bin/_appmgr-tiller-secret-copier.sh.tpl" . | indent 4 }}
+  svcacct-to-kubeconfig.sh: |
+   {{-  include "appmgr/templates/bin/_svcacct-to-kubeconfig.sh.tpl" . | indent 4 }}

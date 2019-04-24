@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c354d4e_3294d5a2",
+        "filename": "aux/ric-dashboard/templates/deployment.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-24T19:41:16Z",
+      "side": 1,
+      "message": "Instead of hardcoding, this should probably use {{ .Values.service.port }} right?",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "1df3d7393fb6b79a8d3cf5845e2ee78c1feca4d9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d6c9b1e_b75db5a8",
+        "filename": "aux/ric-dashboard/templates/deployment.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-24T19:41:16Z",
+      "side": 1,
+      "message": "Probably want to leave this as http, so it refers to the port named above?",
+      "range": {
+        "startLine": 53,
+        "startChar": 20,
+        "endLine": 53,
+        "endChar": 24
+      },
+      "revId": "1df3d7393fb6b79a8d3cf5845e2ee78c1feca4d9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93a66a1c_ec115efe",
+        "filename": "aux/ric-dashboard/templates/deployment.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-24T19:41:16Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 57,
+        "startChar": 20,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "1df3d7393fb6b79a8d3cf5845e2ee78c1feca4d9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

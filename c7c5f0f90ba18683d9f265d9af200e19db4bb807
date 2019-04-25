@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14115524_981d06c6",
+        "filename": "aux/ric-dashboard/templates/deployment.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-25T13:58:07Z",
+      "side": 1,
+      "message": "Please change this to {{ .Values.service.port }} and test",
+      "range": {
+        "startLine": 45,
+        "startChar": 29,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "c7c5f0f90ba18683d9f265d9af200e19db4bb807",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

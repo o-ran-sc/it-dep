@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a99fb637_b7c1e147",
+        "filename": "aux/ric-dashboard/values.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-04-30T18:40:08Z",
+      "side": 1,
+      "message": "This value is used to define the port used to expose dashboard endpoint in the k8s service network(this is different from the pod network and the host network). The service network is the network that  k8s services use to talk to each other. It is mapped to the pod network IP:port by K8S proxy. It can also be exposed (like in this case) by mapping to the host network.",
+      "parentUuid": "7263391c_30df959f",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "2f8bf071c19a4f5783324ca01286dc8cf8d3ed53",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3559b56_4dbdcfc1",
         "filename": "aux/ric-dashboard/values.yaml",
         "patchSetId": 13

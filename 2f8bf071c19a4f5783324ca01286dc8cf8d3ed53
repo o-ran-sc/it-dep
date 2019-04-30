@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca07b9b0_ad18e1ec",
+        "filename": "aux/ric-dashboard/templates/configmap.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-30T15:21:53Z",
+      "side": 1,
+      "message": "This tells my server what port to use internally.  I hope to specify this exactly once.\n\nAnd similarly, I hope we can specify the external (service?) port exactly once, then use it elsewhere.",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 20
+      },
+      "revId": "2f8bf071c19a4f5783324ca01286dc8cf8d3ed53",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

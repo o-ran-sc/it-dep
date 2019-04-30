@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be8728ca_765d2af2",
+        "filename": "aux/ric-dashboard/templates/configmap.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-04-30T15:57:07Z",
+      "side": 1,
+      "message": "this is an integer (not a String), how to specify that?",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 56
+      },
+      "revId": "debdd909c7118fc36f9cc4400e81c489f7685339",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

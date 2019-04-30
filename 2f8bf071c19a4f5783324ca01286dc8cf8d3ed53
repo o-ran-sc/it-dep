@@ -92,6 +92,30 @@
       "revId": "2f8bf071c19a4f5783324ca01286dc8cf8d3ed53",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cbfacd7_26ccba46",
+        "filename": "aux/ric-dashboard/values.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-04-30T18:51:13Z",
+      "side": 1,
+      "message": "no. This is only available within the K8S cluster. There are multiple methods to expose this port to the outside world (ingress, nodeport, loadbalancer, etc.).",
+      "parentUuid": "e3559b56_4dbdcfc1",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 27
+      },
+      "revId": "2f8bf071c19a4f5783324ca01286dc8cf8d3ed53",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

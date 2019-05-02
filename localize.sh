@@ -23,7 +23,7 @@ if [ -z $__RICENV_SET__ ]; then
 fi
 
 echo "Copy files to generated fir"
-DIRS='kubernetes ricplt xapps'
+DIRS='kubernetes ricplt xapps platform'
 rm -rf ./generated
 mkdir -p generated
 for d in $DIRS; do

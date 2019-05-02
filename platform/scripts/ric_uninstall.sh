@@ -27,23 +27,12 @@ RICPLT_DEPLOYMENT="$RICPLT_RELEASE_NAME"
 echo "Uninstall RIC Platform components $RICPLT_COMPONENTS"
 echo "name space: $RICPLT_NAMESPACE, Helm release: $RICPLT_DEPLOYMENT"
 
-echo "Removing Helm deploymentsi ..."
-helm delete --purge "${RICPLT_RELEASE_NAME}"
-helm delete --purge pre-"${RICPLT_RELEASE_NAME}"
-find . -name "common-*" | xargs rm
-rm -rf ./ric/charts/*
-echo "Done"
 
-#echo "Removing RIC resources from Kubernetes ..."
-#RES=$(kubectl get pods -n "$RICPLT_NAMESPACE" |grep -v "tiller" |grep -v "RESTARTS" |grep -v "robot")
-#while [ ! -z "$RES" ]; do
-#  NUMPODS=$(echo "$RES" | wc -l)
-#  echo "$(( NUMPODS - 1 )) pod(s) left, check again in 5 seconds ..."
-#  sleep 5
-#  RES=$(kubectl get pods -n "$RICPLT_NAMESPACE" |grep -v "tiller" |grep -v "RESTARTS" |grep -v "robot")
-#done
-#echo "All RIC resources are gone."
-#./helm_reset.sh
+for c in $RICPLT_COMPONENTS; do
+  helm delete --purge "${RICPLT_RELEASE_NAME}-$c"
+done
+
+helm delete --purge pre-"${RICPLT_RELEASE_NAME}"
 
 echo "It may take Kubernetes some time to release all resources created"
 echo "for RIC Platform.  Use \"kubectl get pods -n ricplatform\" to check."

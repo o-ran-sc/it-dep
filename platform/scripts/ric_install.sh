@@ -16,16 +16,28 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 if [ -z "$RICPLT_RELEASE_NAME" ] || \
    [ -z "$RICPLT_COMPONENTS" ] || \
    [ -z "$RICPLT_NAMESPACE" ] || \
    [ -z "$RICPLT_APPMGR_EXT_PORT" ] || \
    [ -z "$RICPLT_E2MGR_EXT_PORT" ]; then
-  echo "RICPLT_RELEASE_NAME or RICPLT_COMPONENTS or RICPLT_NAMESPACE or "
-  echo "RICPLT_APPMGR_EXT_PORT or RICPLT_E2MGR_EXT_PORT unset, loading "
+  echo "RICPLT_RELEASE_NAME or RICPLT_COMPONENTS or RICPLT_NAMESPACE unset, loading "
   echo "values from ric_env.sh"
   . ./ric_env.sh
+fi
+
+echo "Deploying PreRic charts to name space: $RICPLT_NAMESPACE, Helm release: pre-${RICPLT_RELEASE_NAME}"
+
+
+if [ -z $OVERRIDEYAML ]; then
+helm install --namespace "${RICPLT_NAMESPACE}" --name pre-"${RICPLT_RELEASE_NAME}" $DIR/../charts/preric
+else
+helm install -f $OVERRIDEYAML --namespace "${RICPLT_NAMESPACE}" --name pre-"${RICPLT_RELEASE_NAME}" $DIR/../charts/preric
 fi
 
 
@@ -34,35 +46,26 @@ echo "Deplot RIC Platform components [$RICPLT_COMPONENTS] to"
 echo "name space: $RICPLT_NAMESPACE, Helm release: $RICPLT_DEPLOYMENT"
 
 
-rm -rf dist
-mkdir -p dist/packages
-
-helm serve --repo-path dist/packages &
-
-sleep 1
-
-helm repo add local http://127.0.0.1:8879
-
-helm repo update
-helm package -d dist/packages common
-helm repo index dist/packages
 
 
-for c in common preric $RICPLT_COMPONENTS  ric; do
+
+
+
+
+COMMON_CHART_VERSION=$(cat $DIR/../charts/common/Chart.yaml | grep version | awk '{print $2}')
+
+helm package -d /tmp $DIR/../charts/common
+
+
+
+
+for c in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $c"
-  helm repo update
-  if [ -e "$c/requirements.yaml" ]; then
-    helm dep up "$c"
+  cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../charts/$c/charts/
+  if [ -z $OVERRIDEYAML ]; then
+  helm install --namespace "${RICPLT_NAMESPACE}" --name "${RICPLT_RELEASE_NAME}-$c" $DIR/../charts/$c
+  else
+  helm install -f $OVERRIDEYAML --namespace "${RICPLT_NAMESPACE}" --name "${RICPLT_RELEASE_NAME}" $DIR/../charts/$c
   fi
-  helm package -d dist/packages "$c"
-  helm repo index dist/packages
-  echo
 done
-
-helm repo update
-helm install local/preric --namespace "${RICPLT_NAMESPACE}" --name pre-"${RICPLT_RELEASE_NAME}"
-
-helm repo update
-helm install local/ric --namespace "${RICPLT_NAMESPACE}" --name "${RICPLT_RELEASE_NAME}" --set appmgr.appmgr.service.appmgr.extport="${RICPLT_APPMGR_EXT_PORT}" --set e2mgr.e2mgr.service.http.extport="${RICPLT_E2MGR_EXT_PORT}"
-
 

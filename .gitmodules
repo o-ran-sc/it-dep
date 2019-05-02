@@ -1,0 +1,6 @@
+[submodule "aux/charts/nexus/docker/nexus-repository-apt"]
+	path = aux/charts/nexus/docker/nexus-repository-apt
+	url = https://github.com/sonatype-nexus-community/nexus-repository-apt.git
+[submodule "aux/charts/nexus/docker/nexus-repository-helm"]
+	path = aux/charts/nexus/docker/nexus-repository-helm
+	url = https://github.com/sonatype-nexus-community/nexus-repository-helm.git

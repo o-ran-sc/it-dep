@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b6f7d6c_296578e0",
+        "filename": "ricplt/docker/ricplt-init/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-05-02T02:13:23Z",
+      "side": 1,
+      "message": "adding nc and curl?  those are common tools for waiting on services becoming available on other pods..",
+      "revId": "205f4f9203e5acb7c83902b6c6814ad70fa5214a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

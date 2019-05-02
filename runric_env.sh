@@ -18,19 +18,19 @@
 
 
 # customize the following repo info to local infrastructure
-export __RICENV_SET__=''
-export __RUNRICENV_GERRIT_HOST__=''
-export __RUNRICENV_GERRIT_IP__=''
+export __RICENV_SET__='YES'
+export __RUNRICENV_GERRIT_HOST__='gerrit.ranco-dev-tools.eastus.cloudapp.azure.com'
+export __RUNRICENV_GERRIT_IP__='137.135.91.204'
 
-export __RUNRICENV_DOCKER_HOST__=''
-export __RUNRICENV_DOCKER_IP__=''
-export __RUNRICENV_DOCKER_PORT__=''
-export __RUNRICENV_DOCKER_USER__=''
-export __RUNRICENV_DOCKER_PASS__=''
+export __RUNRICENV_DOCKER_HOST__='snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com'
+export __RUNRICENV_DOCKER_IP__='137.135.91.204'
+export __RUNRICENV_DOCKER_PORT__='10001'
+export __RUNRICENV_DOCKER_USER__='docker'
+export __RUNRICENV_DOCKER_PASS__='docker'
 
-export __RUNRICENV_HELMREPO_HOST__=''
-export __RUNRICENV_HELMREPO_PORT__=''
-export __RUNRICENV_HELMREPO_IP__=''
-export __RUNRICENV_HELMREPO_USER__=''
-export __RUNRICENV_HELMREPO_PASS__=''
+export __RUNRICENV_HELMREPO_HOST__='snapshot.helm.ranco-dev-tools.eastus.cloudapp.azure.com'
+export __RUNRICENV_HELMREPO_PORT__='10001'
+export __RUNRICENV_HELMREPO_IP__='137.135.91.204'
+export __RUNRICENV_HELMREPO_USER__='helm'
+export __RUNRICENV_HELMREPO_PASS__='helm'
 

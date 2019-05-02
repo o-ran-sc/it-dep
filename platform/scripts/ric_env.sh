@@ -17,9 +17,7 @@
 ################################################################################
 
 
-export RICPLT_RELEASE_NAME='ric-full'
-export RICPLT_NAMESPACE='ricplatform'
+export RICPLT_RELEASE_NAME='ric-r0'
+export RICPLT_NAMESPACE='ricplt'
 export RICXAPP_NAMESPACE='ricxapp'
 export RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term"
-export RICPLT_APPMGR_EXT_PORT="30099"
-export RICPLT_E2MGR_EXT_PORT="30199"

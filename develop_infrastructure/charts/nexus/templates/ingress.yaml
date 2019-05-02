@@ -1,0 +1,28 @@
+{{- $fullName := include "nexus.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ template "nexus.name" . }}
+    chart: {{ template "nexus.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  tls:
+  - hosts:
+    - docker.{{ .Values.ingress.hostpostfix }}
+    secretName: {{ include "common.repositorycert" . }}
+  rules:
+    - host: nexus.{{ .Values.ingress.hostpostfix }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $fullName }}
+              servicePort: nexus
+    - host: docker.{{ .Values.ingress.hostpostfix }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ $fullName }}
+              servicePort: docker

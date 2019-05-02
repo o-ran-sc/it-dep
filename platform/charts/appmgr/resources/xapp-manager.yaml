@@ -1,0 +1,14 @@
+"local":
+  # Port on which the xapp-manager REST services are provided
+  "host": ":8080"
+"helm":
+  # Remote helm repo URL. UPDATE this as required.
+  "repo": __HELM_REPO__
+
+  # Repo name referred within the xapp-manager
+  "repo-name": "helm-repo"
+
+  # Tiller service details in the cluster. UPDATE this as required.
+  "tiller-service": "tiller-deploy"
+  "tiller-namespace": "kube-system"
+  "tiller-port": "44134"

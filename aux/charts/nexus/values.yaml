@@ -1,0 +1,28 @@
+# Default values for nexus.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+
+
+# This is designed to be deployed using local image
+image:
+  repository: nexus-repository-helm-apt
+  tag: 1.0.0
+  pullPolicy: Never
+
+service:
+  port:
+    nexus: 80
+    docker: 10001
+ingress:
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hostpostfix: ricaux.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+

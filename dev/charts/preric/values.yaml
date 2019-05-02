@@ -1,0 +1,59 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+# Values for setting up Kubernetes resources for accessing infrastructure such as docker registry
+# helm repo, etc.
+
+
+global:
+  repository: "snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001"
+  repositoryCred:
+    user: "docker"
+    password: "docker"
+
+
+  helmrepo: "https://snapshot.helm.ranco-dev-tools.eastus.cloudapp.azure.com:10001"
+  helmrepoCred:
+    user: "helm"
+    password: "helm"
+  helmrepoCert:
+    helmrepo.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIESjCCAzKgAwIBAgIJAIU+AfULkw0PMA0GCSqGSIb3DQEBCwUAMIG5MQswCQYD
+      VQQGEwJVUzETMBEGA1UECAwKTmV3IEplcnNleTETMBEGA1UEBwwKQmVkbWluc3Rl
+      cjENMAsGA1UECgwEQVQmVDERMA8GA1UECwwIUmVzZWFyY2gxOTA3BgNVBAMMMCou
+      aGVsbS5yYW5jby1kZXYtdG9vbHMuZWFzdHVzLmNsb3VkYXBwLmF6dXJlLmNvbTEj
+      MCEGCSqGSIb3DQEJARYUcmljQHJlc2VhcmNoLmF0dC5jb20wHhcNMTkwMzIxMTU1
+      MzAwWhcNMjEwMzIwMTU1MzAwWjCBuTELMAkGA1UEBhMCVVMxEzARBgNVBAgMCk5l
+      dyBKZXJzZXkxEzARBgNVBAcMCkJlZG1pbnN0ZXIxDTALBgNVBAoMBEFUJlQxETAP
+      BgNVBAsMCFJlc2VhcmNoMTkwNwYDVQQDDDAqLmhlbG0ucmFuY28tZGV2LXRvb2xz
+      LmVhc3R1cy5jbG91ZGFwcC5henVyZS5jb20xIzAhBgkqhkiG9w0BCQEWFHJpY0By
+      ZXNlYXJjaC5hdHQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+      tguhSQx5Dk2w+qx2AOcFRz7IZBASEehK1Z4f5jz2KrRylGx6jjedCZASdm1b0ZEB
+      /ZNrKht1zsWDETa7x0DF+q0Z2blff+T+6+YrJWhNxYHgZiYVi9gTuNDzpn8VVn7f
+      +cQxcMguHo1JBDIotOLubJ4T3/oXMCPv9kRSLHcNjbEE2yTB3AqXu9dvrDXuUdeU
+      ot6RzxhKXxRCQXPS2/FDjSV9vr9h1dv5fIkFXihpYaag0XqvXcqgncvcOJ1SsLc3
+      DK+tyNknqG5SL8y2a7U4F7u+qGO2/3tnCO0ggYwa73hS0pQPY51EpRSckZqlfKEu
+      Ut0s3wlEFP1VaU0RfU3aIwIDAQABo1MwUTAdBgNVHQ4EFgQUYTpoVXZPXSR/rhjr
+      pu9PPhL7f9IwHwYDVR0jBBgwFoAUYTpoVXZPXSR/rhjrpu9PPhL7f9IwDwYDVR0T
+      AQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAUDLbiKVIW6W9qFXLtoyO7S2e
+      IOUSZ1F70pkfeYUqegsfFZ9njPtPqTzDfJVxYqH2V0vxxoAxXCYCpNyR6vYlYiEL
+      R+oyxuvauW/yCoiwKBPYa4fD/PBajJnEO1EfIwZvjFLIfw4GjaX59+zDS3Zl0jT/
+      w3uhPSsJAYXtDKLZ14btA27cM5mW4kmxVD8CRdUW0jr/cN3Hqe9uLSNWCNiDwma7
+      RnpK7NnOgXHyhZD/nVC0nY7OzbK7VHFJatSOjyuMxgWsFGahwYNxf3AWfPwUai0K
+      ne/fVFGZ6ifR9QdD0SuKIAEuqSyyP4BsQ92uEweU/gWKsnM6iNVmNFX8UOuU9A==
+      -----END CERTIFICATE-----

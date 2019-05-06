@@ -22,9 +22,9 @@
 replicaCount: 1
 
 image:
-  repository: ric-dash-be
-  tag: 1.0.0-SNAPSHOT
-  pullPolicy: Never # Someday: IfNotPresent
+  repository: nexus3.o-ran-sc.org:10003/ric-dash-be
+  tag: 1.0.1-SNAPSHOT
+  pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""

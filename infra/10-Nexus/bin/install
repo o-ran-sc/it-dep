@@ -1,0 +1,122 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+source $DIR/../etc/nexus.conf
+
+if [ -z "$RICINFRA_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICINFRA_RELEASE_NAME
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICINFRA_NAMESPACE
+fi
+if [ -z "$INGRESS_PORT" ];then
+   INGRESS_PORT_NEXUS=$ingress_port
+else
+   INGRESS_PORT_NEXUS=$INGRESS_PORT
+fi
+
+
+
+echo "Deploying nexus repo managers for local docker registry and helm repo."
+echo "Name Space: $NAMESPACE"
+echo "Helm Release: $RELEASE_NAME"
+
+HOSTPOSTFIX=$(cat $DIR/../charts/values.yaml  | grep hostpostfix | awk '{print $2}')
+
+
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+
+echo "Nexus is deployed using default admin password. It is not for production deployment."
+echo "If you want to secure the repositories, you should change the admin password immediately."
+echo "You can access this nexus here: http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS"
+echo "If nexus.$HOSTPOSTFIX is not resolved by your DNS server, please add an entry in your /etc/hosts file."
+echo "****************************************************************************************************************"
+
+COMMON_CHART_VERSION=$(cat $DIR/../../50-RIC-Platform/charts/common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../50-RIC-Platform/charts/common
+
+cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../charts/charts/
+
+if [ -z $OVERRIDEYAML ]; then
+helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../charts
+else
+helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../charts
+fi
+
+NEXUS_POD_NAME=$(kubectl get pod -n $NAMESPACE | grep nexus | grep ContainerCreating | awk '{print $1}')
+
+
+
+echo "Waiting Nexus to be ready."
+echo " "
+
+sleep 10
+
+IS_NEXUS_READY=$(kubectl logs -n $NAMESPACE $NEXUS_POD_NAME | grep "Started Sonatype Nexus OSS")
+
+COUNTER=1
+while [[ -z $IS_NEXUS_READY ]]; do
+        echo -e "\033[2AWaiting Nexus to be ready."
+        echo -e "\033[2K"
+        PROGRESS=$(printf "%0.s-" $(seq 1 $COUNTER))
+        echo -e "\033[1A$PROGRESS"
+
+
+        COUNTER=$((COUNTER+1))
+        if [ $COUNTER -gt 5 ]; then
+                COUNTER=1
+        fi
+
+	IS_NEXUS_READY=$(kubectl logs -n $NAMESPACE $NEXUS_POD_NAME | grep "Started Sonatype Nexus OSS")
+
+        sleep 5
+done
+
+echo $IS_NEXUS_READY
+
+
+DOCKERPORT=$(cat $DIR/../charts/templates/deployment.yaml  | awk '/.*- name: docker.*/{getline; print $2}')
+
+
+DOCKERREPOSCRIPT="{\"name\":\"create_docker_repo\",\
+    \"type\":\"groovy\",\
+    \"content\":\"repository.createDockerHosted('docker.snapshot',\
+    $DOCKERPORT, null, 'default', false, true)\"}"
+
+echo $DOCKERREPOSCRIPT
+
+# This line uses the default admin password
+curl -u admin:admin123 -X POST -H "Content-Type: application/json" --data "$DOCKERREPOSCRIPT" http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS/service/rest/v1/script
+
+curl -u admin:admin123 -X POST -H 'Content-Type: text/plain' -H 'Accept: application/json' http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS/service/rest/v1/script/create_docker_repo/run
+
+
+
+
+
+

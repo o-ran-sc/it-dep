@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "nexus.fullname" . }}
+  labels:
+    app: {{ template "nexus.name" . }}
+    chart: {{ template "nexus.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "nexus.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "nexus.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          #          volumeMounts:
+          #- name: certs
+          #  mountPath: /var/run/certs
+          #  readOnly: true
+          ports:
+            - name: nexus
+              containerPort: 8081
+              protocol: TCP
+            - name: docker
+              containerPort: 10001
+              protocol: TCP
+              #          livenessProbe:
+              #            httpGet:
+              #              path: /
+              #              port: nexus
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#      volumes:
+#        - name: certs
+#          secret:
+#            secretName: {{ template "nexus.name" . }}-certs

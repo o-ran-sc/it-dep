@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nexus.fullname" . }}
+  labels:
+    app: {{ template "nexus.name" . }}
+    chart: {{ template "nexus.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.service.port.nexus }}
+      targetPort: nexus
+      protocol: TCP
+      name: nexus
+    - port: {{ .Values.service.port.docker }}
+      targetPort: docker
+      protocol: TCP
+      name: docker
+  selector:
+    app: {{ template "nexus.name" . }}
+    release: {{ .Release.Name }}

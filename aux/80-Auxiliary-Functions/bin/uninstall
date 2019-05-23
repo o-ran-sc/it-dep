@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,31 +16,33 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- $fullName := include "nexus.fullname" . -}}
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: {{ $fullName }}
-  labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  tls:
-  - hosts:
-    - docker.{{ .Values.ingress.hostpostfix }}
-    secretName: {{ include "common.repositorycert" . }}
-  rules:
-    - host: nexus.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ $fullName }}
-              servicePort: nexus
-    - host: docker.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ $fullName }}
-              servicePort: docker
+
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+
+source $DIR/../etc/dashboard.conf
+
+if [ -z "$RICAUX_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICAUX_RELEASE_NAME
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICAUX_NAMESPACE
+fi
+
+RICAUX_COMPONENTS="dashboard"
+
+echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
+echo "Platform Namespace: $NAMESPACE"
+echo "Helm Release Name: $RELEASE_NAME"
+
+
+
+for component in $RICAUX_COMPONENTS; do
+  helm delete --purge  "${RELEASE_NAME}-$component" 
+done

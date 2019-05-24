@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -14,30 +15,32 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: {{ include "nexus.fullname" . }}
-  labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  tls:
-  - hosts:
-    - docker.{{ .Values.ingress.hostpostfix }}
-    secretName: {{ include "common.repositorycert" . }}
-  rules:
-    - host: nexus.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: nexus
-    - host: docker.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: docker
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+source $DIR/../etc/nexus.conf
+
+if [ -z "$RICINFRA_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICINFRA_RELEASE_NAME
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICINFRA_NAMESPACE
+fi
+if [ -z "$INGRESS_PORT" ];then
+   INGRESS_PORT_NEXUS=$ingress_port
+else
+   INGRESS_PORT_NEXUS=$INGRESS_PORT
+fi
+
+
+
+echo "Undeploying nexus repo managers for local docker registry and helm repo."
+echo "Name Space: $NAMESPACE"
+echo "Helm Release: $RELEASE_NAME"
+helm delete --purge  "${RELEASE_NAME}-nexus" 

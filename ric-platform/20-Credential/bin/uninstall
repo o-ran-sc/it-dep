@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -14,30 +15,26 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: {{ include "nexus.fullname" . }}
-  labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  tls:
-  - hosts:
-    - docker.{{ .Values.ingress.hostpostfix }}
-    secretName: {{ include "common.repositorycert" . }}
-  rules:
-    - host: nexus.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: nexus
-    - host: docker.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: docker
+
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+
+source $DIR/../etc/credential.conf
+
+if [ -z "$RICPLT_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICPLT_RELEASE_NAME
+fi
+if [ -z "$RICPLT_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICPLT_NAMESPACE
+fi
+
+  helm delete --purge "${RELEASE_NAME}-credential"
+

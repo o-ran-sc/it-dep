@@ -44,17 +44,18 @@ echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
-COMMON_CHART_VERSION=$(cat $DIR/../charts/common/Chart.yaml | grep version | awk '{print $2}')
+COMMON_CHART_VERSION=$(cat $DIR/../helm/common/Chart.yaml | grep version | awk '{print $2}')
 
-helm package -d /tmp $DIR/../charts/common
+helm package -d /tmp $DIR/../helm/common
 
 
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"
-  cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../charts/$component/charts/
+  mkdir -p $DIR/../helm/$component/charts/
+  cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../charts/$component
+  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
   else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../charts/$component
+  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
   fi
 done

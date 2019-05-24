@@ -44,7 +44,7 @@ echo "Deploying nexus repo managers for local docker registry and helm repo."
 echo "Name Space: $NAMESPACE"
 echo "Helm Release: $RELEASE_NAME"
 
-HOSTPOSTFIX=$(cat $DIR/../charts/values.yaml  | grep hostpostfix | awk '{print $2}')
+HOSTPOSTFIX=$(cat $DIR/../helm/values.yaml  | grep hostpostfix | awk '{print $2}')
 
 
 echo "****************************************************************************************************************"
@@ -57,15 +57,17 @@ echo "You can access this nexus here: http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NE
 echo "If nexus.$HOSTPOSTFIX is not resolved by your DNS server, please add an entry in your /etc/hosts file."
 echo "****************************************************************************************************************"
 
-COMMON_CHART_VERSION=$(cat $DIR/../../50-RIC-Platform/charts/common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $DIR/../../50-RIC-Platform/charts/common
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
 
-cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../charts/charts/
+
+mkdir -p  $DIR/../helm/charts/
+cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
 
 if [ -z $OVERRIDEYAML ]; then
-helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../charts
+helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
 else
-helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../charts
+helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
 fi
 
 NEXUS_POD_NAME=$(kubectl get pod -n $NAMESPACE | grep nexus | grep ContainerCreating | awk '{print $1}')
@@ -100,7 +102,7 @@ done
 echo $IS_NEXUS_READY
 
 
-DOCKERPORT=$(cat $DIR/../charts/templates/deployment.yaml  | awk '/.*- name: docker.*/{getline; print $2}')
+DOCKERPORT=$(cat $DIR/../helm/templates/deployment.yaml  | awk '/.*- name: docker.*/{getline; print $2}')
 
 
 DOCKERREPOSCRIPT="{\"name\":\"create_docker_repo\",\

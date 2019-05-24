@@ -37,8 +37,8 @@ else
 fi
 
 if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../charts
+  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
 else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../charts
+  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
 fi
 

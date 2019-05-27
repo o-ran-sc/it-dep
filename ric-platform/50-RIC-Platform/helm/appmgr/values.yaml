@@ -86,7 +86,7 @@ helmRepositoryCred: xapp-mgr-creds
 # Default configmap name for Helm Repo cert. .Value.golbal.helmRepositoryCert will
 # override the default value. You can further override uing
 #helmRepositoryCertOverride:""
-helmRepositoryCert: xapp-mgr-cert
+helmRepositoryCert: xapp-mgr-certs
 
 # Helm Tiller for xApp
 # The global setting will override this default value

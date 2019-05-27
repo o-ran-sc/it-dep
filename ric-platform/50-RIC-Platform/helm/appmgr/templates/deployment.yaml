@@ -41,7 +41,7 @@ spec:
     spec:
       hostname: {{ .Chart.Name }}
       imagePullSecrets:
-        - name: {{ .Values.image.repositoryCred }}
+        - name: {{ include "common.repositoryCred" . }}
       containers:
         - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
           image: {{ include "common.repository" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}

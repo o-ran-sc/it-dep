@@ -16,29 +16,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+# This script deploys RIC platform components automatically
 
 OVERRIDEYAML=$1
+
+if [ -z "$OVERRIDEYAML" ];then
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+echo "Deploying RIC platform without deployment recipe. Default configurations are used."
+echo "****************************************************************************************************************"
+
+
+fi
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+source $DIR/etc/ric-platform.conf
 
-source $DIR/../etc/credential.conf
 
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICPLT_NAMESPACE
-fi
+export RICPLT_RELEASE_NAME=$ric_platform_helm_release_name
 
-if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-fi
+export RICPLT_NAMESPACE=$ric_platform_namespace
+
+
+
+. ./ric-platform/50-RIC-Platform/bin/install $OVERRIDEYAML
 

@@ -15,20 +15,22 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "dbaas.fullname" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-  ports:
-  - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+# Default values for dashboard.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+repository: "nexus3.o-ran-sc.org:10004"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
+
+dashboard:
+  image:
+    name: ric-dash-be
+    tag: 1.0.0-SNAPSHOT
+  
+  
+  service:
+    type: NodePort
+    port: 80
+  

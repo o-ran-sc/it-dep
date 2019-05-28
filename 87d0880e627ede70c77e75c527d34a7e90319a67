@@ -22,6 +22,29 @@
       "revId": "87d0880e627ede70c77e75c527d34a7e90319a67",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "773827fe_ab425382",
+        "filename": "ric-platform/50-RIC-Platform/helm/e2term/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-05-28T20:58:57Z",
+      "side": 1,
+      "message": "this need to match - not sure ric-full will work if the container is r0-rtmgr",
+      "range": {
+        "startLine": 46,
+        "startChar": 18,
+        "endLine": 46,
+        "endChar": 27
+      },
+      "revId": "87d0880e627ede70c77e75c527d34a7e90319a67",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

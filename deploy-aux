@@ -16,29 +16,30 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+# This script deploys RIC auxiliary function components automatically
 
 OVERRIDEYAML=$1
+
+if [ -z "$OVERRIDEYAML" ];then
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+echo "Deploying RIC auxiliary functions without deployment recipe. Default configurations are used."
+echo "****************************************************************************************************************"
+
+
+fi
 
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+source $DIR/etc/ric-aux.conf
 
-source $DIR/../etc/credential.conf
+export RICAUX_RELEASE_NAME=$ric_aux_helm_release_name
 
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICPLT_NAMESPACE
-fi
+export RICAUX_NAMESPACE=$ric_aux_namespace
 
-if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-fi
+
+
+. ./aux/80-Auxiliary-Functions/bin/install $OVERRIDEYAML
 

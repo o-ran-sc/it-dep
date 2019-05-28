@@ -34,16 +34,16 @@ repositoryCred: docker-reg-cred
 # Uncomment the following line to override the image pull policy
 #imagePullPolicyOverride: ""
 
-
-image:
-  name: rtmgr
-  tag: 0.0.2
-
-service:
-  type: ClusterIP
-  nano:
-    port: 5656
-    target_port: 4560
-    protocol: "TCP"
-    name: "nano-port"
-
+rtmgr:
+  image:
+    name: rtmgr
+    tag: 0.0.2
+  
+  service:
+    type: ClusterIP
+    nano:
+      port: 5656
+      target_port: 4560
+      protocol: "TCP"
+      name: "nano-port"
+  

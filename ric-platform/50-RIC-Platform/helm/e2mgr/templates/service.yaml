@@ -26,18 +26,18 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.e2mgr.service.type }}
   ports:
-    - port: {{ .Values.service.http.port }}
+    - port: {{ .Values.e2mgr.service.http.port }}
       protocol: TCP 
-      targetPort: {{ .Values.service.http.port }}
-      name: "{{ .Values.service.http.name }}"
-      {{ if (eq .Values.service.type "NodePort") }}nodePort: {{ .Values.service.http.extport }} {{ end }}
-    - port: {{ .Values.service.nano.port }}
+      targetPort: {{ .Values.e2mgr.service.http.port }}
+      name: "{{ .Values.e2mgr.service.http.name }}"
+      {{ if (eq .Values.e2mgr.service.type "NodePort") }}nodePort: {{ .Values.e2mgr.service.http.extport }} {{ end }}
+    - port: {{ .Values.e2mgr.service.nano.port }}
       protocol: TCP 
-      targetPort: {{ .Values.service.nano.port }}
-      name: "{{ .Values.service.nano.name }}"
-      {{ if (eq .Values.service.type "NodePort") }}nodePort: {{ .Values.service.nano.extport }} {{ end }}
+      targetPort: {{ .Values.e2mgr.service.nano.port }}
+      name: "{{ .Values.e2mgr.service.nano.name }}"
+      {{ if (eq .Values.e2mgr.service.type "NodePort") }}nodePort: {{ .Values.e2mgr.service.nano.extport }} {{ end }}
   selector:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}

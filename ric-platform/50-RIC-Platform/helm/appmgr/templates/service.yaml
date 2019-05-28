@@ -26,12 +26,12 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.appmgr.service.type }}
   ports:
-    - port: {{ .Values.service.appmgr.port }}
-      protocol: {{ .Values.service.appmgr.protocol }}
-      name: "{{ .Values.service.appmgr.name }}"
-      {{ if (eq .Values.service.type "NodePort") }}nodePort: {{ .Values.service.appmgr.extport }} {{ end }}
+    - port: {{ .Values.appmgr.service.port }}
+      protocol: {{ .Values.appmgr.service.protocol }}
+      name: "{{ .Values.appmgr.service.name }}"
+      {{ if (eq .Values.appmgr.service.type "NodePort") }}nodePort: {{ .Values.appmgr.service.extport }} {{ end }}
   selector:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
     release: {{ .Release.Name }}

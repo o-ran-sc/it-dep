@@ -26,7 +26,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.e2mgr.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -42,7 +42,7 @@ spec:
         - name: {{ include "common.repositoryCred" . }}
       containers:
         - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-          image: {{ include "common.repository" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          image: {{ include "common.repository" . }}/{{ .Values.e2mgr.image.name }}:{{ .Values.e2mgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           volumeMounts:
           - mountPath: /opt/E2Manager/router.txt
@@ -50,12 +50,12 @@ spec:
             subPath: router.txt
           env:
             - name: RMR_RTG_SVC
-              value: "{{ .Values.env.RMR_RTG_SVC }}"
+              value: "{{ .Values.e2mgr.env.RMR_RTG_SVC }}"
           ports:
-            - name: {{ .Values.service.http.name }}
-              containerPort: {{ .Values.service.http.port }}
-            - name: {{ .Values.service.nano.name }}
-              containerPort: {{ .Values.service.nano.port }}
+            - name: {{ .Values.e2mgr.service.http.name }}
+              containerPort: {{ .Values.e2mgr.service.http.port }}
+            - name: {{ .Values.e2mgr.service.nano.name }}
+              containerPort: {{ .Values.e2mgr.service.nano.port }}
           stdin: true
           tty: true
           securityContext:

@@ -36,27 +36,27 @@ repositoryCred: docker-reg-cred
 #imagePullPolicyOverride: ""
 
 
-
-image:
-  name: e2mgr
-  tag: 1.0.0 
-
-
-replicaCount: 1
-
-env:
-  RMR_RTG_SVC: "ric-full-rtmgr"
-
-service:
-  type: NodePort
-  http:
-    port: 3800
-    target_port: 3800
-    protocol: "TCP"
-    name: "http"
-    extport: 30004
-  nano:
-    port: 3801
-    target_port: 3801
-    protocol: "TCP"
-    name: "nano"
+e2mgr:
+  image:
+    name: e2mgr
+    tag: 1.0.0 
+  
+  
+  replicaCount: 1
+  
+  env:
+    RMR_RTG_SVC: "ric-full-rtmgr"
+  
+  service:
+    type: NodePort
+    http:
+      port: 3800
+      target_port: 3800
+      protocol: "TCP"
+      name: "http"
+      extport: 30004
+    nano:
+      port: 3801
+      target_port: 3801
+      protocol: "TCP"
+      name: "nano"

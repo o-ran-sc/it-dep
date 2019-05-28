@@ -1,4 +1,3 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -16,29 +15,22 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+# Default values for dashboard.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-OVERRIDEYAML=$1
+replicaCount: 1
+repository: "nexus3.o-ran-sc.org:10004"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
 
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/credential.conf
-
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICPLT_NAMESPACE
-fi
-
-if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
-fi
-
+dashboard:
+  image:
+    name: ric-dash-be
+    tag: 1.0.0-SNAPSHOT
+  
+  
+  service:
+    type: NodePort
+    port: 80
+  

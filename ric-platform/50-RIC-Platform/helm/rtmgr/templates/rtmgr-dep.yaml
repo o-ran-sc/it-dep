@@ -26,7 +26,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.rtmgr.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -42,7 +42,7 @@ spec:
         - name: {{ include "common.repositoryCred" . }}
       containers:
         - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-          image: {{ include "common.repository" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          image: {{ include "common.repository" . }}/{{ .Values.rtmgr.image.name }}:{{ .Values.rtmgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           command: ["/run_rtmgr.sh"]
           env:
@@ -61,5 +61,5 @@ spec:
             - name: SDL
               value: "file"
           ports:
-            - name: {{ .Values.service.nano.name }}
-              containerPort: {{ .Values.service.nano.port }}
+            - name: {{ .Values.rtmgr.service.nano.name }}
+              containerPort: {{ .Values.rtmgr.service.nano.port }}

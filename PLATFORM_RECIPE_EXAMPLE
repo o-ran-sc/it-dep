@@ -1,0 +1,95 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+###############################################################################
+
+#-------------------------------------------------------------------------
+# Global common setting
+#-------------------------------------------------------------------------
+global:
+  # Docker registry from which RIC platform components pull the images
+  repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+  
+  # Name of the K8S docker credential that is onboarded by 20-credential
+  repositoryCred: docker-reg-cred
+
+  # Docker image pull policy
+  imagePullPolicy: Always
+
+  # Helm repo that will be used by xApp manager
+  helmRepository: snapshot.helm.ranco-dev-tools.eastus.cloudapp.azure.com:10001
+
+  # Certificate of the helm repo
+  helmRepositoryCert: xapp-mgr-certs
+
+  # Name of the K8S secret that contains the credential of the helm repo
+  helmRepositoryCred: xapp-mgr-creds
+
+  # The name of the tiller that xApp helm client talks to
+  helmRepositoryTiller: tiller-deploy
+
+  # The namespace of the xApp helm tiller
+  helmRepositoryTillerNamespace: kube-system
+
+  # The port the xApp helm tiller is listening to
+  helmRepositoryTillerPort: 44134
+  
+
+#-------------------------------------------------------------------------
+# xApp Manager 
+#-------------------------------------------------------------------------
+appmgr:
+  image:
+    name: xapp-manager
+    tag: latest
+
+#-------------------------------------------------------------------------
+# DBAAS 
+#-------------------------------------------------------------------------
+dbaas:
+  backend:
+    image:
+      name: redis-standalone
+      tag: latest
+
+#-------------------------------------------------------------------------
+# E2 Manager
+#-------------------------------------------------------------------------
+e2mgr:
+  image:
+    name: e2mgr
+    tag: 1.0.0
+  env:
+    RMR_RTG_SVC: "ric-full-rtmgr"
+
+
+#-------------------------------------------------------------------------
+# E2 Termination
+#-------------------------------------------------------------------------
+e2term:
+  image:
+    name: e2
+    tag: 1.0.0
+  env:
+    print: "1"
+    RMR_RTG_SVC: "ric-full-rtmgr"
+
+#-------------------------------------------------------------------------
+# Routing Manager
+#-------------------------------------------------------------------------
+rtmgr:
+  image:
+    name: rtmgr
+    tag: 0.0.2

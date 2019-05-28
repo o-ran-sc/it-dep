@@ -33,23 +33,23 @@ repositoryCred: docker-reg-cred
 # Uncomment the following line to override the image pull policy
 #imagePullPolicyOverride: ""
 
-
-image:
-  name: e2
-  tag: 1.0.0
-
-
-replicaCount: 1
-
-env:
-  print: "1"
-  RMR_RTG_SVC: "ric-full-rtmgr"
-
-service:
-  type: ClusterIP
-  nano:
-    port: 38000
-    target_port: 38000 
-    protocol: "TCP"
-    name: "nano-port"
-
+e2term:
+  image:
+    name: e2
+    tag: 1.0.0
+  
+  
+  replicaCount: 1
+  
+  env:
+    print: "1"
+    RMR_RTG_SVC: "ric-full-rtmgr"
+  
+  service:
+    type: ClusterIP
+    nano:
+      port: 38000
+      target_port: 38000 
+      protocol: "TCP"
+      name: "nano-port"
+  

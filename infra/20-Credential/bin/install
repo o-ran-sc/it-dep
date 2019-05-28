@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,20 +16,37 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "dbaas.fullname" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-  ports:
-  - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+
+source $DIR/../etc/credential.conf
+
+if [ -z "$RICPLT_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICPLT_RELEASE_NAME
+fi
+if [ -z "$RICPLT_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICPLT_NAMESPACE
+fi
+
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
+
+
+mkdir -p  $DIR/../helm/charts/
+cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+
+
+if [ -z $OVERRIDEYAML ]; then
+  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
+else
+  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-credential" $DIR/../helm
+fi
+

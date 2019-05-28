@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aa2a1a0_dc21234d",
+        "filename": "ric-platform/50-RIC-Platform/helm/e2mgr/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000048
+      },
+      "writtenOn": "2019-05-28T20:57:46Z",
+      "side": 1,
+      "message": "this is set to ric-full-e2mgr. Not sure if this should be ReleaseName",
+      "range": {
+        "startLine": 53,
+        "startChar": 43,
+        "endLine": 53,
+        "endChar": 54
+      },
+      "revId": "87d0880e627ede70c77e75c527d34a7e90319a67",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    }
+  ]
+}

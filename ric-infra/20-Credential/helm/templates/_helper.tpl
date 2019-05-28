@@ -48,9 +48,6 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "repository" -}}
-  {{- default "docker.ricinfra.local:80" .Values.repository -}}
-{{- end -}}
 
 {{/*
   Resolve the image repository secret token.
@@ -61,7 +58,7 @@ Create chart name and version as used by the chart label.
     mail: email (optional)
 */}}
 {{- define "repository.secret" -}}
-  {{- $repo := include "repository" . }}
+  {{- $repo := include "common.repository" . }}
   {{- $cred := .Values.repositoryCred }}
   {{- $user := default "docker" $cred.user }}
   {{- $password := default "docker" $cred.password }}
@@ -69,6 +66,7 @@ Create chart name and version as used by the chart label.
   {{- $auth := printf "%s:%s" $user $password | b64enc }}
   {{- printf "{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}" $repo $user $password $mail $auth | b64enc -}}
 {{- end -}}
+
 
 
 {{- define "helmrepo.secret.user" -}}

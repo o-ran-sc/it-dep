@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,22 +16,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for dashboard.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# This script deploys RIC platform components automatically
 
-replicaCount: 1
-repository: "nexus3.o-ran-sc.org:10004"
-imagePullPolicy: IfNotPresent
-repositoryCred: docker-reg-cred
+OVERRIDEYAML=$1
 
-
-image:
-  repository: ric-dash-be
-  tag: 1.0.0-SNAPSHOT
+if [ -z "$OVERRIDEYAML" ];then
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+echo "Deploying RIC platform without deployment recipe. Default configurations are used."
+echo "****************************************************************************************************************"
 
 
-service:
-  type: NodePort
-  port: 80
+fi
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/../etc/ric-platform.conf
+
+
+export RICPLT_RELEASE_NAME=$ric_platform_helm_release_name
+
+export RICPLT_NAMESPACE=$ric_platform_namespace
+
+
+
+. ../ric-platform/50-RIC-Platform/bin/install $OVERRIDEYAML
 

@@ -26,7 +26,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.appmgr.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -41,22 +41,22 @@ spec:
     spec:
       hostname: {{ .Chart.Name }}
       imagePullSecrets:
-        - name: {{ .Values.image.repositoryCred }}
+        - name: {{ include "common.repositoryCred" . }}
       containers:
         - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-          image: {{ include "common.repository" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          image: {{ include "common.repository" . }}/{{ .Values.appmgr.image.name }}:{{ .Values.appmgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.containerPort }}
+              containerPort: {{ .Values.appmgr.containerPort }}
               protocol: TCP
           volumeMounts:
             - name: config-volume
-              mountPath: {{ .Values.appconfigpath }}
+              mountPath: {{ .Values.appmgr.appconfigpath }}
             - name: secret-volume
-              mountPath: {{ .Values.appsecretpath }}
+              mountPath: {{ .Values.appmgr.appsecretpath }}
             - name: cert-volume
-              mountPath: {{ .Values.appcertpath }}
+              mountPath: {{ .Values.appmgr.appcertpath }}
           envFrom:
             - configMapRef:
                 name: {{ include "appmgr.fullname" . }}-appenv
@@ -73,25 +73,10 @@ spec:
           #    path: /
           #    port: http
           restartPolicy: Always
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
             # ubuntu
             #runAsUser: 1000
             #allowPrivilegeEscalation: false
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-
       volumes:
         - name: config-volume
           configMap:

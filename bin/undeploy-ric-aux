@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,20 +16,18 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "dbaas.fullname" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-  ports:
-  - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+# This script deploys RIC auxiliary function components automatically
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/../etc/ric-aux.conf
+
+export RICAUX_RELEASE_NAME=$ric_aux_helm_release_name
+
+export RICAUX_NAMESPACE=$ric_aux_namespace
+
+
+
+. ../ric-aux/80-Auxiliary-Functions/bin/uninstall
+

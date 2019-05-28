@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,20 +16,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "dbaas.fullname" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-  ports:
-  - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+# This script deploys RIC platform components automatically
+
+OVERRIDEYAML=$1
+
+if [ -z "$OVERRIDEYAML" ];then
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+echo "Deploying RIC platform without deployment recipe. Default configurations are used."
+echo "****************************************************************************************************************"
+
+
+fi
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/etc/ric-platform.conf
+
+
+export RICPLT_RELEASE_NAME=$ric_platform_helm_release_name
+
+export RICPLT_NAMESPACE=$ric_platform_namespace
+
+
+
+. ./ric-platform/50-RIC-Platform/bin/install $OVERRIDEYAML
+

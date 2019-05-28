@@ -26,12 +26,12 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.e2term.service.type }}
   ports:
-    - port: {{ .Values.service.nano.port }}
+    - port: {{ .Values.e2term.service.nano.port }}
       protocol: TCP
-      targetPort:  {{ .Values.service.nano.target_port }}
-      name: {{ .Values.service.nano.name }}
+      targetPort:  {{ .Values.e2term.service.nano.target_port }}
+      name: {{ .Values.e2term.service.nano.name }}
   selector:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}

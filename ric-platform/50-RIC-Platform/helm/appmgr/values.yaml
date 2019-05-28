@@ -20,58 +20,6 @@ imagePullPolicy: IfNotPresent
 repositoryCred: docker-reg-cred
 
 
-# Uncomment the following line to override the docker registry
-#repositoryOverride: ""
-
-
-# Uncomment the following line to override the docker registry credential
-#repositoryCredOverride: ""
-
-# Uncomment the following line to override the image pull policy
-#imagePullPolicyOverride: ""
-
-
-
-image:
-  # xAppmanager Docker image name and tag
-  name: xapp-manager
-  tag: latest
-
-# This section describes xAppManager
-replicaCount: 1
-
-containerPort: 8080
-reponame: "helm-repo"
-
-service:
-  type: NodePort
-  appmgr:
-    port: 8080
-    name: appmgr-service
-    protocol: "TCP"
-    export: 30020
-
-
-# config
-# Path referred in xapp-manager for retrieving configuration details
-appconfigpath: /opt/ric/config
-
-# To be provided as env variables
-appenv:
-  NAME: xappmgr
-  #ENV1: "envvalue1"
-  #ENV2: "envvalue2"
-
-# secret
-# Path referred in xapp-manager for retrieving helm repo secrets
-appsecretpath: /opt/ric/secret
-
-
-# certificates
-# Path referred in xapp-manager for retrieving helm repo client certificates
-appcertpath: /opt/ric/certificates
-
-
 # Helm Repo for xApp
 # By default a local helm repo is used. The global setting will override
 # the default value. You can further override using
@@ -86,7 +34,7 @@ helmRepositoryCred: xapp-mgr-creds
 # Default configmap name for Helm Repo cert. .Value.golbal.helmRepositoryCert will
 # override the default value. You can further override uing
 #helmRepositoryCertOverride:""
-helmRepositoryCert: xapp-mgr-cert
+helmRepositoryCert: xapp-mgr-certs
 
 # Helm Tiller for xApp
 # The global setting will override this default value
@@ -103,19 +51,56 @@ helmRepositoryTillerNamespace: "kube-system"
 # The global setting will override this default value
 # You can further override using helmRepositoryTillerPortOverride: ""
 helmRepositoryTillerPort: "44134" 
+# Uncomment the following line to override the docker registry
+#repositoryOverride: ""
+
+
+# Uncomment the following line to override the docker registry credential
+#repositoryCredOverride: ""
+
+# Uncomment the following line to override the image pull policy
+#imagePullPolicyOverride: ""
+
+
+appmgr:
+  image:
+    # xAppmanager Docker image name and tag
+    name: xapp-manager
+    tag: latest
+
+  # This section describes xAppManager
+  replicaCount: 1
+
+  containerPort: 8080
+  reponame: "helm-repo"
+
+  service:
+    type: NodePort
+    port: 8080
+    name: appmgr-service
+    protocol: "TCP"
+    export: 30020
+
+
+  # config
+  # Path referred in xapp-manager for retrieving configuration details
+  appconfigpath: /opt/ric/config
+
+  # To be provided as env variables
+  appenv:
+    NAME: xappmgr
+    #ENV1: "envvalue1"
+    #ENV2: "envvalue2"
+
+  # secret
+  # Path referred in xapp-manager for retrieving helm repo secrets
+  appsecretpath: /opt/ric/secret
+
+
+  # certificates
+  # Path referred in xapp-manager for retrieving helm repo client certificates
+  appcertpath: /opt/ric/certificates
 
 
 
-resources: {}
-# limits:
-#   cpu: 100m
-#   memory: 128Mi
-# requests:
-#   cpu: 100m
-#   memory: 128Mi
 
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}

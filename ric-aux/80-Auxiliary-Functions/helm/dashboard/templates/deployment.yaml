@@ -15,20 +15,50 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: {{ include "dbaas.fullname" . }}
+  name: {{ include "dashboard.fullname" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
+    heritage: {{ .Release.Service }}
 spec:
+  replicas: {{ .Values.dashboard.replicaCount }}
   selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-  ports:
-  - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+    matchLabels:
+      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ .Chart.Name }}
+      imagePullSecrets:
+        - name: {{ include "common.repositoryCred" . }}
+      containers:
+        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+          image: {{ include "common.repository" . }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          imagePullPolicy: {{ include "common.pullPolicy" . }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SPRING_APPLICATION_JSON
+              valueFrom:
+                configMapKeyRef:
+                  name: dashboard-configmap
+                  key: springApplication.json
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http

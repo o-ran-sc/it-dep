@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,17 +16,30 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Values for setting up Kubernetes resources for accessing infrastructure such as docker registry
-# helm repo, etc.
+# This script deploys RIC auxiliary function components automatically
+
+OVERRIDEYAML=$1
+
+if [ -z "$OVERRIDEYAML" ];then
+echo "****************************************************************************************************************"
+echo "                                                     WARNING                                                    "
+echo "****************************************************************************************************************"
+echo "Deploying RIC auxiliary functions without deployment recipe. Default configurations are used."
+echo "****************************************************************************************************************"
 
 
-repository: "nexus3.o-ran-sc.org:10004"
-repositoryCred:
-  user: "docker"
-  password: "docker"
+fi
 
 
-helmrepo: "https://helm.ricinfra.local"
-helmrepoCred:
-  user: "helm"
-  password: "helm"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/etc/ric-aux.conf
+
+export RICAUX_RELEASE_NAME=$ric_aux_helm_release_name
+
+export RICAUX_NAMESPACE=$ric_aux_namespace
+
+
+
+. ./aux/80-Auxiliary-Functions/bin/install $OVERRIDEYAML
+

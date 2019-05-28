@@ -15,8 +15,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: {{ include "dashboard.fullname" . }}
   namespace: {{ include "common.namespace" . }}
@@ -26,39 +26,11 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  type: {{ .Values.dashboard.service.type }}
+  ports:
+    - port: {{ .Values.dashboard.service.port }}
+      targetPort: http
+      protocol: TCP
   selector:
-    matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-      release: {{ .Release.Name }}
-  template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-        release: {{ .Release.Name }}
-    spec:
-      hostname: {{ .Chart.Name }}
-      imagePullSecrets:
-        - name: {{ include "common.repositoryCred" . }}
-      containers:
-        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-          image: {{ include "common.repository" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ include "common.pullPolicy" . }}
-          ports:
-            - name: http
-              containerPort: 8080
-              protocol: TCP
-          env:
-            - name: SPRING_APPLICATION_JSON
-              valueFrom:
-                configMapKeyRef:
-                  name: dashboard-configmap
-                  key: springApplication.json
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    release: {{ .Release.Name }}

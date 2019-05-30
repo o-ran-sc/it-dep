@@ -36,7 +36,7 @@ else
    NAMESPACE=$RICAUX_NAMESPACE
 fi
 
-RICAUX_COMPONENTS="dashboard"
+RICAUX_COMPONENTS="dashboard ves message-router"
 
 echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"

@@ -1,0 +1,29 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: xdcae-ves-collector
+  labels:
+    app: dcae-ves-collector
+    cfydeployment: ves
+    cfynode: ves
+    cfynodeinstance: ves_uj48fg
+    k8sdeployment: dep-dcae-ves-collector
+spec:
+  ports:
+  - name: xport-t-8080
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 30235
+  - name: xport-t-8443
+    protocol: TCP
+    port: 8443
+    targetPort: 8443
+    nodePort: 30417
+  selector:
+    app: dcae-ves-collector
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}

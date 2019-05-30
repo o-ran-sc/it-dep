@@ -1,0 +1,20 @@
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dmaap-configmap
+data:
+  DMaapConfig.json: |
+    {
+      "channels": [
+        {
+          "name": "ves-measurement",
+          "cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "message-router:3904"
+        }
+      ]
+    }

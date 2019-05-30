@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69987819_0ac102d8",
+        "filename": "deploy-aux",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-05-30T14:39:59Z",
+      "side": 1,
+      "message": "ric-aux/80-Au....",
+      "revId": "fa11af6c7a63b6454f2e8ca740fa86d4246a7603",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Default values for ves.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+repository: "nexus3.onap.org:10001"
+imagePullPolicy: IfNotPresent
+
+image:
+  name: onap/org.onap.dcaegen2.collectors.ves.vescollector
+  tag: 1.4.4
+
+replicaCount: 1

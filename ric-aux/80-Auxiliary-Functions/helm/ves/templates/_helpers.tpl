@@ -1,4 +1,3 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -16,33 +15,36 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{/* vim: set filetype=mustache: */}}
+{{/*
+Expand the name of the chart.
+*/}}
+{{- define "vescollector.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "vescollector.fullname" -}}
+{{- if .Values.fullnameOverride -}}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- if contains $name .Release.Name -}}
+{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
 
+{{/*
+Create chart name and version as used by the chart label.
+*/}}
+{{- define "vescollector.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/dashboard.conf
-
-if [ -z "$RICAUX_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
-fi
-if [ -z "$RICAUX_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICAUX_NAMESPACE
-fi
-
-RICAUX_COMPONENTS="dashboard message-router ves"
-
-echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-
-for component in $RICAUX_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-$component" 
-done

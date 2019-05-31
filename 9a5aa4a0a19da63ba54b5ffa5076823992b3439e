@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab58cfa3_a0ad8f87",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/message-router/charts/message-router-kafka/Chart.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-05-31T19:30:52Z",
+      "side": 1,
+      "message": "Let\u0027s maintain the version number account to our RIC domain since we have customized codes.",
+      "revId": "9a5aa4a0a19da63ba54b5ffa5076823992b3439e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "928b0d98_7836450a",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/message-router/charts/message-router-kafka/templates/NOTES.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-05-31T19:30:52Z",
+      "side": 1,
+      "message": "This may no longer be true. Please double check the message here.",
+      "revId": "9a5aa4a0a19da63ba54b5ffa5076823992b3439e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d15aef_c2590f61",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/message-router/requirements.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-05-31T19:30:52Z",
+      "side": 1,
+      "message": "Please delete this file",
+      "revId": "9a5aa4a0a19da63ba54b5ffa5076823992b3439e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5b8e19f_39c45f88",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/message-router/templates/NOTES.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-05-31T19:30:52Z",
+      "side": 1,
+      "message": "not sure if this is still reflecting the truth. Please double check or delete.",
+      "revId": "9a5aa4a0a19da63ba54b5ffa5076823992b3439e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe7ddff9_b926ffff",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/message-router/values.yaml~",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-05-31T19:30:52Z",
+      "side": 1,
+      "message": "Please delete this file.",
+      "revId": "9a5aa4a0a19da63ba54b5ffa5076823992b3439e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

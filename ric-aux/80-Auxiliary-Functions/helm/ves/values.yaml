@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-repository: "nexus3.onap.org:10001"
+repositoryOverride: "nexus3.onap.org:10001"
 imagePullPolicy: IfNotPresent
 
 image:

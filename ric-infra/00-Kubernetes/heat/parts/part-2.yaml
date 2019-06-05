@@ -1,0 +1,75 @@
+  ${VM_TYPE}_${VM_NUM}_private_port:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_resource: int_network }
+      fixed_ips: [{"subnet": { get_resource: int_subnet }}]
+      security_groups:
+      - { get_resource: ric_sg }
+
+  ${VM_TYPE}_${VM_NUM}_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: { get_param: public_net_id }
+      port_id: { get_resource: ${VM_TYPE}_${VM_NUM}_private_port }
+
+  ${VM_TYPE}_${VM_NUM}_vm_scripts:
+    type: OS::Heat::CloudConfig
+    properties:
+      cloud_config:
+        power_state:
+          mode: reboot
+        runcmd:
+        - [ /opt/k8s_vm_install.sh ]
+        write_files:
+        - path: /opt/k8s_vm_install.sh
+          permissions: '0755'
+          content:
+            str_replace:
+              params:
+                __docker_proxy__: { get_param: docker_proxy }
+                __apt_proxy__: { get_param: apt_proxy }
+                __docker_version__: { get_param: docker_version }
+                __k8s_version__: { get_param: k8s_version }
+                __k8s_cni_version__: { get_param: k8s_cni_version }
+                __helm_version__: { get_param: helm_version }
+                __host_private_ip_addr__: { get_attr: [${VM_TYPE}_${VM_NUM}_floating_ip, fixed_ip_address] }
+                __k8s_mst_floating_ip_addr__: { get_attr: [${VM_TYPE}_mst_floating_ip, floating_ip_address] }
+                __k8s_mst_private_ip_addr__: { get_attr: [${VM_TYPE}_mst_floating_ip, fixed_ip_address] }
+                __mtu__: { get_param: mtu }
+                __cinder_volume_id__: { get_resource: cinder_volume }
+                __stack_name__: { get_param: OS::stack_name }
+              template:
+                get_file: k8s_vm_install.sh
+        - path: /opt/k8s_vm_init.sh
+          permissions: '0755'
+          content:
+            str_replace:
+              params:
+                __host_private_ip_addr__: { get_attr: [${VM_TYPE}_${VM_NUM}_floating_ip, fixed_ip_address] }
+                __host_label__: '$HOST_LABEL'
+              template:
+                get_file: k8s_vm_init.sh
+        - path: /etc/init.d/k8s_vm_init_serv
+          permissions: '0755'
+          content:
+            get_file: k8s_vm_init_serv.sh
+
+  ${VM_TYPE}_${VM_NUM}_vm_config:
+    type: OS::Heat::MultipartMime
+    properties:
+      parts:
+      - config: { get_resource: ${VM_TYPE}_${VM_NUM}_vm_scripts }
+
+  ${VM_TYPE}_${VM_NUM}_vm:
+    type: OS::Nova::Server
+    properties:
+      name:
+        list_join: ['-', [ { get_param: 'OS::stack_name' }, '${VM_TYPE}', '${VM_NUM}' ] ]
+      image: { get_param: ubuntu_1604_image }
+      flavor: { get_param: ${VM_TYPE}_vm_flavor }
+      key_name: { get_param: key_name }
+      networks:
+      - port: { get_resource: ${VM_TYPE}_${VM_NUM}_private_port }
+      user_data_format: SOFTWARE_CONFIG
+      user_data: { get_resource: ${VM_TYPE}_${VM_NUM}_vm_config }
+

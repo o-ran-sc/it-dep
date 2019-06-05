@@ -1,0 +1,173 @@
+heat_template_version: 2015-10-15
+description: OpenStack HOT for RIC Kubernetes cluster
+
+parameters:
+  docker_proxy:
+    type: string
+    default: ""
+
+  apt_proxy:
+    type: string
+    default: ""
+
+  public_net_id:
+    type: string
+    description: The ID of the Public network for floating IP address allocation
+
+  public_v6net_id:
+    type: string
+    description: The ID of the IPv6 provider network for ipv6 interface IP address allocation
+
+  int_net_cidr:
+    type: string
+    description: CIDR of the OAM ONAP network
+
+  ubuntu_1604_image:
+    type: string
+    description: Name of the Ubuntu 16.04 image
+
+  k8s_vm_flavor:
+    type: string
+    description: VM flavor for k8s hosts
+
+  helm_override_yaml:
+    type: string
+    description: Content for helm_override.yaml
+
+  docker_manifest:
+    type: string
+    default: ""
+
+  key_name:
+    type: string
+    default: "id-oran-int"
+
+  docker_version:
+    type: string
+    default: "18.06.1"
+
+  k8s_version:
+    type: string
+    default: "1.13.3"
+
+  k8s_cni_version:
+    type: string
+    default: "0.6.0"
+
+  helm_version:
+    type: string
+    default: "2.12.3"
+
+  helm_deploy_delay:
+    type: string
+    default: "2m"
+
+  use_ramdisk:
+    type: string
+    description: Set to "true" if you want to use a RAM disk for /dockerdata-nfs/.
+    default: "false"
+
+  mtu:
+    type: number
+    default: 1500
+
+resources:
+  random-str:
+    type: OS::Heat::RandomString
+    properties:
+      length: 4
+
+  cinder_volume:
+    type: OS::Cinder::Volume
+    properties:
+      size: 5
+      name:
+        str_replace:
+          template: volume_rand
+          params:
+            rand: { get_resource: random-str }
+
+  # RIC security group
+  ric_sg:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name:
+        str_replace:
+          template: base_rand
+          params:
+            base: ric_sg
+            rand: { get_resource: random-str }
+      description: security group for RIC traffic
+      rules:
+        # All egress traffic
+        - direction: egress
+          ethertype: IPv4
+        - direction: egress
+          ethertype: IPv6
+        # ingress traffic
+        # ICMP
+        - protocol: icmp
+          ethertype: IPv4
+        - protocol: icmp
+          ethertype: IPv6
+        - protocol: udp
+          ethertype: IPv4
+          port_range_min: 1
+          port_range_max: 65535
+        - protocol: udp
+          ethertype: IPv6
+          port_range_min: 1
+          port_range_max: 65535
+        - protocol: tcp
+          ethertype: IPv4
+          port_range_min: 1
+          port_range_max: 65535
+        - protocol: tcp
+          ethertype: IPv6
+          port_range_min: 1
+          port_range_max: 65535
+        # additional IP Protocols to allow
+        # SCTP
+        - protocol: 132
+          ethertype: IPv4
+        - protocol: 132
+          ethertype: IPv6
+
+
+  # RIC internal network
+  int_network:
+    type: OS::Neutron::Net
+    properties:
+      name:
+        str_replace:
+          template: ric_network_rand
+          params:
+            rand: { get_resource: random-str }
+
+  int_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      name:
+        str_replace:
+          template: oam_network_rand
+          params:
+            rand: { get_resource: random-str }
+      network_id: { get_resource: int_network }
+      cidr: { get_param: int_net_cidr }
+      dns_nameservers: [ "8.8.8.8" ]
+
+
+  router:
+    type: OS::Neutron::Router
+    properties:
+      name:
+        list_join: ['-', [{ get_param: 'OS::stack_name' }, 'router']]
+      external_gateway_info:
+        network: { get_param: public_net_id }
+
+  router_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: router }
+      subnet_id: { get_resource: int_subnet }
+

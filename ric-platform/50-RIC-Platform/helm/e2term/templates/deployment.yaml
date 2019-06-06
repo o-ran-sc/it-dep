@@ -38,6 +38,8 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ .Chart.Name }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:

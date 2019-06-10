@@ -1,0 +1,32 @@
+a1mediator:
+  replicaCount: 1
+
+  image:
+    repository: nexus3.o-ran-sc.org:10004
+    name: ric-plt-a1
+    tag: 0.8.2
+    pullPolicy: IfNotPresent
+
+
+# This is the service for A1's external facing HTTP API
+httpservice:
+  port: 10000 # This is hardcoded in a1, probably dangerous to change
+  type: ClusterIP
+
+# This is the service for rmr between A1 and the xapps
+rmrservice:
+  name: rmrservice
+  port: 4562 # This is hardcoded in a1, probably dangerous to change
+  type: ClusterIP
+
+# This is the service for the "hidden" port 4561 that rmr listens on for route manager
+rmrrtemgrservice:
+  name: rmrrtemgrservice
+  port: 4561 # This is hardcoded in rmr, probably dangerous to change
+  type: ClusterIP
+
+# these are ENV variables that A1 takes; see docs
+rmr_timeout_config:
+  rcv_retry_interval_ms: 500
+  rcv_retry_times: 20
+

@@ -1,0 +1,32 @@
+# modify this section based on the deployment openstack instance's
+# OpenStack API access RC file
+OS_AUTH_URL=""
+OS_PROJECT_ID=""
+OS_PROJECT_NAME=""
+OS_USER_DOMAIN_NAME=""
+OS_USERNAME=""
+OS_PASSWORD=""
+OS_REGION_NAME=""
+OS_INTERFACE=""
+OS_IDENTITY_API_VERSION=""
+
+# ssh key pair used for accessing individual VMs 
+# the private key file
+VM_SSH_KEY=""
+# the name of the ssh public key uploaded to the openstack instance
+OS_KEY_NAME=""
+
+# Ubuntu 16.04 VM image name used for launching VMs
+OS_IMAGE_NAME=""
+
+# the UUID of the public net (floating IP net) of the openstack instance
+OS_PUBLIC_NET_ID=""
+
+# the UUID of the public IPv6 net of the openstack instance
+OS_PUBLIC_V6NET_ID=""
+
+# host:port of the APT proxy
+OS_APT_PROXY=""
+# host:port of the Docker proxy
+OS_DOCKER_PROXY=""
+

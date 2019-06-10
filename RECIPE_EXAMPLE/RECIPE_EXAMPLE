@@ -26,7 +26,7 @@ global:
   repositoryCred: docker-reg-cred
 
   # Docker image pull policy
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
 
   # Helm repo that will be used by xApp manager
   helmRepository: nexus.ricinfra.local

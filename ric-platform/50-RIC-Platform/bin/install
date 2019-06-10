@@ -37,7 +37,7 @@ else
 fi
 
 
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term"
+RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator"
 
 echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"

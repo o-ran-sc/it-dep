@@ -1,0 +1,56 @@
+# This is the service for A1's external facing HTTP API
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "a1mediator.fullname" . }}
+  labels:
+{{ include "a1mediator.labels" . | indent 4 }}
+
+spec:
+  type: {{ .Values.httpservice.type }}
+  ports:
+    - port: {{ .Values.httpservice.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "a1mediator.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
+---
+# This is the service for rmr between A1 and the xapps
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.rmrservice.name }}
+  labels:
+{{ include "a1mediator.labels" . | indent 4 }}
+
+spec:
+  type: {{ .Values.rmrservice.type }}
+  ports:
+    - port: {{ .Values.rmrservice.port }}
+      targetPort: {{ .Values.rmrservice.port }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "a1mediator.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
+---
+# This is the service for the "hidden" port 4561 that rmr listens on for route manager
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.rmrrtemgrservice.name }}
+  labels:
+{{ include "a1mediator.labels" . | indent 4 }}
+
+spec:
+  type: {{ .Values.rmrrtemgrservice.type }}
+  ports:
+    - port: {{ .Values.rmrrtemgrservice.port }}
+      targetPort: {{ .Values.rmrrtemgrservice.port }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "a1mediator.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A1 Helm chart for Kubernetes
+name: a1mediator
+version: 0.8.2

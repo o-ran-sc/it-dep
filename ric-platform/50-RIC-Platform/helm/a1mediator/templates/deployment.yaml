@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "a1mediator.fullname" . }}
+  labels:
+{{ include "a1mediator.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "a1mediator.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "a1mediator.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: "{{ .Values.lf_docker_reg_secret }}"
+      containers:
+        - name: {{ .Chart.Name }}
+          volumeMounts:
+          - name: a1conf
+            mountPath: /opt/ricmanifest.json
+            subPath: ricmanifest.json
+          - name: a1conf
+            mountPath: /opt/rmr_string_int_mapping.txt
+            subPath: rmr_string_int_mapping.txt
+          - name: a1conf
+            mountPath: /opt/route/local.rt
+            subPath: local.rt
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          - name: RMR_RCV_RETRY_INTERVAL
+            value: "{{ .Values.rmr_timeout_config.rcv_retry_interval_ms }}"
+          - name: RMR_RETRY_TIMES
+            value: "{{ .Values.rmr_timeout_config.rcv_retry_times }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.httpservice.port }}
+              protocol: TCP
+
+          livenessProbe:
+            httpGet:
+              path: /ui
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /ui
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: "a1conf"
+          configMap:
+            name: "a1conf"

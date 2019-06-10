@@ -1,0 +1,20 @@
+1. Get the application URL by running these commands:
+{{- if .Values.ingress.enabled }}
+{{- range $host := .Values.ingress.hosts }}
+  {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ . }}
+  {{- end }}
+{{- end }}
+{{- else if contains "NodePort" .Values.httpservice.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "a1mediator.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.httpservice.type }}
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "a1mediator.fullname" . }}'
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "a1mediator.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo http://$SERVICE_IP:{{ .Values.httpservice.port }}
+{{- else if contains "ClusterIP" .Values.httpservice.type }}
+  fish shell notation: kubectl port-forward (kubectl get pods --namespace default -l "app.kubernetes.io/name=a1mediator,app.kubernetes.io/instance=a1" -o jsonpath="{.items[0].metadata.name}") {{ .Values.httpservice.port }}:{{ .Values.httpservice.port }}
+  "Then visit localhost:{{ .Values.httpservice.port }} to use your application"
+{{- end }}

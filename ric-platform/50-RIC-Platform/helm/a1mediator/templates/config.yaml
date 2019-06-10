@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: a1conf
+data:
+  local.rt: |
+    newrt|start
+    rte|10000|rmr_delay_receiver:4563
+    rte|20000|rmr_receiver:4560
+    rte|10001|{{ .Values.rmrservice.name }}:{{ .Values.rmrservice.port }}
+    rte|20001|{{ .Values.rmrservice.name }}:{{ .Values.rmrservice.port }}
+    newrt|end
+  rmr_string_int_mapping.txt: {{ tpl (.Files.Get "files/rmr_string_int_mapping.txt") . | quote }}
+  ricmanifest.json: {{ tpl (.Files.Get "files/ricmanifest.json") . | quote }}

@@ -20,7 +20,8 @@
 #-------------------------------------------------------------------------
 global:
   # Docker registry from which RIC platform components pull the images
-  repository: nexus3.o-ran-sc.org:10004
+  #repository: nexus3.o-ran-sc.org:10004
+  repository: snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001
   
   # Name of the K8S docker credential that is onboarded by 20-credential 
   repositoryCred: docker-reg-cred

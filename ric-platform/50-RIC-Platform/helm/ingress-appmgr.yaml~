@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ric-ingress
+spec:
+  rules:
+  - host: foo.bar.com
+    http:
+      paths:
+      - path: /appmgr
+        backend:
+          serviceName: r0-appmgr
+          servicePort: 8080

@@ -19,67 +19,53 @@
 
 global:
   # modify this section to point to your local testing settings
-  repository: "snapshot.docker.ranco-dev-tools.eastus.cloudapp.azure.com:10001"
+  repository: "${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}"
   repositoryCred:
-    user: docker
-    password: docker
+    user: "${__RUNRICENV_DOCKER_USER__}"
+    password: "${__RUNRICENV_DOCKER_PASS__}"
   image:
     pullPolicy: IfNotPresent
 
 ricplt:
   # This section is reserved for values imported from RIC Platform charts
-  
 
 ricapp:
-  # This section is for xapp.  Templates to be resolved from xApp descriptor
+  # This section is for xapp. Templates to be resolved from xApp descriptor
   replicaCount: 1
-  xappname: &anchor-xappname xapp-std
-
-  # the name of the process that indicates the liveness of the component
-  liveness-process-name: xapp-std
-
-  image:
-    name: whoami
-    tag: 0.0.1
-
+  name: xapp-std
+  fullname: xapp-std
   nameOverride: ""
   fullnameOverride: ""
 
+  # The name of the process that indicates the liveness of the component
+  livenessprocessname: xapp-std
+
+  image:
+    name: xapp-std
+    tag: latest
+
   service:
-    enabled: false
+    enabled: true
+    type: ClusterIP
+    name: xapp-std-service
+    port: 8080
+    rmrPort: 4560
 
+  probes:
+    healthAliveCheckEndpoint: ric/v1/health/alive
+    healthReadyCheckEndpoint: ric/v1/health/ready
 
-  # to be provided as property file
-  appconfigpath: /opt/etc/xapp
   appconfig:
-    # to be present as file propfile1 under appconfigpath
-    propfile1: |
-      prop1.v1="propvalue1.1"
-      prop1.v2="propvalue1.2"
-    # to be present as file propfile2 under appconfigpath
-    propfile2: "prop2"
+    path: /opt/ric/config
+    override: ""
 
-  # to be provided as env variables
-  appenv:
-    NAME: *anchor-xappname
-    ENV1: "envvalue1"
-    ENV2: "envvalue2"
+  cert:
+    path: /opt/ric/certificates
+    object: {}
 
-  # secret
-  appsecretpath: /opt/etc/kube
-  appsecret:
-    # to be present as files under path appsecretpath
-    username: myusername
-    password: mypassword
-    
+  hostname: xapp-std
 
   resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
   nodeSelector: {}
 

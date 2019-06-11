@@ -1,0 +1,147 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "local",
+    "logger",
+    "rmr",
+    "db"
+  ],
+  "properties": {
+    "local": {
+      "$id": "#/properties/local",
+      "type": "object",
+      "title": "The Local Schema",
+      "required": [
+        "host"
+      ],
+      "properties": {
+        "host": {
+          "$id": "#/properties/local/properties/host",
+          "type": "string",
+          "title": "The Host Schema",
+          "default": "",
+          "examples": [
+            ":8080"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "logger": {
+      "$id": "#/properties/logger",
+      "type": "object",
+      "title": "The Logger Schema",
+      "required": [
+        "level"
+      ],
+      "properties": {
+        "level": {
+          "$id": "#/properties/logger/properties/level",
+          "type": "integer",
+          "title": "The Level Schema",
+          "default": 0,
+          "examples": [
+            3
+          ]
+        }
+      }
+    },
+    "rmr": {
+      "$id": "#/properties/rmr",
+      "type": "object",
+      "title": "The Rmr Schema",
+      "required": [
+        "protPort",
+        "maxSize",
+        "numWorkers",
+        "txMessages",
+        "rxMessages"
+      ],
+      "properties": {
+        "protPort": {
+          "$id": "#/properties/rmr/properties/protPort",
+          "type": "string",
+          "title": "The Protport Schema",
+          "default": "",
+          "examples": [
+            "tcp:4560"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "maxSize": {
+          "$id": "#/properties/rmr/properties/maxSize",
+          "type": "integer",
+          "title": "The Maxsize Schema",
+          "default": 0,
+          "examples": [
+            2072
+          ]
+        },
+        "numWorkers": {
+          "$id": "#/properties/rmr/properties/numWorkers",
+          "type": "integer",
+          "title": "The Numworkers Schema",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "txMessages": {
+          "$id": "#/properties/rmr/properties/txMessages",
+          "type": "array",
+          "title": "The Txmessages Schema"
+        },
+        "rxMessages": {
+          "$id": "#/properties/rmr/properties/rxMessages",
+          "type": "array",
+          "title": "The Rxmessages Schema"
+        }
+      }
+    },
+    "db": {
+      "$id": "#/properties/db",
+      "type": "object",
+      "title": "The Db Schema",
+      "required": [
+        "host",
+        "namespace",
+        "port"
+      ],
+      "properties": {
+        "host": {
+          "$id": "#/properties/db/properties/host",
+          "type": "string",
+          "title": "The Host Schema",
+          "default": "",
+          "examples": [
+            "dbaas"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "namespace": {
+          "$id": "#/properties/db/properties/namespace",
+          "type": "string",
+          "title": "The Namespace Schema",
+          "default": "",
+          "examples": [
+            "ricxapp"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "port": {
+          "$id": "#/properties/db/properties/port",
+          "type": "integer",
+          "title": "The Port Schema",
+          "default": 0,
+          "examples": [
+            6379
+          ]
+        }
+      }
+    }
+  }
+}

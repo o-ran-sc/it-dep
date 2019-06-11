@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,24 +16,9 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{ if .Values.ricapp.service.enabled }}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "ricapp.name" . }}
-  labels:
-    app.kubernetes.io/name: {{ include "ricapp.name" . }}
-    helm.sh/chart: {{ include "ricapp.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-spec:
-  type: {{ .Values.ricapp.service.type }}
-  ports:
-    - port: {{ .Values.ricapp.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
-  selector:
-    app.kubernetes.io/name: {{ include "ricapp.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-{{ end }}
+
+# customize the following repo info to local environment
+export __RICENV_SET__='true'
+export __RUNRICENV_DOCKER_HOST__='192.168.0.6'
+export __RUNRICENV_DOCKER_PORT__='5000'
+export __RUNRICENV_HELMREPO_DIR__='/var/www/html/charts/'

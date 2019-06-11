@@ -1,19 +1,9 @@
-################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
-#                                                                              #
-#   Licensed under the Apache License, Version 2.0 (the "License");            #
-#   you may not use this file except in compliance with the License.           #
-#   You may obtain a copy of the License at                                    #
-#                                                                              #
-#       http://www.apache.org/licenses/LICENSE-2.0                             #
-#                                                                              #
-#   Unless required by applicable law or agreed to in writing, software        #
-#   distributed under the License is distributed on an "AS IS" BASIS,          #
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
-#   See the License for the specific language governing permissions and        #
-#   limitations under the License.                                             #
-################################################################################
+#
+# ==================================================================================
+#   Copyright (c) 2019 Nokia
+# ==================================================================================
+#
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,57 +25,51 @@ spec:
         app.kubernetes.io/name: {{ include "ricapp.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      imagePullSecrets:
-        - name: {{ .Release.Name }}-docker-registry-key
+      hostname: {{ .Values.ricapp.hostname }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.global.repository }}/{{ .Values.ricapp.image.name }}:{{ .Values.ricapp.image.tag }}"
           imagePullPolicy: {{ .Values.global.image.pullPolicy }}
-          # enable the next two elements if wanting to test pod bypassing its own entrypoint
-          #command: ["sh"]
-          #args:
-          #  - -c
-          #  - "while sleep 2; do echo thinking; done" 
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.ricapp.service.port }}
+              protocol: TCP
+            - name: rmr
+              containerPort: {{ .Values.ricapp.service.rmrPort }}
               protocol: TCP
           volumeMounts:
             - name: config-volume
-              mountPath: {{ .Values.ricapp.appconfigpath }}
-            - name: secret-volume
-              mountPath: {{ .Values.ricapp.appsecretpath }}
-          envFrom:
-            - configMapRef:
-                name: {{ .Release.Name }}-appenv
+              mountPath: {{ .Values.ricapp.appconfig.path }}
+            - name: cert-volume
+              mountPath: {{ .Values.ricapp.cert.path }}
           livenessProbe:
-            exec:
-              command:
-                - /bin/bash
-                - -c
-                - ps -ef | grep {{ .Values.ricapp.livenessprocessname }}| grep -v "grep"
-            initialDelaySeconds: 120
-            periodSeconds: 30
+            httpGet:
+              path: {{ .Values.ricapp.probes.healthAliveCheckEndpoint }}
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 15
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.ricapp.probes.healthReadyCheckEndpoint }}
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 15
           restartPolicy: Always
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.ricapp.resources | nindent 12 }}
           securityContext:
             # ubuntu
-            runAsUser: 1000
-            allowPrivilegeEscalation: false
-      {{- with .Values.nodeSelector }}
+            #runAsUser: 1000
+            #allowPrivilegeEscalation: false
+      {{- with .Values.ricapp.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.ricapp.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.tolerations }}
+    {{- with .Values.ricapp.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
@@ -93,7 +77,6 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ .Release.Name }}-appconfig
-        - name: secret-volume
-          secret:
-            secretName: {{ .Release.Name }}-appsecret
+            name: {{ if .Values.ricapp.appconfig.override }}{{ .Values.ricapp.appconfig.override }}{{ else }}{{ .Release.Name }}-appconfig{{ end }}
+        - name: cert-volume
+          emptyDir: {}

@@ -126,7 +126,8 @@ sed -e "s/__k8s_cni_version__/${INFRA_CNI_VERSION}/g" "$filename" > tmp && mv tm
 sed -e "s/__helm_version__/${INFRA_HELM_VERSION}/g" "$filename" > tmp && mv tmp "$filename"
 sed -e "s/__k8s_mst_private_ip_addr__/\$(hostname -I)/g" "$filename" > tmp && mv tmp "$filename"
 sed -e "s/__host_private_ip_addr__/\$(hostname -I)/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename" > tmp && mv tmp "$filename" 
+#sed -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename" > tmp && mv tmp "$filename" 
+sed -e "s/__k8s_mst_floating_ip_addr__/\$(curl ifconfig.co)/g" "$filename" > tmp && mv tmp "$filename" 
 sed -e "s/__stack_name__/\$(hostname)/g" "$filename" > tmp && mv tmp "$filename"
 #echo "__mtu__" > /opt/config/mtu.txt
 #echo "__cinder_volume_id__" > /opt/config/cinder_volume_id.txt

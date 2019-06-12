@@ -48,6 +48,12 @@ COMMON_CHART_VERSION=$(cat $DIR/../helm/common/Chart.yaml | grep version | awk '
 
 helm package -d /tmp $DIR/../helm/common
 
+# install ingress controller db-less kong
+NS="ricplt"
+helm install --namespace "${NS}" --name "${RELEASE_NAME}-${NS}-kong" stable/kong --set ingressController.enabled=true --set postgresql.enabled=false --set env.database=off --set proxy.http.nodePort=32080 --set proxy.https.nodePort=32433
+NS="ricxapp"
+helm install --namespace "${NS}" --name "${RELEASE_NAME}-${NS}-kong" stable/kong --set ingressController.enabled=true --set postgresql.enabled=false --set env.database=off --set proxy.http.nodePort=33080 --set proxy.https.nodePort=33433
+
 
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"

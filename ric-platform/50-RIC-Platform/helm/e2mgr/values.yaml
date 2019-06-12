@@ -48,13 +48,12 @@ e2mgr:
     RMR_RTG_SVC: "ric-full-rtmgr"
   
   service:
-    type: NodePort
+    type: ClusterIP
     http:
       port: 3800
       target_port: 3800
       protocol: "TCP"
       name: "http"
-      extport: 30004
     nano:
       port: 3801
       target_port: 3801

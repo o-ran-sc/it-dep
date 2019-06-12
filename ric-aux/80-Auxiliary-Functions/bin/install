@@ -47,6 +47,8 @@ COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/commo
 
 helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
 
+NS="ricaux"
+helm install --namespace "${NS}" --name "${RELEASE_NAME}-${NS}-kong" stable/kong --set ingressController.enabled=true --set postgresql.enabled=false --set env.database=off --set proxy.http.nodePort=32080 --set proxy.https.nodePort=32443
 
 for component in $RICAUX_COMPONENTS; do
   echo "Preparing chart for comonent $component"

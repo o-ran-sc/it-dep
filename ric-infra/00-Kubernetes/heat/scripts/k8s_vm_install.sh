@@ -264,9 +264,6 @@ EOF
     sleep 15
   done
 
-  # install ingress controller db-less kong
-  helm install stable/kong --set ingressController.enabled=true --set postgresql.enabled=false --set env.database=off
-
 
   echo "Starting an NC TCP server on port 29999 to indicate we are ready"
   nc -l -p 29999 &

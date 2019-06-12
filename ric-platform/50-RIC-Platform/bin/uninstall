@@ -48,3 +48,8 @@ echo "Helm Release Name: $RELEASE_NAME"
 for component in $RICPLT_COMPONENTS; do
   helm delete --purge "${RELEASE_NAME}-$component"
 done
+
+NS="ricplt"
+helm delete --purge "${RELEASE_NAME}-${NS}-kong"
+NS="ricxapp"
+helm delete --purge "${RELEASE_NAME}-${NS}-kong"

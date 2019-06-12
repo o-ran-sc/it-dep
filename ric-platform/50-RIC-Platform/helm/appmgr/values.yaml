@@ -1,4 +1,4 @@
-################################################################################
+###############################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
@@ -75,11 +75,10 @@ appmgr:
   reponame: "helm-repo"
 
   service:
-    type: NodePort
+    type: ClusterIP
     port: 8080
     name: appmgr-service
     protocol: "TCP"
-    export: 30020
 
 
   # config

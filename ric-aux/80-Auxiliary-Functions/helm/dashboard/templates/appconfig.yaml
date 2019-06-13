@@ -15,22 +15,15 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Provides configuration parameters which spring expects as a JSON string
+# Defines a config map for mounting as file application.properties
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-configmap
+  name: {{ include "dashboard.fullname" . }}-appconfig
 data:
-  springApplication.json: |
-    {
-      "a1med": {
-        "basepath": "http://0.1.2.3:45"
-      },
-      "e2mgr": {
-        "basepath": "http://1.2.3.4:56"
-      },
-      "xappmgr": {
-        "basepath": "http://2.3.4.5:67"
-      }
-    }
+  {{- $a1medurl := default "http://A1-URL" .Values.dashboard.properties.a1med_url -}}
+  {{- $anrxappurl := default "http://ANR-URL" .Values.dashboard.properties.anrxapp_url -}}
+  {{- $e2mgrurl := default "http://E2-URL" .Values.dashboard.properties.e2mgr_url -}}
+  {{- $xappmgrurl := default "http://MGR-URL" .Values.dashboard.properties.xappmgr_url -}}
+  {{- (.Files.Glob "resources/application.properties").AsConfig | replace "__A1MED_URL__" $a1medurl | replace "__ANRXAPP_URL__" $anrxappurl | replace "__E2MGR_URL__" $e2mgrurl | replace "__XAPPMGR_URL__" $xappmgrurl | nindent 2 }}

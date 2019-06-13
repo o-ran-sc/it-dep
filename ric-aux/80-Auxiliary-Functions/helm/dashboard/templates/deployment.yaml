@@ -48,12 +48,11 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          env:
-            - name: SPRING_APPLICATION_JSON
-              valueFrom:
-                configMapKeyRef:
-                  name: dashboard-configmap
-                  key: springApplication.json
+          volumeMounts:
+            - name: application-config
+              mountPath: /maven/application.properties
+              subPath: application.properties
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -62,3 +61,7 @@ spec:
             httpGet:
               path: /
               port: http
+      volumes:
+        - name: application-config
+          configMap:
+            name: {{ include "dashboard.fullname" . }}-appconfig

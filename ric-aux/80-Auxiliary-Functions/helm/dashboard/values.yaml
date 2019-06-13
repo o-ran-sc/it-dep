@@ -15,11 +15,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for dashboard.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Deployment values for dashboard.
 
-replicaCount: 1
 repository: "nexus3.o-ran-sc.org:10004"
 imagePullPolicy: IfNotPresent
 repositoryCred: docker-reg-cred
@@ -27,10 +24,21 @@ repositoryCred: docker-reg-cred
 dashboard:
   image:
     name: ric-dash-be
-    tag: 1.0.0-SNAPSHOT
-  
-  
+    tag: 1.0.4
+  replicaCount: 1
   service:
     type: NodePort
     port: 80
-  
+    name: dashboard-service
+
+  # config
+  # URLs must be specified at deployment
+  properties:
+    a1med:
+      url: http://A1-URL
+    anrxapp:
+      url: http://ANR-URL
+    e2mgr:
+      url: http://E2-URL
+    xappmgr:
+      url: http://MGR-URL

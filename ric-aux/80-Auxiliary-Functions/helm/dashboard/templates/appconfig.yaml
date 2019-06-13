@@ -15,22 +15,12 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Provides configuration parameters which spring expects as a JSON string
+# Defines a config map for mounting as file application.properties
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashboard-configmap
+  name: {{ include "dashboard.fullname" . }}-appconfig
 data:
-  springApplication.json: |
-    {
-      "a1med": {
-        "basepath": "http://0.1.2.3:45"
-      },
-      "e2mgr": {
-        "basepath": "http://1.2.3.4:56"
-      },
-      "xappmgr": {
-        "basepath": "http://2.3.4.5:67"
-      }
-    }
+  application.properties: |-
+    {{ .Values.dashboard.properties }}

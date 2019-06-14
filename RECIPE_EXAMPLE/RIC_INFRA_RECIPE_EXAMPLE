@@ -50,53 +50,23 @@ global:
 # Infrastructure
 #-------------------------------------------------------------------------
 
+cluster:
+  deployK8S: false
+  deployNexus: false
+  useLocalHelmRepo: false
+  useLocalDockerRegistry: false
 
 
-  
-#-------------------------------------------------------------------------
-# Auxiliary Functions
-#-------------------------------------------------------------------------
-dashboard:
-  image:
-    name:: ric-dash-be
-    tag: 1.0.0-SNAPSHOT
-
-#-------------------------------------------------------------------------
-# Platform Components 
-#-------------------------------------------------------------------------
-# xApp Manager 
-appmgr:
-  image:
-    name: xapp-manager
-    tag: latest
-
-# DBAAS 
-dbaas:
-  backend:
-    image:
-      name: redis-standalone
-      tag: latest
-
-# E2 Manager
-e2mgr:
-  image:
-    name: e2mgr
-    tag: 1.0.0
-  env:
-    RMR_RTG_SVC: "ric-full-rtmgr"
+repositoryCredential:
+  user: "docker"
+  password: "haha"
 
 
-# E2 Termination
-e2term:
-  image:
-    name: e2
-    tag: 1.0.0
-  env:
-    print: "1"
-    RMR_RTG_SVC: "ric-full-rtmgr"
+helmrepoCredential:
+  user: "helm"
+  password: "hehe"
 
-# Routing Manager
-rtmgr:
-  image:
-    name: rtmgr
-    tag: 0.0.2
+
+adminPassword: admin123
+
+datapath: /tmp/nexus3-data/

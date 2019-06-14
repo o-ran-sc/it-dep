@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nexus3-configuration
+spec:
+  capacity:
+    storage: {{ .Values.storagesize }}
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nexus3-storage
+  local:
+    path: {{ .Values.datapath }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: nexus-node
+          operator: In
+          values:
+          - enable

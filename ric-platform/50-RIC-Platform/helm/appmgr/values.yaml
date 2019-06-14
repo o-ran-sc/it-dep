@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 # By default a local helm repo is used. The global setting will override
 # the default value. You can further override using
 #helmRepositoryOverride: ""
-helmRepository: "snapshot.helm.local.ric.org" 
+helmRepository: "helm.ricinfra.local" 
 
 # Default secret name for Helm Repo credential. .Value.golbal.helmRepositoryCred will
 # override the default value. You can further override uing

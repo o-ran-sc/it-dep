@@ -18,12 +18,13 @@
 # Values for setting up Kubernetes resources for accessing infrastructure such as docker registry
 # helm repo, etc.
 
+repository: "nexus3.o-ran-sc.org:10004"
 
-repositoryCred:
+repositoryCredential:
   user: "docker"
   password: "docker"
 
 
-helmrepoCred:
+helmrepoCredential:
   user: "helm"
   password: "helm"

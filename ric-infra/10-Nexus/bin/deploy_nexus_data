@@ -1,3 +1,4 @@
+#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,36 +16,55 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: cert-copy
-spec:
-  template:
-    spec:
-      containers:
-      - name: cert-copy
-        image: alpine
-        command: [ "/bin/sh","-c","cp -rL /var/run/dockercerts/..data/tls.crt /var/run/certs-copy/dockertls.crt && cp -rL /var/run/helmcerts/..data/tls.crt /var/run/certs-copy/helmtls.crt"]
-        #        command: ["tail", "-f", "/dev/null"]
-        volumeMounts:
-        - name: dockercerts
-          mountPath: /var/run/dockercerts
-          readOnly: true
-        - name: helmcerts
-          mountPath: /var/run/helmcerts
-          readOnly: true
-        - name:  write-to-volume
-          mountPath: /var/run/certs-copy
-      volumes:
-      - name: dockercerts
-        secret:
-          secretName: {{ include "common.repositorycert" . }}
-      - name: helmcerts
-        secret:
-          secretName: {{ include "common.helmrepositorycert" . }}
-      - name: write-to-volume
-        hostPath:
-          path: /tmp
-      restartPolicy: Never
-  backoffLimit: 4
+OVERRIDEYAML=$1
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+
+
+
+
+
+if [ -z $OVERRIDEYAML ]; then
+
+  DATAPATH=$(cat $DIR/../helm/values.yaml | awk '/^.*datapath:.*/{ print $2;}')
+  
+else
+
+  DATAPATH=$(cat $OVERRIDEYAML | awk '/^.*datapath:.*/{ print $2;}')
+
+
+  if [ -z $DATAPATH ]; then
+    DATAPATH=$(cat $DIR/../helm/values.yaml | awk '/^.*datapath:.*/{ print $2;}')
+  fi
+
+fi
+
+if [ -e $DATAPATH ]; then
+	if [ ! -w $DATAPATH ]; then
+		echo "Error: you don't have write permission to directory $DATAPATH"
+		echo "Deployment terminated."
+		exit 1
+	fi
+
+	rm -rf $DATAPATH
+
+	mkdir -p $DATAPATH
+
+	tar -xf $DIR/../etc/conf.tar -C $DATAPATH
+
+	chmod -R a+rwx $DATAPATH
+else
+	mkdir -p $DATAPATH
+        if [ $? -eq 0 ]; then
+          tar -xf $DIR/../etc/conf.tar -C $DATAPATH
+          chmod -R a+rwx $DATAPATH
+        else
+	  echo "Error: you don't have write permission to directory $DATAPATH"
+          echo "Deployment terminated."
+          exit 1
+	fi
+
+
+fi
+
+

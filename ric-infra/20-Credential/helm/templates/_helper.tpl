@@ -59,7 +59,7 @@ Create chart name and version as used by the chart label.
 */}}
 {{- define "repository.secret" -}}
   {{- $repo := include "common.repository" . }}
-  {{- $cred := .Values.repositoryCred }}
+  {{- $cred := .Values.repositoryCredential }}
   {{- $user := default "docker" $cred.user }}
   {{- $password := default "docker" $cred.password }}
   {{- $mail := default "@" $cred.mail }}
@@ -70,12 +70,12 @@ Create chart name and version as used by the chart label.
 
 
 {{- define "helmrepo.secret.user" -}}
-  {{- $user := default "helm" .Values.helmrepoCred.user -}}
+  {{- $user := default "helm" .Values.helmrepoCredential.user -}}
   {{- printf "%s" $user |b64enc }}
 {{- end -}}
 
 
 {{- define "helmrepo.secret.password" -}}
-  {{- $pass := default "helm" .Values.helmrepoCred.password -}}
+  {{- $pass := default "helm" .Values.helmrepoCredential.password -}}
   {{- printf "%s" $pass |b64enc }}
 {{- end -}}

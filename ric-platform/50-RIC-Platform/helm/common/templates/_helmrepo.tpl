@@ -167,3 +167,15 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
+
+{{/*
+Generate certificates for the helm repo
+*/}}
+{{- define "common.helmrepository.gen-certs" -}}
+{{- $altNames := list ( printf "helm.%s" .Values.ingress.hostpostfix ) -}}
+{{- $ca := genCA "helm-repository-ca" 365 -}}
+{{- $cert := genSignedCert ( include "nexus.name" . ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
+

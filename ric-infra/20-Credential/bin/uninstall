@@ -36,5 +36,5 @@ else
    NAMESPACE=$RICPLT_NAMESPACE
 fi
 
-  helm delete --purge "${RELEASE_NAME}-credential"
+helm delete --purge "${RELEASE_NAME}-${NAMESPACE}-credential"
 

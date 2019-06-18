@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5541f8fd_a663abf5",
+        "filename": "RECIPE_EXAMPLE/RECIPE_EXAMPLE",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000074
+      },
+      "writtenOn": "2019-06-18T19:45:03Z",
+      "side": 1,
+      "message": "is this another registry? the A1 LF build process is set to push to the oran nexus; for example 0.8.3 was pushed this morning.",
+      "revId": "8987313233dc3c5e5963a73463c9471ccb417de0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8187ce0e_ba81ebbe",
+        "filename": "ric-platform/50-RIC-Platform/bin/install",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000074
+      },
+      "writtenOn": "2019-06-18T19:45:03Z",
+      "side": 1,
+      "message": "is this intentional?",
+      "revId": "8987313233dc3c5e5963a73463c9471ccb417de0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dbaea6e_7615c777",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/Chart.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000074
+      },
+      "writtenOn": "2019-06-18T19:45:03Z",
+      "side": 1,
+      "message": "what is the reason for this change? a1 mnediator is not on v1.0.0 yet.",
+      "revId": "8987313233dc3c5e5963a73463c9471ccb417de0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

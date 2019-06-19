@@ -31,7 +31,7 @@ spec:
     - port: {{ .Values.appmgr.service.port }}
       protocol: {{ .Values.appmgr.service.protocol }}
       name: "{{ .Values.appmgr.service.name }}"
-      {{ if (eq .Values.appmgr.service.type "NodePort") }}nodePort: {{ .Values.appmgr.service.extport }} {{ end }}
+      {{ if (eq .Values.appmgr.service.type "NodePort") }}nodePort: {{ .Values.appmgr.service.export }} {{ end }}
   selector:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
     release: {{ .Release.Name }}

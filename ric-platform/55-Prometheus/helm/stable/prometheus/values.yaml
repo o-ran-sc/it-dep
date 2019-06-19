@@ -4,3 +4,9 @@
 alertmanager:
   persistentVolume:
     enabled: false
+pushgateway:
+  persistentVolume:
+    enabledi: false
+server:
+  persistentVolume:
+    enabled: false

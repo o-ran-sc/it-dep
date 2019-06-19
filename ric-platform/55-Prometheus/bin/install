@@ -24,45 +24,39 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 source $DIR/../etc/prometheus.conf
 
-if [ -z "$RICAUX_RELEASE_NAME" ];then
+if [ -z "$RICPLT_RELEASE_NAME" ];then
    RELEASE_NAME=$helm_release_name
 else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
+   RELEASE_NAME=$RICPLT_RELEASE_NAME
 fi
-if [ -z "$RICAUX_NAMESPACE" ];then
+if [ -z "$RICPLT_NAMESPACE" ];then
    NAMESPACE=$namespace
 else
-   NAMESPACE=$RICAUX_NAMESPACE
+   NAMESPACE=$RICPLT_NAMESPACE
 fi
 
-#helm install --name my-release stable/elastic-stack --set elasticsearch.data.persistence.enabled=false --set elasticsearch.master.persistence.enabled=false --set logstash.persistence.enabled=false 
+RICPLT_COMPONENTS="stable/prometheus stable/grafana"
 
-RICAUX_COMPONENTS="stable/prometheus"
-
-echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
+echo "Deploying RIC AUX components [$RICPLT_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
-#for component in $RICAUX_COMPONENTS; do
-
 component="stable/prometheus"
-   component_clean=$(echo $component | sed -e "s/\//-/g")
-   ELASTIC_SEARCH_HOST="${RELEASE_NAME}-${component_clean}-elasticsearch-client.${NAMESPACE}.svc.cluster.local"
-   ELASTIC_SEARCH_PORT=9200
-   CMD="helm install --debug \
-      --namespace ${NAMESPACE} --name ${RELEASE_NAME}-${component_clean} \
-      -f ../helm/$component/values.yaml \
-      --set kibana.env.ELASTICSEARCH_URL=http://${ELASTIC_SEARCH_HOST}:${ELASTIC_SEARCH_PORT} \
-      --set logstash.elasticsearch.host=${ELASTIC_SEARCH_HOST} \
-      --set logstash.elasticsearch.host=${ELASTIC_SEARCH_PORT} \
-      $component"
+component_clean=$(echo $component | sed -e "s/\//-/g")
+CMD="helm install --debug \
+    --namespace ${NAMESPACE} --name ${RELEASE_NAME}-${component_clean} \
+    -f ../helm/$component/values.yaml \
+    $component"
+echo $CMD
+eval "$CMD"
 
-   eval "$CMD"
 
-  #if [ -z $OVERRIDEYAML ]; then
-  #  helm install --debug --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $component
-  #else
-  #  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $component
-  #fi
-#done
+component="stable/grafana"
+component_clean=$(echo $component | sed -e "s/\//-/g")
+CMD="helm install --debug \
+    --namespace ${NAMESPACE} --name ${RELEASE_NAME}-${component_clean} \
+    --set url="http://${RELEASE_NAME}-${component_clean}-server.${NAMESPACE}.svc.cluster.local" \
+    $component"
+echo $CMD
+eval "$CMD"

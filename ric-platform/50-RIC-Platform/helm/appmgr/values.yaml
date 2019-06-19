@@ -79,7 +79,7 @@ appmgr:
     port: 8080
     name: appmgr-service
     protocol: "TCP"
-    export: 30020
+    extport: 30020
 
 
   # config

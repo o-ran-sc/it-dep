@@ -57,6 +57,18 @@ echo "You can access this nexus here: http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NE
 echo "If nexus.$HOSTPOSTFIX is not resolved by your DNS server, please add an entry in your /etc/hosts file."
 echo "****************************************************************************************************************"
 
+. ./deploy_nexus_data $OVERRIDEYAML
+
+
+
+NODENAME=$(kubectl get node | awk 'NR==2{print $1}')
+kubectl label --overwrite nodes $NODENAME nexus-node=enable
+
+
+
+
+
+
 COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/common/Chart.yaml | grep version | awk '{print $2}')
 helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
 
@@ -70,8 +82,9 @@ else
 helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
 fi
 
-NEXUS_POD_NAME=$(kubectl get pod -n $NAMESPACE | grep nexus | grep ContainerCreating | awk '{print $1}')
 
+
+NEXUS_POD_NAME=$(kubectl get pod -n $NAMESPACE | grep nexus | grep -v "Terminating" | awk '{print $1}')
 
 
 echo "Waiting Nexus to be ready."
@@ -102,23 +115,7 @@ done
 echo $IS_NEXUS_READY
 
 
-DOCKERPORT=$(cat $DIR/../helm/templates/deployment.yaml  | awk '/.*- name: docker.*/{getline; print $2}')
-
-
-DOCKERREPOSCRIPT="{\"name\":\"create_docker_repo\",\
-    \"type\":\"groovy\",\
-    \"content\":\"repository.createDockerHosted('docker.snapshot',\
-    $DOCKERPORT, null, 'default', false, true)\"}"
-
-echo $DOCKERREPOSCRIPT
-
-# This line uses the default admin password
-curl -u admin:admin123 -X POST -H "Content-Type: application/json" --data "$DOCKERREPOSCRIPT" http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS/service/rest/v1/script
-
-curl -u admin:admin123 -X POST -H 'Content-Type: text/plain' -H 'Accept: application/json' http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS/service/rest/v1/script/create_docker_repo/run
-
-
-
+. ./change_password $OVERRIDEYAML
 
 
 

@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nexus-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: nexus3-storage 
+  resources:
+    requests:
+      storage: {{ .Values.storagesize }}

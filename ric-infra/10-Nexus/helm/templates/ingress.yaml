@@ -25,9 +25,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   tls:
-  - hosts:
-    - docker.{{ .Values.ingress.hostpostfix }}
-    secretName: {{ include "common.repositorycert" . }}
+    - hosts:
+      - docker.{{ .Values.ingress.hostpostfix }}
+      secretName: {{ include "common.repositorycert" . }}
   rules:
     - host: nexus.{{ .Values.ingress.hostpostfix }}
       http:

@@ -51,6 +51,15 @@ spec:
             - name: docker
               containerPort: 10001
               protocol: TCP
+          volumeMounts:
+            - name: nexus-config
+              mountPath: /nexus-data
+      volumes:
+        - name: nexus-config
+          persistentVolumeClaim:
+            claimName: nexus-claim
+      
+      
               #          livenessProbe:
               #            httpGet:
               #              path: /

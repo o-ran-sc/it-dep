@@ -1,0 +1,104 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+# This script deploys RIC auxiliary function components automatically
+
+OVERRIDEYAML=$1
+
+
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/../etc/ric-infra.conf
+
+export RICINFRA_RELEASE_NAME=$ric_infra_helm_release_name
+
+export RICINFRA_NAMESPACE=$ric_infra_namespace
+
+export DEPLOY_K8S=$deployK8S
+
+export DEPLOY_NEXUS=$deployNexus
+
+export USE_LOCAL_HELM_REPO=$useLocalHelmRepo
+
+export USE_LOCAL_DOCKER_REGISTRY=$useLocalDockerRegistry
+
+
+
+
+
+source $DIR/../etc/ric-platform.conf
+
+export RICPLT_RELEASE_NAME=$ric_platform_helm_release_name
+
+export RICPLT_NAMESPACE=$ric_platform_namespace
+
+
+
+
+if [ -z "$OVERRIDEYAML" ];then
+	echo "****************************************************************************************************************"
+	echo "                                                     WARNING                                                    "
+	echo "****************************************************************************************************************"
+	echo "Deploying RIC infrastructure components without deployment recipe. Default configurations are used."
+	echo "****************************************************************************************************************"
+
+else
+
+	export DEPLOY_K8S=$(cat $OVERRIDEYAML | grep deployK8S | awk '{print $2}')
+	export DEPLOY_NEXUS=$(cat $OVERRIDEYAML | grep deployNexus | awk '{print $2}')
+	export USE_LOCAL_HELM_REPO=$(cat $OVERRIDEYAML | grep useLocalHelmRepo | awk '{print $2}')
+	export USE_LOCAL_DOCKER_REGISTRY=$(cat $OVERRIDEYAML | grep useLocalDockerRegistry | awk '{print $2}')
+fi
+
+
+
+if $USE_LOCAL_HELM_REPO  &&  [ "$DEPLOY_NEXUS" != "true" ];then
+	echo "****************************************************************************************************************"
+        echo "                                                     ERROR                                                    "
+        echo "****************************************************************************************************************"
+        echo "Local helm repo cannot be used if Nexus is not installed. Please change your configurations in the deployment recipe."
+        echo "****************************************************************************************************************"
+	exit 1
+fi
+
+
+if $USE_LOCAL_DOCKER_REGISTRY  &&  [ "$DEPLOY_NEXUS" != "true" ];then
+	echo "****************************************************************************************************************"
+        echo "                                                     ERROR                                                    "
+        echo "****************************************************************************************************************"
+        echo "Local docker registry cannot be used if Nexus is not installed. Please change your configurations in the deployment recipe."
+        echo "****************************************************************************************************************"
+	exit 1
+fi
+
+
+if $DEPLOY_K8S; then
+	echo "Deploying K8S. Please make sure that you configure files in ./ric-infra/00-Kubernetes/etc correctly."
+	. ../ric-infra/00-Kubernetes/bin/install
+fi
+
+
+if $DEPLOY_NEXUS; then
+	echo "Deploying Nexus."
+	. ../ric-infra/10-Nexus/bin/install $OVERRIDEYAML
+fi
+
+
+

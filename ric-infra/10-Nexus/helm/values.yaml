@@ -26,6 +26,15 @@ replicaCount: 1
 # repositoryCertOverride: ""
 repositoryCert: docker-reg-certs
 
+# This is the name of K8S secret that contains the helm repository cert
+# You can override this by using
+# helmRepositoryCertOverride: ""
+helmRepositoryCert: xapp-mgr-certs
+
+
+# This is the admin password
+adminPassword: admin123
+
 # This is designed to be deployed using local image
 image:
   repository: nexus-repository-helm-apt
@@ -39,3 +48,6 @@ service:
 ingress:
   hostpostfix: ricinfra.local
 
+
+storagesize: 20Gi
+datapath: /tmp/nexus3-data/

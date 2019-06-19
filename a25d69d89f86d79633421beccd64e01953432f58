@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9b40158_5e5b096c",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-06-19T18:16:01Z",
+      "side": 1,
+      "message": "please use:\n- name: {{ include \"common.repositoryCred\" . }}\nalso remove all processing related to repo secret. \n\nrepo cred is not provided by individual charts or chart developer. instead, docker credential is set up by a separate chart, when the individual RIC Platform component is being deployed, it can assume that the secret is already there.",
+      "revId": "a25d69d89f86d79633421beccd64e01953432f58",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

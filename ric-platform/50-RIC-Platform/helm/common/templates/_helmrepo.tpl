@@ -154,16 +154,16 @@
 */}}
 {{- define "common.helmrepositorytillerport" -}}
   {{- if .Values.helmRepositoryTillerPortOverride -}}
-    {{- printf "%s" .Values.helmRepositoryTillerPortOverride -}}
+    {{- printf "%.0f" .Values.helmRepositoryTillerPortOverride -}}
   {{- else -}}
     {{- if  .Values.global -}}
       {{- if .Values.global.helmRepositoryTillerPort -}}
-        {{- printf "%s" .Values.global.helmRepositoryTillerPort -}}
+        {{- printf "%.0f" .Values.global.helmRepositoryTillerPort -}}
       {{- else -}}
-        {{- printf "%s" .Values.helmRepositoryTillerPort -}}
+        {{- printf "%.0f" .Values.helmRepositoryTillerPort -}}
       {{- end -}}
     {{- else -}}
-      {{- printf "%s" .Values.helmRepositoryTillerPort -}}
+      {{- printf "%.0f" .Values.helmRepositoryTillerPort -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

@@ -59,12 +59,12 @@ cluster:
 
 repositoryCredential:
   user: "docker"
-  password: "haha"
+  password: "docker"
 
 
 helmrepoCredential:
   user: "helm"
-  password: "hehe"
+  password: "docker"
 
 
 adminPassword: admin123

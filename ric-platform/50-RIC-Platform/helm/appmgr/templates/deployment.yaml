@@ -40,6 +40,10 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ .Chart.Name }}
+      hostAliases:
+      - ip: "135.207.143.86"
+        hostnames:
+        - "helm.ricinfra.local"
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
@@ -52,7 +56,8 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: config-volume
-              mountPath: {{ .Values.appmgr.appconfigpath }}
+              mountPath: {{ .Values.appmgr.appconfigpath }}/appmgr.yaml
+              subPath: appmgr.yaml
             - name: secret-volume
               mountPath: {{ .Values.appmgr.appsecretpath }}
             - name: cert-volume

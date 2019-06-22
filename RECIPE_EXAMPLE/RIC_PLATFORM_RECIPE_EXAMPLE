@@ -53,15 +53,15 @@ global:
 # xApp Manager 
 appmgr:
   image:
-    name: xapp-manager
-    tag: latest
+    name: ric-plt-appmgr
+    tag: 0.1.3
 
 # DBAAS 
 dbaas:
   backend:
     image:
-      name: redis-standalone
-      tag: latest
+      name: ric-plt-dbaas
+      tag: 0.1.0
 
 # E2 Manager
 e2mgr:

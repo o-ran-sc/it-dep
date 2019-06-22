@@ -15,36 +15,37 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{/* vim: set filetype=mustache: */}}
 {{/*
-Expand the name of the chart.
+  Resolve the name of a chart's configmap.
+
 */}}
-{{- define "rtmgr.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+
+
+{{- define "common.configmapname.appmgr" -}}
+  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "rtmgr.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+{{- define "common.configmapname.dbaas" -}}
+  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "rtmgr.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- define "common.configmapname.e2mgr" -}}
+  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.configmapname.e2term" -}}
+  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.configmapname.rtmgr" -}}
+  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
 

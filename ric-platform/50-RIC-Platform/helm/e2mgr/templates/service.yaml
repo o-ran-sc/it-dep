@@ -18,7 +18,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "e2mgr.fullname" . }}
+  name: {{ include "common.servicename.e2mgr" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}

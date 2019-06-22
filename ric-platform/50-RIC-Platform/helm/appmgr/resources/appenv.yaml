@@ -1,0 +1,5 @@
+NAME: xappmgr
+DBAAS_SERVICE_HOST: "r0-dbaas-redis-standalone"
+DBAAS_SERVICE_PORT: "6379"
+DBAAS_PORT_6379_TCP_ADDR: "r0-dbaas-redis-standalone"
+DBAAS_PORT_6379_TCP_PORT: "6379"

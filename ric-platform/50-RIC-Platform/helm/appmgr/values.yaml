@@ -16,15 +16,15 @@
 ################################################################################
 
 repository: "nexus3.o-ran-sc.org:10004"
+#repositoryOverride: "nexus3.o-ran-sc.org:10004"
 imagePullPolicy: IfNotPresent
 repositoryCred: docker-reg-cred
-
 
 # Helm Repo for xApp
 # By default a local helm repo is used. The global setting will override
 # the default value. You can further override using
 #helmRepositoryOverride: ""
-helmRepository: "helm.ricinfra.local" 
+helmRepository: "https://helm.ricinfra.local:31000" 
 
 # Default secret name for Helm Repo credential. .Value.golbal.helmRepositoryCred will
 # override the default value. You can further override uing
@@ -65,8 +65,8 @@ helmRepositoryTillerPort: "44134"
 appmgr:
   image:
     # xAppmanager Docker image name and tag
-    name: xapp-manager
-    tag: latest
+    name: ric-plt-appmgr
+    tag: 0.1.3
 
   # This section describes xAppManager
   replicaCount: 1
@@ -79,18 +79,13 @@ appmgr:
     port: 8080
     name: appmgr-service
     protocol: "TCP"
-    export: 30020
+    extport: 30020
 
 
   # config
   # Path referred in xapp-manager for retrieving configuration details
   appconfigpath: /opt/ric/config
 
-  # To be provided as env variables
-  appenv:
-    NAME: xappmgr
-    #ENV1: "envvalue1"
-    #ENV2: "envvalue2"
 
   # secret
   # Path referred in xapp-manager for retrieving helm repo secrets

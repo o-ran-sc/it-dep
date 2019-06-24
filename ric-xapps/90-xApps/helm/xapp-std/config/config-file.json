@@ -1,0 +1,20 @@
+{
+    "local": {
+        "host": ":8080"
+    },
+    "logger": {
+        "level": 3
+    },
+    "rmr": {
+       "protPort": "tcp:4560",
+       "maxSize": 2072,
+       "numWorkers": 1,
+       "txMessages": ["RIC_X2_LOAD_INFORMATION"],
+       "rxMessages": ["RIC_X2_LOAD_INFORMATION"]
+    },
+    "db": {
+        "namespace": "ricxapp",
+        "host": "dbaas",
+        "port": 6379
+    }
+}

@@ -15,35 +15,36 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{/* vim: set filetype=mustache: */}}
 {{/*
-Expand the name of the chart.
+  Resolve the name of a chart's deployment.
 */}}
-{{- define "e2mgr.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+
+
+{{- define "common.deploymentname.appmgr" -}}
+  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "e2mgr.fullname" -}}
-{{- if .Values.fullnameOverride -}}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+{{- define "common.deploymentname.dbaas" -}}
+  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "e2mgr.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- define "common.deploymentname.e2mgr" -}}
+  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.deploymentname.e2term" -}}
+  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.deploymentname.rtmgr" -}}
+  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
+

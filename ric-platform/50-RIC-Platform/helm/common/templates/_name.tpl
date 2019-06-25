@@ -16,8 +16,131 @@
 ################################################################################
 
 {{/*
-  Expand the name of a chart.
+  This is the root file that define the name of each component. Value here will be used to define other K8S resource name.
 */}}
+
+
+
+{{- define "common.name.appmgr" -}}
+  {{- if .Values.appmgr -}}
+    {{- if .Values.appmgr.nameOverride -}}
+      {{- printf "%s" .Values.appmgr.nameOverride -}}
+    {{- else -}}
+      {{- printf "appmgr" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "appmgr" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "common.fullname.appmgr" -}}
+  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "common.name.dbaas" -}}
+  {{- if .Values.dbaas -}}
+    {{- if .Values.dbaas.nameOverride -}}
+      {{- printf "%s" .Values.dbaas.nameOverride -}}
+    {{- else -}}
+      {{- printf "dbaas" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "dbaas" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "common.fullname.dbaas" -}}
+  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
+
+
+
+
+
+
+
+
+{{- define "common.name.e2mgr" -}}
+  {{- if .Values.e2mgr -}}
+    {{- if .Values.e2mgr.nameOverride -}}
+      {{- printf "%s" .Values.e2mgr.nameOverride -}}
+    {{- else -}}
+      {{- printf "e2mgr" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "e2mgr" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.e2mgr" -}}
+  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.name.e2term" -}}
+  {{- if .Values.e2term -}}
+    {{- if .Values.e2term.nameOverride -}}
+      {{- printf "%s" .Values.e2term.nameOverride -}}
+    {{- else -}}
+      {{- printf "e2term" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "e2term" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.e2term" -}}
+  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
+
+
+
+
+
+
+{{- define "common.name.rtmgr" -}}
+  {{- if .Values.rtmgr -}}
+    {{- if .Values.rtmgr.nameOverride -}}
+      {{- printf "%s" .Values.rtmgr.nameOverride -}}
+    {{- else -}}
+      {{- printf "rtmgr" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "rtmgr" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.rtmgr" -}}
+  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {{- define "common.name" -}}
   {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

@@ -18,7 +18,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dbaas.fullname" . }}
+  name: {{ include "common.deploymentname.dbaas" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}

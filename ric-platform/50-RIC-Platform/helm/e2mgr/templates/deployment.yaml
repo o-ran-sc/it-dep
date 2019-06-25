@@ -18,7 +18,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "e2mgr.fullname" .}}
+  name: {{ include "common.deploymentname.e2mgr" .}}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -63,4 +63,4 @@ spec:
       volumes:
         - name: local-router-file
           configMap:
-            name: {{ include "e2mgr.fullname" . }}-router-configmap
+            name: {{ include "common.configmapname.e2mgr" . }}-router-configmap

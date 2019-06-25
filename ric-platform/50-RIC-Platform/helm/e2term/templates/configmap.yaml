@@ -19,11 +19,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "e2term.fullname" . }}-router-configmap
+  name: {{ include "common.configmapname.e2term" . }}-router-configmap
   namespace: {{ include "common.namespace" . }}
 data:
   router.txt: |
     newrt|start
-    rte|1001|{{ include "e2term.fullname" . }}:38000
-    rte|2002|ric-full-e2mgr:3801
+    rte|1001|{{ include "common.configmapname.e2term" . }}:38000
+    rte|2002|{{ include "common.configmapname.e2mgr" . }}:3801
     newrt|end

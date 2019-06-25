@@ -24,8 +24,23 @@
   - .Values.repositoryOverride : override global and default image repository on a per image basis
 */}}
 {{- define "common.repository" -}}
-  {{- if .Values.repositoryOverride -}}
-    {{- printf "%s" .Values.repositoryOverride -}}
+  {{- $componentname := .Chart.Name -}}
+  {{- $firsttier := (index .Values (printf "%s" $componentname)) -}}
+  {{- if $firsttier -}}
+    {{- $secondtier := (index .Values (printf "%s" $componentname) (printf "%s" "repositoryOverride")) -}}
+    {{- if $secondtier -}}
+      {{- printf "%s" $secondtier -}}
+    {{- else -}}
+      {{- if .Values.global -}}
+        {{- if .Values.global.repository -}}
+          {{- printf "%s" .Values.global.repository -}}
+        {{- else -}}
+          {{- printf "%s" .Values.repository -}}
+        {{- end -}}
+      {{- else -}}
+        {{- printf "%s" .Values.repository -}}
+      {{- end -}}  
+    {{- end -}}
   {{- else -}}
     {{- if .Values.global -}}
       {{- if .Values.global.repository -}}

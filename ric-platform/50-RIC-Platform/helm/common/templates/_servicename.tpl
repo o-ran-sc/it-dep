@@ -29,30 +29,34 @@
 
 
 {{- define "common.servicename.appmgr" -}}
-  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.servicename.dbaas" -}}
-  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.servicename.e2mgr" -}}
-  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.servicename.e2term" -}}
-  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.servicename.rtmgr" -}}
-  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.a1mediator" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 
 

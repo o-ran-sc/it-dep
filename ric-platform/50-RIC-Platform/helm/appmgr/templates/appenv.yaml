@@ -18,7 +18,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "appmgr.fullname" . }}-appenv
+  name: {{ include "common.configmapname.appmgr" . }}-appenv
 data:
-  {{- (.Files.Get "resources/appenv.yaml") | nindent 2 }}
-  
+  {{- $dbaasservicehost := include "common.servicename.dbaas" . | quote -}}
+  {{- (.Files.Get "resources/appenv.yaml") | replace "__DBAAS_SERVICE_HOST__" $dbaasservicehost | nindent 2 }}

@@ -18,7 +18,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "appmgr.fullname" . }}
+  name: {{ include "common.deploymentname.appmgr" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -31,8 +31,6 @@ spec:
     matchLabels:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}
-      #app.kubernetes.io/name: {{ include "appmgr.name" . }}
-      #app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
@@ -40,10 +38,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ .Chart.Name }}
-      hostAliases:
-      - ip: "135.207.143.86"
-        hostnames:
-        - "helm.ricinfra.local"
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
@@ -64,7 +58,7 @@ spec:
               mountPath: {{ .Values.appmgr.appcertpath }}
           envFrom:
             - configMapRef:
-                name: {{ include "appmgr.fullname" . }}-appenv
+                name: {{ include "common.configmapname.appmgr" . }}-appenv
           livenessProbe:
             #exec:
             #  command:
@@ -85,7 +79,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ include "appmgr.fullname" . }}-appconfig
+            name: {{ include "common.configmapname.appmgr" . }}-appconfig
         - name: secret-volume
           secret:
             secretName: {{ include "common.helmrepositorycred" . }}

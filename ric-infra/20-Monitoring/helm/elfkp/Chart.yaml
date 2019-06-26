@@ -1,0 +1,8 @@
+apiVersion: v1
+description: A Helm chart for metric and monitoring (ELFK stack and Prometheus) for RIC
+name: ric-elfkp
+version: 0.0.1
+appVersion: 0.1
+maintainers:
+- name: wrider
+  email: lji@research.att.com

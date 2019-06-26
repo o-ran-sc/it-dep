@@ -1,0 +1,69 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/../etc/elfkp.conf
+
+if [ -z "$RICAUX_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICAUX_RELEASE_NAME
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   NAMESPACE=$namespace
+else
+   NAMESPACE=$RICAUX_NAMESPACE
+fi
+
+#helm install --name my-release stable/elastic-stack --set elasticsearch.data.persistence.enabled=false --set elasticsearch.master.persistence.enabled=false --set logstash.persistence.enabled=false 
+
+RICAUX_COMPONENTS="elfkp"
+
+echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
+echo "Platform Namespace: $NAMESPACE"
+echo "Helm Release Name: $RELEASE_NAME"
+
+
+for component in $RICAUX_COMPONENTS; do
+  mkdir -p $DIR/../helm/$component/charts/
+  pushd $DIR/../helm/$component/
+  helm dep update
+  popd
+
+  ELASTIC_SEARCH_HOST="${RELEASE_NAME}-${component}-elasticsearch-client.${NAMESPACE}.svc.cluster.local"
+  ELASTIC_SEARCH_PORT=9200
+  #CMD="helm install --debug \
+  #   --namespace ${NAMESPACE} --name ${RELEASE_NAME}-${component_clean} \
+  #   -f ../helm/$component/values.yaml \
+  #   --set kibana.env.ELASTICSEARCH_URL=http://${ELASTIC_SEARCH_HOST}:${ELASTIC_SEARCH_PORT} \
+  #   --set logstash.elasticsearch.host=${ELASTIC_SEARCH_HOST} \
+  #   --set logstash.elasticsearch.host=${ELASTIC_SEARCH_PORT} \
+  #   $component"
+  #eval "$CMD"
+
+  if [ -z $OVERRIDEYAML ]; then
+    helm install --debug --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $component
+  else
+    helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $component
+  fi
+done

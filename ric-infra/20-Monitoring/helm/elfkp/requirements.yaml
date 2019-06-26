@@ -1,0 +1,9 @@
+dependencies:
+- name: elastic-stack
+  version: 1.7.0
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  condition: elastic-stack.enabled
+- name: prometheus
+  version: 8.11.4
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  condition: prometheus.enabled

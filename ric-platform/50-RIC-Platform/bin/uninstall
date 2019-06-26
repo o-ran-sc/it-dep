@@ -36,7 +36,7 @@ else
 fi
 
 
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator"
+RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp"
 
 echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"

@@ -75,7 +75,7 @@ appmgr:
   reponame: "helm-repo"
 
   service:
-    type: NodePort
+    type: ClusterIP
     port: 8080
     name: appmgr-service
     protocol: "TCP"

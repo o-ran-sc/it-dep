@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ric-ingress-appmgr
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /appmgr
+        backend:
+          serviceName: {{ include "appmgr.fullname" . }}
+          servicePort: {{ .Values.appmgr.service.port }}

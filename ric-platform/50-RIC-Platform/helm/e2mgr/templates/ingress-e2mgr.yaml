@@ -4,10 +4,9 @@ metadata:
   name: ric-ingress-e2mgr
 spec:
   rules:
-  - host: foo.bar.com
-    http:
+  - http:
       paths:
       - path: /e2mgr
         backend:
-          serviceName: r0-e2mgr
-          servicePort: 3800
+          serviceName: {{ include "common.servicename.e2mgr" . }}
+          servicePort: {{ .Values.e2mgr.service.http.port }}

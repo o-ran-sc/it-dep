@@ -8,5 +8,5 @@ spec:
       paths:
       - path: /a1mediator
         backend:
-          serviceName: {{ include "a1mediator.fullname" . }}
+          serviceName: {{ include "common.servicename.a1mediator" . }}
           servicePort: {{ .Values.httpservice.port }}

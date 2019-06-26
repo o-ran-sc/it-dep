@@ -38,6 +38,10 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ .Chart.Name }}
+      hostAliases:
+        - ip: "137.135.91.204"
+          hostnames:
+            - "snapshot.helm.ranco-dev-tools.eastus.cloudapp.azure.com"
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:

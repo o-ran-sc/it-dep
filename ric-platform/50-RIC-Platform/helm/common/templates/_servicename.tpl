@@ -34,7 +34,7 @@
 {{- end -}}
 
 {{- define "common.servicename.dbaas" -}}
-  {{- $name := ( include "common.fullname.dbaas" . ) -}}
+  {{- $name := ( include "common.name.dbaas" . ) -}}
   {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

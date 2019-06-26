@@ -8,5 +8,5 @@ spec:
       paths:
       - path: /appmgr
         backend:
-          serviceName: {{ include "appmgr.fullname" . }}
+          serviceName: {{ include "common.servicename.appmgr" . }}
           servicePort: {{ .Values.appmgr.service.port }}

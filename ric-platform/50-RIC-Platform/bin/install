@@ -53,13 +53,15 @@ helm package -d /tmp $DIR/../helm/common
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"
 
-  if [ $component = "kong-platform" ]; then 
+  if [ $component = "kong-platform" ]; then
+     mkdir -p $DIR/../helm/$component/charts
      helm dep up $DIR/../helm/$component
      helm install --namespace ricplt --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue
   fi
 
-  if [ $component = "kong-xapp" ]; then 
+  if [ $component = "kong-xapp" ]; then
+     mkdir -p $DIR/../helm/$component/charts 
      helm dep up $DIR/../helm/$component
      helm install --namespace ricxapp --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue

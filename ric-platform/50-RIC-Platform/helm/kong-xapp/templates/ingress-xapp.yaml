@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ric-ingress-xapp
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /anr
+        backend:
+          serviceName: r0-xapp-anr
+          servicePort: 9999

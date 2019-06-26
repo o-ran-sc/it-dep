@@ -15,48 +15,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-#################################################################
-# Application configuration defaults.
-#################################################################
-# application image
-
-repository: "nexus3.o-ran-sc.org:10004"
-imagePullPolicy: IfNotPresent
-repositoryCred: docker-reg-cred
-
-
-# Uncomment the following line to override the docker registry
-#repositoryOverride: ""
-
-
-# Uncomment the following line to override the docker registry credential
-#repositoryCredOverride: ""
-
-# Uncomment the following line to override the image pull policy
-#imagePullPolicyOverride: ""
-
-
-e2mgr:
-  image:
-    name: e2mgr
-    tag: 1.0.0 
-  
-  
-  replicaCount: 1
-  
-  env:
-    RMR_RTG_SVC: "ric-full-rtmgr"
-  
-  service:
-    type: ClusterIP
-    http:
-      port: 3800
-      target_port: 3800
-      protocol: "TCP"
-      name: "http"
-      extport: 30004
-    nano:
-      port: 3801
-      target_port: 3801
-      protocol: "TCP"
-      name: "nano"
+dependencies:
+  - name: kong
+    repository: '@stable'
+    version: ~0.12.2

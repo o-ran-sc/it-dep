@@ -37,7 +37,8 @@ else
 fi
 
 
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator"
+RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp"
+#RICPLT_COMPONENTS="kong-platform kong-xapp"
 
 echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"
@@ -51,6 +52,21 @@ helm package -d /tmp $DIR/../helm/common
 
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"
+
+  if [ $component = "kong-platform" ]; then 
+     helm dep up $DIR/../helm/$component
+     helm install --namespace ricplt --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     continue
+  fi
+
+  if [ $component = "kong-xapp" ]; then 
+     helm dep up $DIR/../helm/$component
+     helm install --namespace ricxapp --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     continue
+  fi
+
+  echo "not kong component"
+     
   mkdir -p $DIR/../helm/$component/charts/
   cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then

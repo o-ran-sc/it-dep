@@ -50,7 +50,7 @@ helmRepositoryTillerNamespace: "kube-system"
 # Helm Tiller port for xApp
 # The global setting will override this default value
 # You can further override using helmRepositoryTillerPortOverride: ""
-helmRepositoryTillerPort: "44134" 
+helmRepositoryTillerPort: 44134 
 # Uncomment the following line to override the docker registry
 #repositoryOverride: ""
 

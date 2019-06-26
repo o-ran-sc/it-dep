@@ -22,30 +22,33 @@
 
 
 {{- define "common.configmapname.appmgr" -}}
-  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.configmapname.dbaas" -}}
-  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- end -}}:
 
 {{- define "common.configmapname.e2mgr" -}}
-  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.configmapname.e2term" -}}
-  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.configmapname.rtmgr" -}}
-  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-
+{{- define "common.configmapname.a1mediator" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 

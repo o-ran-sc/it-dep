@@ -133,6 +133,23 @@
 
 
 
+{{- define "common.name.a1mediator" -}}
+  {{- if .Values.a1mediator -}}
+    {{- if .Values.a1mediator.nameOverride -}}
+      {{- printf "%s" .Values.a1mediator.nameOverride -}}
+    {{- else -}}
+      {{- printf "a1mediator" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "a1mediator" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.a1mediator" -}}
+  {{- $name := ( include "common.name.a1mediator" . ) -}}
+  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 
 

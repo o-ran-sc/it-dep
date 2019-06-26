@@ -21,30 +21,34 @@
 
 
 {{- define "common.deploymentname.appmgr" -}}
-  {{- $name := ( include "common.name.appmgr" . ) -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.deploymentname.dbaas" -}}
-  {{- $name := ( include "common.name.dbaas" . ) -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.deploymentname.e2mgr" -}}
-  {{- $name := ( include "common.name.e2mgr" . ) -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.deploymentname.e2term" -}}
-  {{- $name := ( include "common.name.e2term" . ) -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.deploymentname.rtmgr" -}}
-  {{- $name := ( include "common.name.rtmgr" . ) -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.deploymentname.a1mediator" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 
 

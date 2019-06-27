@@ -16,7 +16,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.servicename" .  }}
+  name: {{ include "common.fullname" .  }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.name" . }}
@@ -26,7 +26,7 @@ metadata:
   annotations:
     msb.onap.org/service-info: '[
       {
-          "serviceName": "{{ include "common.servicename" . }}",
+          "serviceName": "{{ include "common.fullname" . }}",
           "version": "v1",
           "url": "/",
           "protocol": "REST",

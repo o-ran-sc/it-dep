@@ -53,8 +53,8 @@ global:
 # xApp Manager 
 appmgr:
   image:
-    name: ric-plt-appmgr
-    tag: 0.1.3
+    name: appmgr
+    tag: 1.0.4
 
 # DBAAS 
 dbaas:

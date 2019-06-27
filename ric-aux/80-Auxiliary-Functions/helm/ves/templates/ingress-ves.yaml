@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ric-ingress-ves
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /vescollector
+        backend:
+          serviceName: xdcae-ves-collector
+          servicePort: 8080

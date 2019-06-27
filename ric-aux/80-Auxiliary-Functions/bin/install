@@ -36,7 +36,7 @@ else
    NAMESPACE=$RICAUX_NAMESPACE
 fi
 
-RICAUX_COMPONENTS="dashboard ves message-router"
+RICAUX_COMPONENTS="dashboard ves message-router kong-aux"
 
 echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"
@@ -45,11 +45,23 @@ echo "Helm Release Name: $RELEASE_NAME"
 
 COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
 
+helm repo remove local
+
 helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common/
 
 
 for component in $RICAUX_COMPONENTS; do
   echo "Preparing chart for comonent $component"
+
+  if [ $component = "kong-aux" ]; then
+      mkdir -p $DIR/../helm/$component/charts
+      helm dep up $DIR/../helm/$component
+      helm install --namespace ricaux --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+      continue
+  fi
+
+  echo "not kong component"  
+
   mkdir -p  $DIR/../helm/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then

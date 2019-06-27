@@ -47,6 +47,8 @@ echo "Helm Release Name: $RELEASE_NAME"
 
 COMMON_CHART_VERSION=$(cat $DIR/../helm/common/Chart.yaml | grep version | awk '{print $2}')
 
+helm repo remove local
+
 helm package -d /tmp $DIR/../helm/common
 
 

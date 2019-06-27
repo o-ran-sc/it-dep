@@ -36,10 +36,10 @@ dashboard:
   # config URLs must be specified at deployment
   properties:
     a1med:
-      url:  http://values-yaml-default-A1-URL
+      url:  http://ricplt-entry/a1mediator
     anrxapp:
-      url:  http://values-yaml-default-ANR-URL
+      url:  http://ricxapp-entry/anr
     e2mgr:
-      url:  http://values-yaml-default-E2-URL
+      url:  http://ricplt-entry/e2mgr
     xappmgr:
-      url:  http://values-yaml-default-MGR-URL
+      url:  http://ricplt-entry/appmgr

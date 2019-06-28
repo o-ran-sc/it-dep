@@ -41,5 +41,9 @@ dashboard:
       url:  http://ricxapp-entry/anr
     e2mgr:
       url:  http://ricplt-entry/e2mgr
+      mock:
+        enabled: false
+        # see RECIPE_EXAMPLE/RIC_AUX_RECIPE_EXAMPLE
+        # for example of enabled use.
     xappmgr:
       url:  http://ricplt-entry/appmgr

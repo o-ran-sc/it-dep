@@ -15,24 +15,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{ if .Values.ricapp.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "ricapp.name" . }}
+  name: {{ include "ricxapp.servicename" . }}
+  namespace: {{ include "ricxapp.namespace" . }}
   labels:
-    app.kubernetes.io/name: {{ include "ricapp.name" . }}
-    helm.sh/chart: {{ include "ricapp.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: {{ include "ricxapp.namespace" . }}-{{ include "ricxapp.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.ricapp.service.type }}
+  type: {{ .Values.ricxapp.service.type }}
   ports:
-    - port: {{ .Values.ricapp.service.port }}
+    - port: {{ .Values.ricxapp.service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "ricapp.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-{{ end }}
+    app: {{ include "ricxapp.namespace" . }}-{{ include "ricxapp.name" . }}
+    release: {{ .Release.Name }}

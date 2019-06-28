@@ -28,35 +28,65 @@
 */}}
 
 
-{{- define "common.servicename.appmgr" -}}
+###################### RMR Service ##################################
+{{- define "common.servicename.appmgr.rmr" -}}
   {{- $name := ( include "common.fullname.appmgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.dbaas" -}}
-  {{- $name := ( include "common.name.dbaas" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
 
-{{- define "common.servicename.e2mgr" -}}
+{{- define "common.servicename.e2mgr.rmr" -}}
   {{- $name := ( include "common.fullname.e2mgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.e2term" -}}
+{{- define "common.servicename.e2term.rmr" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.rtmgr" -}}
+{{- define "common.servicename.rtmgr.rmr" -}}
   {{- $name := ( include "common.fullname.rtmgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.a1mediator" -}}
+{{- define "common.servicename.a1mediator.rmr" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
+###################### Http Service ##################################
 
+{{- define "common.servicename.appmgr.http" -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.e2mgr.http" -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.e2term.http" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.rtmgr.http" -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.a1mediator.http" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+###################### TCP Service ##################################
+
+{{- define "common.servicename.dbaas.tcp" -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
+  {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

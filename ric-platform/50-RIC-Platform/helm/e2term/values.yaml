@@ -46,10 +46,6 @@ e2term:
     RMR_RTG_SVC: "ric-full-rtmgr"
   
   service:
-    type: ClusterIP
-    nano:
+    rmr:
       port: 38000
-      target_port: 38000 
-      protocol: "TCP"
-      name: "nano-port"
-  
+      containerPort: 38000

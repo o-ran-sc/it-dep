@@ -15,19 +15,30 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: e2mgr
-    version: 1.1.0
-    condition: e2mgr.enabled
-  - name: rtmgr
-    version: 1.1.0
-    condition: rtmgr.enabled
-  - name: e2term
-    version: 1.1.0
-    condition: e2term.enabled
-  - name: appmgr
-    version: 1.1.0
-    condition: appmgr.enabled
-  - name: dbaas
-    version: 1.1.0
-    condition: dbaas.enabled
+
+
+{{- define "common.ingressname.appmgr" -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.ingressname.e2mgr" -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.ingressname.e2term" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.ingressname.rtmgr" -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.ingressname.a1mediator" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+

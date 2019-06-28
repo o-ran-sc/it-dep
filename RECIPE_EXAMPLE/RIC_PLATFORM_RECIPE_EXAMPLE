@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: helm.ricinfra.local
+  helmRepository: "https://ricaux-entry/helm"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs

@@ -1,12 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ric-ingress-e2mgr
+  name: {{ include "common.ingressname.e2mgr" . }}
 spec:
   rules:
   - http:
       paths:
       - path: /e2mgr
         backend:
-          serviceName: {{ include "common.servicename.e2mgr" . }}
+          serviceName: {{ include "common.servicename.e2mgr.http" . }}
           servicePort: {{ .Values.e2mgr.service.http.port }}

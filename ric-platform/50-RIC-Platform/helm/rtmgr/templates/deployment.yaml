@@ -47,7 +47,7 @@ spec:
           command: ["/run_rtmgr.sh"]
           env:
             - name: XMURL
-              value: "http://ric-full-appmgr:8080/ric/v1/xapps"
+              value: "http://{{ include "common.servicename.appmgr.http" . }}:8080/ric/v1/xapps"
             - name: SOCKET
               value: "tcp://0.0.0.0:4560"
             - name: RTFILE
@@ -61,5 +61,5 @@ spec:
             - name: SDL
               value: "file"
           ports:
-            - name: {{ .Values.rtmgr.service.nano.name }}
-              containerPort: {{ .Values.rtmgr.service.nano.port }}
+            - name: "rmr"
+              containerPort: {{ .Values.rtmgr.service.rmr.containerPort }}

@@ -36,12 +36,12 @@ else
    NAMESPACE=$RICPLT_NAMESPACE
 fi
 
-COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
 mkdir -p  $DIR/../helm/charts/
-cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
 
 
 if [ -z $OVERRIDEYAML ]; then

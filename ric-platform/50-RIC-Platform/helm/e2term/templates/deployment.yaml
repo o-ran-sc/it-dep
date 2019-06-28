@@ -54,14 +54,14 @@ spec:
             - name: sctp
               value: "5577"
             - name: nano
-              value: "{{ .Values.e2term.service.nano.port }}"
+              value: "{{ .Values.e2term.service.rmr.port }}"
             - name: print
               value: "{{ .Values.e2term.env.print }}"
             - name: RMR_RTG_SVC
               value: "{{ .Values.e2term.env.RMR_RTG_SVC }}"
           ports:
-            - name: {{ .Values.e2term.service.nano.name }}
-              containerPort: {{ .Values.e2term.service.nano.port }}
+            - name: "rmr"
+              containerPort: {{ .Values.e2term.service.rmr.containerPort }}
           stdin: true
           tty: true
           securityContext:

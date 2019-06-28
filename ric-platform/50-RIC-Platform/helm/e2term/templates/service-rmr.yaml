@@ -18,7 +18,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.servicename.e2mgr" . }}
+  name: {{ include "common.servicename.e2term.rmr" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -26,18 +26,12 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
-  type: {{ .Values.e2mgr.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.e2mgr.service.http.port }}
-      protocol: TCP 
-      targetPort: {{ .Values.e2mgr.service.http.port }}
-      name: "{{ .Values.e2mgr.service.http.name }}"
-      {{ if (eq .Values.e2mgr.service.type "NodePort") }}nodePort: {{ .Values.e2mgr.service.http.extport }} {{ end }}
-    - port: {{ .Values.e2mgr.service.nano.port }}
-      protocol: TCP 
-      targetPort: {{ .Values.e2mgr.service.nano.port }}
-      name: "{{ .Values.e2mgr.service.nano.name }}"
-      {{ if (eq .Values.e2mgr.service.type "NodePort") }}nodePort: {{ .Values.e2mgr.service.nano.extport }} {{ end }}
+    - port: {{ .Values.e2term.service.rmr.port }}
+      protocol: "TCP"
+      targetPort: "rmr"
+      name: "rmr"
   selector:
       app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}

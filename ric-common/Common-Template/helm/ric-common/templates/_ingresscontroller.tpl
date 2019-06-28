@@ -115,36 +115,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{- define "common.ingressurl.ricaux" -}}
   {{- if .Values.kongaux -}}
     {{- if .Values.kongaux.ingressurlOverride -}}
@@ -184,6 +154,63 @@
     {{- end -}}
   {{- else -}}
     {{- printf "32443" -}}
+  {{- end -}}
+{{- end -}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{- define "common.ingressurl.ricinfra" -}}
+  {{- if .Values.konginfra -}}
+    {{- if .Values.konginfra.ingressurlOverride -}}
+      {{- printf "%s" .Values.konginfra.ingressurlOverride -}}
+    {{- else -}}
+      {{- printf "ricinfra-entry" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ricinfra-entry" -}}
+  {{- end -}}
+{{- end -}}
+
+
+
+
+
+{{- define "common.ingresshttpport.ricinfra" -}}
+  {{- if .Values.konginfra -}}
+    {{- if .Values.konginfra.ingresshttpportOverride -}}
+      {{- printf "%.0f" .Values.konginfra.ingresshttpportOverride -}}
+    {{- else -}}
+      {{- printf "33080" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "33080" -}}
+  {{- end -}}
+{{- end -}}
+
+
+
+{{- define "common.ingresshttpsport.ricinfra" -}}
+  {{- if .Values.konginfra -}}
+    {{- if .Values.konginfra.ingresshttpsportOverride -}}
+      {{- printf "%.0f" .Values.konginfra.ingresshttpsportOverride -}}
+    {{- else -}}
+      {{- printf "33443" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "33443" -}}
   {{- end -}}
 {{- end -}}
 

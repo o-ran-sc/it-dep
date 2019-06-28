@@ -14,8 +14,7 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-apiVersion: v1
-appVersion: "1.0"
-description: Admin Control xApp Helm Chart
-name: xapp-admin
-version: 0.0.1
+
+dependencies:
+  - name: ric-common
+    version: ~2.0.0

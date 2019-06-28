@@ -65,20 +65,47 @@
   - .Values.repositoryCredOverride : override global and default docker registry credential
 */}}
 {{- define "common.repositoryCred" -}}
-  {{- if .Values.repositoryCredOverride -}}
-    {{- printf "%s" .Values.repositoryCredOverride -}}
+  {{- $componentname := .Chart.Name -}}
+  {{- $firsttier := (index .Values (printf "%s" $componentname)) -}}
+  {{- if $firsttier -}}
+    {{- $secondtier := (index .Values (printf "%s" $componentname) (printf "%s" "repositoryCredOverride")) -}}
+    {{- if $secondtier -}}
+      {{- printf "%s" $secondtier -}}
+    {{- else -}}
+      {{- if .Values.global -}}
+        {{- if .Values.global.repositoryCred -}}
+          {{- printf "%s" .Values.global.repositoryCred -}}
+        {{- else -}}
+          {{- printf "%s" .Values.repositoryCred -}}
+        {{- end -}}
+      {{- else -}}
+        {{- printf "%s" .Values.repositoryCred -}}
+      {{- end -}}
+    {{- end -}}
   {{- else -}}
-    {{- if  .Values.global -}}
+    {{- if .Values.global -}}
       {{- if .Values.global.repositoryCred -}}
         {{- printf "%s" .Values.global.repositoryCred -}}
       {{- else -}}
-	{{- printf "%s" .Values.repositoryCred -}}
+        {{- printf "%s" .Values.repositoryCred -}}
       {{- end -}}
     {{- else -}}
       {{- printf "%s" .Values.repositoryCred -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {{/*

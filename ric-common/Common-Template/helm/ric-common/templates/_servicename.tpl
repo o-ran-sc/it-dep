@@ -1,0 +1,92 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+{{/*
+  Resolve the name of a chart's service.
+
+  The default will be the chart name (or .Values.nameOverride if set).
+  And the use of .Values.service.name overrides all.
+
+  - .Values.service.name  : override default service (ie. chart) name
+*/}}
+{{/*
+  Expand the service name for a chart.
+*/}}
+
+
+###################### RMR Service ##################################
+{{- define "common.servicename.appmgr.rmr" -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "common.servicename.e2mgr.rmr" -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.e2term.rmr" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.rtmgr.rmr" -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.a1mediator.rmr" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+###################### Http Service ##################################
+
+{{- define "common.servicename.appmgr.http" -}}
+  {{- $name := ( include "common.fullname.appmgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.e2mgr.http" -}}
+  {{- $name := ( include "common.fullname.e2mgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.e2term.http" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.rtmgr.http" -}}
+  {{- $name := ( include "common.fullname.rtmgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.a1mediator-http" -}}
+  {{- $name := ( include "common.fullname.a1mediator" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+###################### TCP Service ##################################
+
+{{- define "common.servicename.dbaas.tcp" -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
+  {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

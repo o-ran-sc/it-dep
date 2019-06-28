@@ -15,24 +15,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "common.servicename.appmgr" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  type: {{ .Values.appmgr.service.type }}
-  ports:
-    - port: {{ .Values.appmgr.service.port }}
-      protocol: {{ .Values.appmgr.service.protocol }}
-      name: "{{ .Values.appmgr.service.name }}"
-      {{ if (eq .Values.appmgr.service.type "NodePort") }}nodePort: {{ .Values.appmgr.service.extport }} {{ end }}
-  selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    release: {{ .Release.Name }}
-
+dependencies:
+  - name: ric-common
+    version: ~2.0.0

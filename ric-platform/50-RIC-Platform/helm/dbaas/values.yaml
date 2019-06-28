@@ -39,7 +39,7 @@ dbaas:
     terminationGracePeriodSeconds: 0
     replicas: 1
     port: 6379
-    targetPort: 6379
+    containerPort: 6379
     image:
       name: redis-standalone
       tag: latest

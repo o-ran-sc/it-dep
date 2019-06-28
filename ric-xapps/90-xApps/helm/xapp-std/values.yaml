@@ -45,7 +45,6 @@ ricapp:
     tag: latest
 
   service:
-    enabled: true
     type: ClusterIP
     name: xapp-std-service
     port: 8080

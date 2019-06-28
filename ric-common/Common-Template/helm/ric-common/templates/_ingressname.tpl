@@ -15,48 +15,30 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{/*
-  Resolve the name of a chart's service.
-
-  The default will be the chart name (or .Values.nameOverride if set).
-  And the use of .Values.service.name overrides all.
-
-  - .Values.service.name  : override default service (ie. chart) name
-*/}}
-{{/*
-  Expand the service name for a chart.
-*/}}
 
 
-{{- define "common.servicename.appmgr" -}}
+{{- define "common.ingressname.appmgr" -}}
   {{- $name := ( include "common.fullname.appmgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.dbaas" -}}
-  {{- $name := ( include "common.name.dbaas" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.servicename.e2mgr" -}}
+{{- define "common.ingressname.e2mgr" -}}
   {{- $name := ( include "common.fullname.e2mgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.e2term" -}}
+{{- define "common.ingressname.e2term" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.rtmgr" -}}
+{{- define "common.ingressname.rtmgr" -}}
   {{- $name := ( include "common.fullname.rtmgr" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.a1mediator" -}}
+{{- define "common.ingressname.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
-  {{- printf "service-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
-
 

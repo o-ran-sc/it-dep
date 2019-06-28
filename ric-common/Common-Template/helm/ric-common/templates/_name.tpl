@@ -35,7 +35,7 @@
 
 {{- define "common.fullname.appmgr" -}}
   {{- $name := ( include "common.name.appmgr" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -53,7 +53,7 @@
 
 {{- define "common.fullname.dbaas" -}}
   {{- $name := ( include "common.name.dbaas" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -81,7 +81,7 @@
 
 {{- define "common.fullname.e2mgr" -}}
   {{- $name := ( include "common.name.e2mgr" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.name.e2term" -}}
@@ -99,7 +99,7 @@
 
 {{- define "common.fullname.e2term" -}}
   {{- $name := ( include "common.name.e2term" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -125,7 +125,7 @@
 
 {{- define "common.fullname.rtmgr" -}}
   {{- $name := ( include "common.name.rtmgr" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -148,7 +148,7 @@
 
 {{- define "common.fullname.a1mediator" -}}
   {{- $name := ( include "common.name.a1mediator" . ) -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -168,5 +168,5 @@
 */}}
 {{- define "common.fullname" -}}
   {{- $name := default .Chart.Name .Values.nameOverride -}}
-  {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

@@ -15,23 +15,13 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "common.servicename.e2term" . }}
-  namespace: {{ include "common.namespace" . }}
-  labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }} 
-spec:
-  type: {{ .Values.e2term.service.type }}
-  ports:
-    - port: {{ .Values.e2term.service.nano.port }}
-      protocol: TCP
-      targetPort:  {{ .Values.e2term.service.nano.target_port }}
-      name: {{ .Values.e2term.service.nano.name }}
-  selector:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
-      release: {{ .Release.Name }}
+# Values for setting up Kubernetes resources for accessing infrastructure such as docker registry
+# helm repo, etc.
+
+repository: "nexus3.o-ran-sc.org:10004"
+
+repositoryCredential:
+  user: "docker"
+  password: "docker"
+
+

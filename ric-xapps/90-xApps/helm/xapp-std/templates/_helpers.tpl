@@ -18,7 +18,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "ricapp.name" -}}
+{{- define "ricxapp.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -27,15 +27,15 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "ricapp.fullname" -}}
-{{- if .Values.ricapp.fullnameOverride -}}
-{{- .Values.ricapp.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "ricxapp.fullname" -}}
+{{- if .Values.ricxapp.fullnameOverride -}}
+{{- .Values.ricxapp.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.ricapp.nameOverride -}}
+{{- $name := default .Chart.Name .Values.ricxapp.nameOverride -}}
 {{- if contains $name .Release.Name -}}
 {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -43,32 +43,37 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "ricapp.chart" -}}
+{{- define "ricxapp.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "repository" -}}
-  {{if .Values.repositoryOverride }}
-    {{- printf "%s" .Values.repositoryOverride -}}
-  {{else}}
-    {{- default .Values.repository .Values.global.repository -}}
-  {{end}}
+{{- define "ricxapp.namespace" -}}
+  {{- default .Release.Namespace .Values.nsPrefix -}}
 {{- end -}}
 
-{{/*
-  Resolve the image repository secret token.
-  The value for .Values.global.repositoryCred is used:
-  repositoryCred:
-    user: user
-    password: password
-    mail: email (optional)
-*/}}
-{{- define "repository.secret" -}}
-  {{- $repo := include "repository" . }}
-  {{- $repo := default "${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}" $repo }}
-  {{- $cred := .Values.global.repositoryCred }}
-  {{- $mail := default "@" $cred.mail }}
-  {{- $auth := printf "%s:%s" $cred.user $cred.password | b64enc }}
-  {{- printf "{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}" $repo $cred.user $cred.password $mail $auth | b64enc -}}
+
+
+{{- define "ricxapp.servicename.rmr" -}}
+  {{- $name := ( include "ricxapp.fullname" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "ricxapp.servicename.http" -}}
+  {{- $name := ( include "ricxapp.fullname" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "ricxapp.configmapname" -}}
+  {{- $name := ( include "ricxapp.fullname" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "ricxapp.deploymentname" -}}
+  {{- $name := ( include "ricxapp.fullname" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "ricxapp.imagepullsecret" -}}
+  {{- printf "docker-reg-cred" -}}
+{{- end -}}

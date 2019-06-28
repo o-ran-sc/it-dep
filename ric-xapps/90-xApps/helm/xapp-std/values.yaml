@@ -45,11 +45,12 @@ ricapp:
     tag: latest
 
   service:
-    enabled: true
-    type: ClusterIP
-    name: xapp-std-service
-    port: 8080
-    rmrPort: 4560
+    http:
+      port: 8080
+      containerPort: 8080
+    rmr:
+      port: 4560
+      containerPort: 4560
 
   probes:
     healthAliveCheckEndpoint: ric/v1/health/alive

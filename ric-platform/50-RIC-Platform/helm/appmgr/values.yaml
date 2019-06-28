@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 # By default a local helm repo is used. The global setting will override
 # the default value. You can further override using
 #helmRepositoryOverride: ""
-helmRepository: "https://helm.ricinfra.local:31000" 
+helmRepository: "https://ricaux-entry/helm" 
 
 # Default secret name for Helm Repo credential. .Value.golbal.helmRepositoryCred will
 # override the default value. You can further override uing
@@ -71,15 +71,15 @@ appmgr:
   # This section describes xAppManager
   replicaCount: 1
 
-  containerPort: 8080
   reponame: "helm-repo"
 
   service:
-    type: ClusterIP
-    port: 8080
-    name: appmgr-service
-    protocol: "TCP"
-    extport: 30020
+    http:
+      port: 8080
+      containerPort: 8080
+    rmr:
+      port: 4560
+      containerPort: 4560
 
 
   # config

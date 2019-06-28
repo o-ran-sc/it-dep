@@ -15,33 +15,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-#################################################################
-# Application configuration defaults.
-#################################################################
-# application image
-
-repository: "nexus3.o-ran-sc.org:10004"
-imagePullPolicy: IfNotPresent
-repositoryCred: docker-reg-cred
-
-a1mediator:
-  replicaCount: 1
-
-  image:
-    name: ric-plt-a1
-    tag: 0.8.2
-
-  service:
-    http:
-      port: 10000
-      containerPort: 10000
-    rmr:
-      port: 4562
-      containerPort: 4562
-
-
-# these are ENV variables that A1 takes; see docs
-  rmr_timeout_config:
-    rcv_retry_interval_ms: 500
-    rcv_retry_times: 20
-
+dependencies:
+  - name: ric-common
+    version: ~2.0.0

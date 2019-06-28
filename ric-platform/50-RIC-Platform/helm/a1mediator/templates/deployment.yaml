@@ -1,21 +1,44 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "a1mediator.fullname" . }}
+  name: {{ include "common.deploymentname.appmgr" . }}
+  namespace: {{ include "common.namespace" . }}
   labels:
-{{ include "a1mediator.labels" . | indent 4 }}
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.a1mediator.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "a1mediator.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "a1mediator.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        release: {{ .Release.Name }}
     spec:
+      hostname: {{ .Chart.Name }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
@@ -34,16 +57,18 @@ spec:
           - name: PYTHONUNBUFFERED
             value: "0"
           - name: RMR_RCV_RETRY_INTERVAL
-            value: "{{ .Values.rmr_timeout_config.rcv_retry_interval_ms }}"
+            value: "{{ .Values.a1mediator.rmr_timeout_config.rcv_retry_interval_ms }}"
           - name: RMR_RETRY_TIMES
-            value: "{{ .Values.rmr_timeout_config.rcv_retry_times }}"
+            value: "{{ .Values.a1mediator.rmr_timeout_config.rcv_retry_times }}"
           image: {{ include "common.repository" . }}/{{ .Values.a1mediator.image.name }}:{{ .Values.a1mediator.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.httpservice.port }}
+              containerPort: {{ .Values.a1mediator.service.http.containerPort }}
               protocol: TCP
-
+            - name: rmr
+              containerPort: {{ .Values.a1mediator.service.rmr.containerPort }}
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /ui
@@ -52,9 +77,7 @@ spec:
             httpGet:
               path: /ui
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: "a1conf"
           configMap:
-            name: "a1conf"
+            name:  {{ include "common.configmapname.appmgr" . }}-a1conf

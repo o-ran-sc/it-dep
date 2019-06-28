@@ -1,12 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ric-ingress-a1mediator
+  name: {{ include "common.ingressname.a1mediator" . }}
 spec:
   rules:
   - http:
       paths:
       - path: /a1mediator
         backend:
-          serviceName: {{ include "common.servicename.a1mediator" . }}
-          servicePort: {{ .Values.httpservice.port }}
+          serviceName: {{ include "common.servicename.a1mediator.http" . }}
+          servicePort: {{ .Values.a1mediator.service.http.port }}

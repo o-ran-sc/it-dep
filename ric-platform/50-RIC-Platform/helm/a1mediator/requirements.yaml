@@ -15,16 +15,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.configmapname.a1mediator" . }}-a1conf
-data:
-  local.rt: |
-    newrt|start
-    rte|20000|service-ricxapp-admctrl-rmr:4563
-    rte|20001|{{ include "common.servicename.a1mediator.rmr" .}}:{{ .Values.a1mediator.service.rmr.port }}
-    newrt|end
-  rmr_string_int_mapping.txt: {{ tpl (.Files.Get "files/rmr_string_int_mapping.txt") . | quote }}
-  ricmanifest.json: {{ tpl (.Files.Get "files/ricmanifest.json") . | quote }}
+dependencies:
+  - name: ric-common
+    version: ~2.0.0

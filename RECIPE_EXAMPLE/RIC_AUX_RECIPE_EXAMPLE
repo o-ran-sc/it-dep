@@ -56,6 +56,10 @@ dashboard:
   image:
     name:: ric-dash-be
     tag: 1.0.5
+  properties:
+    e2mgr:
+      mock:
+        rannames: "ABCD123456, EFGH123456"
 
 ext:
   ip:

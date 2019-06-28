@@ -29,4 +29,6 @@ data:
     a1med.url =   {{ .Values.dashboard.properties.a1med.url   }}
     anrxapp.url = {{ .Values.dashboard.properties.anrxapp.url }}
     e2mgr.url =   {{ .Values.dashboard.properties.e2mgr.url   }}
+    # mock names for R1 testing, removing this entry disables the mock
+    e2mgr.mock.rannames = {{ .Values.dashboard.properties.e2mgr.mock.rannames }}
     xappmgr.url = {{ .Values.dashboard.properties.xappmgr.url }}

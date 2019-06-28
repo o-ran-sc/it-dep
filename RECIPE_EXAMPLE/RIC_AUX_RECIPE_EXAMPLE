@@ -55,5 +55,8 @@ global:
 dashboard:
   image:
     name:: ric-dash-be
-    tag: 1.0.4
+    tag: 1.0.5
 
+ext:
+  ip:
+    192.168.130.110

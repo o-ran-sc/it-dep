@@ -43,3 +43,32 @@ subsets:
         name: {{ include "common.ingressurl.ricaux" . }}-http-ingress-port
       - port: {{ include "common.ingresshttpport.ricaux" . }}
         name: {{ include "common.ingressurl.ricaux" . }}-https-ingress-port
+---
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  name: {{ include "common.ingressurl.ricinfra" . }}
+  namespace: {{ include "common.namespace" . }}
+spec:
+  ports:
+    - name: {{ include "common.ingressurl.ricinfra" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.ricinfra" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.ricinfra" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.ext.ip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.ricinfra" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.ricinfra" . }}-https-ingress-port

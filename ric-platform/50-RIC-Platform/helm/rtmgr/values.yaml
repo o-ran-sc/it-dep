@@ -40,10 +40,6 @@ rtmgr:
     tag: 0.0.2
   
   service:
-    type: ClusterIP
-    nano:
-      port: 5656
-      target_port: 4560
-      protocol: "TCP"
-      name: "nano-port"
-  
+    rmr:
+      port: 4560
+      containerPort: 5656

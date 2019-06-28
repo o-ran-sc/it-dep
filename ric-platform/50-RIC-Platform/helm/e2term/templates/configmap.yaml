@@ -24,6 +24,6 @@ metadata:
 data:
   router.txt: |
     newrt|start
-    rte|1001|{{ include "common.configmapname.e2term" . }}:38000
-    rte|2002|{{ include "common.configmapname.e2mgr" . }}:3801
+    rte|1001|{{ include "common.servicename.e2term.rmr" . }}:38000
+    rte|2002|{{ include "common.servicename.e2mgr.rmr" . }}:3801
     newrt|end

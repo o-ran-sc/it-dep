@@ -51,11 +51,13 @@ spec:
           env:
             - name: RMR_RTG_SVC
               value: "{{ .Values.e2mgr.env.RMR_RTG_SVC }}"
+            - name: RIC_ID
+              value: "{{ .Values.e2mgr.env.RIC_ID }}"
           ports:
-            - name: {{ .Values.e2mgr.service.http.name }}
-              containerPort: {{ .Values.e2mgr.service.http.port }}
-            - name: {{ .Values.e2mgr.service.nano.name }}
-              containerPort: {{ .Values.e2mgr.service.nano.port }}
+            - name: "http"
+              containerPort: {{ .Values.e2mgr.service.http.containerPort }}
+            - name: "rmr"
+              containerPort: {{ .Values.e2mgr.service.rmr.containerPort }}
           stdin: true
           tty: true
           securityContext:

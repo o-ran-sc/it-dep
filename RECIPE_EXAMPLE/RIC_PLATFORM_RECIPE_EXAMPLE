@@ -73,16 +73,17 @@ dbaas:
 e2mgr:
   image:
     name: e2mgr
-    tag: 1.5.0
+    tag: 1.6.0
   env:
     RMR_RTG_SVC: "ric-full-rtmgr"
+    RIC_ID: "bbbccc-abcd0e/20"
 
 
 # E2 Termination
 e2term:
   image:
     name: e2
-    tag: 1.5.0
+    tag: 1.6.0
   env:
     print: "1"
     RMR_RTG_SVC: "ric-full-rtmgr"

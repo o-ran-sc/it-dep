@@ -18,7 +18,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "common.servicename.dbaas" . }}
+  name: {{ include "common.servicename.dbaas.tcp" . }}
   namespace: {{ include "common.namespace" . }}
   labels:
     app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
@@ -31,4 +31,6 @@ spec:
     release: {{ .Release.Name }}
   ports:
   - port: {{ .Values.dbaas.backend.port }}
-    targetPort: {{ .Values.dbaas.backend.targetPort }}
+    targetPort: "sql"
+    protocol: "TCP"
+    name: "sql"

@@ -20,5 +20,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "common.configmapname.appmgr" . }}-appenv
 data:
-  {{- $dbaasservicehost := include "common.servicename.dbaas" . | quote -}}
+  {{- $dbaasservicehost := include "common.servicename.dbaas.tcp" . | quote -}}
   {{- (.Files.Get "resources/appenv.yaml") | replace "__DBAAS_SERVICE_HOST__" $dbaasservicehost | nindent 2 }}

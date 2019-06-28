@@ -41,5 +41,7 @@ dashboard:
       url:  http://ricxapp-entry/anr
     e2mgr:
       url:  http://ricplt-entry/e2mgr
+      mock:
+        rannames: ABCD123456, EFGH123456
     xappmgr:
       url:  http://ricplt-entry/appmgr

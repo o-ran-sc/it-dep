@@ -1,32 +1,47 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+#################################################################
+# Application configuration defaults.
+#################################################################
+# application image
+
+repository: "nexus3.o-ran-sc.org:10004"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
+
 a1mediator:
   replicaCount: 1
 
   image:
-    repository: nexus3.o-ran-sc.org:10004
     name: ric-plt-a1
     tag: 0.8.2
-    pullPolicy: IfNotPresent
 
+  service:
+    http:
+      port: 10000
+      containerPort: 10000
+    rmr:
+      port: 4562
+      containerPort: 4562
 
-# This is the service for A1's external facing HTTP API
-httpservice:
-  port: 10000 # This is hardcoded in a1, probably dangerous to change
-  type: ClusterIP
-
-# This is the service for rmr between A1 and the xapps
-rmrservice:
-  name: rmrservice
-  port: 4562 # This is hardcoded in a1, probably dangerous to change
-  type: ClusterIP
-
-# This is the service for the "hidden" port 4561 that rmr listens on for route manager
-rmrrtemgrservice:
-  name: rmrrtemgrservice
-  port: 4561 # This is hardcoded in rmr, probably dangerous to change
-  type: ClusterIP
 
 # these are ENV variables that A1 takes; see docs
-rmr_timeout_config:
-  rcv_retry_interval_ms: 500
-  rcv_retry_times: 20
+  rmr_timeout_config:
+    rcv_retry_interval_ms: 500
+    rcv_retry_times: 20
 

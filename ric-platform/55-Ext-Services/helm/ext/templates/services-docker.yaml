@@ -15,36 +15,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: batch/v1
-kind: Job
+kind: "Service"
+apiVersion: "v1"
 metadata:
-  name: cert-copy
+  name: {{ include "common.ingressurl.localdocker" . }}
+  namespace: {{ include "common.namespace" . }}
 spec:
-  template:
-    spec:
-      containers:
-      - name: cert-copy
-        image: alpine
-        command: [ "/bin/sh","-c","cp -rL /var/run/dockercerts/..data/tls.crt /var/run/certs-copy/dockertls.crt && cp -rL /var/run/helmcerts/..data/tls.crt /var/run/certs-copy/helmtls.crt"]
-        #        command: ["tail", "-f", "/dev/null"]
-        volumeMounts:
-        - name: dockercerts
-          mountPath: /var/run/dockercerts
-          readOnly: true
-        - name: helmcerts
-          mountPath: /var/run/helmcerts
-          readOnly: true
-        - name:  write-to-volume
-          mountPath: /var/run/certs-copy
-      volumes:
-      - name: dockercerts
-        secret:
-          secretName: {{ include "common.repositorycert" . }}
-      - name: helmcerts
-        secret:
-          secretName: {{ include "common.helmrepositorycert" . }}
-      - name: write-to-volume
-        hostPath:
-          path: /tmp
-      restartPolicy: Never
-  backoffLimit: 4
+  ports:
+    - name: {{ include "common.ingressurl.localdocker" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.localdocker" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.localdocker" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.ext.ip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localdocker" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localdocker" . }}-https-ingress-port

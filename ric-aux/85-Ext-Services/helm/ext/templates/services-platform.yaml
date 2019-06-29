@@ -15,13 +15,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/tls
+kind: "Service"
+apiVersion: "v1"
 metadata:
-  name: secret-{{ include "common.name.nexus" . }}-docker
-  annotations:
-    "helm.sh/hook": "pre-install"
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-data:
-{{ ( include "nexus.gen-docker-cert" . ) | indent 2 }}
+  name: {{ include "common.ingressurl.ricplt" . }}
+  namespace: {{ include "common.namespace" . }}
+spec:
+  ports:
+    - name: {{ include "common.ingressurl.ricplt" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.ricplt" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.ricplt" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.ext.ip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricplt" . }}
+        name: {{ include "common.ingressurl.ricplt" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpsport.ricplt" . }}
+        name: {{ include "common.ingressurl.ricplt" . }}-https-ingress-port

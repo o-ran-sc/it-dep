@@ -14,30 +14,32 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
+
+kind: "Service"
+apiVersion: "v1"
 metadata:
-  name: {{ include "nexus.fullname" . }}
-  labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  name: {{ include "common.ingressurl.localhelm" . }}
+  namespace: {{ include "common.namespace" . }}
 spec:
-  tls:
-    - hosts:
-      - docker.{{ .Values.ingress.hostpostfix }}
-      secretName: {{ include "common.repositorycert" . }}
-  rules:
-    - host: nexus.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: nexus
-    - host: docker.{{ .Values.ingress.hostpostfix }}
-      http:
-        paths:
-          - backend:
-              serviceName: {{ include "nexus.fullname" . }}
-              servicePort: docker
+  ports:
+    - name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.localhelm" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.ext.ip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port

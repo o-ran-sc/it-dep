@@ -32,11 +32,6 @@ if [ -z "$RICINFRA_NAMESPACE" ];then
 else
    NAMESPACE=$RICINFRA_NAMESPACE
 fi
-if [ -z "$INGRESS_PORT" ];then
-   INGRESS_PORT_NEXUS=$ingress_port
-else
-   INGRESS_PORT_NEXUS=$INGRESS_PORT
-fi
 
 
 
@@ -44,37 +39,22 @@ echo "Deploying nexus repo managers for local docker registry and helm repo."
 echo "Name Space: $NAMESPACE"
 echo "Helm Release: $RELEASE_NAME"
 
-HOSTPOSTFIX=$(cat $DIR/../helm/values.yaml  | grep hostpostfix | awk '{print $2}')
-
-
-echo "****************************************************************************************************************"
-echo "                                                     WARNING                                                    "
-echo "****************************************************************************************************************"
-
-echo "Nexus is deployed using default admin password. It is not for production deployment."
-echo "If you want to secure the repositories, you should change the admin password immediately."
-echo "You can access this nexus here: http://nexus.$HOSTPOSTFIX:$INGRESS_PORT_NEXUS"
-echo "If nexus.$HOSTPOSTFIX is not resolved by your DNS server, please add an entry in your /etc/hosts file."
-echo "****************************************************************************************************************"
-
-. ./deploy_nexus_data $OVERRIDEYAML
 
 
 
 NODENAME=$(kubectl get node | awk 'NR==2{print $1}')
 kubectl label --overwrite nodes $NODENAME nexus-node=enable
 
+. ./clear_nexus_data_path
 
 
 
-
-
-COMMON_CHART_VERSION=$(cat $DIR/../../../ric-platform/50-RIC-Platform/helm/common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $DIR/../../../ric-platform/50-RIC-Platform/helm/common
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
 mkdir -p  $DIR/../helm/charts/
-cp /tmp/common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
 
 if [ -z $OVERRIDEYAML ]; then
 helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
@@ -82,40 +62,6 @@ else
 helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
 fi
 
-
-
-NEXUS_POD_NAME=$(kubectl get pod -n $NAMESPACE | grep nexus | grep -v "Terminating" | awk '{print $1}')
-
-
-echo "Waiting Nexus to be ready."
-echo " "
-
-sleep 10
-
-IS_NEXUS_READY=$(kubectl logs -n $NAMESPACE $NEXUS_POD_NAME | grep "Started Sonatype Nexus OSS")
-
-COUNTER=1
-while [[ -z $IS_NEXUS_READY ]]; do
-        echo -e "\033[2AWaiting Nexus to be ready."
-        echo -e "\033[2K"
-        PROGRESS=$(printf "%0.s-" $(seq 1 $COUNTER))
-        echo -e "\033[1A$PROGRESS"
-
-
-        COUNTER=$((COUNTER+1))
-        if [ $COUNTER -gt 5 ]; then
-                COUNTER=1
-        fi
-
-	IS_NEXUS_READY=$(kubectl logs -n $NAMESPACE $NEXUS_POD_NAME | grep "Started Sonatype Nexus OSS")
-
-        sleep 5
-done
-
-echo $IS_NEXUS_READY
-
-
-. ./change_password $OVERRIDEYAML
 
 
 

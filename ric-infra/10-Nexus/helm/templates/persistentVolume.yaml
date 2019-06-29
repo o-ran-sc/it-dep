@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nexus3-configuration
+  name: pv-{{ include "common.name.nexus" . }}
 spec:
   capacity:
-    storage: {{ .Values.storagesize }}
+    storage: {{ .Values.nexus.storagesize }}
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nexus3-storage
+  storageClassName: storageclass-{{ include "common.name.nexus" . }}
   local:
-    path: {{ .Values.datapath }}
+    path: {{ .Values.nexus.datapath }}
   nodeAffinity:
     required:
       nodeSelectorTerms:

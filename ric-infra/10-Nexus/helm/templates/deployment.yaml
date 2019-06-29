@@ -18,38 +18,43 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "nexus.fullname" . }}
+  name: {{ include "common.deploymentname.nexus" .}}
   labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.nexus.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "nexus.name" . }}
+      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "nexus.name" . }}
+        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
         release: {{ .Release.Name }}
     spec:
+      hostname: {{ .Chart.Name }}
+      imagePullSecrets:
+        - name: {{ include "common.repositoryCred" . }}
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+          image: {{ include "common.repository" . }}/{{ .Values.nexus.image.name }}:{{ .Values.nexus.image.tag }}
+          imagePullPolicy: {{ include "common.pullPolicy" . }}
           #          volumeMounts:
           #- name: certs
           #  mountPath: /var/run/certs
           #  readOnly: true
           ports:
             - name: nexus
-              containerPort: 8081
+              containerPort: {{ .Values.nexus.service.nexus.containerPort }}
+              #containerPort: 8081
               protocol: TCP
             - name: docker
-              containerPort: 10001
+              containerPort: {{ .Values.nexus.service.docker.containerPort }}
+              #containerPort: 10001
               protocol: TCP
           volumeMounts:
             - name: nexus-config
@@ -57,18 +62,4 @@ spec:
       volumes:
         - name: nexus-config
           persistentVolumeClaim:
-            claimName: nexus-claim
-      
-      
-              #          livenessProbe:
-              #            httpGet:
-              #              path: /
-              #              port: nexus
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: http
-#      volumes:
-#        - name: certs
-#          secret:
-#            secretName: {{ template "nexus.name" . }}-certs
+            claimName: pvc-{{ include "common.name.nexus" . }}

@@ -18,23 +18,24 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "nexus.fullname" . }}
+  name: {{ include "common.servicename.nexus.http" . }}
+  namespace: {{ include "common.namespace" . }}
   labels:
-    app: {{ template "nexus.name" . }}
-    chart: {{ template "nexus.chart" . }}
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.service.port.nexus }}
+    - port: {{ .Values.nexus.service.nexus.port }}
       targetPort: nexus
       protocol: TCP
       name: nexus
-    - port: {{ .Values.service.port.docker }}
+    - port: {{ .Values.nexus.service.docker.port }}
       targetPort: docker
       protocol: TCP
       name: docker
   selector:
-    app: {{ template "nexus.name" . }}
+    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
     release: {{ .Release.Name }}

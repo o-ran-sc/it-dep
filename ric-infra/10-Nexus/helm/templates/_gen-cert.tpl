@@ -13,15 +13,32 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
-################################################################################
+################################################################################i
 
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/tls
-metadata:
-  name: secret-{{ include "common.name.nexus" . }}-docker
-  annotations:
-    "helm.sh/hook": "pre-install"
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-data:
-{{ ( include "nexus.gen-docker-cert" . ) | indent 2 }}
+{{/*
+Generate certificates for the docker registry
+*/}}
+{{- define "nexus.gen-docker-cert" -}}
+{{- $altNames := list ( include "common.ingressurl.localdocker" . ) -}}
+{{- $ca := genCA "docker-registry-ca" 365 -}}
+{{- $cert := genSignedCert ( include "common.ingressurl.localdocker" . ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
+
+{{- define "nexus.gen-helm-cert" -}}
+{{- $altNames := list ( include "common.ingressurl.localhelm" . ) -}}
+{{- $ca := genCA "docker-registry-ca" 365 -}}
+{{- $cert := genSignedCert ( include "common.ingressurl.localhelm" . ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
+
+
+{{- define "nexus.gen-nexus-cert" -}}
+{{- $altNames := list ( include "common.ingressurl.localnexus" . ) -}}
+{{- $ca := genCA "docker-registry-ca" 365 -}}
+{{- $cert := genSignedCert ( include "common.ingressurl.localnexus" . ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}

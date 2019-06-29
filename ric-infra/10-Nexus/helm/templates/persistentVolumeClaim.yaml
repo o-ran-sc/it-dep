@@ -1,11 +1,11 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: nexus-claim
+  name:  pvc-{{ include "common.name.nexus" . }}
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: nexus3-storage 
+  storageClassName: storageclass-{{ include "common.name.nexus" . }} 
   resources:
     requests:
-      storage: {{ .Values.storagesize }}
+      storage: {{ .Values.nexus.storagesize }}

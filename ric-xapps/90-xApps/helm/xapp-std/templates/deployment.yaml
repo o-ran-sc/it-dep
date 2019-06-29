@@ -26,16 +26,18 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       hostname: {{ .Values.ricapp.hostname }}
+      imagePullSecrets:
+        - name: {{ include "ricxapp.imagepullsecret" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.global.repository }}/{{ .Values.ricapp.image.name }}:{{ .Values.ricapp.image.tag }}"
           imagePullPolicy: {{ .Values.global.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.ricapp.service.port }}
+              containerPort: {{ .Values.ricapp.service.http.containerPort }}
               protocol: TCP
             - name: rmr
-              containerPort: {{ .Values.ricapp.service.rmrPort }}
+              containerPort: {{ .Values.ricapp.service.rmr.containerPort }}
               protocol: TCP
           volumeMounts:
             - name: config-volume

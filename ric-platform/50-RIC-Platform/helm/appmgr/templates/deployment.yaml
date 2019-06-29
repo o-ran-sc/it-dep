@@ -38,10 +38,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ .Chart.Name }}
-      hostAliases:
-        - ip: "137.135.91.204"
-          hostnames:
-            - "snapshot.helm.ranco-dev-tools.eastus.cloudapp.azure.com"
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
@@ -50,7 +46,10 @@ spec:
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.appmgr.containerPort }}
+              containerPort: {{ .Values.appmgr.service.http.containerPort }}
+              protocol: TCP
+            - name: rmr
+              containerPort: {{ .Values.appmgr.service.rmr.containerPort }}
               protocol: TCP
           volumeMounts:
             - name: config-volume

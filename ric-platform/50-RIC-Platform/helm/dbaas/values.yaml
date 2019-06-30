@@ -19,21 +19,6 @@ repository: "nexus3.o-ran-sc.org:10004"
 imagePullPolicy: IfNotPresent
 repositoryCred: docker-reg-cred
 
-
-# Uncomment the following line to override the docker registry
-#repositoryOverride: ""
-
-
-# Uncomment the following line to override the docker registry credential
-#repositoryCredOverride: ""
-
-# Uncomment the following line to override the image pull policy
-#imagePullPolicyOverride: ""
-
-
-
-nameOverride: "redis-standalone"
-
 dbaas:
   backend:
     terminationGracePeriodSeconds: 0
@@ -41,5 +26,5 @@ dbaas:
     port: 6379
     containerPort: 6379
     image:
-      name: redis-standalone
+      name: ric-plt-dbaas
       tag: latest

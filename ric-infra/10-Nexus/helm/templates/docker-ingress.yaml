@@ -14,14 +14,19 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/tls
+apiVersion: extensions/v1beta1
+kind: Ingress
 metadata:
-  name: secret-{{ include "common.name.nexus" . }}-docker
-  annotations:
-    "helm.sh/hook": "pre-install"
-    "helm.sh/hook-delete-policy": "before-hook-creation"
-data:
-{{ ( include "nexus.gen-docker-cert" . ) | indent 2 }}
+  name: {{ include "common.ingressname.nexus" . }}-docker
+spec:
+  tls:
+    - hosts:
+      - {{ include "common.ingressurl.localdocker" . }}
+      secretName: secret-{{ include "common.name.nexus" . }}-docker
+  rules:
+    - host: {{ include "common.ingressurl.localdocker" . }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ include "common.servicename.nexus.http" . }}
+              servicePort: docker

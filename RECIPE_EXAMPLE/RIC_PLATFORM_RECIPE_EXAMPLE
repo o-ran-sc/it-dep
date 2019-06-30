@@ -75,7 +75,7 @@ e2mgr:
     name: e2mgr
     tag: 1.6.0
   env:
-    RMR_RTG_SVC: "ric-full-rtmgr"
+    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
     RIC_ID: "bbbccc-abcd0e/20"
 
 
@@ -86,7 +86,7 @@ e2term:
     tag: 1.6.0
   env:
     print: "1"
-    RMR_RTG_SVC: "ric-full-rtmgr"
+    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
 
 # Routing Manager
 rtmgr:

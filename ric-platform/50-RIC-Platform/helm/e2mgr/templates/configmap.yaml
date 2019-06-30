@@ -24,6 +24,20 @@ metadata:
 data:
   router.txt: |
     newrt|start
-    rte|1001|{{ include "common.servicename.e2term.rmr" .}}:38000
-    rte|2002|{{ include "common.servicename.e2mgr.rmr" .}}:3801
+    rte|10060|{{ include "common.servicename.e2term.rmr" . }}.ricplt:38000
+    rte|10061|{{ include "common.servicename.e2mgr.rmr" . }}.ricplt:3801
+    rte|10062|{{ include "common.servicename.e2mgr.rmr" . }}.ricplt:3801
+    rte|10080|{{ include "common.servicename.e2mgr.rmr" . }}.ricplt:3801
+    rte|10360|{{ include "common.servicename.e2term.rmr" . }}.ricplt:38000
+    rte|10361|{{ include "common.servicename.e2mgr.rmr" . }}.ricplt:3801
+    rte|10362|{{ include "common.servicename.e2mgr.rmr" . }}.ricplt:3801
+    rte|12010|{{ include "common.servicename.e2term.rmr" . }}.ricplt:38000
+    rte|20001|{{ include "common.servicename.a1mediator.rmr" . }}.ricplt:4562
+    rte|12011|service-ricxapp-admctrl-rmr.ricxapp:4563
+    rte|12012|service-ricxapp-admctrl-rmr.ricxapp:4563
+    rte|12021|service-ricxapp-admctrl-rmr.ricxapp:4563;service-ricxapp-ueec-rmr.ricxapp:4560
+    rte|12022|service-ricxapp-admctrl-rmr.ricxapp:4563;service-ricxapp-ueec-rmr.ricxapp:4560
+    rte|12050|service-ricxapp-admctrl-rmr.ricxapp:4563;service-ricxapp-ueec-rmr.ricxapp:4560
+    rte|20000|service-ricxapp-admctrl-rmr.ricxapp:4563
     newrt|end
+

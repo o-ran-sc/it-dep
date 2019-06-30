@@ -41,7 +41,7 @@ subsets:
     ports:
       - port: {{ include "common.ingresshttpport.ricaux" . }}
         name: {{ include "common.ingressurl.ricaux" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttpport.ricaux" . }}
+      - port: {{ include "common.ingresshttpsport.ricaux" . }}
         name: {{ include "common.ingressurl.ricaux" . }}-https-ingress-port
 ---
 kind: "Service"
@@ -70,5 +70,5 @@ subsets:
     ports:
       - port: {{ include "common.ingresshttpport.ricinfra" . }}
         name: {{ include "common.ingressurl.ricinfra" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+      - port: {{ include "common.ingresshttspport.ricinfra" . }}
         name: {{ include "common.ingressurl.ricinfra" . }}-https-ingress-port

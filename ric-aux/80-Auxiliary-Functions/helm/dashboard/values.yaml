@@ -35,14 +35,18 @@ dashboard:
     name: dashboard-service
   # config URLs must be specified at deployment
   properties:
+    # These URLs use K8S/Kong service names
     a1med:
+      # no suffix required
       url:  http://ricplt-entry/a1mediator
     anrxapp:
+      # no suffix required
       url:  http://ricxapp-entry/anr
     e2mgr:
-      url:  http://ricplt-entry/e2mgr
+      # suffix must be "/v1"
+      url:  http://ricplt-entry/e2mgr/v1
       mock:
-        enabled: true
-        rannames: #Enable mock with CSV; e.g., ABCD123456, EFGH123456
+        rannames: "" # mock with CSV: "ABCD123456, EFGH123456"
     xappmgr:
-      url:  http://ricplt-entry/appmgr
+      # suffix must be "/ric/v1"
+      url:  http://ricplt-entry/appmgr/ric/v1

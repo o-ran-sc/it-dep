@@ -62,10 +62,6 @@
 
 
 
-
-
-
-
 {{- define "common.name.e2mgr" -}}
   {{- if .Values.e2mgr -}}
     {{- if .Values.e2mgr.nameOverride -}}

@@ -43,7 +43,6 @@ e2term:
   
   env:
     print: "1"
-    RMR_RTG_SVC: "ric-full-rtmgr"
   
   service:
     rmr:

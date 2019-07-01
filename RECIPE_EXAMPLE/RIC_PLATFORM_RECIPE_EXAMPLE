@@ -46,6 +46,11 @@ global:
   # The port the xApp helm tiller is listening to
   helmRepositoryTillerPort: 44134
 
+  ingressurl:
+    platform: ricplt-entry
+    xapp: ricxapp-entry
+    aux: ricaux-entry
+    infra: ricinfra-entry
 
 #-------------------------------------------------------------------------
 # Platform Components 
@@ -55,6 +60,11 @@ a1mediator:
   image:
     name: ric-plt-a1
     tag: 0.8.3
+  rmr_timeout_config:
+    rcv_retry_interval_ms: 500
+    rcv_retry_times: 20
+
+
 
 # xApp Manager 
 appmgr:
@@ -65,6 +75,7 @@ appmgr:
 # DBAAS 
 dbaas:
   backend:
+    terminationGracePeriodSeconds: 0 
     image:
       name: ric-plt-dbaas
       tag: 0.1.0
@@ -75,7 +86,6 @@ e2mgr:
     name: e2mgr
     tag: 1.6.0
   env:
-    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
     RIC_ID: "bbbccc-abcd0e/20"
 
 
@@ -86,7 +96,6 @@ e2term:
     tag: 1.6.0
   env:
     print: "1"
-    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
 
 # Routing Manager
 rtmgr:
@@ -103,4 +112,4 @@ submgr:
 # the service for redirecting to AUX cluster
 ext:
   ip:
-    192.168.130.102
+    IP_ADDRESS_OF_THE_AUX_CLUSTER

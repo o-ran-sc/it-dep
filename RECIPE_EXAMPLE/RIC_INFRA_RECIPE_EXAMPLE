@@ -46,6 +46,11 @@ global:
   # The port the xApp helm tiller is listening to
   helmRepositoryTillerPort: 44134
 
+  ingressurl:
+    platform: ricplt-entry
+    xapp: ricxapp-entry
+    aux: ricaux-entry
+    infra: ricinfra-entry
 #-------------------------------------------------------------------------
 # Infrastructure
 #-------------------------------------------------------------------------
@@ -67,6 +72,10 @@ helmrepoCredential:
   password: "helm"
 
 
-adminPassword: admin123
-
-datapath: /tmp/nexus3-data/
+nexus:
+  image:
+    name: nexus-repository-helm-apt
+    tag: 1.0.0
+  adminPassword: admin123
+  datapath: /tmp/nexus3-data/
+  storagesize: 20Gi

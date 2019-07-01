@@ -31,16 +31,22 @@ else
    RELEASE_NAME=$RICPLT_RELEASE_NAME
 fi
 if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
+   PLT_NAMESPACE=$plt_namespace
 else
-   NAMESPACE=$RICPLT_NAMESPACE
+   PLT_NAMESPACE=$RICPLT_NAMESPACE
 fi
 
+if [ -z "$RICXAPP_NAMESPACE" ];then
+   XAPP_NAMESPACE=$xapp_namespace
+else
+   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+fi
 
 RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp"
 
 echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
+echo "Platform Namespace: $PLT_NAMESPACE"
+echo "Xapp Namespace: $XAPP_NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
@@ -57,24 +63,23 @@ for component in $RICPLT_COMPONENTS; do
   if [ $component = "kong-platform" ]; then
      mkdir -p $DIR/../helm/$component/charts
      helm dep up $DIR/../helm/$component
-     helm install --namespace ricplt --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     helm install --namespace $PLT_NAMESPACE --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue
   fi
 
   if [ $component = "kong-xapp" ]; then
      mkdir -p $DIR/../helm/$component/charts 
      helm dep up $DIR/../helm/$component
-     helm install --namespace ricxapp --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     helm install --namespace $XAPP_NAMESPACE --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue
   fi
 
-  echo "not kong component"
      
   mkdir -p $DIR/../helm/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
+  helm install --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
   else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
+  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
   fi
 done

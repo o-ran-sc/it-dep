@@ -45,7 +45,6 @@ e2mgr:
   replicaCount: 1
   
   env:
-    RMR_RTG_SVC: "ric-full-rtmgr"
     RIC_ID: "bbbccc-abcd0e/20"
 
   service:

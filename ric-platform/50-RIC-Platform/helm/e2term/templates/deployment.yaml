@@ -58,7 +58,7 @@ spec:
             - name: print
               value: "{{ .Values.e2term.env.print }}"
             - name: RMR_RTG_SVC
-              value: "{{ .Values.e2term.env.RMR_RTG_SVC }}"
+              value: {{ include "common.servicename.rtmgr.rmr" . | quote }}
           ports:
             - name: "rmr"
               containerPort: {{ .Values.e2term.service.rmr.containerPort }}

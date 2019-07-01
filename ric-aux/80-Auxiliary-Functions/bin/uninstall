@@ -29,16 +29,10 @@ if [ -z "$RICAUX_RELEASE_NAME" ];then
 else
    RELEASE_NAME=$RICAUX_RELEASE_NAME
 fi
-if [ -z "$RICAUX_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICAUX_NAMESPACE
-fi
 
 RICAUX_COMPONENTS="dashboard message-router ves kong-aux"
 
 echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 

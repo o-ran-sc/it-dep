@@ -50,7 +50,7 @@ spec:
             subPath: router.txt
           env:
             - name: RMR_RTG_SVC
-              value: "{{ .Values.e2mgr.env.RMR_RTG_SVC }}"
+              value: {{ include "common.servicename.rtmgr.rmr" . | quote }}
             - name: RIC_ID
               value: "{{ .Values.e2mgr.env.RIC_ID }}"
           ports:

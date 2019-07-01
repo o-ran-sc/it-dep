@@ -22,6 +22,30 @@
       "revId": "e2dc27833154d736db6150d73c296e30ad046676",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cec84a3_207f611d",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-01T13:39:39Z",
+      "side": 1,
+      "message": "I added a condition in the configmap and only create the mock if enabled is true. This will allow us to switch it off using values.yaml so that we can configure at deployment time.",
+      "parentUuid": "114523cf_56f3ecb1",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "e2dc27833154d736db6150d73c296e30ad046676",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

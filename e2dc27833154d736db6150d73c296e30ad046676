@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "114523cf_56f3ecb1",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-07-01T13:31:38Z",
+      "side": 1,
+      "message": "Felix I saw you added this line in a previous change set.  This is NOT required for dashboard.  So I\u0027m puzzled, why is it here?  It will not cause harm, but could cause confusion.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "e2dc27833154d736db6150d73c296e30ad046676",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

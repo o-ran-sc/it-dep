@@ -17,8 +17,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-appenv
+  name: {{ include "ricxapp.configmapname" . }}-appenv
 data:
-  {{- with .Values.ricapp.appenv }}
-    {{- toYaml . | nindent 2 }}
+  {{- $dbaasservice := .Values.ricplt.dbaasService | quote -}}
+  {{- $rmrrouteport := .Values.ricxapp.service.rmr.route.port | quote -}}
+  {{- if .Values.ricxapp.appenv }}
+    {{- toYaml .Values.ricxapp.appenv | nindent 2 }}
   {{- end }}
+  {{- (.Files.Get "resources/appenv.yaml") | replace "__DBAAS_SERVICE__" $dbaasservice | replace "__RMR_RTG_SVC__" $rmrrouteport | nindent 2 }}

@@ -16,31 +16,30 @@
 ################################################################################'
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-global:
-  # modify this section to point to your local testing settings
-  repository: "${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}"
-  repositoryCred:
-    user: "${__RUNRICENV_DOCKER_USER__}"
-    password: "${__RUNRICENV_DOCKER_PASS__}"
-  image:
-    pullPolicy: IfNotPresent
-
 ricplt:
   # This section is reserved for values imported from RIC Platform charts
+  dbaasService: "service-ricplt-dbaas-tcp.ricplt.svc.cluster.local"
+  pltIngressUrl: "ricplt-entry"
+  xappIngressUrl: "ricxapp-entry"
 
-ricapp:
+  appmgrRMRService: "service-ricplt-appmgr-rmr.ricplt.svc.cluster.local"
+  e2mgrRMRService: "service-ricplt-e2mgr-rmr.ricplt.svc.cluster.local"
+  e2termRMRService: "service-ricplt-e2term-rmr.ricplt.svc.cluster.local"
+  rtmgrRMRService: "service-ricplt-rtmgr-rmr.ricplt.svc.cluster.local"
+  a1mediatorRMRService: "service-ricplt-a1mediator-rmr.ricplt.svc.cluster.local"
+
+  
+
+ricxapp:
   # This section is for xapp. Templates to be resolved from xApp descriptor
   replicaCount: 1
   name: xapp-std
-  fullname: xapp-std
-  nameOverride: ""
-  fullnameOverride: ""
-
-  # The name of the process that indicates the liveness of the component
-  livenessprocessname: xapp-std
+  # Your can specify the chart fullname by using the following option
+  #fullname: xapp-std
 
   image:
+    pullPolicy: IfNotPresent
+    repository: xapp-std-reg
     name: xapp-std
     tag: latest
 
@@ -49,8 +48,11 @@ ricapp:
       port: 8080
       containerPort: 8080
     rmr:
-      port: 4560
-      containerPort: 4560
+      route:
+        port: 4561
+      data:
+        port: 4560
+        containerPort: 4560
 
   probes:
     healthAliveCheckEndpoint: ric/v1/health/alive
@@ -58,19 +60,5 @@ ricapp:
 
   appconfig:
     path: /opt/ric/config
-    override: ""
 
-  cert:
-    path: /opt/ric/certificates
-    object: {}
-
-  hostname: xapp-std
-
-  resources: {}
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
+  appenv:

@@ -17,8 +17,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-appenv
+  name: {{ include "ricxapp.configmapname" . }}-appenv
 data:
-  {{- with .Values.ricapp.appenv }}
-    {{- toYaml . | nindent 2 }}
+  {{- if .Values.ricxapp.appenv }}
+    {{- toYaml .Values.ricxapp.appenv | nindent 2 }}
   {{- end }}
+  DBAAS_SERVICE_HOST: "{{ .Values.ricplt.dbaasService }}"
+  DBAAS_SERVICE_PORT: "6379"
+  DBAAS_PORT_6379_TCP_ADDR: "{{ .Values.ricplt.dbaasService }}"
+  DBAAS_PORT_6379_TCP_PORT: "6379"
+  RMR_RTG_SVC: "{{ .Values.ricxapp.service.rmr.route.port }}"

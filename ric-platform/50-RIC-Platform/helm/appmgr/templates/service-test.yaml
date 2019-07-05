@@ -15,26 +15,24 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.servicename.dashboard.http" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }} 
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.appmgr.service.http.port }}
+      protocol: "TCP"
+      name: "http"
+      targetPort: "http"
+  selector:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
+    release: {{ .Release.Name }}
 
-# helm_release_name defines the release name helm will use to deploy RIC
-# It will be overrided by RICPLT_RELEASE_NAME
-helm_release_name=r1
-
-# namespace defines the namespace that helm will use to deploy RIC
-# It will be overrided by RICPLT_NAMESPACE
-plt_namespace=ricplt
-
-# namespace defines the namespace that helm will use to deploy RIC
-# It will be overrided by RICXAPP_NAMESPACE
-xapp_namespace=ricxapp
-
-# namespace defines the namespace that helm will use to deploy RIC
-# It will be overrided by RICAUX_NAMESPACE
-aux_namespace=ricaux
-
-# namespace defines the namespace that helm will use to deploy RIC
-# It will be overrided by RICINFRA_NAMESPACE
-infra_namespace=ricinfra
-
-
-default_admin_password=admin123

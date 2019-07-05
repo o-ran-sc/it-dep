@@ -41,5 +41,7 @@ rtmgr:
   
   service:
     rmr:
-      port: 4560
-      containerPort: 5656
+      route:
+        port: 4561
+      data:
+        port: 4560

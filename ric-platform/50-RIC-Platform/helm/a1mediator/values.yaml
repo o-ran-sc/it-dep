@@ -29,15 +29,17 @@ a1mediator:
 
   image:
     name: ric-plt-a1
-    tag: 0.8.2
+    tag: 0.8.3
 
   service:
     http:
       port: 10000
       containerPort: 10000
     rmr:
-      port: 4562
-      containerPort: 4562
+      route:
+        port: 4561
+      data:
+        port: 4562
 
 
 # these are ENV variables that A1 takes; see docs

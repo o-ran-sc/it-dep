@@ -46,3 +46,8 @@
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.ingressname.ves" -}}
+  {{- $name := ( include "common.fullname.ves" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

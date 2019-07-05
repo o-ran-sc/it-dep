@@ -19,9 +19,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "common.servicename.e2mgr.http" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2mgr" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -33,5 +33,5 @@ spec:
       name: "http"
       targetPort: "http" 
   selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2mgr" . }}
     release: {{ .Release.Name }}

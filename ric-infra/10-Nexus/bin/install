@@ -27,16 +27,36 @@ if [ -z "$RICINFRA_RELEASE_NAME" ];then
 else
    RELEASE_NAME=$RICINFRA_RELEASE_NAME
 fi
-if [ -z "$RICINFRA_NAMESPACE" ];then
-   NAMESPACE=$namespace
+
+# Namespace configuration
+if [ -z "$RICPLT_NAMESPACE" ];then
+   PLT_NAMESPACE=$plt_namespace
 else
-   NAMESPACE=$RICINFRA_NAMESPACE
+   PLT_NAMESPACE=$RICPLT_NAMESPACE
+fi
+if [ -z "$RICXAPP_NAMESPACE" ];then
+   XAPP_NAMESPACE=$xapp_namespace
+else
+   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   AUX_NAMESPACE=$aux_namespace
+else
+   AUX_NAMESPACE=$RICAUX_NAMESPACE
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   INFRA_NAMESPACE=$infra_namespace
+else
+   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
 fi
 
-
+if [ -z "$RIC_COMMON_OVERRIDE" ];then
+   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
+else
+   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
+fi
 
 echo "Deploying nexus repo managers for local docker registry and helm repo."
-echo "Name Space: $NAMESPACE"
 echo "Helm Release: $RELEASE_NAME"
 
 
@@ -57,9 +77,9 @@ mkdir -p  $DIR/../helm/charts/
 cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
 
 if [ -z $OVERRIDEYAML ]; then
-helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
+helm install --namespace $INFRA_NAMESPACE --name "${RELEASE_NAME}-nexus" $COMMON_OVERRIDE $DIR/../helm
 else
-helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-nexus" $DIR/../helm
+helm install -f $OVERRIDEYAML --namespace $INFRA_NAMESPACE --name "${RELEASE_NAME}-nexus" $COMMON_OVERRIDE $DIR/../helm
 fi
 
 

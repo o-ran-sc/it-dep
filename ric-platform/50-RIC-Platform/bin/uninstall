@@ -29,18 +29,11 @@ if [ -z "$RICPLT_RELEASE_NAME" ];then
 else
    RELEASE_NAME=$RICPLT_RELEASE_NAME
 fi
-if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICPLT_NAMESPACE
-fi
-
 
 RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp"
 
 
 echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 

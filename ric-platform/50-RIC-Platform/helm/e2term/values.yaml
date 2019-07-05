@@ -36,16 +36,17 @@ repositoryCred: docker-reg-cred
 e2term:
   image:
     name: e2
-    tag: 1.0.0
+    tag: 1.6.0
   
   
   replicaCount: 1
   
   env:
     print: "1"
-    RMR_RTG_SVC: "ric-full-rtmgr"
   
   service:
     rmr:
-      port: 38000
-      containerPort: 38000
+      route:
+        port: 4561
+      data:
+        port: 38000

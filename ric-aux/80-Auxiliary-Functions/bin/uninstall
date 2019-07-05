@@ -22,23 +22,17 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 
-source $DIR/../etc/dashboard.conf
+source $DIR/../etc/aux.conf
 
 if [ -z "$RICAUX_RELEASE_NAME" ];then
    RELEASE_NAME=$helm_release_name
 else
    RELEASE_NAME=$RICAUX_RELEASE_NAME
 fi
-if [ -z "$RICAUX_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICAUX_NAMESPACE
-fi
 
 RICAUX_COMPONENTS="dashboard message-router ves kong-aux"
 
 echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 

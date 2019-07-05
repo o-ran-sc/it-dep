@@ -19,9 +19,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.deploymentname.dbaas" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -29,12 +29,12 @@ spec:
   replicas: {{ .Values.dbaas.backend.replicas }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
         release: {{ .Release.Name }}
     spec:
       imagePullSecrets:
@@ -47,5 +47,5 @@ spec:
         - containerPort: {{ .Values.dbaas.backend.containerPort }}
           name: sql
           protocol: TCP
-        name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        name: {{ include "common.containername.dbaas" . }}
       restartPolicy: Always

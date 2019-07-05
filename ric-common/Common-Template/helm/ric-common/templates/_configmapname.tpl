@@ -56,3 +56,18 @@
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.configmapname.dashboard" -}}
+  {{- $name := ( include "common.fullname.dashboard" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.configmapname.messagerouter" -}}
+  {{- $name := ( include "common.fullname.messagerouter" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.configmapname.ves" -}}
+  {{- $name := ( include "common.fullname.ves" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

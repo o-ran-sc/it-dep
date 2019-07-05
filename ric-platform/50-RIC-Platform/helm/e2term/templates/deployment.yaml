@@ -19,9 +19,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.deploymentname.e2term" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2term" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -29,39 +29,35 @@ spec:
   replicas: {{ .Values.e2term.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2term" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2term" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ .Chart.Name }}
+      hostname: {{ include "common.name.e2term" . }}
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "common.containername.e2term" . }}
           image: {{ include "common.repository" . }}/{{ .Values.e2term.image.name }}:{{ .Values.e2term.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           volumeMounts:
           - mountPath: /opt/e2/router.txt
             name: local-router-file
             subPath: router.txt
-          env:
-            - name: sctp
-              value: "5577"
-            - name: nano
-              value: "{{ .Values.e2term.service.rmr.port }}"
-            - name: print
-              value: "{{ .Values.e2term.env.print }}"
-            - name: RMR_RTG_SVC
-              value: "{{ .Values.e2term.env.RMR_RTG_SVC }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.e2term" . }}-env
           ports:
-            - name: "rmr"
-              containerPort: {{ .Values.e2term.service.rmr.containerPort }}
+            - name: "rmrroute"
+              containerPort: {{ .Values.e2term.service.rmr.route.port }}
+            - name: "rmrdata"
+              containerPort: {{ .Values.e2term.service.rmr.data.port }}
           stdin: true
           tty: true
           securityContext:

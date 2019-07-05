@@ -30,17 +30,39 @@ if [ -z "$RICPLT_RELEASE_NAME" ];then
 else
    RELEASE_NAME=$RICPLT_RELEASE_NAME
 fi
+
+# Namespace configuration
 if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
+   PLT_NAMESPACE=$plt_namespace
 else
-   NAMESPACE=$RICPLT_NAMESPACE
+   PLT_NAMESPACE=$RICPLT_NAMESPACE
+fi
+if [ -z "$RICXAPP_NAMESPACE" ];then
+   XAPP_NAMESPACE=$xapp_namespace
+else
+   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   AUX_NAMESPACE=$aux_namespace
+else
+   AUX_NAMESPACE=$RICAUX_NAMESPACE
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   INFRA_NAMESPACE=$infra_namespace
+else
+   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
+fi
+
+if [ -z "$RIC_COMMON_OVERRIDE" ];then
+   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
+else
+   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
 fi
 
 
 RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp"
 
 echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
@@ -57,24 +79,23 @@ for component in $RICPLT_COMPONENTS; do
   if [ $component = "kong-platform" ]; then
      mkdir -p $DIR/../helm/$component/charts
      helm dep up $DIR/../helm/$component
-     helm install --namespace ricplt --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     helm install --namespace $PLT_NAMESPACE --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue
   fi
 
   if [ $component = "kong-xapp" ]; then
      mkdir -p $DIR/../helm/$component/charts 
      helm dep up $DIR/../helm/$component
-     helm install --namespace ricxapp --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
+     helm install --namespace $XAPP_NAMESPACE --name "${RELEASE_NAME}-$component" $DIR/../helm/$component --set postgresql.enabled=false --set env.database=off
      continue
   fi
 
-  echo "not kong component"
      
   mkdir -p $DIR/../helm/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
+  helm install --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   else
-  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $DIR/../helm/$component
+  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   fi
 done

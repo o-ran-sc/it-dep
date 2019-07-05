@@ -26,4 +26,5 @@ data:
     {{- $tiller := include "common.helmrepositorytiller" . | quote -}}
     {{- $tillernamespace := include "common.helmrepositorytillernamespace" . | quote -}}
     {{- $tillerport := include "common.helmrepositorytillerport" . | quote -}}
-    {{- (.Files.Glob "resources/appmgr.yaml").AsConfig | replace "__HELM_REPO__" $helmrepo | replace "__REST_PORT__" $restport | replace "__REPO_NAME__" $reponame | replace "__TILLER_SERVICE__" $tiller | replace "__TILLER_NAMESPACE__" $tillernamespace | replace "__TILLER_PORT__" $tillerport | nindent 2 }}
+    {{- $xappnamespace := include "common.namespace.xapp" . | quote -}}
+    {{- (.Files.Glob "resources/appmgr.yaml").AsConfig | replace "__XAPP_NAMESPACE__" $xappnamespace | replace "__HELM_REPO__" $helmrepo | replace "__REST_PORT__" $restport | replace "__REPO_NAME__" $reponame | replace "__TILLER_SERVICE__" $tiller | replace "__TILLER_NAMESPACE__" $tillernamespace | replace "__TILLER_PORT__" $tillerport | nindent 2 }}

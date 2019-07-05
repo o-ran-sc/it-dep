@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://ricaux-entry/helm"
+  helmRepository: "https://helm-entry"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -46,56 +46,83 @@ global:
   # The port the xApp helm tiller is listening to
   helmRepositoryTillerPort: 44134
 
+  # The ingress URL definitions for the ingress controller in four namespaces
+  ingressurl:
+    platform: ricplt-entry
+    xapp: ricxapp-entry
+    aux: ricaux-entry
+    infra: ricinfra-entry
+    localnexus: nexus-entry
+    localhelm: helm-entry
+    localdocker: docker-entry
 
 #-------------------------------------------------------------------------
 # Platform Components 
 #-------------------------------------------------------------------------
 # A1 Mediator
 a1mediator:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: ric-plt-a1
     tag: 0.8.3
+  rmr_timeout_config:
+    rcv_retry_interval_ms: 500
+    rcv_retry_times: 20
 
 # xApp Manager 
 appmgr:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: appmgr
     tag: 1.0.4
 
+
+
 # DBAAS 
 dbaas:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   backend:
+    iterminationGracePeriodSeconds: 0
     image:
       name: ric-plt-dbaas
       tag: 0.1.0
 
 # E2 Manager
 e2mgr:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: e2mgr
     tag: 1.6.0
   env:
-    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
     RIC_ID: "bbbccc-abcd0e/20"
 
 
 # E2 Termination
 e2term:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: e2
     tag: 1.6.0
   env:
     print: "1"
-    RMR_RTG_SVC: "service-ricplt-rtmgr-rmr"
 
 # Routing Manager
 rtmgr:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: rtmgr
     tag: 0.0.2
 
 # Subscription Manager
 submgr:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
   image:
     name: submgr
     tag: v0.1.0
@@ -103,4 +130,5 @@ submgr:
 # the service for redirecting to AUX cluster
 ext:
   ip:
-    192.168.130.102
+    # The ip address of the aux cluster ingress controller
+    IP_ADDRESS

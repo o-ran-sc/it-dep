@@ -20,15 +20,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "dashboard.fullname" . }}-appconfig
+  name: {{ include "common.configmapname.dashboard" . }}-appconfig
 data:
   # this key becomes the filename when mounted
   application.properties: |
     # appconfig.yaml
-    server.port = {{ .Values.dashboard.server.port }}
-    a1med.url =   {{ .Values.dashboard.properties.a1med.url   }}
-    anrxapp.url = {{ .Values.dashboard.properties.anrxapp.url }}
-    e2mgr.url =   {{ .Values.dashboard.properties.e2mgr.url   }}
-    # mock names for R1 testing, empty or missing entry disables the mock
+    server.port = {{ .Values.dashboard.service.http.containerPort }}
+    a1med.url =   {{ include "dashboard.endpoint.a1mediator" . }}
+    anrxapp.url = {{ include "dashboard.endpoint.anrxapp" . }}
+    e2mgr.url =   {{ include "dashboard.endpoint.e2mgr" . }}
+    # mock names for R1 testing, removing this entry disables the mock
     e2mgr.mock.rannames = {{ .Values.dashboard.properties.e2mgr.mock.rannames }}
-    xappmgr.url = {{ .Values.dashboard.properties.xappmgr.url }}
+    xappmgr.url = {{ include "dashboard.endpoint.xappmgr" . }}

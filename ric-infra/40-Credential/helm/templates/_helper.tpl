@@ -15,39 +15,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{/* vim: set filetype=mustache: */}}
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "ricapp.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "ricapp.fullname" -}}
-{{- if .Values.ricapp.fullnameOverride -}}
-{{- .Values.ricapp.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.ricapp.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
-{{- end -}}
-
-{{/*
-Create chart name and version as used by the chart label.
-*/}}
-{{- define "ricapp.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 
 {{/*
   Resolve the image repository secret token.
@@ -59,7 +26,7 @@ Create chart name and version as used by the chart label.
 */}}
 {{- define "repository.secret" -}}
   {{- $repo := include "common.repository" . }}
-  {{- $cred := .Values.repositoryCredential }}
+  {{- $cred := .Values.credential.repositoryCredential }}
   {{- $user := default "docker" $cred.user }}
   {{- $password := default "docker" $cred.password }}
   {{- $mail := default "@" $cred.mail }}
@@ -70,12 +37,12 @@ Create chart name and version as used by the chart label.
 
 
 {{- define "helmrepo.secret.user" -}}
-  {{- $user := default "helm" .Values.helmrepoCredential.user -}}
+  {{- $user := default "helm" .Values.credential.helmrepoCredential.user -}}
   {{- printf "%s" $user |b64enc }}
 {{- end -}}
 
 
 {{- define "helmrepo.secret.password" -}}
-  {{- $pass := default "helm" .Values.helmrepoCredential.password -}}
+  {{- $pass := default "helm" .Values.credential.helmrepoCredential.password -}}
   {{- printf "%s" $pass |b64enc }}
 {{- end -}}

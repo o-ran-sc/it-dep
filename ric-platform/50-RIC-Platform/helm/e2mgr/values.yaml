@@ -45,7 +45,6 @@ e2mgr:
   replicaCount: 1
   
   env:
-    RMR_RTG_SVC: "ric-full-rtmgr"
     RIC_ID: "bbbccc-abcd0e/20"
 
   service:
@@ -53,5 +52,7 @@ e2mgr:
       port: 3800
       containerPort: 3800
     rmr:
-      port: 3801
-      containerPort: 3801
+      route:
+        port: 4561
+      data:
+        port: 3801

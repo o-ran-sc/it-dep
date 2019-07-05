@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://ricaux-entry/helm"
+  helmRepository: "https://helm-entry"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -46,6 +46,15 @@ global:
   # The port the xApp helm tiller is listening to
   helmRepositoryTillerPort: 44134
 
+  # The ingress URL definitions for the ingress controller in four namespaces
+  ingressurl:
+    platform: ricplt-entry
+    xapp: ricxapp-entry
+    aux: ricaux-entry
+    infra: ricinfra-entry
+    localnexus: nexus-entry
+    localhelm: helm-entry
+    localdocker: docker-entry
 #-------------------------------------------------------------------------
 # Infrastructure
 #-------------------------------------------------------------------------
@@ -56,17 +65,26 @@ cluster:
   useLocalHelmRepo: false
   useLocalDockerRegistry: false
 
+credential:
+  repositoryCredential:
+    user: <DOCKER USER NAME>
+    password: <DOCKER PASSWORD>
+  
+  
+  helmrepoCredential:
+    user: <HELM USER NAME>
+    password: <HELM PASSWORD>
 
-repositoryCredential:
-  user: "docker"
-  password: "docker"
+  helmCertificate: |2
+    -----BEGIN CERTIFICATE-----
+    <CERT FOR HELM>
+    -----END CERTIFICATE-----
 
+nexus:
+  image:
+    name: nexus-repository-helm-apt
+    tag: 1.0.0
+  adminPassword: <NEXUS ADMIN PASSWORD>
+  datapath: /tmp/nexus3-data/
+  storagesize: 20Gi
 
-helmrepoCredential:
-  user: "helm"
-  password: "helm"
-
-
-adminPassword: admin123
-
-datapath: /tmp/nexus3-data/

@@ -19,15 +19,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "common.servicename.dbaas.tcp" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
   selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
     release: {{ .Release.Name }}
   ports:
   - port: {{ .Values.dbaas.backend.port }}

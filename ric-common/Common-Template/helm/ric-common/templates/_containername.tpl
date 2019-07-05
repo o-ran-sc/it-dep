@@ -16,56 +16,56 @@
 ################################################################################
 
 {{/*
-  Resolve the name of a chart's deployment.
+  Resolve the name of a chart's container.
 */}}
 
 
-{{- define "common.deploymentname.appmgr" -}}
+{{- define "common.containername.appmgr" -}}
   {{- $name := ( include "common.fullname.appmgr" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.dbaas" -}}
+{{- define "common.containername.dbaas" -}}
   {{- $name := ( include "common.fullname.dbaas" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.e2mgr" -}}
+{{- define "common.containername.e2mgr" -}}
   {{- $name := ( include "common.fullname.e2mgr" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.e2term" -}}
+{{- define "common.containername.e2term" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.rtmgr" -}}
+{{- define "common.containername.rtmgr" -}}
   {{- $name := ( include "common.fullname.rtmgr" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.a1mediator" -}}
+{{- define "common.containername.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.nexus" -}}
+{{- define "common.containername.nexus" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.dashboard" -}}
+{{- define "common.containername.dashboard" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.messagerouter" -}}
+{{- define "common.containername.messagerouter" -}}
   {{- $name := ( include "common.fullname.messagerouter" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.ves" -}}
+{{- define "common.containername.ves" -}}
   {{- $name := ( include "common.fullname.ves" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

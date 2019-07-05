@@ -19,9 +19,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.deploymentname.rtmgr" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rtmgr" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -29,37 +29,27 @@ spec:
   replicas: {{ .Values.rtmgr.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rtmgr" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rtmgr" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ .Chart.Name }}
+      hostname: {{ include "common.name.rtmgr" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
-        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        - name: {{ include "common.containername.rtmgr" . }}
           image: {{ include "common.repository" . }}/{{ .Values.rtmgr.image.name }}:{{ .Values.rtmgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           command: ["/run_rtmgr.sh"]
-          env:
-            - name: XMURL
-              value: "http://{{ include "common.servicename.appmgr.http" . }}:8080/ric/v1/xapps"
-            - name: SOCKET
-              value: "tcp://0.0.0.0:4560"
-            - name: RTFILE
-              value: "/db/rt.json"
-            - name: NBI
-              value: "httpGetter"
-            - name: SBI
-              value: "nngpub"
-            - name: RPE
-              value: "rmr"
-            - name: SDL
-              value: "file"
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.rtmgr" . }}-env
           ports:
-            - name: "rmr"
-              containerPort: {{ .Values.rtmgr.service.rmr.containerPort }}
+            - name: "rmrroute"
+              containerPort: {{ .Values.rtmgr.service.rmr.route.port }}
+            - name: "rmrdata"
+              containerPort: {{ .Values.rtmgr.service.rmr.data.port }}

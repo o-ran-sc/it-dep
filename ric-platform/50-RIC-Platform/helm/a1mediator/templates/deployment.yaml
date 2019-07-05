@@ -20,9 +20,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.deploymentname.a1mediator" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.a1mediator" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -30,19 +30,19 @@ spec:
   replicas: {{ .Values.a1mediator.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.a1mediator" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.a1mediator" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ .Chart.Name }}
+      hostname: {{ include "common.name.a1mediator" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
-        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        - name: {{ include "common.containername.a1mediator" . }}
           volumeMounts:
           - name: a1conf
             mountPath: /opt/ricmanifest.json
@@ -53,21 +53,20 @@ spec:
           - name: a1conf
             mountPath: /opt/route/local.rt
             subPath: local.rt
-          env:
-          - name: PYTHONUNBUFFERED
-            value: "0"
-          - name: RMR_RCV_RETRY_INTERVAL
-            value: "{{ .Values.a1mediator.rmr_timeout_config.rcv_retry_interval_ms }}"
-          - name: RMR_RETRY_TIMES
-            value: "{{ .Values.a1mediator.rmr_timeout_config.rcv_retry_times }}"
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.a1mediator" . }}-env
           image: {{ include "common.repository" . }}/{{ .Values.a1mediator.image.name }}:{{ .Values.a1mediator.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
               containerPort: {{ .Values.a1mediator.service.http.containerPort }}
               protocol: TCP
-            - name: rmr
-              containerPort: {{ .Values.a1mediator.service.rmr.containerPort }}
+            - name: rmrroute
+              containerPort: {{ .Values.a1mediator.service.rmr.route.port }}
+              protocol: TCP
+            - name: rmrdata
+              containerPort: {{ .Values.a1mediator.service.rmr.data.port }}
               protocol: TCP
           livenessProbe:
             httpGet:

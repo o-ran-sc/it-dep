@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 dashboard:
   image:
     name: ric-dash-be
-    tag: 1.0.5
+    tag: 1.0.6
   replicaCount: 1
   server:
     # Tomcat listens here
@@ -35,18 +35,22 @@ dashboard:
     name: dashboard-service
   # config URLs must be specified at deployment
   properties:
-    # These URLs use K8S/Kong service names
+    # The URL prefixes use K8S/Kong service names
     a1med:
-      # no suffix required
-      url:  http://ricplt-entry/a1mediator
+      url:
+        prefix: http://ricplt-entry/a1mediator
+        suffix: ''
     anrxapp:
-      # no suffix required
-      url:  http://ricxapp-entry/anr
+      url:
+        prefix: http://ricxapp-entry/anr
+        suffix: ''
+    appmgr:
+      url:
+        prefix: http://ricplt-entry/appmgr
+        suffix: /ric/v1
     e2mgr:
-      # suffix must be "/v1"
-      url:  http://ricplt-entry/e2mgr/v1
+      url:
+        prefix: http://ricplt-entry/e2mgr
+        suffix: /v1
       mock:
-        rannames: "" # mock with CSV: "ABCD123456, EFGH123456"
-    xappmgr:
-      # suffix must be "/ric/v1"
-      url:  http://ricplt-entry/appmgr/ric/v1
+        rannames: '' # mock with CSV: 'ABCD123456, EFGH123456'

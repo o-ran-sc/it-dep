@@ -25,10 +25,14 @@ data:
   # this key becomes the filename when mounted
   application.properties: |
     # appconfig.yaml
-    server.port = {{ .Values.dashboard.server.port }}
-    a1med.url =   {{ .Values.dashboard.properties.a1med.url   }}
-    anrxapp.url = {{ .Values.dashboard.properties.anrxapp.url }}
-    e2mgr.url =   {{ .Values.dashboard.properties.e2mgr.url   }}
-    # mock names for R1 testing, empty or missing entry disables the mock
+    server.port =        {{ .Values.dashboard.server.port }}
+    a1med.url.prefix =   {{ .Values.dashboard.properties.a1med.url.prefix   }}
+    a1med.url.suffix =   {{ .Values.dashboard.properties.a1med.url.suffix   }}
+    anrxapp.url.prefix = {{ .Values.dashboard.properties.anrxapp.url.prefix }}
+    anrxapp.url.suffix = {{ .Values.dashboard.properties.anrxapp.url.suffix }}
+    appmgr.url.prefix =  {{ .Values.dashboard.properties.appmgr.url.prefix  }}
+    appmgr.url.suffix =  {{ .Values.dashboard.properties.appmgr.url.suffix  }}
+    e2mgr.url.prefix =   {{ .Values.dashboard.properties.e2mgr.url.prefix   }}
+    e2mgr.url.suffix =   {{ .Values.dashboard.properties.e2mgr.url.suffix   }}
+    # mock names for R1 testing; empty or missing entry disables the mock
     e2mgr.mock.rannames = {{ .Values.dashboard.properties.e2mgr.mock.rannames }}
-    xappmgr.url = {{ .Values.dashboard.properties.xappmgr.url }}

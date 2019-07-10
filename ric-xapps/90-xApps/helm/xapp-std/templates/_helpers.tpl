@@ -19,7 +19,7 @@
 Expand the name of the chart.
 */}}
 {{- define "ricxapp.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+  {{- default .Chart.Name .Values.ricxapp.name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -28,23 +28,16 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "ricxapp.fullname" -}}
-{{- if .Values.ricxapp.fullnameOverride -}}
-{{- .Values.ricxapp.fullnameOverride | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- $name := default .Chart.Name .Values.ricxapp.nameOverride -}}
-{{- if contains $name .Release.Name -}}
-{{- .Release.Name | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-{{- end -}}
+  {{- $name := ( include "ricxapp.name" . ) -}}
+  {{- $fullname := ( printf "%s-%s" .Release.Namespace $name ) -}}
+  {{- default $fullname .Values.ricxapp.fullname | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "ricxapp.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "ricxapp.namespace" -}}
@@ -73,6 +66,11 @@ Create chart name and version as used by the chart label.
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+
+{{- define "ricxapp.containername" -}}
+  {{- $name := ( include "ricxapp.fullname" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "ricxapp.imagepullsecret" -}}
   {{- printf "docker-reg-cred" -}}

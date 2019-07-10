@@ -27,4 +27,4 @@ dbaas:
     containerPort: 6379
     image:
       name: ric-plt-dbaas
-      tag: latest
+      tag: 0.1.0

@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 # By default a local helm repo is used. The global setting will override
 # the default value. You can further override using
 #helmRepositoryOverride: ""
-helmRepository: "https://ricaux-entry/helm" 
+helmRepository: "https://helm-entry" 
 
 # Default secret name for Helm Repo credential. .Value.golbal.helmRepositoryCred will
 # override the default value. You can further override uing
@@ -78,8 +78,10 @@ appmgr:
       port: 8080
       containerPort: 8080
     rmr:
-      port: 4560
-      containerPort: 4560
+      route:
+        port: 4561
+      data:
+        port: 4560
 
 
   # config

@@ -83,14 +83,30 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-
 {{- define "common.servicename.nexus.http" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.servicename.dashboard.http" -}}
+  {{- $name := ( include "common.fullname.dashboard" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
 ###################### TCP Service ##################################
 
 {{- define "common.servicename.dbaas.tcp" -}}
   {{- $name := ( include "common.fullname.dbaas" . ) -}}
+  {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.messagerouter.tcp" -}}
+  {{- $name := ( include "common.fullname.messagerouter" . ) -}}
+  {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.servicename.ves.tcp" -}}
+  {{- $name := ( include "common.fullname.ves" . ) -}}
   {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

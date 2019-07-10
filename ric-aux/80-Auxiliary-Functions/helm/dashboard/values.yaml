@@ -26,27 +26,41 @@ dashboard:
     name: ric-dash-be
     tag: 1.0.5
   replicaCount: 1
-  server:
-    # Tomcat listens here
-    port: 8080
   service:
-    type: NodePort
-    port: 30080
-    name: dashboard-service
+    http:
+      nodeport: 30080
+      # Tomcat listens here
+      containerPort: 8080
   # config URLs must be specified at deployment
   properties:
     # These URLs use K8S/Kong service names
     a1med:
-      # no suffix required
-      url:  http://ricplt-entry/a1mediator
+      # The URL will be provided by the RIC common template
+      url:
+        # no suffix required
+        suffix: ""
+        # You can override the URL using the following option
+        # override:  http://ricplt-entry/a1mediator
     anrxapp:
-      # no suffix required
-      url:  http://ricxapp-entry/anr
+      # The URL will be provided by the RIC common template
+      url:
+        # no suffix required
+        suffix: ""
+        # You can override the URL using the following option
+        # override:  http://ricxapp-entry/anr
     e2mgr:
-      # suffix must be "/v1"
-      url:  http://ricplt-entry/e2mgr/v1
+      # The URL will be provided by the RIC common template
+      url:
+        # suffix must be "/v1"
+        suffix: "/v1"
+        # You can override the URL using the following option
+        # override:  http://ricplt-entry/e2mgr/v1
       mock:
-        rannames: "" # mock with CSV: "ABCD123456, EFGH123456"
+        rannames: "" # mock with CSV; e.g., ABCD123456, EFGH123456
     xappmgr:
-      # suffix must be "/ric/v1"
-      url:  http://ricplt-entry/appmgr/ric/v1
+      # The URL will be provided by the RIC common template
+      url:
+        # suffix must be "/ric/v1"
+        suffix: "/ric/v1"
+        # You can override the URL using the following option
+        # override:  http://ricplt-entry/appmgr/ric/v1

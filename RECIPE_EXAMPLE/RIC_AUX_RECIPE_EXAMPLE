@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://ricaux-entry/helm"
+  helmRepository: "https://helm-entry"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -46,13 +46,22 @@ global:
   # The port the xApp helm tiller is listening to
   helmRepositoryTillerPort: 44134
 
-
-
+  # The ingress URL definitions for the ingress controller in four namespaces
+  ingressurl:
+    platform: ricplt-entry
+    xapp: ricxapp-entry
+    aux: ricaux-entry
+    infra: ricinfra-entry
+    localnexus: nexus-entry
+    localhelm: helm-entry
+    localdocker: docker-entry
   
 #-------------------------------------------------------------------------
 # Auxiliary Functions
 #-------------------------------------------------------------------------
 dashboard:
+  # Override the name using the following option
+  # nameOverride:
   image:
     name:: ric-dash-be
     tag: 1.0.5

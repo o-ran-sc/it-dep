@@ -19,9 +19,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.deploymentname.appmgr" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -29,27 +29,30 @@ spec:
   replicas: {{ .Values.appmgr.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ .Chart.Name }}
+      hostname: {{ include "common.name.appmgr" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:
-        - name: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+        - name: {{ include "common.containername.appmgr" . }}
           image: {{ include "common.repository" . }}/{{ .Values.appmgr.image.name }}:{{ .Values.appmgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
               containerPort: {{ .Values.appmgr.service.http.containerPort }}
               protocol: TCP
-            - name: rmr
-              containerPort: {{ .Values.appmgr.service.rmr.containerPort }}
+            - name: rmrroute
+              containerPort: {{ .Values.appmgr.service.rmr.route.port }}
+              protocol: TCP
+            - name: rmrdata
+              containerPort: {{ .Values.appmgr.service.rmr.data.port }}
               protocol: TCP
           volumeMounts:
             - name: config-volume
@@ -61,7 +64,7 @@ spec:
               mountPath: {{ .Values.appmgr.appcertpath }}
           envFrom:
             - configMapRef:
-                name: {{ include "common.configmapname.appmgr" . }}-appenv
+                name: {{ include "common.configmapname.appmgr" . }}-env
           livenessProbe:
             #exec:
             #  command:

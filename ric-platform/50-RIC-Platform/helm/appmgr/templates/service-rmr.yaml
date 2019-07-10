@@ -19,20 +19,24 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "common.servicename.appmgr.rmr" . }}
-  namespace: {{ include "common.namespace" . }}
+  namespace: {{ include "common.namespace.platform" . }}
   labels:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }} 
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.appmgr.service.rmr.port }}
+    - port: {{ .Values.appmgr.service.rmr.route.port }}
       protocol: "TCP"
-      name: "rmr"
-      targetPort: "rmr"
+      name: "rmrroute"
+      targetPort: "rmrroute"
+    - port: {{ .Values.appmgr.service.rmr.data.port }}
+      protocol: "TCP"
+      name: "rmrdata"
+      targetPort: "rmrdata"
   selector:
-    app: {{ include "common.namespace" . }}-{{ include "common.name" . }}
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
     release: {{ .Release.Name }}
 

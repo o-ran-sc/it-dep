@@ -35,7 +35,8 @@
 
 {{- define "common.fullname.appmgr" -}}
   {{- $name := ( include "common.name.appmgr" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -53,7 +54,8 @@
 
 {{- define "common.fullname.dbaas" -}}
   {{- $name := ( include "common.name.dbaas" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -81,7 +83,8 @@
 
 {{- define "common.fullname.e2mgr" -}}
   {{- $name := ( include "common.name.e2mgr" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "common.name.e2term" -}}
@@ -99,7 +102,8 @@
 
 {{- define "common.fullname.e2term" -}}
   {{- $name := ( include "common.name.e2term" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -125,7 +129,8 @@
 
 {{- define "common.fullname.rtmgr" -}}
   {{- $name := ( include "common.name.rtmgr" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -148,7 +153,8 @@
 
 {{- define "common.fullname.a1mediator" -}}
   {{- $name := ( include "common.name.a1mediator" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
@@ -168,12 +174,68 @@
 
 {{- define "common.fullname.nexus" -}}
   {{- $name := ( include "common.name.nexus" . ) -}}
-  {{- printf "%s-%s" .Release.Namespace $name | trunc 63 | trimSuffix "-" -}}
+  {{- $namespace := ( include "common.namespace.infra" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 
+{{- define "common.name.dashboard" -}}
+  {{- if .Values.dashboard -}}
+    {{- if .Values.dashboard.nameOverride -}}
+      {{- printf "%s" .Values.dashboard.nameOverride -}}
+    {{- else -}}
+      {{- printf "dashboard" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "dashboard" -}}
+  {{- end -}}
+{{- end -}}
 
 
+{{- define "common.fullname.dashboard" -}}
+  {{- $name := ( include "common.name.dashboard" . ) -}}
+  {{- $namespace := ( include "common.namespace.aux" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.name.messagerouter" -}}
+  {{- if .Values.messagerouter -}}
+    {{- if .Values.messagerouter.nameOverride -}}
+      {{- printf "%s" .Values.messagerouter.nameOverride -}}
+    {{- else -}}
+      {{- printf "messagerouter" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "messagerouter" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.messagerouter" -}}
+  {{- $name := ( include "common.name.messagerouter" . ) -}}
+  {{- $namespace := ( include "common.namespace.aux" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "common.name.ves" -}}
+  {{- if .Values.ves -}}
+    {{- if .Values.ves.nameOverride -}}
+      {{- printf "%s" .Values.ves.nameOverride -}}
+    {{- else -}}
+      {{- printf "ves" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ves" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.ves" -}}
+  {{- $name := ( include "common.name.ves" . ) -}}
+  {{- $namespace := ( include "common.namespace.aux" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "common.name" -}}
   {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}

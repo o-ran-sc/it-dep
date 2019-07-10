@@ -22,6 +22,71 @@
 
   - .Values.nsPrefix  : override namespace prefix
 */}}
+
+{{- define "common.namespace.platform" -}}
+  {{- if .Values.global -}}
+    {{- if .Values.global.namespace -}}
+      {{- if .Values.global.namespace.platform -}}
+        {{- printf "%s" .Values.global.namespace.platform -}}
+      {{- else -}}
+        {{- printf "ricplt" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- printf "ricplt" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ricplt" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "common.namespace.aux" -}}
+  {{- if .Values.global -}}
+    {{- if .Values.global.namespace -}}
+      {{- if .Values.global.namespace.aux -}}
+        {{- printf "%s" .Values.global.namespace.aux -}}
+      {{- else -}}
+        {{- printf "ricaux" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- printf "ricaux" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ricaux" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "common.namespace.xapp" -}}
+  {{- if .Values.global -}}
+    {{- if .Values.global.namespace -}}
+      {{- if .Values.global.namespace.xapp -}}
+        {{- printf "%s" .Values.global.namespace.xapp -}}
+      {{- else -}}
+        {{- printf "ricxapp" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- printf "ricxapp" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ricxapp" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- define "common.namespace.infra" -}}
+  {{- if .Values.global -}}
+    {{- if .Values.global.namespace -}}
+      {{- if .Values.global.namespace.infra -}}
+        {{- printf "%s" .Values.global.namespace.infra -}}
+      {{- else -}}
+        {{- printf "ricinfra" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- printf "ricinfra" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "ricinfra" -}}
+  {{- end -}}
+{{- end -}}
+
 {{- define "common.namespace" -}}
   {{- default .Release.Namespace .Values.nsPrefix -}}
 {{- end -}}

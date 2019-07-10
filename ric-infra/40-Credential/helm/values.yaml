@@ -20,11 +20,18 @@
 
 repository: "nexus3.o-ran-sc.org:10004"
 
-repositoryCredential:
-  user: "docker"
-  password: "docker"
 
-
-helmrepoCredential:
-  user: "helm"
-  password: "helm"
+credential:
+  repositoryCredential:
+    user: "docker"
+    password: "docker"
+  
+  
+  helmrepoCredential:
+    user: "helm"
+    password: "helm"
+  
+  helmCertificate: |2 
+    -----BEGIN CERTIFICATE-----
+    <CERT FOR HELM>
+    -----END CERTIFICATE-----

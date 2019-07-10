@@ -20,5 +20,6 @@ kind: ConfigMap
 metadata:
   name: xapp-mgr-certs
 data:
-  {{ (.Files.Glob "resources/tls.crt").AsConfig | nindent 2 }}
+  tls.crt: |
+  {{- .Values.credential.helmCertificate | nindent 4 }}
 

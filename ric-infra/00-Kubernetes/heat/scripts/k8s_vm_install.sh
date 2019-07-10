@@ -121,7 +121,7 @@ KUBECNIV=$(cat /opt/config/k8s_cni_version.txt)
 
 KUBEVERSION="${KUBEV}-00"
 CNIVERSION="${KUBECNIV}-00"
-DOCKERVERSION="${DOCKERV}-0ubuntu1.2~16.04.1"
+DOCKERVERSION="${DOCKERV}"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
 

@@ -38,6 +38,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ include "common.name.appmgr" . }}
+      serviceAccountName: {{ include "common.serviceaccountname.appmgr" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
       containers:

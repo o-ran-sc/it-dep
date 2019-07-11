@@ -70,5 +70,5 @@ subsets:
     ports:
       - port: {{ include "common.ingresshttpport.ricinfra" . }}
         name: {{ include "common.ingressurl.ricinfra" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttspport.ricinfra" . }}
+      - port: {{ include "common.ingresshttpsport.ricinfra" . }}
         name: {{ include "common.ingressurl.ricinfra" . }}-https-ingress-port

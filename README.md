@@ -31,14 +31,17 @@ different deployable components. The prefix of these subdirectories represents t
 prefix number the eariler the corresponding component will be deployed.  Consider the following example,
 ├── ric-aux
 │   ├── 80-Auxiliary-Functions
+│   ├── 85-Ext-Services
 │   └── README.md
 ├── ric-infra
 │   ├── 00-Kubernetes
 │   ├── 10-Nexus
-│   ├── 20-Credential
+│   ├── 20-Monitoring
+│   ├── 40-Credential
 │   └── README.md
 ├── ric-platform
 │   ├── 50-RIC-Platform
+│   ├── 55-Ext-Services
 │   └── README.md
 └── ric-xapps
     ├── 90-xApps

@@ -13,6 +13,7 @@ VEScollector) that interact with RIC using A1/O1 interfaces.
 │   ├── bin                   Contains deployment and uninstall scripts
 │   ├── etc                   Contains deployment configuration files
 │   └── helm                  Contains helm charts
+├── 85-External Services      Deployment scripts and chart for external service used by RIC to reach services outside of cluster
 └── README.md                 This file
 
 
@@ -38,3 +39,21 @@ In the one-click deployment solution, the above setting will be overrided by env
 *RICAUX_RELEASE_NAME
 *RICAUX_NAMESPACE
 
+
+### To deploy the External services
+The IP address described below should be the interface IP address of the VM hosting the platform cluster.
+If the platform cluster is multi-node, any of the nodes can be specified here.
+
+```sh
+$ # Set the value of ext/ip in values.yaml to be the external IP address.  If you will use an override file and it has ext/ip set,
+$ # make sure it is set correctly.
+$ . ./85-Ext-Services/bin/install
+$ # If you have an override value.yaml file, please use
+$ #. ./85-Ext-Services/bin/install YOUR_OVERRIDE_FILE
+```
+
+
+### To undeploy the Auxiliary Functions
+```sh
+$ . ./85-Ext-Services/bin/uninstall
+```

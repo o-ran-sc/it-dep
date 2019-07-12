@@ -73,16 +73,10 @@ appmgr:
 
   reponame: "helm-repo"
 
-  service:
-    http:
-      port: 8080
-      containerPort: 8080
-    rmr:
-      route:
-        port: 4561
-      data:
-        port: 4560
-
+  # Service ports are now defined in 
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.
 
   # config
   # Path referred in xapp-manager for retrieving configuration details

@@ -24,15 +24,15 @@ metadata:
 data:
   router.txt: |
     newrt|start
-    rte|10060|{{ include "common.servicename.e2term.rmr" . }}.{{ include "common.namespace.platform" . }}:38000
-    rte|10061|{{ include "common.servicename.e2mgr.rmr" . }}.{{ include "common.namespace.platform" . }}:3801
-    rte|10062|{{ include "common.servicename.e2mgr.rmr" . }}.{{ include "common.namespace.platform" . }}:3801
-    rte|10080|{{ include "common.servicename.e2mgr.rmr" . }}.{{ include "common.namespace.platform" . }}:3801
-    rte|10360|{{ include "common.servicename.e2term.rmr" . }}.{{ include "common.namespace.platform" . }}:38000
-    rte|10361|{{ include "common.servicename.e2mgr.rmr" . }}.{{ include "common.namespace.platform" . }}:3801
-    rte|10362|{{ include "common.servicename.e2mgr.rmr" . }}.{{ include "common.namespace.platform" . }}:3801
-    rte|12010|{{ include "common.servicename.e2term.rmr" . }}.{{ include "common.namespace.platform" . }}:38000
-    rte|20001|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:4562
+    rte|10060|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
+    rte|10061|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
+    rte|10062|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
+    rte|10080|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
+    rte|10360|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
+    rte|10361|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
+    rte|10362|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
+    rte|12010|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
+    rte|20001|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.a1mediator.rmr.data" . }}
     rte|12011|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
     rte|12012|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
     rte|12021|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563;service-ricxapp-ueec-rmr.{{ include "common.namespace.xapp" . }}:4560

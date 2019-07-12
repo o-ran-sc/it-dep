@@ -9,4 +9,4 @@ spec:
       - path: /appmgr
         backend:
           serviceName: {{ include "common.servicename.appmgr.http" . }}
-          servicePort: {{ .Values.appmgr.service.http.port }}
+          servicePort: {{ include "common.serviceport.appmgr.http" . }}

@@ -20,7 +20,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "common.configmapname.appmgr" . }}-appconfig
 data:
-    {{- $restport := default ":8080" (printf ":%.0f" .Values.appmgr.service.http.containerPort) | quote -}}
+    {{- $restport := (printf ":%s" (include "common.serviceport.appmgr.http" .) ) | quote -}}
     {{- $helmrepo := include "common.helmrepository" . | quote -}}
     {{- $reponame := default "helm-repo" .Values.appmgr.reponame | quote -}}
     {{- $tiller := include "common.helmrepositorytiller" . | quote -}}

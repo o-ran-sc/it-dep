@@ -28,7 +28,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.a1mediator.service.http.port }}
+    - port: {{ include "common.serviceport.a1mediator.http" . }}
       protocol: "TCP"
       name: "http"
       targetPort: "http"

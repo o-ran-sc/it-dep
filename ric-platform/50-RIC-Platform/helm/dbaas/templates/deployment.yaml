@@ -44,7 +44,7 @@ spec:
       - image: {{ include "common.repository" . }}/{{ .Values.dbaas.backend.image.name }}:{{ .Values.dbaas.backend.image.tag }}
         imagePullPolicy: {{ include "common.pullPolicy" . }}
         ports:
-        - containerPort: {{ .Values.dbaas.backend.containerPort }}
+        - containerPort: {{ include "common.serviceport.dbaas.tcp" . }}
           name: sql
           protocol: TCP
         name: {{ include "common.containername.dbaas" . }}

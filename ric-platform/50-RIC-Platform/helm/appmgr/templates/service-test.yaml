@@ -28,7 +28,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.appmgr.service.http.port }}
+    - port: {{ include "common.serviceport.appmgr.http" . }}
       protocol: "TCP"
       name: "http"
       targetPort: "http"

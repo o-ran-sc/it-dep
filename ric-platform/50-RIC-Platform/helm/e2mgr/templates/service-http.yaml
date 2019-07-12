@@ -28,7 +28,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.e2mgr.service.http.port }}
+    - port: {{ include "common.serviceport.e2mgr.http" . }}
       protocol: "TCP"
       name: "http"
       targetPort: "http" 

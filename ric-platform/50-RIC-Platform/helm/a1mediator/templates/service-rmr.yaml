@@ -28,11 +28,11 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.a1mediator.service.rmr.route.port }}
+    - port: {{ include "common.serviceport.a1mediator.rmr.route" . }}
       protocol: "TCP"
       name: "rmrroute"
       targetPort: "rmrroute"
-    - port: {{ .Values.a1mediator.service.rmr.data.port }}
+    - port: {{ include "common.serviceport.a1mediator.rmr.data" . }}
       protocol: "TCP"
       name: "rmrdata"
       targetPort: "rmrdata"

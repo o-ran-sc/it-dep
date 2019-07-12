@@ -53,11 +53,11 @@ spec:
                 name: {{ include "common.configmapname.e2mgr" . }}-env
           ports:
             - name: "http"
-              containerPort: {{ .Values.e2mgr.service.http.containerPort }}
+              containerPort: {{ include "common.serviceport.e2mgr.http" . }}
             - name: "rmrroute"
-              containerPort: {{ .Values.e2mgr.service.rmr.route.port }}
+              containerPort: {{ include "common.serviceport.e2mgr.rmr.route" . }}
             - name: "rmrdata"
-              containerPort: {{ .Values.e2mgr.service.rmr.data.port }}
+              containerPort: {{ include "common.serviceport.e2mgr.rmr.data" . }}
           stdin: true
           tty: true
           securityContext:

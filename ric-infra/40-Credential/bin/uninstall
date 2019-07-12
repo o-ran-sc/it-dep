@@ -25,10 +25,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 source $DIR/../etc/credential.conf
 
-if [ -z "$RICPLT_RELEASE_NAME" ];then
+if [ -z "$RICINFRA_RELEASE_NAME" ];then
    RELEASE_NAME=$helm_release_name
 else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
+   RELEASE_NAME=$RICINFRA_RELEASE_NAME
 fi
 
 # Namespace configuration

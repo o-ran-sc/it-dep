@@ -26,11 +26,12 @@ dashboard:
     name: ric-dash-be
     tag: 1.0.5
   replicaCount: 1
-  service:
-    http:
-      nodeport: 30080
-      # Tomcat listens here
-      containerPort: 8080
+
+  # Service ports are now defined in 
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.
+
   # config URLs must be specified at deployment
   properties:
     # These URLs use K8S/Kong service names

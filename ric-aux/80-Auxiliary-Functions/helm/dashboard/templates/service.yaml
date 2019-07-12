@@ -28,8 +28,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.dashboard.service.http.containerPort }}
-      nodePort: {{ .Values.dashboard.service.http.nodeport }}
+    - port: {{ include "common.serviceport.dashboard.container" . }}
+      nodePort: {{ include "common.serviceport.dashboard.http" . }}
       targetPort: http
       protocol: TCP
   selector:

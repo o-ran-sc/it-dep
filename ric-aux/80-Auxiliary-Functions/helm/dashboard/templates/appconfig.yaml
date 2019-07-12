@@ -25,7 +25,7 @@ data:
   # this key becomes the filename when mounted
   application.properties: |
     # appconfig.yaml
-    server.port = {{ .Values.dashboard.service.http.containerPort }}
+    server.port = {{ include "common.serviceport.dashboard.container" . }}
     a1med.url =   {{ include "dashboard.endpoint.a1mediator" . }}
     anrxapp.url = {{ include "dashboard.endpoint.anrxapp" . }}
     e2mgr.url =   {{ include "dashboard.endpoint.e2mgr" . }}

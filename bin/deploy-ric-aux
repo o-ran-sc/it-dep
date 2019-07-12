@@ -16,7 +16,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# This script deploys RIC auxiliary function components automatically
+# This script deploys RIC aux components automatically
 
 OVERRIDEYAML=$1
 
@@ -24,22 +24,27 @@ if [ -z "$OVERRIDEYAML" ];then
 echo "****************************************************************************************************************"
 echo "                                                     WARNING                                                    "
 echo "****************************************************************************************************************"
-echo "Deploying RIC auxiliary functions without deployment recipe. Default configurations are used."
+echo "Deploying RIC auxiliary without deployment recipe. Default configurations are used."
 echo "****************************************************************************************************************"
-
 
 fi
 
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-source $DIR/../etc/ric-aux.conf
-
-export RICAUX_RELEASE_NAME=$ric_aux_helm_release_name
-
-export RICAUX_NAMESPACE=$ric_aux_namespace
+source $ROOT_DIR/../etc/ric.conf
 
 
+export RICAUX_RELEASE_NAME=$helm_release_name
 
-. ../ric-aux/80-Auxiliary-Functions/bin/install $OVERRIDEYAML
+export RICPLT_NAMESPACE=$plt_namespace
+export RICXAPP_NAMESPACE=$xapp_namespace
+export RICAUX_NAMESPACE=$aux_namespace
+export RICINFRA_NAMESPACE=$infra_namespace
+
+for component in $ROOT_DIR/../ric-aux/*/; do
+    # Will print */ if no directories are available
+    . $component/bin/install $OVERRIDEYAML
+
+done
 

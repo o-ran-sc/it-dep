@@ -24,10 +24,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 source $DIR/../etc/elfkp.conf
 
-if [ -z "$RICAUX_RELEASE_NAME" ];then
+if [ -z "$RICINFRA_RELEASE_NAME" ];then
    RELEASE_NAME=$helm_release_name
 else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
+   RELEASE_NAME=$RICINFRA_RELEASE_NAME
 fi
 # Namespace configuration
 if [ -z "$RICPLT_NAMESPACE" ];then
@@ -61,7 +61,7 @@ fi
 
 RICAUX_COMPONENTS="elfkp"
 
-echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
+echo "Deploying RIC infra components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"
 
 
@@ -83,8 +83,8 @@ for component in $RICAUX_COMPONENTS; do
   #eval "$CMD"
 
   if [ -z $OVERRIDEYAML ]; then
-    helm install --debug --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+    helm install --debug --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   else
-    helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+    helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   fi
 done

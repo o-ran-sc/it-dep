@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -15,11 +17,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# -------------------  RIC AUX ---------------------------------------
 
-# release name helm will use to deploy RIC aux componenets
-ric_aux_helm_release_name=r0
-
-# namespace that helm will use to deploy RIC
-ric_aux_namespace=ricaux
-
+# This is a placeholder.
+echo "Please reset your kubernetes cluster manually."

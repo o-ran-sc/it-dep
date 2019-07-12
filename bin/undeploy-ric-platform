@@ -16,20 +16,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# This script deploys RIC platform components automatically
+# This script deploys RIC auxiliary function components automatically
 
 
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+source $ROOT_DIR/../etc/ric.conf
 
-source $DIR/../etc/ric-platform.conf
+export RICPLT_RELEASE_NAME=$helm_release_name
 
-
-export RICPLT_RELEASE_NAME=$ric_platform_helm_release_name
-
-export RICPLT_NAMESPACE=$ric_platform_namespace
+export RICPLT_NAMESPACE=$plt_namespace
 
 
+for component in $ROOT_DIR/../ric-platform/*/; do
+    # Will print */ if no directories are available
+    . $component/bin/uninstall
 
-. ../ric-platform/50-RIC-Platform/bin/uninstall
+done
+
+
 

@@ -121,7 +121,7 @@ KUBECNIV=$(cat /opt/config/k8s_cni_version.txt)
 
 KUBEVERSION="${KUBEV}-00"
 CNIVERSION="${KUBECNIV}-00"
-DOCKERVERSION="${DOCKERV}-0ubuntu1.2~16.04.1"
+DOCKERVERSION="${DOCKERV}"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
 
@@ -130,7 +130,7 @@ apt-get update
 apt-get install -y linux-image-4.15.0-45-lowlatency curl jq netcat docker.io=${DOCKERVERSION}
 apt-get install -y kubernetes-cni=${CNIVERSION}
 apt-get install -y --allow-unauthenticated kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
-apt-mark hold kubernetes-cni kubelet kubeadm kubectl
+apt-mark hold docker.io kubernetes-cni kubelet kubeadm kubectl
 
 
 # test access to k8s docker registry

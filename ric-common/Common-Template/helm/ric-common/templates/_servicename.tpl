@@ -50,6 +50,11 @@
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.submgr.rmr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.servicename.a1mediator.rmr" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}

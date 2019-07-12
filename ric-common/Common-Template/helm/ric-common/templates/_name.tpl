@@ -138,6 +138,30 @@
 
 
 
+{{- define "common.name.submgr" -}}
+  {{- if .Values.submgr -}}
+    {{- if .Values.submgr.nameOverride -}}
+      {{- printf "%s" .Values.submgr.nameOverride -}}
+    {{- else -}}
+      {{- printf "submgr" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "submgr" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.submgr" -}}
+  {{- $name := ( include "common.name.submgr" . ) -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
+
+
+
 {{- define "common.name.a1mediator" -}}
   {{- if .Values.a1mediator -}}
     {{- if .Values.a1mediator.nameOverride -}}

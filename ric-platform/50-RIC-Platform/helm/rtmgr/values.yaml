@@ -45,3 +45,11 @@ rtmgr:
         port: 4561
       data:
         port: 4560
+
+  rpe: rmrpush
+  sbi: nngpush
+  sbiurl: 0.0.0.0
+  nbi: httpRESTful
+  nbiurl: http://0.0.0.0:8888
+  loglevel: DEBUG
+

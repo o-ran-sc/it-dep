@@ -45,11 +45,25 @@ spec:
           image: {{ include "common.repository" . }}/{{ .Values.rtmgr.image.name }}:{{ .Values.rtmgr.image.tag }}
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           command: ["/run_rtmgr.sh"]
+          #command: ["/bin/sh"]
+          #args: ["-c", "while true; do echo hello; sleep 10;done"]
           envFrom:
             - configMapRef:
                 name: {{ include "common.configmapname.rtmgr" . }}-env
+          volumeMounts:
+            - mountPath: /cfg
+              name: rtmgrcfg
+              readOnly: true
           ports:
             - name: "rmrroute"
               containerPort: {{ .Values.rtmgr.service.rmr.route.port }}
             - name: "rmrdata"
               containerPort: {{ .Values.rtmgr.service.rmr.data.port }}
+      volumes:
+        - name: "rtmgrcfg"
+          configMap:
+            name: {{ include "common.configmapname.rtmgr" . }}-rtmgrcfg
+            items:
+              - key: rtmgrcfg
+                path: rtmgr-config.json
+                mode: 0644

@@ -45,6 +45,11 @@
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.serviceaccountname.submgr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.serviceaccountname.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}

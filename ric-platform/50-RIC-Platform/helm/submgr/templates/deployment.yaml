@@ -1,0 +1,65 @@
+#
+#==================================================================================
+#   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (c) 2019 Nokia
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+#==================================================================================
+#
+#
+#   Abstract: Subscription Manager Kubernetes manifest
+#   Date:		28 May 2019
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.deploymentname.submgr" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.submgr" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.submgr.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.submgr" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.submgr" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.submgr" . }}
+      imagePullSecrets:
+        - name: {{ include "common.repositoryCred" . }}
+      containers:
+        - name: {{ include "common.containername.submgr" . }}
+          image: {{ include "common.repository" . }}/{{ .Values.submgr.image.name }}:{{ .Values.submgr.image.tag }}
+          imagePullPolicy: {{ include "common.pullPolicy" . }}
+          command: ["/run_submgr.sh"]
+          env:
+            - name: DBAAS_SERVICE_HOST
+              value: dbaas
+          ports:
+            - name: http
+              containerPort: {{ .Values.submgr.service.http.containerPort }}
+              protocol: TCP
+            - name: rmrroute
+              containerPort: {{ .Values.submgr.service.rmr.route.port }}
+              protocol: TCP
+            - name: rmrdata
+              containerPort: {{ .Values.submgr.service.rmr.data.port }}
+              protocol: TCP

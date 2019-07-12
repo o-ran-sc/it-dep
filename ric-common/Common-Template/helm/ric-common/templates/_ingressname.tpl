@@ -37,6 +37,11 @@
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.ingressname.submgr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.ingressname.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}

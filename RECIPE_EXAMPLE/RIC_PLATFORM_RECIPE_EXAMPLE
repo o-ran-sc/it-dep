@@ -124,8 +124,8 @@ submgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: submgr
-    tag: v0.1.0
+    name: ric-plt-submgr
+    tag: 0.1.1
 
 # the service for redirecting to AUX cluster
 ext:

@@ -83,6 +83,11 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.submgr.http" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.servicename.a1mediator.http" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}

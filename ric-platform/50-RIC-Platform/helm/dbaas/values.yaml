@@ -23,8 +23,6 @@ dbaas:
   backend:
     terminationGracePeriodSeconds: 0
     replicas: 1
-    port: 6379
-    containerPort: 6379
     image:
       name: ric-plt-dbaas
       tag: 0.1.0

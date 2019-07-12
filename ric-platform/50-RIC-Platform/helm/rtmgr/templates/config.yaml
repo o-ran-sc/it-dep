@@ -34,17 +34,17 @@ data:
           {
              "name": "E2TERM",
              "fqdn": "{{ include "common.servicename.e2term.rmr" . }}",
-             "port": 4561
+             "port": {{ include "common.serviceport.e2term.rmr.data" . }}
           },
           {
              "name": "SUBMAN",
              "fqdn": "{{ include "common.servicename.submgr.rmr" . }}",
-             "port": 4561
+             "port": {{ include "common.serviceport.submgr.rmr.data" . }}
           },
           {
              "name": "E2MAN",
              "fqdn": "{{ include "common.servicename.e2mgr.rmr" . }}",
-             "port": 4561
+             "port": {{ include "common.serviceport.e2mgr.rmr.data" . }}
           }
        ]
     }

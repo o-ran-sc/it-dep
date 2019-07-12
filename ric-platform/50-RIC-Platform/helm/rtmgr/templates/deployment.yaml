@@ -56,9 +56,9 @@ spec:
               readOnly: true
           ports:
             - name: "rmrroute"
-              containerPort: {{ .Values.rtmgr.service.rmr.route.port }}
+              containerPort: {{ include "common.serviceport.rtmgr.rmr.route" . }}
             - name: "rmrdata"
-              containerPort: {{ .Values.rtmgr.service.rmr.data.port }}
+              containerPort: {{ include "common.serviceport.rtmgr.rmr.data" . }}
       volumes:
         - name: "rtmgrcfg"
           configMap:

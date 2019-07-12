@@ -18,5 +18,8 @@ kong:
       nodePort: 31080
     tls:
       nodePort: 31443
-
+  # These port numbers MUST matche with what's in
+  # ric-common/Common-Template/helm/ric-common/templates/_ingresscontroller.tpl file.
+  # If need to change a proxy port here, do not forget to update the 
+  # _ingresscontroller.tpl file with the new port number.
 

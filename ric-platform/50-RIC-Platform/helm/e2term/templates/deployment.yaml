@@ -55,9 +55,9 @@ spec:
                 name: {{ include "common.configmapname.e2term" . }}-env
           ports:
             - name: "rmrroute"
-              containerPort: {{ .Values.e2term.service.rmr.route.port }}
+              containerPort: {{ include "common.serviceport.e2term.rmr.route" . }}
             - name: "rmrdata"
-              containerPort: {{ .Values.e2term.service.rmr.data.port }}
+              containerPort: {{ include "common.serviceport.e2term.rmr.data" . }}
           stdin: true
           tty: true
           securityContext:

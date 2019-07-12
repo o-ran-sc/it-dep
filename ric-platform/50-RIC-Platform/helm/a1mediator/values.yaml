@@ -31,16 +31,10 @@ a1mediator:
     name: ric-plt-a1
     tag: 0.8.3
 
-  service:
-    http:
-      port: 10000
-      containerPort: 10000
-    rmr:
-      route:
-        port: 4561
-      data:
-        port: 4562
-
+  # Service ports are now defined in 
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.
 
 # these are ENV variables that A1 takes; see docs
   rmr_timeout_config:

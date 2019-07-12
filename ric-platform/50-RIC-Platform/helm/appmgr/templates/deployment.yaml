@@ -47,13 +47,13 @@ spec:
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.appmgr.service.http.containerPort }}
+              containerPort: {{ include "common.serviceport.appmgr.http" . }}
               protocol: TCP
             - name: rmrroute
-              containerPort: {{ .Values.appmgr.service.rmr.route.port }}
+              containerPort: {{ include "common.serviceport.appmgr.rmr.route" . }}
               protocol: TCP
             - name: rmrdata
-              containerPort: {{ .Values.appmgr.service.rmr.data.port }}
+              containerPort: {{ include "common.serviceport.appmgr.rmr.data" . }}
               protocol: TCP
           volumeMounts:
             - name: config-volume

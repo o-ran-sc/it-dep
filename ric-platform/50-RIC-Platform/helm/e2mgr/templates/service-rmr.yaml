@@ -28,11 +28,11 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.e2mgr.service.rmr.route.port }}
+    - port: {{ include "common.serviceport.e2mgr.rmr.route" . }}
       protocol: "TCP"
       name: "rmrroute"
       targetPort: "rmrroute"
-    - port: {{ .Values.e2mgr.service.rmr.data.port }}
+    - port: {{ include "common.serviceport.e2mgr.rmr.data" . }}
       protocol: "TCP"
       name: "rmrdata"
       targetPort: "rmrdata"

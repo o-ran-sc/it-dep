@@ -23,8 +23,11 @@ dbaas:
   backend:
     terminationGracePeriodSeconds: 0
     replicas: 1
-    port: 6379
-    containerPort: 6379
     image:
       name: ric-plt-dbaas
       tag: 0.1.0
+
+    # Service ports are now defined in
+    # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+    # If need to change a service port, make the code change necessary, then
+    # update the _ports.tpl file with the new port number.

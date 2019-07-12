@@ -47,12 +47,8 @@ e2mgr:
   env:
     RIC_ID: "bbbccc-abcd0e/20"
 
-  service:
-    http:
-      port: 3800
-      containerPort: 3800
-    rmr:
-      route:
-        port: 4561
-      data:
-        port: 3801
+
+  # Service ports are now defined in 
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.

@@ -9,4 +9,4 @@ spec:
       - path: /e2mgr
         backend:
           serviceName: {{ include "common.servicename.e2mgr.http" . }}
-          servicePort: {{ .Values.e2mgr.service.http.port }}
+          servicePort: {{ include "common.serviceport.e2mgr.http" . }}

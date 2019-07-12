@@ -60,13 +60,13 @@ spec:
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.a1mediator.service.http.containerPort }}
+              containerPort: {{ include "common.serviceport.a1mediator.http" . }}
               protocol: TCP
             - name: rmrroute
-              containerPort: {{ .Values.a1mediator.service.rmr.route.port }}
+              containerPort: {{ include "common.serviceport.a1mediator.rmr.route" . }}
               protocol: TCP
             - name: rmrdata
-              containerPort: {{ .Values.a1mediator.service.rmr.data.port }}
+              containerPort: {{ include "common.serviceport.a1mediator.rmr.data" . }}
               protocol: TCP
           livenessProbe:
             httpGet:

@@ -1,4 +1,3 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -16,29 +15,19 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+#################################################################
+# Application configuration defaults.
+#################################################################
+# application image
 
+repository: "nexus3.o-ran-sc.org:10004"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
 
+submgr:
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+  image:
+    name: ric-plt-submgr
+    tag: 0.1.1
 
-
-source $DIR/../etc/ric.conf
-
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator kong-platform kong-xapp submgr"
-
-
-echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-
-
-for component in $RICPLT_COMPONENTS; do
-  helm delete --purge "${RELEASE_NAME}-$component"
-done
+  replicaCount: 1

@@ -45,6 +45,11 @@
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.deploymentname.submgr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.deploymentname.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}

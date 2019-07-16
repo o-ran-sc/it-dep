@@ -46,6 +46,11 @@
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.configmapname.submgr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.configmapname.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}

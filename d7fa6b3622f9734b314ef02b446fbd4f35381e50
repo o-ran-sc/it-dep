@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3d3fd1a_da1cdd25",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "we switch to use a env.yaml file to define the environment variable. Please refer to the e2term env.yaml file and its deployment.yaml file for an example. The most important variables are\nDBAAS_SERVICE_HOST: \nDBAAS_SERVICE_PORT: \nDBAAS_PORT_6379_TCP_ADDR:\nDBAAS_PORT_6379_TCP_PORT: \"6379\"\nRMR_RTG_SVC:",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc1a5238_031052fa",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-http.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "We normally use \"http\" as the name of the port so that people will easily understand this is http reset based port. Do we want to use the same naming convention?",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e7b693a_5716b116",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-http.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "please use targetPort: \"http\" to refer to the container port defined in the deloyment.yaml file.",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "385d3d24_76027dd7",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-rmr.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "We normally use \"rmrdata\" as the name of the port so that people will easily understand this is RMR port. Do we want to use the same naming convention?",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a84d3f3_d06f0750",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-rmr.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "please use targetPort: \"rmrdata\" to refer to the container port defined in the deloyment.yaml file.",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd751af_5c1f85f8",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-rmr.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "We normally use \"rmrroute\" as the name of the port so that people will easily understand this is RMR port. Do we want to use the same naming convention?",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42a7c01d_a5df7c4d",
+        "filename": "ric-platform/50-RIC-Platform/helm/submgr/templates/service-rmr.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-16T15:07:29Z",
+      "side": 1,
+      "message": "please use targetPort: \"rmrroute\" to refer to the container port defined in the deloyment.yaml file.",
+      "revId": "d7fa6b3622f9734b314ef02b446fbd4f35381e50",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

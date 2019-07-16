@@ -45,6 +45,11 @@
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.containername.submgr" -}}
+  {{- $name := ( include "common.fullname.submgr" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.containername.a1mediator" -}}
   {{- $name := ( include "common.fullname.a1mediator" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}

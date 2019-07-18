@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "126162b8_41d45569",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-18T20:11:14Z",
+      "side": 1,
+      "message": "It should be secret:",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2787501_4e91d9aa",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-18T20:11:14Z",
+      "side": 1,
+      "message": "Need to rename it secret-{{ include \"common.fullname.dashboard\" . }}",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8694f640_ffccc57f",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/secrets.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-18T20:11:14Z",
+      "side": 1,
+      "message": "This secret should be part of 40-credential. Not dashboard.",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49aa0221_da816a98",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/secrets.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-18T20:11:14Z",
+      "side": 1,
+      "message": "I will suggest to use secret-{{ include \"common.fullname.dashboard\" . }} instead. This is the general naming convention.",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2caf7238_94a57d14",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/secrets.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-18T20:11:14Z",
+      "side": 1,
+      "message": "dashboard.secret.aaf.appname is not defined.\nI think what you are looking for is   aaf.appname  \u003d {{ .Values.dashboard.secret.aaf.appname }}\nhelm will look for dashboard.secret.aaf.appname in the recipe file.\n\nAlso consider put an empty value in 40-credential\u0027s values.yaml file so that you have a default value to avoid NULL pointer problem.",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

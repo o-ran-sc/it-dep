@@ -1,0 +1,94 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+source $DIR/../etc/chartmuseum.conf
+
+if [ -z "$RICINFRA_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICINFRA_RELEASE_NAME
+fi
+# Namespace configuration
+if [ -z "$RICPLT_NAMESPACE" ];then
+   PLT_NAMESPACE=$plt_namespace
+else
+   PLT_NAMESPACE=$RICPLT_NAMESPACE
+fi
+if [ -z "$RICXAPP_NAMESPACE" ];then
+   XAPP_NAMESPACE=$xapp_namespace
+else
+   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   AUX_NAMESPACE=$aux_namespace
+else
+   AUX_NAMESPACE=$RICAUX_NAMESPACE
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   INFRA_NAMESPACE=$infra_namespace
+else
+   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
+fi
+
+if [ -z "$RIC_COMMON_OVERRIDE" ];then
+   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
+else
+   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
+fi
+
+
+
+
+NODENAME=$(kubectl get node | awk 'NR==2{print $1}')
+kubectl label --overwrite nodes $NODENAME helm-node=enable
+
+DIRTEMP=$DIR
+. ./clear_data_path
+DIR=$DIRTEMP
+
+
+RICINFRA_COMPONENTS="chartmuseum"
+
+echo "Deploying RIC infra components [$RICINFRA_COMPONENTS]"
+echo "Helm Release Name: $RELEASE_NAME"
+
+
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
+
+
+
+
+
+for component in $RICINFRA_COMPONENTS; do
+
+  mkdir -p $DIR/../helm/$component/charts/
+  cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
+
+  if [ -z $OVERRIDEYAML ]; then
+    helm install --debug --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+  else
+    helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+  fi
+done

@@ -53,6 +53,11 @@ spec:
               mountPath: /maven/application.properties
               subPath: application.properties
               readOnly: true
+          volumeMounts:
+            - name: portal-authentication-config
+              mountPath: /maven/portal-authentication.properties
+              subPath: portal-authentication.properties
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /
@@ -65,3 +70,6 @@ spec:
         - name: application-config
           configMap:
             name: {{ include "common.configmapname.dashboard" . }}-appconfig
+        - name: portal-authentication-config
+          configMap:
+            name: {{ include "common.configmapname.dashboard" . }}-secrets

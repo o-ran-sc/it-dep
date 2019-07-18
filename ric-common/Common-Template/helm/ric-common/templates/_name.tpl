@@ -202,6 +202,24 @@
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.name.chartmuseum" -}}
+  {{- if .Values.chartmuseum -}}
+    {{- if .Values.chartmuseum.nameOverride -}}
+      {{- printf "%s" .Values.chartmuseum.nameOverride -}}
+    {{- else -}}
+      {{- printf "chartmuseum" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "chartmuseum" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.chartmuseum" -}}
+  {{- $name := ( include "common.name.chartmuseum" . ) -}}
+  {{- $namespace := ( include "common.namespace.infra" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "common.name.dashboard" -}}
   {{- if .Values.dashboard -}}

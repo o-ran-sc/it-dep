@@ -57,6 +57,11 @@
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.configmapname.chartmuseum" -}}
+  {{- $name := ( include "common.fullname.chartmuseum" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.configmapname.dashboard" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}

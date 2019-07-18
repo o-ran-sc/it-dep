@@ -88,3 +88,11 @@ nexus:
   datapath: /tmp/nexus3-data/
   storagesize: 20Gi
 
+chartmuseum:
+  repositoryOverride: "registry.hub.docker.com"
+  image:
+    name: chartmuseum/chartmuseum
+    tag: v0.8.2
+
+  storagesize: 2Gi
+  datapath: /tmp/chartmuseum-data/

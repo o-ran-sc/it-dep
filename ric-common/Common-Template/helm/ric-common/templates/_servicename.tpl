@@ -93,6 +93,11 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.chartmuseum.http" -}}
+  {{- $name := ( include "common.fullname.chartmuseum" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.servicename.dashboard.http" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}

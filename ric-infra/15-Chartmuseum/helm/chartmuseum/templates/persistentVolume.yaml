@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-{{ include "common.name.chartmuseum" . }}
+spec:
+  capacity:
+    storage: {{ .Values.chartmuseum.storagesize }}
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: storageclass-{{ include "common.name.chartmuseum" . }}
+  local:
+    path: {{ .Values.chartmuseum.datapath }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: helm-node
+          operator: In
+          values:
+          - enable

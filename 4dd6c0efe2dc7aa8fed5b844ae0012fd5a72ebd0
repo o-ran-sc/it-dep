@@ -84,6 +84,24 @@
       "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73434c5_0bf6f814",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/secrets.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-07-19T11:53:33Z",
+      "side": 1,
+      "message": "Please explain more what to put in that values.yaml",
+      "parentUuid": "2caf7238_94a57d14",
+      "revId": "4dd6c0efe2dc7aa8fed5b844ae0012fd5a72ebd0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

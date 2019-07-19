@@ -34,6 +34,10 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      {{- if .Values.a1mediator.annotations }}
+      annotations:
+        {{- .Values.a1mediator.annotations | nindent 8 -}}
+      {{ end }}
       labels:
         app: {{ include "common.namespace.platform" . }}-{{ include "common.name.a1mediator" . }}
         release: {{ .Release.Name }}

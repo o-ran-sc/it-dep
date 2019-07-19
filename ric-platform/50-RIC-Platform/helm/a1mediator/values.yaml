@@ -40,4 +40,3 @@ a1mediator:
   rmr_timeout_config:
     rcv_retry_interval_ms: 500
     rcv_retry_times: 20
-

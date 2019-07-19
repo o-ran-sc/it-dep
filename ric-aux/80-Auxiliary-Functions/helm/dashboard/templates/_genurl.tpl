@@ -20,38 +20,38 @@ Generate the URLS of the endpoints.
 */}}
 
 
-{{- define "dashboard.endpoint.a1mediator" -}}
+{{- define "dashboard.prefix.a1mediator" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.a1med.url.override -}}
-    {{- printf "%s" .Values.dashboard.properties.a1med.url.override -}}
+  {{- if .Values.dashboard.properties.a1med.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.properties.a1med.url.prefix -}}
   {{- else -}}
-    {{- printf "http://%s/a1mediator%s" $ingress .Values.dashboard.properties.a1med.url.suffix -}}
+    {{- printf "http://%s/a1mediator" $ingress -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "dashboard.endpoint.anrxapp" -}}
+{{- define "dashboard.prefix.anrxapp" -}}
   {{- $ingress := ( include "common.ingressurl.ricxapp" . ) -}}
-  {{- if .Values.dashboard.properties.anrxapp.url.override -}}
-    {{- printf "%s" .Values.dashboard.properties.anrxapp.url.override -}}
+  {{- if .Values.dashboard.properties.anrxapp.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.properties.anrxapp.url.prefix -}}
   {{- else -}}
-    {{- printf "http://%s/anr%s" $ingress .Values.dashboard.properties.anrxapp.url.suffix -}}
+    {{- printf "http://%s/anr" $ingress -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "dashboard.endpoint.e2mgr" -}}
+{{- define "dashboard.prefix.e2mgr" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.e2mgr.url.override -}}
-    {{- printf "%s" .Values.dashboard.properties.e2mgr.url.override -}}
+  {{- if .Values.dashboard.properties.e2mgr.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.properties.e2mgr.url.prefix -}}
   {{- else -}}
-    {{- printf "http://%s/e2mgr%s" $ingress .Values.dashboard.properties.e2mgr.url.suffix -}}
+    {{- printf "http://%s/e2mgr" $ingress -}}
   {{- end -}}
 {{- end -}}
-    
-{{- define "dashboard.endpoint.xappmgr" -}}
+
+{{- define "dashboard.prefix.appmgr" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.xappmgr.url.override -}}
-    {{- printf "%s" .Values.dashboard.properties.xappmgr.url.override -}}
+  {{- if .Values.dashboard.properties.appmgr.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.properties.appmgr.url.prefix -}}
   {{- else -}}
-    {{- printf "http://%s/appmgr%s" $ingress .Values.dashboard.properties.xappmgr.url.suffix -}}
+    {{- printf "http://%s/appmgr" $ingress -}}
   {{- end -}}
 {{- end -}}

@@ -33,6 +33,10 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      {{- if .Values.e2mgr.annotations }}
+      annotations:
+        {{- .Values.e2mgr.annotations | nindent 8 -}}
+      {{ end }}
       labels:
         app: {{ include "common.namespace.platform" . }}-{{ include "common.name.e2mgr" . }}
         release: {{ .Release.Name }}

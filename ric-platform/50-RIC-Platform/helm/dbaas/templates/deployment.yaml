@@ -33,6 +33,10 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      {{- if .Values.dbaas.annotations }}
+      annotations:
+        {{- .Values.dbaas.annotations | nindent 8 -}}
+      {{ end }}
       labels:
         app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
         release: {{ .Release.Name }}

@@ -33,6 +33,10 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
+      {{- if .Values.appmgr.annotations }}
+      annotations:
+        {{- .Values.appmgr.annotations | nindent 8 -}}
+      {{ end }}
       labels:
         app: {{ include "common.namespace.platform" . }}-{{ include "common.name.appmgr" . }}
         release: {{ .Release.Name }}

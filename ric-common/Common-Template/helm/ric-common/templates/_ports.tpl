@@ -55,6 +55,8 @@
 
 {{- define "common.serviceport.nexus.http" -}}8080{{- end -}}
 
+{{- define "common.serviceport.chartmuseum.http" -}}8080{{- end -}}
+
 {{- define "common.serviceport.dashboard.http" -}}30080{{- end -}}
 {{- define "common.serviceport.dashboard.container" -}}8080{{- end -}}
 

@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name:  pvc-{{ include "common.name.chartmuseum" . }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: storageclass-{{ include "common.name.chartmuseum" . }} 
+  resources:
+    requests:
+      storage: {{ .Values.chartmuseum.storagesize }}

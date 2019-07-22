@@ -55,6 +55,11 @@
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.serviceaccountname.chartmuseum" -}}
+  {{- $name := ( include "common.fullname.chartmuseum" . ) -}}
+  {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.serviceaccountname.dashboard" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}

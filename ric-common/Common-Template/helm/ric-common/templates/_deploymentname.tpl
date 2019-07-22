@@ -60,6 +60,11 @@
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.deploymentname.chartmuseum" -}}
+  {{- $name := ( include "common.fullname.chartmuseum" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.deploymentname.dashboard" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}

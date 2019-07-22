@@ -60,6 +60,11 @@
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.containername.chartmuseum" -}}
+  {{- $name := ( include "common.fullname.chartmuseum" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.containername.dashboard" -}}
   {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}

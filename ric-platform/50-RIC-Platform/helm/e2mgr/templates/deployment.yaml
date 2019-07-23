@@ -65,7 +65,7 @@ spec:
           stdin: true
           tty: true
           securityContext:
-            privileged: true
+            privileged: {{ .Values.e2mgr.privilegedmode}}
       volumes:
         - name: local-router-file
           configMap:

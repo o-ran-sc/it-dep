@@ -99,6 +99,7 @@ e2mgr:
     tag: 1.6.0
   env:
     RIC_ID: "bbbccc-abcd0e/20"
+  privilegedmode: true
 
 
 # E2 Termination
@@ -110,6 +111,8 @@ e2term:
     tag: 1.6.0
   env:
     print: "1"
+  privilegedmode: true
+  hostnetworkmode: true
 
 # Routing Manager
 rtmgr:

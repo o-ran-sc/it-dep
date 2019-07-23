@@ -38,7 +38,9 @@ e2term:
     name: e2
     tag: 1.6.0
   
-  
+  privilegedmode: true
+  hostnetworkmode: true
+
   replicaCount: 1
   env:
     print: "1"

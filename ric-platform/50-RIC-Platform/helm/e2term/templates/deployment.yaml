@@ -42,7 +42,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       hostname: {{ include "common.name.e2term" . }}
-      hostNetwork: true
+      hostNetwork: {{ .Values.e2term.hostnetworkmode }}
       dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
@@ -65,7 +65,7 @@ spec:
           stdin: true
           tty: true
           securityContext:
-            privileged: true
+            privileged: {{ .Values.e2term.privilegedmode }}
       volumes:
         - name: local-router-file
           configMap:

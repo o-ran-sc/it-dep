@@ -172,12 +172,12 @@
 
 
 {{- define "common.ingresshttpport.ricinfra" -}}
-  {{- printf "33080" -}}
+  {{- printf "32180" -}}
 {{- end -}}
 
 
 
 {{- define "common.ingresshttpsport.ricinfra" -}}
-  {{- printf "33443" -}}
+  {{- printf "32543" -}}
 {{- end -}}
 

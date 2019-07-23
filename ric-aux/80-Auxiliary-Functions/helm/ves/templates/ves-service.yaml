@@ -30,14 +30,14 @@ spec:
   ports:
   - name: xport-t-8080
     protocol: TCP
-    port: 8080
-    targetPort: 8080
-    nodePort: 30235
+    port: {{ include "common.serviceport.ves.http.container" . }}
+    targetPort: {{ include "common.serviceport.ves.http.container" . }}
+    nodePort: {{ include "common.serviceport.ves.http" . }}
   - name: xport-t-8443
     protocol: TCP
-    port: 8443
-    targetPort: 8443
-    nodePort: 30417
+    port: {{ include "common.serviceport.ves.https.container" . }}
+    targetPort: {{ include "common.serviceport.ves.https.container" . }}
+    nodePort: {{ include "common.serviceport.ves.https" . }}
   selector:
     app: dcae-ves-collector
   type: NodePort

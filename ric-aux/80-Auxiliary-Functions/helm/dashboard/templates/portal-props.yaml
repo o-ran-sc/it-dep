@@ -15,22 +15,22 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Defines a config map for mounting as file application.properties
+# Defines a config map for mounting as file portal.properties
+# The keys listed below MUST be configured in each deployment;
+# this list DOES include all keys recognized by the app.
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.configmapname.dashboard" . }}-appconfig
+  name: {{ include "common.configmapname.dashboard" . }}-portal-props
 data:
   # this key becomes the filename when mounted
-  application.properties: |
-    # appconfig.yaml
-    server.port = {{ .Values.dashboard.service.http.containerPort }}
-    a1med.url.prefix =   {{ include "dashboard.prefix.a1mediator" . }}
-    a1med.url.suffix =   {{ .Values.dashboard.properties.a1med.url.suffix   }}
-    anrxapp.url.prefix = {{ include "dashboard.prefix.anrxapp" . }}
-    anrxapp.url.suffix = {{ .Values.dashboard.properties.anrxapp.url.suffix }}
-    appmgr.url.prefix =  {{ include "dashboard.prefix.appmgr" .  }}
-    appmgr.url.suffix =  {{ .Values.dashboard.properties.appmgr.url.suffix  }}
-    e2mgr.url.prefix =   {{ include "dashboard.prefix.e2mgr" .   }}
-    e2mgr.url.suffix =   {{ .Values.dashboard.properties.e2mgr.url.suffix   }}
+  portal.properties: |
+    # portal-props.yaml
+    # fixed values
+    portal.api.impl.class = org.oransc.ric.portal.dashboard.portalapi.PortalRestCentralServiceImpl
+    role_access_centralized = remote
+    # variable values
+    ecomp_redirect_url      = {{ .Values.dashboard.properties.ecomp_redirect_url }}
+    ecomp_rest_url          = {{ .Values.dashboard.properties.ecomp_rest_url }}
+    ueb_app_key             = {{ .Values.dashboard.properties.ueb_app_key }}

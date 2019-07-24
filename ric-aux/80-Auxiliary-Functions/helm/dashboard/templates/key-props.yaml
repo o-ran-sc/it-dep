@@ -15,9 +15,16 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+# Defines a config map for mounting as file key.properties
+# The keys listed below MUST be configured in each deployment;
+# this list DOES include all keys recognized by the app.
+
 apiVersion: v1
-appVersion: "1.0"
-description: Helm Chart for RIC Dashboard
-name: dashboard
-version: 1.2.0
-icon: https://gerrit.o-ran-sc.org/r/gitweb?p=portal/ric-dashboard.git;a=blob;f=webapp-frontend/src/assets/at_t.png;h=3cced1d5ce4668fbf3b33064aaaa6920bc8130b6;hb=HEAD
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmapname.dashboard" . }}-key-props
+data:
+  # this key becomes the filename when mounted
+  key.properties: |
+    # key-props.yaml
+    cipher.enc.key = {{ .Values.dashboard.properties.cipher.enc.key }}

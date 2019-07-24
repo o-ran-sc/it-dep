@@ -49,9 +49,19 @@ spec:
               containerPort: {{ include "common.serviceport.dashboard.container" . }}
               protocol: TCP
           volumeMounts:
-            - name: application-config
-              mountPath: /maven/application.properties
+            - name: appconfig
+              mountPath: /application.properties
               subPath: application.properties
+              readOnly: true
+          volumeMounts:
+            - name: appconfig
+              mountPath: /key.properties
+              subPath: key.properties
+              readOnly: true
+          volumeMounts:
+            - name: appconfig
+              mountPath: /portal.properties
+              subPath: portal.properties
               readOnly: true
           livenessProbe:
             httpGet:
@@ -62,6 +72,6 @@ spec:
               path: /
               port: http
       volumes:
-        - name: application-config
+        - name: appconfig
           configMap:
             name: {{ include "common.configmapname.dashboard" . }}-appconfig

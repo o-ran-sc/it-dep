@@ -63,12 +63,19 @@ dashboard:
   # Override the name using the following option
   # nameOverride:
   image:
-    name:: ric-dash-be
-    tag: 1.0.5
+    name: ric-dashboard
+    tag: 1.2.0
   properties:
-    e2mgr:
-      mock:
-        rannames: "ABCD123456, EFGH123456"
+    # application.properties
+    portalapi:
+      username = username
+      password = password
+    # key.properties
+    cipher.enc.key = AGLDdG4D04BKm2IxIWEr8o==
+    # portal.properties
+    ecomp_redirect_url = https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
+    ecomp_rest_url     = https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/auxapi
+    ueb_app_key = uebkey
 
 ext:
   ip:

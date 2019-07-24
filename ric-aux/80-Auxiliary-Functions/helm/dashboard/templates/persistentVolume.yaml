@@ -1,0 +1,22 @@
+# Remove this persistent volume when cloud storage is available
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-{{ include "common.name.dashboard" . }}
+spec:
+  capacity:
+    storage: {{ .Values.dashboard.storagesize }}
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: storageclass-{{ include "common.name.dashboard" . }}
+  local:
+    path: {{ .Values.dashboard.datapath }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: dashboard-node
+          operator: In
+          values:
+          - enable

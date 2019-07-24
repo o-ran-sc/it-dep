@@ -15,22 +15,40 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Defines a config map for mounting as file application.properties
+# Defines multiple config maps for mounting as files; e.g., application.properties
+# The keys listed below MUST be configured in each deployment;
+# this list does not include all keys recognized by the app.
+# The template directives in the URL prefix definitions use common
+# K8S ingress values, but use Dashboard values if present.
 
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "common.configmapname.dashboard" . }}-appconfig
 data:
-  # this key becomes the filename when mounted
+  # one key per file
   application.properties: |
-    # appconfig.yaml
-    server.port = {{ include "common.serviceport.dashboard.container" . }}
-    a1med.url.prefix =   {{ include "dashboard.prefix.a1mediator" . }}
-    a1med.url.suffix =   {{ .Values.dashboard.properties.a1med.url.suffix   }}
+    server.port        = {{ include "common.serviceport.dashboard.container" . }}
+    userfile           = {{ .Values.dashboard.userfile }}
+    a1med.url.prefix   = {{ include "dashboard.prefix.a1mediator" . }}
+    a1med.url.suffix   = {{ .Values.dashboard.a1med.url.suffix   }}
     anrxapp.url.prefix = {{ include "dashboard.prefix.anrxapp" . }}
-    anrxapp.url.suffix = {{ .Values.dashboard.properties.anrxapp.url.suffix }}
-    appmgr.url.prefix =  {{ include "dashboard.prefix.appmgr" .  }}
-    appmgr.url.suffix =  {{ .Values.dashboard.properties.appmgr.url.suffix  }}
-    e2mgr.url.prefix =   {{ include "dashboard.prefix.e2mgr" .   }}
-    e2mgr.url.suffix =   {{ .Values.dashboard.properties.e2mgr.url.suffix   }}
+    anrxapp.url.suffix = {{ .Values.dashboard.anrxapp.url.suffix }}
+    appmgr.url.prefix  = {{ include "dashboard.prefix.appmgr" .  }}
+    appmgr.url.suffix  = {{ .Values.dashboard.appmgr.url.suffix  }}
+    e2mgr.url.prefix   = {{ include "dashboard.prefix.e2mgr" .   }}
+    e2mgr.url.suffix   = {{ .Values.dashboard.e2mgr.url.suffix   }}
+    portalapi.username = {{ .Values.dashboard.portalapi.username }}
+    portalapi.password = {{ .Values.dashboard.portalapi.password }}
+
+  key.properties: |
+    cipher.enc.key     = {{ .Values.dashboard.cipher.enc.key }}
+
+  portal.properties: |
+    # fixed values
+    portal.api.impl.class = org.oransc.ric.portal.dashboard.portalapi.PortalRestCentralServiceImpl
+    role_access_centralized = remote
+    # variable values
+    ecomp_redirect_url = {{ .Values.dashboard.portalapi.ecomp_redirect_url }}
+    ecomp_rest_url     = {{ .Values.dashboard.portalapi.ecomp_rest_url }}
+    ueb_app_key        = {{ .Values.dashboard.portalapi.ueb_app_key }}

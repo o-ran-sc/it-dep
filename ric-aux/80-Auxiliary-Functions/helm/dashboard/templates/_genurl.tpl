@@ -22,8 +22,8 @@ Generate the URLS of the endpoints.
 
 {{- define "dashboard.prefix.a1mediator" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.a1med.url.prefix -}}
-    {{- printf "%s" .Values.dashboard.properties.a1med.url.prefix -}}
+  {{- if .Values.dashboard.a1med.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.a1med.url.prefix -}}
   {{- else -}}
     {{- printf "http://%s/a1mediator" $ingress -}}
   {{- end -}}
@@ -31,8 +31,8 @@ Generate the URLS of the endpoints.
 
 {{- define "dashboard.prefix.anrxapp" -}}
   {{- $ingress := ( include "common.ingressurl.ricxapp" . ) -}}
-  {{- if .Values.dashboard.properties.anrxapp.url.prefix -}}
-    {{- printf "%s" .Values.dashboard.properties.anrxapp.url.prefix -}}
+  {{- if .Values.dashboard.anrxapp.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.anrxapp.url.prefix -}}
   {{- else -}}
     {{- printf "http://%s/anr" $ingress -}}
   {{- end -}}
@@ -40,8 +40,8 @@ Generate the URLS of the endpoints.
 
 {{- define "dashboard.prefix.e2mgr" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.e2mgr.url.prefix -}}
-    {{- printf "%s" .Values.dashboard.properties.e2mgr.url.prefix -}}
+  {{- if .Values.dashboard.e2mgr.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.e2mgr.url.prefix -}}
   {{- else -}}
     {{- printf "http://%s/e2mgr" $ingress -}}
   {{- end -}}
@@ -49,8 +49,8 @@ Generate the URLS of the endpoints.
 
 {{- define "dashboard.prefix.appmgr" -}}
   {{- $ingress := ( include "common.ingressurl.ricplt" . ) -}}
-  {{- if .Values.dashboard.properties.appmgr.url.prefix -}}
-    {{- printf "%s" .Values.dashboard.properties.appmgr.url.prefix -}}
+  {{- if .Values.dashboard.appmgr.url.prefix -}}
+    {{- printf "%s" .Values.dashboard.appmgr.url.prefix -}}
   {{- else -}}
     {{- printf "http://%s/appmgr" $ingress -}}
   {{- end -}}

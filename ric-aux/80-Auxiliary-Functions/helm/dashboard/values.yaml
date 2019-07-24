@@ -31,30 +31,51 @@ dashboard:
       nodeport: 30080
       # Tomcat listens here
       containerPort: 8080
-  # config URLs must be specified at deployment
   properties:
+    # Values for application.properties
+    # The keys listed below MUST be configured in each deployment;
+    # this list does not include all keys recognized by the app.
+    portalapi:
+        username:
+        password:
+        # the user file should be a path on a persistent volume
+        userfile:
+    # config URLs must be specified at deployment;
     # The URL prefixes use K8S/Kong service names
     a1med:
       url:
-        # The default a1mediator endpoint is http://ricplt-entry/a1mediator
-        # You can override the a1mediator endpoint using the following option
+        # The default a1mediator prefix is http://ricplt-entry/a1mediator
+        # You can override the value using the following option
         # prefix:
         suffix: ''
     anrxapp:
       url:
-        # The default anrxapp endpoint is http://ricxapp-entry/anr
-        # You can override the anrxapp endpoint using the following option
+        # The default anrxapp prefix is http://ricxapp-entry/anr
+        # You can override the value using the following option
         # prefix:
         suffix: ''
     appmgr:
       url:
-        # The default appmgr endpoint is http://ricplt-entry/appmgr
-        # You can override the appmgr endpoint using the following option
+        # The default appmgr prefix is http://ricplt-entry/appmgr
+        # You can override the value using the following option
         # prefix:
         suffix: /ric/v1
     e2mgr:
       url:
-        # The default e2mgr endpoint is http://ricplt-entry/e2mgr
-        # You can override the e2mgr endpoint using the following option
+        # The default e2mgr prefix is http://ricplt-entry/e2mgr
+        # You can override the value using the following option
         # prefix:
         suffix: /v1
+
+    # Values for key.properties
+    # The keys listed below MUST be configured in each deployment
+    cipher:
+      enc:
+        key:
+
+    # Values for portal.properties
+    # The keys listed below MUST be configured in each deployment;
+    # this list does not include all keys recognized by the app.
+    ecomp_redirect_url:
+    ecomp_rest_url:
+    ueb_app_key:

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4ade354_ed16b7cc",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-24T15:53:15Z",
+      "side": 1,
+      "message": "So now the properties files are located at / ?",
+      "revId": "5c3ac6a6bfff5a22d0317e60c0c25c6155758991",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56a0db3_c4f5fb93",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-24T15:53:15Z",
+      "side": 1,
+      "message": "Do we need default value here? or is the default empty?",
+      "revId": "5c3ac6a6bfff5a22d0317e60c0c25c6155758991",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,7 +46,7 @@ spec:
           imagePullPolicy: {{ include "common.pullPolicy" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.dashboard.service.http.containerPort }}
+              containerPort: {{ include "common.serviceport.dashboard.container" . }}
               protocol: TCP
           volumeMounts:
             - name: application-config

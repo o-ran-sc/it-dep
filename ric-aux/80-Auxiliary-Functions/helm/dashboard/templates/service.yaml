@@ -28,10 +28,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.dashboard.service.http.containerPort }}
-      nodePort: {{ .Values.dashboard.service.http.nodeport }}
-      targetPort: http
-      protocol: TCP
+    - port: {{ include "common.serviceport.dashboard.container" . }}
+      nodePort: {{ include "common.serviceport.dashboard.http" . }}
+      protocol: "TCP"
+      targetPort: "http"
   selector:
     app: {{ include "common.namespace.aux" . }}-{{ include "common.name.dashboard" . }}
     release: {{ .Release.Name }}

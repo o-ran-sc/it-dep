@@ -58,9 +58,9 @@ spec:
       - name: {{ include "common.namespace" . }}-{{include "common.name" . }}
         image: {{ .Values.ves.onapRepository }}/{{ .Values.ves.image.name }}:{{ .Values.ves.image.tag }}
         ports:
-        - containerPort: 8080
+        - containerPort: {{ include "common.serviceport.ves.http.container" . }}
           protocol: TCP
-        - containerPort: 8443
+        - containerPort: {{ include "common.serviceport.ves.https.container" . }}
           protocol: TCP
         env:
         - name: CONSUL_HOST
@@ -82,7 +82,7 @@ spec:
         readinessProbe:
           httpGet:
             path: "/healthcheck"
-            port: 8080
+            port: {{ include "common.serviceport.ves.http.container" . }}
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 1

@@ -9,4 +9,4 @@ spec:
       - path: /vescollector
         backend:
           serviceName: xdcae-ves-collector
-          servicePort: 8080
+          servicePort: {{ include "common.serviceport.ves.http.container" . }}

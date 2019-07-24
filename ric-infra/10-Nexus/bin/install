@@ -65,7 +65,7 @@ echo "Helm Release: $RELEASE_NAME"
 NODENAME=$(kubectl get node | awk 'NR==2{print $1}')
 kubectl label --overwrite nodes $NODENAME nexus-node=enable
 
-. ./clear_nexus_data_path
+. "$DIR/clear_nexus_data_path"
 
 
 
@@ -74,6 +74,8 @@ helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
 mkdir -p  $DIR/../helm/charts/
+mkdir -p /tmp/nexus3-data
+
 cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
 
 if [ -z $OVERRIDEYAML ]; then

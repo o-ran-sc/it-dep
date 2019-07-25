@@ -37,7 +37,7 @@ metadata:
   namespace: {{ include "common.namespace" . }}
 subsets: 
   - addresses:
-      - ip: "{{ .Values.ext.ip }}"
+      - ip: "{{ .Values.ext-svc-ric.aux-ip }}"
     ports:
       - port: {{ include "common.ingresshttpport.ricinfra" . }}
         name: {{ include "common.ingressurl.localdocker" . }}-http-ingress-port

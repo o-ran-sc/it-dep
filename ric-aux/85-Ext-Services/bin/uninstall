@@ -30,7 +30,7 @@ else
    RELEASE_NAME=$RICAUX_RELEASE_NAME
 fi
 
-RICAUX_COMPONENTS="ext"
+RICAUX_COMPONENTS="ext-svc-aux"
 
 echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

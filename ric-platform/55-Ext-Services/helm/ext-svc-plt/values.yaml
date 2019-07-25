@@ -1,4 +1,3 @@
-################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
@@ -15,31 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: "Service"
-apiVersion: "v1"
-metadata:
-  name: {{ include "common.ingressurl.localhelm" . }}
-  namespace: {{ include "common.namespace" . }}
-spec:
-  ports:
-    - name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
-      protocol: "TCP"
-      port: 80
-    - name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
-      protocol: "TCP"
-      port: 443
----
-kind: "Endpoints"
-apiVersion: "v1"
-metadata:
-  # match with the selector-less service
-  name: {{ include "common.ingressurl.localhelm" . }}
-  namespace: {{ include "common.namespace" . }}
-subsets: 
-  - addresses:
-      - ip: "{{ .Values.ext.ip }}"
-    ports:
-      - port: {{ include "common.ingresshttpport.ricinfra" . }}
-        name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttpsport.ricinfra" . }}
-        name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
+
+# Default values for ves.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ext-svc-ric:
+  ric-ip: "192.168.130.118"
+  aux-ip: "192.168.130.118"

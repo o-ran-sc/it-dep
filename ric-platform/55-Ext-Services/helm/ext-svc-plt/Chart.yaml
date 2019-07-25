@@ -1,3 +1,4 @@
+################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
@@ -14,10 +15,9 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+apiVersion: v1
+appVersion: "1.0"
+description: A Helm chart for setting up services with endpoints referencing external services so that these external services can be accessed as if they are in the same namespace.
+name: ext-svc-plt
+version: 0.2.0
 
-# Default values for ves.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-ext:
-  ip: "192.168.130.84"

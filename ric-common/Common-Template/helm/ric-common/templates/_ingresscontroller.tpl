@@ -144,11 +144,11 @@
 ## agree with the values in the kong helm charts values.yaml files.                        #
 ############################################################################################  
 {{- define "common.ingresshttpport.ricplt" -}}
-  {{- printf "30080" -}}
+  {{- printf "30180" -}}
 {{- end -}}
 
 {{- define "common.ingresshttpsport.ricplt" -}}
-  {{- printf "30443" -}}
+  {{- printf "30543" -}}
 {{- end -}}
 
 

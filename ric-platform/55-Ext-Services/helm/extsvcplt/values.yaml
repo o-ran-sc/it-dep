@@ -19,5 +19,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-ext:
-  ip: "192.168.130.118"
+extsvcplt:
+  ricip: "192.168.130.118"
+  auxip: "192.168.130.118"

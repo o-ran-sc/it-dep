@@ -18,14 +18,14 @@
 kind: "Service"
 apiVersion: "v1"
 metadata:
-  name: {{ include "common.ingressurl.localhelm" . }}
+  name: {{ include "common.ingressurl.ricplt" . }}
   namespace: {{ include "common.namespace" . }}
 spec:
   ports:
-    - name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
+    - name: {{ include "common.ingressurl.ricplt" . }}-http-ingress-port
       protocol: "TCP"
       port: 80
-    - name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
+    - name: {{ include "common.ingressurl.ricplt" . }}-https-ingress-port
       protocol: "TCP"
       port: 443
 ---
@@ -33,13 +33,13 @@ kind: "Endpoints"
 apiVersion: "v1"
 metadata:
   # match with the selector-less service
-  name: {{ include "common.ingressurl.localhelm" . }}
+  name: {{ include "common.ingressurl.ricplt" . }}
   namespace: {{ include "common.namespace" . }}
 subsets: 
   - addresses:
-      - ip: "{{ .Values.ext.ip }}"
+      - ip: "{{ .Values.extsvcaux.ricip }}"
     ports:
-      - port: {{ include "common.ingresshttpport.ricinfra" . }}
-        name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttpsport.ricinfra" . }}
-        name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
+      - port: {{ include "common.ingresshttpport.ricplt" . }}
+        name: {{ include "common.ingressurl.ricplt" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpsport.ricplt" . }}
+        name: {{ include "common.ingressurl.ricplt" . }}-https-ingress-port

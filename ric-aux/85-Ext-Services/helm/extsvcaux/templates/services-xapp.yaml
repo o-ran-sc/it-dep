@@ -1,3 +1,4 @@
+################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
@@ -14,10 +15,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-# Default values for ves.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-ext:
-  ip: "192.168.130.84"
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  name: {{ include "common.ingressurl.ricxapp" . }}
+  namespace: {{ include "common.namespace" . }}
+spec:
+  ports:
+    - name: {{ include "common.ingressurl.ricxapp" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.ricxapp" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.ricxapp" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.extsvcaux.ricip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricxapp" . }}
+        name: {{ include "common.ingressurl.ricxapp" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpsport.ricxapp" . }}
+        name: {{ include "common.ingressurl.ricxapp" . }}-https-ingress-port

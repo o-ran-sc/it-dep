@@ -70,6 +70,10 @@ dashboard:
       mock:
         rannames: "ABCD123456, EFGH123456"
 
-ext:
-  ip:
-    192.168.130.110
+extsvcaux:
+  ricip:
+    # The ip address of the ric cluster ingress controller
+    <IP_ADDRESS of the RIC cluster>
+  auxip:
+    # The ip address of the aux cluster ingress controller
+    <IP_ADDRESS of the AUX cluster>

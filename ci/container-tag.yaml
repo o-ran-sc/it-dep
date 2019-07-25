@@ -1,0 +1,3 @@
+# The Jenkins job uses this string for the tag in the image name
+---
+tag: 0.0.1

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee3393af_1bf7f2ae",
+        "filename": "ric-platform/55-Ext-Services/helm/extsvcplt/values.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-25T13:57:41Z",
+      "side": 1,
+      "message": "Do we want to provide default value for the IPs? it can be different in every cluster.",
+      "revId": "880cbc4e94344051740dd1bd81de59ce0cff9804",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

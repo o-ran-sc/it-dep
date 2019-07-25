@@ -131,7 +131,7 @@ submgr:
     tag: v0.1.0
 
 # the service for redirecting to AUX cluster
-ext:
+ext-svc-plt:
   ip:
     # The ip address of the aux cluster ingress controller
-    IP_ADDRESS
+    <IP_ADDRESS of the AUX cluster>

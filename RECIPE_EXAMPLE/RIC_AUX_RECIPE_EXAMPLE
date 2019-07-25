@@ -70,6 +70,6 @@ dashboard:
       mock:
         rannames: "ABCD123456, EFGH123456"
 
-ext:
+ext-svc-aux:
   ip:
-    192.168.130.110
+    <IP_ADDRESS of the RIC cluster>

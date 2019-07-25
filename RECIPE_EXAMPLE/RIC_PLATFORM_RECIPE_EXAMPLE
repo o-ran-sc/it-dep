@@ -131,7 +131,10 @@ submgr:
     tag: v0.1.0
 
 # the service for redirecting to AUX cluster
-ext:
-  ip:
+extsvcplt:
+  auxip:
     # The ip address of the aux cluster ingress controller
-    IP_ADDRESS
+    <IP_ADDRESS of the AUX cluster>
+  ricip:
+    # The ip address of the ric cluster ingress controller
+    <IP_ADDRESS of the RIC cluster>

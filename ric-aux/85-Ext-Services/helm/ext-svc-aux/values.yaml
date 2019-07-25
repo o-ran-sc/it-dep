@@ -19,5 +19,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-ext:
-  ip: "192.168.130.118"
+ext-svc-aux:
+  ric-ip: "192.168.130.84"
+  aux-ip: "192.168.130.84"

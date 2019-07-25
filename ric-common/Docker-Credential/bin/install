@@ -44,9 +44,9 @@ COMMON_CHART_VERSION=$(cat $DIR/../../Common-Template/helm/ric-common/Chart.yaml
 helm package -d /tmp $DIR/../../Common-Template/helm/ric-common
 
 
-mkdir -p  $DIR/../helm/charts/
-cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+mkdir -p  $DIR/../helm/docker-credential/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/docker-credential/charts/
 
 
-helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-cred-${NAMESPACE}-${DOCKERREG_NORMALIZED}" --set repository="$DOCKERREG" --set repositoryCredential.user="$DOCKERUSERNAME" --set repositoryCredential.password="$DOCKERPASSWORD" $DIR/../helm
+helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-cred-${NAMESPACE}-${DOCKERREG_NORMALIZED}" --set repository="$DOCKERREG" --set repositoryCredential.user="$DOCKERUSERNAME" --set repositoryCredential.password="$DOCKERPASSWORD" $DIR/../helm/docker-credential
 

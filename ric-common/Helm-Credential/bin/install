@@ -31,7 +31,7 @@ HELMCERTPATH=$5
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-cp $HELMCERTPATH $DIR/../helm/cert/tls.crt
+cp $HELMCERTPATH $DIR/../helm/helm-credential/cert/tls.crt
 
 
 source $DIR/../etc/credential.conf
@@ -46,10 +46,10 @@ COMMON_CHART_VERSION=$(cat $DIR/../../Common-Template/helm/ric-common/Chart.yaml
 helm package -d /tmp $DIR/../../Common-Template/helm/ric-common
 
 
-mkdir -p  $DIR/../helm/charts/
-cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+mkdir -p  $DIR/../helm/helm-credential/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/helm-credential/charts/
 
-helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-cred-${NAMESPACE}-${HELMREPO_NORMALIZED}" --set helmrepo="$HELMREPO" --set helmrepoCredential.user="$DOCKERUSERNAME" --set helmrepoCredential.password="$DOCKERPASSWORD"  $DIR/../helm
+helm install --namespace "${NAMESPACE}" --name "${RELEASE_NAME}-cred-${NAMESPACE}-${HELMREPO_NORMALIZED}" --set helmrepo="$HELMREPO" --set helmrepoCredential.user="$DOCKERUSERNAME" --set helmrepoCredential.password="$DOCKERPASSWORD"  $DIR/../helm/helm-credential
 
 
-rm $DIR/../helm/cert/tls.crt
+rm $DIR/../helm/helm-credential/cert/tls.crt

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e80671da_ff5484f7",
+        "filename": "ci/helm-lint-template.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-07-25T15:12:53Z",
+      "side": 1,
+      "message": "Can we also try to capture the following error mesages?\n%!s(float64\u003d44134)\n%!f(string\u003d)\nI believe the s and f after ! is the printf specifier. The type inside () is the type received.",
+      "revId": "ebffdbd6729ce74d82f1930a7d4e4cbbe4d0994c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

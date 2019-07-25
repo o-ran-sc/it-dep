@@ -14,7 +14,7 @@ kong:
 
   proxy:
     http:
-      nodePort: 30080
+      nodePort: 30180
     tls:
       nodePort: 30443
   # These port numbers MUST matche with what's in

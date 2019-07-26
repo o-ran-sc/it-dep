@@ -29,13 +29,13 @@ spec:
   type: ClusterIP
   ports:
     - port: {{ .Values.ricxapp.service.rmr.data.port }}
-      targetPort: rmrData
+      targetPort: rmrdata
       protocol: TCP
-      name: rmrData
+      name: rmrdata
     - port: {{ .Values.ricxapp.service.rmr.route.port }}
-      targetPort: rmrRoute
+      targetPort: rmrroute
       protocol: TCP
-      name: rmrRoute
+      name: rmrroute
   selector:
     app: {{ include "ricxapp.namespace" . }}-{{ include "ricxapp.name" . }}
     release: {{ .Release.Name }}

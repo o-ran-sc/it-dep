@@ -29,4 +29,4 @@ data:
 {{- $rtmgrrmrservice := .Values.ricplt.rtmgrRMRService | quote -}}
 {{- $a1mediatorrmrservice := .Values.ricplt.a1mediatorRMRService | quote -}}
 
-{{ (.Files.Glob "config/*").AsConfig | replace "__DBAAS_SERVICE__" $dbaasservice | replace "__PLT_INGRESS_URL__" $pltingressurl | replace "__XAPP_INGRESS_URL__" $xappingressurl | replace "__APPMGR_RMR_SERVICE__" $appmgrrmrservice | replace "__E2MGR_RMR_SERVICE__" $e2mgrrmrservice | replace "__E2TERM_RMR_SERVICE__" $e2termrmrservice | replace "__RTMGR_RMR_SERVICE__" $rtmgrrmrservice | replace "__A1MEDIATOR_RMR_SERVICE__" $a1mediatorrmrservice | indent 2 }}
+{{- (.Files.Glob "config/*").AsConfig | replace "__DBAAS_SERVICE__" $dbaasservice | replace "__PLT_INGRESS_URL__" $pltingressurl | replace "__XAPP_INGRESS_URL__" $xappingressurl | replace "__APPMGR_RMR_SERVICE__" $appmgrrmrservice | replace "__E2MGR_RMR_SERVICE__" $e2mgrrmrservice | replace "__E2TERM_RMR_SERVICE__" $e2termrmrservice | replace "__RTMGR_RMR_SERVICE__" $rtmgrrmrservice | replace "__A1MEDIATOR_RMR_SERVICE__" $a1mediatorrmrservice | nindent 2 }}

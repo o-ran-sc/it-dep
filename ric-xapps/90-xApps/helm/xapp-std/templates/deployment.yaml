@@ -46,10 +46,10 @@ spec:
             - name: http
               containerPort: {{ .Values.ricxapp.service.http.containerPort }}
               protocol: TCP
-            - name: rmrRoute
+            - name: rmrroute
               containerPort: {{ .Values.ricxapp.service.rmr.route.port }}
               protocol: TCP
-            - name: rmrData
+            - name: rmrdata
               containerPort: {{ .Values.ricxapp.service.rmr.data.port }}
               protocol: TCP
           volumeMounts:
@@ -58,18 +58,14 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "ricxapp.configmapname" . }}-appenv
+          {{- if .Values.ricxapp.livenessProbe }}
           livenessProbe:
-            httpGet:
-              path: {{ .Values.ricxapp.probes.healthAliveCheckEndpoint }}
-              port: {{ .Values.ricxapp.service.http.containerPort }}
-            initialDelaySeconds: 5
-            periodSeconds: 15
+            {{- .Values.ricxapp.livenessProbe | nindent 12 -}}
+          {{ end }}
+          {{- if .Values.ricxapp.readinessProbe }}
           readinessProbe:
-            httpGet:
-              path: {{ .Values.ricxapp.probes.healthReadyCheckEndpoint }}
-              port: {{ .Values.ricxapp.service.http.containerPort }}
-            initialDelaySeconds: 5
-            periodSeconds: 15
+            {{- .Values.ricxapp.readinessProbe | nindent 12 -}}
+          {{ end }}
           restartPolicy: Always
       volumes:
         - name: config-volume

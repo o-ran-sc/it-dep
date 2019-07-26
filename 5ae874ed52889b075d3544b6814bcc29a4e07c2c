@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad2bff90_26ae39e4",
+        "filename": "ric-xapps/90-xApps/bin/install",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-07-26T20:01:08Z",
+      "side": 1,
+      "message": "please use the -p",
+      "revId": "5ae874ed52889b075d3544b6814bcc29a4e07c2c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceacb9fd_0e995f3b",
+        "filename": "ric-xapps/90-xApps/bin/install",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-07-26T20:01:08Z",
+      "side": 1,
+      "message": "please use the -p",
+      "revId": "5ae874ed52889b075d3544b6814bcc29a4e07c2c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

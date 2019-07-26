@@ -155,7 +155,8 @@ else
 fi
 
 
-
+mkdir /tmp/$CHART_NAME/config/
+mkdir /tmp/$CHART_NAME/descriptors/
 
 cp $CONFIG_JSON_PATH /tmp/$CHART_NAME/config/
 cp $DESCRIPTOR_PATH /tmp/$CHART_NAME/descriptors/

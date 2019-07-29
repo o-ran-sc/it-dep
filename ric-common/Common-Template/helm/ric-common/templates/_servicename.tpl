@@ -108,6 +108,11 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.ves.http" -}}
+  {{- $name := ( include "common.fullname.ves" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 
 ###################### TCP Service ##################################
 

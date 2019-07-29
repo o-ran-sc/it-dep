@@ -63,7 +63,7 @@ dashboard:
   # Override the name using the following option
   # nameOverride:
   image:
-    name:: ric-dash-be
+    name: ric-dash-be
     tag: 1.0.5
   properties:
     e2mgr:

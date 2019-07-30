@@ -1,4 +1,3 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
@@ -16,32 +15,31 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/ext.conf
-
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-if [ -z "$RICPLT_NAMESPACE" ];then
-   NAMESPACE=$namespace
-else
-   NAMESPACE=$RICPLT_NAMESPACE
-fi
-
-RICPLT_COMPONENTS="extsvcplt extsvcxapp"
-
-echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Platform Namespace: $NAMESPACE"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-for component in $RICPLT_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-$component" 
-done
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  name: {{ include "common.ingressurl.localhelm" . }}
+  namespace: {{ include "common.namespace" . }}
+spec:
+  ports:
+    - name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
+      protocol: "TCP"
+      port: 80
+    - name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port
+      protocol: "TCP"
+      port: 443
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  # match with the selector-less service
+  name: {{ include "common.ingressurl.localhelm" . }}
+  namespace: {{ include "common.namespace" . }}
+subsets: 
+  - addresses:
+      - ip: "{{ .Values.extsvcplt.auxip }}"
+    ports:
+      - port: {{ include "common.ingresshttpport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localhelm" . }}-http-ingress-port
+      - port: {{ include "common.ingresshttpsport.ricinfra" . }}
+        name: {{ include "common.ingressurl.localhelm" . }}-https-ingress-port

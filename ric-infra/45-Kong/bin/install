@@ -1,0 +1,83 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+
+OVERRIDEYAML=$1
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+echo "dir is $DIR"
+
+source $DIR/../etc/kong.conf
+
+if [ -z "$RICAUX_RELEASE_NAME" ];then
+   RELEASE_NAME=$helm_release_name
+else
+   RELEASE_NAME=$RICAUX_RELEASE_NAME
+fi
+
+# Namespace configuration
+if [ -z "$RICPLT_NAMESPACE" ];then
+   PLT_NAMESPACE=$plt_namespace
+else
+   PLT_NAMESPACE=$RICPLT_NAMESPACE
+fi
+if [ -z "$RICXAPP_NAMESPACE" ];then
+   XAPP_NAMESPACE=$xapp_namespace
+else
+   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+fi
+if [ -z "$RICAUX_NAMESPACE" ];then
+   AUX_NAMESPACE=$aux_namespace
+else
+   AUX_NAMESPACE=$RICAUX_NAMESPACE
+fi
+if [ -z "$RICINFRA_NAMESPACE" ];then
+   INFRA_NAMESPACE=$infra_namespace
+else
+   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
+fi
+
+if [ -z "$RIC_COMMON_OVERRIDE" ];then
+   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
+else
+   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
+fi
+
+
+echo "Deploying RIC INFRA component kong-infra"
+echo "Helm Release Name: $RELEASE_NAME"
+
+
+COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+
+helm repo remove local
+helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common/
+
+echo "Preparing chart for comonent kong-infra"
+
+mkdir -p $DIR/../helm/kong-infra/charts
+helm dep up $DIR/../helm/kong-infra
+
+echo "Now installing helm chart for kong-infra"
+echo "ric infra ns $INFRA_NAMESPACE"
+
+
+helm install --namespace $INFRA_NAMESPACE --name "${RELEASE_NAME}-kong-infra" $DIR/../helm/kong-infra --set postgresql.enabled=false --set env.database=off
+

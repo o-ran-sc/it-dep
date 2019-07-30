@@ -79,3 +79,14 @@ for component in $RICPLT_COMPONENTS; do
   helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   fi
 done
+
+
+echo "Preparing chart for comonent extsvcxapp"
+mkdir -p  $DIR/../helm/extsvcxapp/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/extsvcxapp/charts/
+if [ -z $OVERRIDEYAML ]; then
+helm install --debug --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-extsvcxapp" $COMMON_OVERRIDE $DIR/../helm/extsvcxapp
+else
+helm install -f $OVERRIDEYAML --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-extsvcxapp" $COMMON_OVERRIDE $DIR/../helm/extsvcxapp
+fi
+    

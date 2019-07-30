@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4420cc31_55902f55",
+        "filename": "RECIPE_EXAMPLE/RIC_AUX_RECIPE_EXAMPLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-07-30T19:27:44Z",
+      "side": 1,
+      "message": "Should this be \"RIC cluster\" instead of \"AUX cluster\"?",
+      "revId": "82c306a12c1c26be33016574f50c3ef71a2d1759",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b5fac0_36b42883",
+        "filename": "RECIPE_EXAMPLE/RIC_AUX_RECIPE_EXAMPLE",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-07-30T19:27:44Z",
+      "side": 1,
+      "message": "Should this be \"AUX cluster\" instead of \"RIC cluster\"?",
+      "revId": "82c306a12c1c26be33016574f50c3ef71a2d1759",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

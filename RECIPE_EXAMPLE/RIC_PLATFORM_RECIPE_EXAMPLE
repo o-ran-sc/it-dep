@@ -65,7 +65,7 @@ a1mediator:
   # repositoryOverride:
   image:
     name: ric-plt-a1
-    tag: 0.8.3
+    tag: 0.9.0
   rmr_timeout_config:
     rcv_retry_interval_ms: 500
     rcv_retry_times: 20
@@ -75,8 +75,8 @@ appmgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: appmgr
-    tag: 1.0.4
+    name: ric-plt-appmgr
+    tag: 0.1.5
 
 
 
@@ -95,8 +95,8 @@ e2mgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: e2mgr
-    tag: 1.6.0
+    name: ric-plt-e2mgr
+    tag: 1.0.0
   env:
     RIC_ID: "bbbccc-abcd0e/20"
   privilegedmode: true
@@ -107,8 +107,8 @@ e2term:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: e2
-    tag: 1.6.0
+    name: ric-plt-e2
+    tag: 1.0.0
   env:
     print: "1"
   privilegedmode: true
@@ -119,22 +119,22 @@ rtmgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: rtmgr
-    tag: 0.0.2
+    name: ric-plt-rtmgr
+    tag: 0.3.1
 
 # Subscription Manager
 submgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
-    name: submgr
-    tag: v0.1.0
+    name: ric-plt-submgr
+    tag: 0.5.0
 
 # the service for redirecting to AUX cluster
 extsvcplt:
   auxip:
     # The ip address of the aux cluster ingress controller
-    <IP_ADDRESS of the AUX cluster>
+    <IP_ADDRESS of the AUX cluster>    
   ricip:
     # The ip address of the ric cluster ingress controller
     <IP_ADDRESS of the RIC cluster>

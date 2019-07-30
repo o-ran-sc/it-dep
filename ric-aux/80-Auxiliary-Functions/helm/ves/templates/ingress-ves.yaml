@@ -1,12 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ric-ingress-ves
+  name: {{ include "common.ingressname.ves" . }}
 spec:
   rules:
   - http:
       paths:
       - path: /vescollector
         backend:
-          serviceName: xdcae-ves-collector
+          serviceName: {{ include "common.servicename.ves.http" . }}
           servicePort: {{ include "common.serviceport.ves.http.container" . }}

@@ -19,29 +19,25 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: xdcae-ves-collector
+  name: {{ include "common.servicename.ves.http" . }}
   labels:
-    app: dcae-ves-collector
-    cfydeployment: ves
-    cfynode: ves
-    cfynodeinstance: ves_uj48fg
-    k8sdeployment: dep-dcae-ves-collector
+    app: {{ include "common.namespace.aux" . }}-{{ include "common.name.ves" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   ports:
-  - name: xport-t-8080
+  - name: http
     protocol: TCP
     port: {{ include "common.serviceport.ves.http.container" . }}
     targetPort: {{ include "common.serviceport.ves.http.container" . }}
     nodePort: {{ include "common.serviceport.ves.http" . }}
-  - name: xport-t-8443
+  - name: https
     protocol: TCP
     port: {{ include "common.serviceport.ves.https.container" . }}
     targetPort: {{ include "common.serviceport.ves.https.container" . }}
     nodePort: {{ include "common.serviceport.ves.https" . }}
   selector:
-    app: dcae-ves-collector
+    app: {{ include "common.namespace.aux" . }}-{{ include "common.name.ves" . }}
+    release: {{ .Release.Name }}
   type: NodePort
-  sessionAffinity: None
-  externalTrafficPolicy: Cluster
-status:
-  loadBalancer: {}

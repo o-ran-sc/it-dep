@@ -14,19 +14,8 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: {{ include "common.ingressname.chartmuseum" . }}
-spec:
-  tls:
-    - hosts:
-      - {{ include "common.ingressurl.localhelm" . }}
-      secretName: secret-{{ include "common.name.chartmuseum" . }}
-  rules:
-    - http:
-        paths:
-          - backend:
-              serviceName: {{ include "common.servicename.chartmuseum.http" . }}
-              servicePort: http
-            path: "/"
+
+dependencies:
+  - name: kong
+    repository: '@stable'
+    version: ~0.12.2

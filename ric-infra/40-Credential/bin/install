@@ -62,19 +62,19 @@ COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-com
 helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
-mkdir -p  $DIR/../helm/charts/
-cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/charts/
+mkdir -p  $DIR/../helm/credential/charts/
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/credential/charts/
 
 
 if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-${PLT_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-${XAPP_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install --namespace "${AUX_NAMESPACE}" --name "${RELEASE_NAME}-${AUX_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-${INFRA_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
+  helm install --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-${PLT_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-${XAPP_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install --namespace "${AUX_NAMESPACE}" --name "${RELEASE_NAME}-${AUX_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-${INFRA_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
 else
-  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-${PLT_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install -f $OVERRIDEYAML --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-${XAPP_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install -f $OVERRIDEYAML --namespace "${AUX_NAMESPACE}" --name "${RELEASE_NAME}-${AUX_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
-  helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-${INFRA_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm
+  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-${PLT_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install -f $OVERRIDEYAML --namespace "${XAPP_NAMESPACE}" --name "${RELEASE_NAME}-${XAPP_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install -f $OVERRIDEYAML --namespace "${AUX_NAMESPACE}" --name "${RELEASE_NAME}-${AUX_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
+  helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-${INFRA_NAMESPACE}-credential" $COMMON_OVERRIDE $DIR/../helm/credential
 fi
 

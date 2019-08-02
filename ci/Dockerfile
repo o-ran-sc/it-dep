@@ -18,7 +18,9 @@
 
 FROM ubuntu:18.04
 RUN apt-get update && apt-get -y install curl
-RUN curl -L https://git.io/get_helm.sh | bash
+ARG GH=get_helm.sh
+RUN curl --silent --show-error -L https://git.io/${GH} -o ${GH}
+RUN bash ${GH}
 RUN helm init -c
 ARG TGT=/tmp/it-dep
 COPY . $TGT

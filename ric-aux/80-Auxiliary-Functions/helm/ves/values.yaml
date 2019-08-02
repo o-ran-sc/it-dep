@@ -20,9 +20,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+imagePullPolicy: IfNotPresent
 ves:
   onapRepository: "nexus3.onap.org:10001"
-  imagePullPolicy: IfNotPresent
 
   image:
     name: onap/org.onap.dcaegen2.collectors.ves.vescollector

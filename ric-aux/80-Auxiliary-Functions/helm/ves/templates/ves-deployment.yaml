@@ -48,12 +48,12 @@ spec:
       - name: dmaap-config-file
         configMap:
           name: {{ include "common.configmapname.ves" . }}
-        imagePullPolicy: {{ include "common.pullPolicy" . }}
       imagePullSecrets:
       - name: onap-docker-registry-key
       containers:
       - name: {{ include "common.containername.ves" . }}
         image: {{ .Values.ves.onapRepository }}/{{ .Values.ves.image.name }}:{{ .Values.ves.image.tag }}
+        imagePullPolicy: {{ include "common.pullPolicy" . }}
         ports:
         - containerPort: {{ include "common.serviceport.ves.http.container" . }}
           protocol: TCP

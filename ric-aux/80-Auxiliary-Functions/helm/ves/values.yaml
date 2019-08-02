@@ -19,6 +19,9 @@
 # Default values for ves.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+repository: "nexus3.onap.org:10001"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
 
 ves:
   onapRepository: "nexus3.onap.org:10001"

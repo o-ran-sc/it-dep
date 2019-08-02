@@ -49,19 +49,32 @@ spec:
               containerPort: {{ include "common.serviceport.dashboard.container" . }}
               protocol: TCP
           volumeMounts:
-            - name: application-config
-              mountPath: /maven/application.properties
+            - name: appconfig
+              mountPath: /config/application.properties
               subPath: application.properties
               readOnly: true
+            - name: appconfig
+              mountPath: /maven/key.properties
+              subPath: key.properties
+              readOnly: true
+            - name: appconfig
+              mountPath: /maven/portal.properties
+              subPath: portal.properties
+              readOnly: true
+            - name: dashboard-users
+              mountPath: /dashboard-data
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/admin/version
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/admin/health
               port: http
       volumes:
-        - name: application-config
+        - name: appconfig
           configMap:
             name: {{ include "common.configmapname.dashboard" . }}-appconfig
+        - name: dashboard-users
+          persistentVolumeClaim:
+            claimName: pvc-{{ include "common.name.dashboard" . }}

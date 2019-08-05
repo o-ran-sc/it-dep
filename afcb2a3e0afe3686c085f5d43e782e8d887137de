@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f87f06c8_db664ea9",
+        "filename": "ric-platform/55-Ext-Services/helm/extsvcxapp/templates/services-helm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-08-05T02:59:43Z",
+      "side": 1,
+      "message": "Should this be extsvcxapp.auxip?",
+      "revId": "afcb2a3e0afe3686c085f5d43e782e8d887137de",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -38,8 +38,8 @@ echo "***************************************"
 for dir in "${CHART_ARRAY[@]}"
 do
   
-    rm -rf $dir/charts
-    rm -rf $dir/tmpcharts
+    #rm -rf $dir/charts
+    #rm -rf $dir/tmpcharts
     mkdir -p $dir/charts
     cp $TEMP_DIR/ric-common*.tgz $dir/charts/
 

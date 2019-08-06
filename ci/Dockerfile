@@ -19,7 +19,8 @@
 FROM ubuntu:18.04
 RUN apt-get update && apt-get -y install curl
 ARG GH=get_helm.sh
-RUN curl --silent --show-error -L https://git.io/${GH} -o ${GH}
+# often times out during LF jenkins build
+RUN curl --silent --show-error --connect-timeout 10 --retry 6 -L https://raw.githubusercontent.com/helm/helm/master/scripts/get -o ${GH}
 RUN bash ${GH}
 RUN helm init -c
 ARG TGT=/tmp/it-dep

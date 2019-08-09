@@ -153,12 +153,12 @@
 
 
 {{- define "common.ingresshttpport.ricxapp" -}}
-  {{- printf "31080" -}}
+  {{- printf "30180" -}}
 {{- end -}}
 
 
 {{- define "common.ingresshttpsport.ricxapp" -}}
-  {{- printf "31443" -}}
+  {{- printf "30543" -}}
 {{- end -}}
 
 
@@ -172,12 +172,12 @@
 
 
 {{- define "common.ingresshttpport.ricinfra" -}}
-  {{- printf "32180" -}}
+  {{- printf "32080" -}}
 {{- end -}}
 
 
 
 {{- define "common.ingresshttpsport.ricinfra" -}}
-  {{- printf "32543" -}}
+  {{- printf "32443" -}}
 {{- end -}}
 

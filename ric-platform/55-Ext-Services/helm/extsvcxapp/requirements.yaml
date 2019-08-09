@@ -16,6 +16,5 @@
 ################################################################################
 
 dependencies:
-  - name: kong
-    repository: '@stable'
-    version: ~0.12.2
+  - name: ric-common
+    version: ~2.0.0

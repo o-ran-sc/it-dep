@@ -71,11 +71,18 @@ helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"
+
+  if [ $component == "extsvcplt" ]; then
+      namespace_val="${PLT_NAMESPACE}"
+  else
+      namespace_val="${XAPP_NAMESPACE}"
+  fi
+  
   mkdir -p  $DIR/../helm/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then
-  helm install --debug --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+  helm install --debug --namespace "${namespace_val}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   else
-  helm install -f $OVERRIDEYAML --namespace "${PLT_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+  helm install -f $OVERRIDEYAML --namespace "${namespace_val}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
   fi
 done

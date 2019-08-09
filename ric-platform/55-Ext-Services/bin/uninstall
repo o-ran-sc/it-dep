@@ -35,7 +35,7 @@ else
    NAMESPACE=$RICPLT_NAMESPACE
 fi
 
-RICPLT_COMPONENTS="extsvcplt"
+RICPLT_COMPONENTS="extsvcplt extsvcxapp"
 
 echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
 echo "Platform Namespace: $NAMESPACE"

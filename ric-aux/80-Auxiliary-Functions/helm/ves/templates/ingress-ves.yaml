@@ -9,4 +9,4 @@ spec:
       - path: /vescollector
         backend:
           serviceName: {{ include "common.servicename.ves.http" . }}
-          servicePort: {{ include "common.serviceport.ves.http" . }}
+          servicePort: {{ include "common.serviceport.ves.http.container" . }}

@@ -36,8 +36,7 @@ spec:
     protocol: TCP
     port: {{ include "common.serviceport.ves.https.container" . }}
     targetPort: {{ include "common.serviceport.ves.https.container" . }}
-    nodePort: {{ include "common.serviceport.ves.https" . }}
   selector:
     app: {{ include "common.namespace.aux" . }}-{{ include "common.name.ves" . }}
     release: {{ .Release.Name }}
-  type: NodePort
+  type: ClusterIP

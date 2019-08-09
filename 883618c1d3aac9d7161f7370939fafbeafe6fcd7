@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8bb504f_59c40e76",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/templates/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-08-09T18:56:37Z",
+      "side": 1,
+      "message": "just wondering: would it be possible to somehow extract this data from the configmap definition into a separate file — either by specifying it in values.yaml or maybe as an external file (as with string_int_mapping) that gets expanded into the route map?  there seems to be both a lot of repetition here and an implication you\u0027d redeploy the whole chart when the configmap changes.\n\nfurther, will other stuff use the same (or approximately the same) route map?  if so, it seems like everything should get it from the same place.\n\nnot a big deal and i don\u0027t really understand the application well enough to know.",
+      "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

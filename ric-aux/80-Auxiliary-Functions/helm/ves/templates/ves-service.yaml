@@ -29,15 +29,13 @@ spec:
   ports:
   - name: http
     protocol: TCP
-    port: {{ include "common.serviceport.ves.http.container" . }}
-    targetPort: {{ include "common.serviceport.ves.http.container" . }}
-    nodePort: {{ include "common.serviceport.ves.http" . }}
+    port: {{ include "common.serviceport.ves.http" . }}
+    targetPort: {{ include "common.serviceport.ves.http" . }}
   - name: https
     protocol: TCP
-    port: {{ include "common.serviceport.ves.https.container" . }}
-    targetPort: {{ include "common.serviceport.ves.https.container" . }}
-    nodePort: {{ include "common.serviceport.ves.https" . }}
+    port: {{ include "common.serviceport.ves.https" . }}
+    targetPort: {{ include "common.serviceport.ves.https" . }}
   selector:
     app: {{ include "common.namespace.aux" . }}-{{ include "common.name.ves" . }}
     release: {{ .Release.Name }}
-  type: NodePort
+  type: ClusterIP

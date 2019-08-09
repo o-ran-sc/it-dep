@@ -48,14 +48,9 @@ global:
 
   # The ingress URL definitions for the ingress controller in four namespaces
   ingressurl:
-    platform: ricplt-entry
-    xapp: ricxapp-entry
-    aux: ricaux-entry
-    infra: ricinfra-entry
-    localnexus: nexus-entry
-    localhelm: helm-entry
-    localdocker: docker-entry
-
+    ric: ric-entry
+    aux: aux-entry
+    helm: helm-entry
 #-------------------------------------------------------------------------
 # Platform Components 
 #-------------------------------------------------------------------------

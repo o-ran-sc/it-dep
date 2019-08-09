@@ -34,6 +34,29 @@
       "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a28b26d1_34850cd3",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/templates/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-08-09T20:11:41Z",
+      "side": 1,
+      "message": "I am wholly ignorant of RMR routes.  Perhaps someone was trying to keep all routes together??  Still, in my opinion, if a1 makes no use of these entries, then they don\u0027t belong in the A1 configmap.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 162
+      },
+      "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

@@ -3,7 +3,9 @@
     {
       "name":"admission_control_policy",
       "description":"various parameters to control admission of dual connection",
-      "message_receives_rmr_type":"DC_ADMISSION_INTERVAL_CONTROL",
+      "control_state_request_rmr_type":"DC_ADM_GET_POLICY",
+      "control_state_request_reply_rmr_type":"DC_ADM_GET_POLICY_ACK",
+      "message_receives_rmr_type":"DC_ADM_INT_CONTROL",
       "message_receives_payload_schema":{
         "$schema":"http://json-schema.org/draft-07/schema#",
         "type":"object",
@@ -41,7 +43,7 @@
         ],
         "additionalProperties":false
       },
-      "message_sends_rmr_type":"DC_ADMISSION_INTERVAL_CONTROL_ACK",
+      "message_sends_rmr_type":"DC_ADM_INT_CONTROL_ACK",
       "message_sends_payload_schema":{
         "$schema":"http://json-schema.org/draft-07/schema#",
         "type":"object",

@@ -5,7 +5,6 @@
 kong:
   ingressController:
     enabled: true
-    installCRDs: false
 
   postgresql:
     enabled: false
@@ -23,3 +22,9 @@ kong:
   # If need to change a proxy port here, do not forget to update the 
   # _ingresscontroller.tpl file with the new port number.
 
+
+postgresql:
+  enabled: false
+
+env:
+  database: off

@@ -16,6 +16,24 @@
       "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb962b8c_27aad22d",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/templates/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000074
+      },
+      "writtenOn": "2019-08-09T19:49:31Z",
+      "side": 1,
+      "message": "This file was done by the RIC platform team (integration? E2e?) I am also opposed to what is here because it contains MANY things that a1 does not care about. This file only needs to include two entries which is what I originally had; but it looks like someone copy pastad this into each RIC component. So, I agree with you but I think this question should be submitted to the integration/e2e team.",
+      "parentUuid": "a8bb504f_59c40e76",
+      "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

@@ -20,91 +20,45 @@
 */}}
 
 ####################### Service URL #####################################
-{{- define "common.ingressurl.ricplt" -}}
+{{- define "common.ingressurl.ric" -}}
   {{- if .Values.global -}}
     {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.platform -}}
-        {{- printf "%s" .Values.global.ingressurl.platform -}}
+      {{- if .Values.global.ingressurl.ric -}}
+        {{- printf "%s" .Values.global.ingressurl.ric -}}
       {{- else -}}
-        {{- printf "ricplt-entry" -}}
+        {{- printf "ric-entry" -}}
       {{- end -}}
     {{- else -}}
-      {{- printf "ricplt-entry" -}}
+      {{- printf "ric-entry" -}}
     {{- end -}}
   {{- else -}}
-    {{- printf "ricplt-entry" -}}
+    {{- printf "ric-entry" -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "common.ingressurl.ricxapp" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.xapp -}}
-        {{- printf "%s" .Values.global.ingressurl.xapp -}}
-      {{- else -}}
-        {{- printf "ricxapp-entry" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricxapp-entry" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "ricxapp-entry" -}}
-  {{- end -}}
-{{- end -}}
 
-{{- define "common.ingressurl.ricaux" -}}
+{{- define "common.ingressurl.aux" -}}
   {{- if .Values.global -}}
     {{- if .Values.global.ingressurl -}}
       {{- if .Values.global.ingressurl.aux -}}
         {{- printf "%s" .Values.global.ingressurl.aux -}}
       {{- else -}}
-        {{- printf "ricaux-entry" -}}
+        {{- printf "aux-entry" -}}
       {{- end -}}
     {{- else -}}
-      {{- printf "ricaux-entry" -}}
+      {{- printf "aux-entry" -}}
     {{- end -}}
   {{- else -}}
-    {{- printf "ricaux-entry" -}}
+    {{- printf "aux-entry" -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "common.ingressurl.ricinfra" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.infra -}}
-        {{- printf "%s" .Values.global.ingressurl.infra -}}
-      {{- else -}}
-        {{- printf "ricinfra-entry" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricinfra-entry" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "ricinfra-entry" -}}
-  {{- end -}}
-{{- end -}}
 
-{{- define "common.ingressurl.localdocker" -}}
+{{- define "common.ingressurl.helm" -}}
   {{- if .Values.global -}}
     {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.localdocker -}}
-        {{- printf "%s" .Values.global.ingressurl.localdocker -}}
-      {{- else -}}
-        {{- printf "docker-entry" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "docker-entry" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "docker-entry" -}}
-  {{- end -}}
-{{- end -}}
-
-{{- define "common.ingressurl.localhelm" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.localhelm -}}
-        {{- printf "%s" .Values.global.ingressurl.localhelm -}}
+      {{- if .Values.global.ingressurl.helm -}}
+        {{- printf "%s" .Values.global.ingressurl.helm -}}
       {{- else -}}
         {{- printf "helm-entry" -}}
       {{- end -}}
@@ -113,23 +67,6 @@
     {{- end -}}
   {{- else -}}
     {{- printf "helm-entry" -}}
-  {{- end -}}
-{{- end -}}
-
-
-{{- define "common.ingressurl.localnexus" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.localnexus -}}
-        {{- printf "%s" .Values.global.ingressurl.localnexus -}}
-      {{- else -}}
-        {{- printf "nexus-entry" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "nexus-entry" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "nexus-entry" -}}
   {{- end -}}
 {{- end -}}
 
@@ -143,41 +80,20 @@
 ## helm charts are not using this common template. We need to make sure that these values  #
 ## agree with the values in the kong helm charts values.yaml files.                        #
 ############################################################################################  
-{{- define "common.ingresshttpport.ricplt" -}}
-  {{- printf "30180" -}}
-{{- end -}}
-
-{{- define "common.ingresshttpsport.ricplt" -}}
-  {{- printf "30543" -}}
-{{- end -}}
-
-
-{{- define "common.ingresshttpport.ricxapp" -}}
+{{- define "common.ingresshttpport.ric" -}}
   {{- printf "31080" -}}
 {{- end -}}
 
-
-{{- define "common.ingresshttpsport.ricxapp" -}}
+{{- define "common.ingresshttpsport.ric" -}}
   {{- printf "31443" -}}
 {{- end -}}
 
 
-{{- define "common.ingresshttpport.ricaux" -}}
+{{- define "common.ingresshttpport.aux" -}}
   {{- printf "32080" -}}
 {{- end -}}
 
-{{- define "common.ingresshttpsport.ricaux" -}}
+{{- define "common.ingresshttpsport.aux" -}}
   {{- printf "32443" -}}
-{{- end -}}
-
-
-{{- define "common.ingresshttpport.ricinfra" -}}
-  {{- printf "32180" -}}
-{{- end -}}
-
-
-
-{{- define "common.ingresshttpsport.ricinfra" -}}
-  {{- printf "32543" -}}
 {{- end -}}
 

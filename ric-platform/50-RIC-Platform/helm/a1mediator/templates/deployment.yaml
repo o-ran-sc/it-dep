@@ -74,11 +74,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /ui
+              path: /healthcheck
               port: http
           readinessProbe:
             httpGet:
-              path: /ui
+              path: /healthcheck
               port: http
       volumes:
         - name: "a1conf"

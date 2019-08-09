@@ -71,6 +71,8 @@ helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 for component in $RICPLT_COMPONENTS; do
   echo "Preparing chart for comonent $component"
+
+  
   mkdir -p  $DIR/../helm/$component/charts/
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   if [ -z $OVERRIDEYAML ]; then

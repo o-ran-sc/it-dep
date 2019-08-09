@@ -55,9 +55,9 @@ spec:
         image: {{ .Values.ves.onapRepository }}/{{ .Values.ves.image.name }}:{{ .Values.ves.image.tag }}
         imagePullPolicy: {{ include "common.pullPolicy" . }}
         ports:
-        - containerPort: {{ include "common.serviceport.ves.http.container" . }}
+        - containerPort: {{ include "common.serviceport.ves.http" . }}
           protocol: TCP
-        - containerPort: {{ include "common.serviceport.ves.https.container" . }}
+        - containerPort: {{ include "common.serviceport.ves.https" . }}
           protocol: TCP
         volumeMounts:
         - name: component-log
@@ -68,7 +68,7 @@ spec:
         readinessProbe:
           httpGet:
             path: "/healthcheck"
-            port: {{ include "common.serviceport.ves.http.container" . }}
+            port: {{ include "common.serviceport.ves.http" . }}
             scheme: HTTP
           initialDelaySeconds: 5
           timeoutSeconds: 1

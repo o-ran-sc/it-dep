@@ -21,10 +21,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - {{ include "common.ingressurl.localhelm" . }}
+      - {{ include "common.ingressurl.helm" . }}
       secretName: secret-{{ include "common.name.chartmuseum" . }}
   rules:
-    - host: {{ include "common.ingressurl.localhelm" . }}
+    - host: {{ include "common.ingressurl.helm" . }}
       http:
         paths:
           - backend:

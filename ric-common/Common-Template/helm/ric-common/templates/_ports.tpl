@@ -67,7 +67,5 @@
 {{- define "common.serviceport.messagerouter.kafka" -}}9092{{- end -}}
 {{- define "common.serviceport.messagerouter.zookeeper" -}}2181{{- end -}}
 
-{{- define "common.serviceport.ves.http" -}}30235{{- end -}}
-{{- define "common.serviceport.ves.http.container" -}}8080{{- end -}}
-{{- define "common.serviceport.ves.https" -}}30417{{- end -}}
-{{- define "common.serviceport.ves.https.container" -}}8443{{- end -}}
+{{- define "common.serviceport.ves.http" -}}8080{{- end -}}
+{{- define "common.serviceport.ves.https" -}}8443{{- end -}}

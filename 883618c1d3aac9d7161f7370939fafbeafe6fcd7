@@ -57,6 +57,30 @@
       "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9edbd342_7122995f",
+        "filename": "ric-platform/50-RIC-Platform/helm/a1mediator/templates/config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000074
+      },
+      "writtenOn": "2019-08-10T10:41:33Z",
+      "side": 1,
+      "message": "I agree, again; however I will note that this was not added by me and so the e2e or integration team should be checked with before I blow this away. There only needs to be two lines in this file. \n\nI\u0027m going to guess what you said; that someone is trying to just use the same routing file for every component. But if that\u0027s the case, it should be moved out to RIC common or something.\n\nSo, I\u0027m perfectly happy to whack most of these but I want the green light to do so.",
+      "parentUuid": "a28b26d1_34850cd3",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 162
+      },
+      "revId": "883618c1d3aac9d7161f7370939fafbeafe6fcd7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

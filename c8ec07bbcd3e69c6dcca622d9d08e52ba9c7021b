@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f70696f2_8659c91f",
+        "filename": "RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-08-12T13:16:54Z",
+      "side": 1,
+      "message": "Is it necessary to duplicate the tillers: dict here and in RIC_PLATFORM_RECIPE_EXAMPLE?  it seems like we should only have one, or we\u0027ll inevitably have skew between them.",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2710765f_120d23e9",
+        "filename": "RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-08-12T13:16:54Z",
+      "side": 1,
+      "message": "see comments in RIC_PLATFORM_RECIPE_EXAMPLE.",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd9a6131_9bc39a3b",
+        "filename": "RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-08-12T13:16:54Z",
+      "side": 1,
+      "message": "this seems redundant with the dictionary key above.  why not just use that as the \"name\"?",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5e298f3_8d7bb12e",
+        "filename": "RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2019-08-12T13:16:54Z",
+      "side": 1,
+      "message": "suggestion: maybe use \u0027targetNamespace\u0027 and \u0027tillerNamespace\u0027 to more clearly indicate their roless",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

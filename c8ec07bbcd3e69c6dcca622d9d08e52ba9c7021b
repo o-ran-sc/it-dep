@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "a2c9dc6f_bea9f599",
+        "filename": "RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-08-12T15:30:01Z",
+      "side": 1,
+      "message": "The real world scenario is that the cluster admin will deploy the infra and the RIC admin will deploy platform. This means that the global settings used by the infra team has to be passed to the platform team. We cannot assume that both team can refer to the same source of the yaml file that contains the shared key:values.\n\nIf that\u0027s the case, I think it makes more sense to include all the settings in one yaml file instead of two.\n\nWhat I think should happen is that the deploy-ric-infra script should generate the skeleton of the platform recipe, and send it to the platform team for further configuration. This will make sure that the global values are in sync.\n\nthought?",
+      "parentUuid": "40daea23_63226c69",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2710765f_120d23e9",
         "filename": "RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE",
         "patchSetId": 23
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "I guess I still don\u0027t really follow — if you wanted multiple RIC instances as you describe, you\u0027d have multiple entries in the tillers: dictionary, and each one would have a different key — which I\u0027m suggesting you use instead of this \"name:\" value.  The \"name:\" still seems redundant.",
       "parentUuid": "45b58241_5f3b71ab",
+      "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13a528e_4f562ef3",
+        "filename": "RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE",
+        "patchSetId": 23
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-08-12T15:30:01Z",
+      "side": 1,
+      "message": "So currently the key is used to pick which tiller to be used by appmgr. The name here is used to create all kinds of names and references in the common-template. Since they control different things, I think it maybe a good idea to separate them just to give us more flexibility and controls?\n\nOne of the use case maybe, we can have the following two tillers\nricxapp1:\n  name: tiller-deploy\nricxapp2:\n  name: tiller-deploy\n\nWith the above setting, we have two tillers serving different namespaces but the service names will be the same.\n\nNot sure how useful this is. But as you said, when in doubt, give the options. Right?",
+      "parentUuid": "a4e8c9e1_ddc7764a",
       "revId": "c8ec07bbcd3e69c6dcca622d9d08e52ba9c7021b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

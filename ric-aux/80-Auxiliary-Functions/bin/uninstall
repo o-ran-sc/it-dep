@@ -30,7 +30,7 @@ else
    RELEASE_NAME=$RICAUX_RELEASE_NAME
 fi
 
-RICAUX_COMPONENTS="dashboard message-router ves kong-aux"
+RICAUX_COMPONENTS="dashboard message-router ves kong"
 
 echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

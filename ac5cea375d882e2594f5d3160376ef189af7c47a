@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caeb440d_446132ec",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/templates/persistentVolume.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-08-18T10:23:20Z",
+      "side": 1,
+      "message": "Lusheng this YAML has no directives so the three dashes must be the first line",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 3
+      },
+      "revId": "ac5cea375d882e2594f5d3160376ef189af7c47a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d192ed09_ff499934",
+        "filename": "ric-infra/25-tiller/bin/install",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-08-18T10:23:20Z",
+      "side": 1,
+      "message": "why add so much whitespace? It just clutters this change",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 4
+      },
+      "revId": "ac5cea375d882e2594f5d3160376ef189af7c47a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

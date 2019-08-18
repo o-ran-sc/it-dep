@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: storageclass-{{ include "common.name.chartmuseum" . }} 
+  storageClassName: {{ .Values.chartmuseum.storageclass | default (printf "storageclass-%s" ( include "common.name.chartmuseum" . )) }} 
   resources:
     requests:
       storage: {{ .Values.chartmuseum.storagesize }}

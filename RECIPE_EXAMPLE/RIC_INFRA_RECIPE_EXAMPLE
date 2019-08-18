@@ -101,13 +101,6 @@ credential:
     <CERT FOR HELM>
     -----END CERTIFICATE-----
 
-nexus:
-  image:
-    name: nexus-repository-helm-apt
-    tag: 1.0.0
-  adminPassword: <NEXUS ADMIN PASSWORD>
-  datapath: /tmp/nexus3-data/
-  storagesize: 20Gi
 
 chartmuseum:
   repositoryOverride: "registry.hub.docker.com"

@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: storageclass-{{ include "common.name.dashboard" . }} 
+  storageClassName: {{ .Values.dashboard.storageclass | default (printf "storageclass-%s" ( include "common.name.dashboard" . )) }}
   resources:
     requests:
       storage: {{ .Values.dashboard.storagesize }}

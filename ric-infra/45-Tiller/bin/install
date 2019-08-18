@@ -15,49 +15,46 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
-
 OVERRIDEYAML=$1
-
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
 source $DIR/../etc/tiller.conf
 
 if [ -z "$RICINFRA_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
+    RELEASE_NAME=$helm_release_name
 else
-   RELEASE_NAME=$RICINFRA_RELEASE_NAME
+    RELEASE_NAME=$RICINFRA_RELEASE_NAME
 fi
+
 # Namespace configuration
 if [ -z "$RICPLT_NAMESPACE" ];then
-   PLT_NAMESPACE=$plt_namespace
+    PLT_NAMESPACE=$plt_namespace
 else
-   PLT_NAMESPACE=$RICPLT_NAMESPACE
+    PLT_NAMESPACE=$RICPLT_NAMESPACE
 fi
+
 if [ -z "$RICXAPP_NAMESPACE" ];then
-   XAPP_NAMESPACE=$xapp_namespace
+    XAPP_NAMESPACE=$xapp_namespace
 else
-   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
+    XAPP_NAMESPACE=$RICXAPP_NAMESPACE
 fi
+
 if [ -z "$RICAUX_NAMESPACE" ];then
-   AUX_NAMESPACE=$aux_namespace
+    AUX_NAMESPACE=$aux_namespace
 else
-   AUX_NAMESPACE=$RICAUX_NAMESPACE
+    AUX_NAMESPACE=$RICAUX_NAMESPACE
 fi
+
 if [ -z "$RICINFRA_NAMESPACE" ];then
-   INFRA_NAMESPACE=$infra_namespace
+    INFRA_NAMESPACE=$infra_namespace
 else
-   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
+    INFRA_NAMESPACE=$RICINFRA_NAMESPACE
 fi
 
 if [ -z "$RIC_COMMON_OVERRIDE" ];then
-   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
+    COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
 else
-   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
+    COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
 fi
-
-
 
 
 RICINFRA_COMPONENTS="xapp-tiller"

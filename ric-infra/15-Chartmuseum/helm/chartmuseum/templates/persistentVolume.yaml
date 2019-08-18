@@ -1,3 +1,14 @@
+{{- if not .Values.chartmuseum.storageclass }}
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: storageclass-{{ include "common.name.chartmuseum" . }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -15,7 +26,9 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: helm-node
+        - key: local-storage
           operator: In
           values:
           - enable
+{{- end -}}
+

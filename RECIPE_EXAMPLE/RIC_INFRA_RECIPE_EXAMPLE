@@ -108,10 +108,13 @@ credential:
 
 
 chartmuseum:
-  repositoryOverride: "registry.hub.docker.com"
+  repositoryOverride: "docker.io"
   image:
     name: chartmuseum/chartmuseum
     tag: v0.8.2
+  job:
+    image:
+      name: alpine
+      tag: latest
 
   storagesize: 2Gi
-  datapath: /tmp/chartmuseum-data/

@@ -32,6 +32,7 @@ chartmuseum:
     name: chartmuseum/chartmuseum
     tag: v0.8.2
 
-
+# Specify a storage class to bypass the local storage definition.
+# storageclass:
   storagesize: 2Gi
   datapath: /tmp/chartmuseum-data/

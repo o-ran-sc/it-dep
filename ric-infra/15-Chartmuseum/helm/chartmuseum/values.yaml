@@ -18,20 +18,27 @@
 # Default values for nexus.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-repository: "registry.hub.docker.com"
+repository: "docker.io"
 imagePullPolicy: IfNotPresent
 repositoryCred: docker-reg-cred
 helmRepositoryCert: xapp-mgr-certs
 
 chartmuseum:
+  repositoryOverride: "docker.io"
   replicaCount: 1
 
+
+  job:
+    image:
+      name: alpine
+      tag: latest
 
 # This is designed to be deployed using local image
   image:
     name: chartmuseum/chartmuseum
     tag: v0.8.2
 
-
+# Specify a storage class to bypass the local storage definition.
+# storageclass:
   storagesize: 2Gi
-  datapath: /tmp/chartmuseum-data/
+  datapath: /opt/data/chartmuseum-data

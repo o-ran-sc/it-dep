@@ -16,32 +16,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-OVERRIDEYAML=$1
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+# This script deploys RIC auxiliary function components automatically
 
-
-
-
-
-
-if [ -z $OVERRIDEYAML ]; then
-
-  DATAPATH=$(cat $DIR/../helm/chartmuseum/values.yaml | awk '/^.*datapath:.*/{ print $2;}')
-  
-else
-  DATAPATH=$(cat $OVERRIDEYAML | awk '/^chartmuseum:.*/{ getline; while ( match($0, / .*/) || (!$0)){  if(getline == 0){break;}; if (match($0, /^ .*datapath:.*/)){print $2}} }')
-
-
-  if [ -z $DATAPATH ]; then
-    DATAPATH=$(cat $DIR/../helm/chartmuseum/values.yaml | awk '/^.*datapath:.*/{ print $2;}')
-  fi
-
-fi
-
-  rm -rf $DATAPATH
-
-  mkdir -p $DATAPATH
-
-
-  chmod -R a+rwx $DATAPATH
-
+rm -rf /opt/data/dashboard-data
+rm -rf /opt/data/chartmuseum-data

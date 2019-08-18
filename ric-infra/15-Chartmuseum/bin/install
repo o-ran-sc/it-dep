@@ -59,17 +59,62 @@ fi
 
 
 
+NODENAME=$(kubectl get node | awk '{print $1}')
+LABELFOUND=false
+for f in $NODENAME; do
+    LABEL=$(kubectl describe node $f | grep local-storage)
+    if [ ! -z "$LABEL" ]; then
+	LABELFOUND=true
+    fi
+done
 
-NODENAME=$(kubectl get node | awk 'NR==2{print $1}')
-kubectl label --overwrite nodes $NODENAME helm-node=enable
+if [ ! -z $OVERRIDEYAML ]; then
+  FOUND_STORAGECLASS=$(grep storageclass $OVERRIDEYAML)
+fi
 
-DIRTEMP=$DIR
-. "$DIR/clear_data_path"
-DIR=$DIRTEMP
 
+
+if  ! $LABELFOUND && [ -z "$FOUND_STORAGECLASS" ]; then
+    echo "***********************************************************************************************"
+    echo "*                                          ERROR!!!!!!!!!!!!!                                 *"
+    echo "***********************************************************************************************"
+    echo "* Nodes label \"local-storage=enable\" is not found in any of the cluster node.               *"
+    echo "* Please pick a node and label it using the following command.                                *"
+    echo "* kubectl label --overwrite nodes <YOUR_NODE_NAME> local-storage=enable                       *"
+    echo "***********************************************************************************************"
+
+  exit 1
+fi
+
+
+
+
+if [ -z "$FOUND_STORAGECLASS" ] && $LABELFOUND; then
+
+    DATAPATH=$(cat $DIR/../helm/chartmuseum/values.yaml | grep datapath | awk '{ print $2}' )
+
+
+    if [ ! -z $OVERRIDEYAML ]; then
+        DATAPATHOVERRIDE=$(cat $OVERRIDEYAML | grep datapath | awk '{ print $2}' )
+    fi 
+
+    if [ ! -z "$DATAPATHOVERRIDE" ]; then
+	DATAPATH=$DATAPATHOVERRIDE
+    fi
+
+
+    echo "***********************************************************************************************"
+    echo "*                                          WARNING!!!!!!!!!!!!!                               *"
+    echo "***********************************************************************************************"
+    echo "* Chartmuseume will use local storage. Please make sure that directory                        *"
+    echo "* $DATAPATH                                                                                   *"
+    echo "* exists on the selected cluster node, and contains the proper files.                         *"
+    echo "***********************************************************************************************"
+
+
+fi 
 
 RICINFRA_COMPONENTS="chartmuseum"
-mkdir -p /tmp/chartmuseum-data
 
 echo "Deploying RIC infra components [$RICINFRA_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

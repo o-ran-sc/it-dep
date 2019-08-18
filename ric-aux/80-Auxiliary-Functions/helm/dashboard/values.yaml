@@ -34,12 +34,14 @@ dashboard:
   # The keys listed below MUST be configured in each deployment;
   # this list does not include all keys recognized by the app.
 
+  # Specify a storage class to bypass the local storage definition.
+  # storageclass:
   # persist user details as JSON to a persistent volume
   storagesize: 1Mi
   # in the container
   userfile: /dashboard-data/users.json
   # on the server
-  datapath: /tmp/dashboard-data
+  datapath: /opt/data/dashboard-data
 
   # The URL prefixes use K8S/Kong service names
   a1med:

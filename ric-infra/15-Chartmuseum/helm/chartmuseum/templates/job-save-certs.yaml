@@ -22,9 +22,12 @@ metadata:
 spec:
   template:
     spec:
+      imagePullSecrets:
+        - name: {{ include "common.repositoryCred" . }}
       containers:
       - name: cert-copy
-        image: alpine
+        image: {{ include "common.repository" . }}/{{ .Values.chartmuseum.job.image.name }}:{{ .Values.chartmuseum.job.image.tag }}
+        imagePullPolicy: {{ include "common.pullPolicy" . }}
         command: [ "/bin/sh","-c","cp -rL /var/run/helmcerts/..data/tls.crt /var/run/certs-copy/helmtls.crt"]
         #        command: ["tail", "-f", "/dev/null"]
         volumeMounts:

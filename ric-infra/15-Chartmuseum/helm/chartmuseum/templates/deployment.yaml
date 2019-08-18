@@ -36,6 +36,9 @@ spec:
         app: {{ include "common.namespace.infra" . }}-{{ include "common.name.chartmuseum" . }}
         release: {{ .Release.Name }}
     spec:
+      securityContext:
+        fsGroup: 0
+        runAsUser: 0
       hostname: {{ .Chart.Name }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}

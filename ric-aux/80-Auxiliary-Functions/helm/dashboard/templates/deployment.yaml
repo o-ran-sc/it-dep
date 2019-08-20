@@ -65,12 +65,14 @@ spec:
               mountPath: /dashboard-data
           livenessProbe:
             httpGet:
-              path: /api/admin/version
-              port: http
-          readinessProbe:
-            httpGet:
               path: /api/admin/health
               port: http
+            initialDelaySeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/admin/version
+              port: http
+            initialDelaySeconds: 15
       volumes:
         - name: appconfig
           configMap:

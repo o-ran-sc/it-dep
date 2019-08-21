@@ -76,3 +76,6 @@ dashboard:
     ecomp_redirect_url: https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
     ecomp_rest_url: http://portal-app.onap:8989/ONAPPORTAL/auxapi
     ueb_app_key: uebkey
+  metrics:
+    url:
+      ac: http://ric-aux-kibana-server:5601/goto/1234567890abcdef?embed=true

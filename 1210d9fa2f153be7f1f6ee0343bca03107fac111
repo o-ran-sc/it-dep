@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88bc451c_4ef6e34c",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2019-08-21T19:44:54Z",
+      "side": 1,
+      "message": "@Anand, do we need update this ac url to latest link you sent in email \"http://192.168.130.77:5601/goto/6dbd093b66a081f15f8088ddb8887e1a\"?",
+      "range": {
+        "startLine": 81,
+        "startChar": 10,
+        "endLine": 81,
+        "endChar": 76
+      },
+      "revId": "1210d9fa2f153be7f1f6ee0343bca03107fac111",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

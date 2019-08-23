@@ -29,7 +29,7 @@ a1mediator:
 
   image:
     name: ric-plt-a1
-    tag: 0.10.2
+    tag: 0.10.3
 
   # Service ports are now defined in
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.

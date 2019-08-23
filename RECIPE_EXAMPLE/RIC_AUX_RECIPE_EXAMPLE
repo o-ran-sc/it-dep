@@ -89,6 +89,9 @@ dashboard:
     portalapi:
       username: username
       password: password
+    metrics:
+      url:
+        ac: http://ric-aux-kibana-server:5601/goto/fedcba9876543210?embed=true
     # key.properties
     cipher.enc.key: AGLDdG4D04BKm2IxIWEr8o==
     # portal.properties

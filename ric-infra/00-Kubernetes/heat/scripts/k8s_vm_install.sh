@@ -125,6 +125,10 @@ DOCKERVERSION="${DOCKERV}"
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
 
+# tell apt to retry 3 times if failed
+mkdir -p /etc/apt/apt.conf.d
+echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
+
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
 apt-get install -y virt-what
@@ -133,7 +137,11 @@ if ! echo $(virt-what) | grep "virtualbox"; then
   # install if identifying the VM not being a virtualbox VM.
   apt-get install -y linux-image-4.15.0-45-lowlatency
 fi
-apt-get install -y curl jq netcat docker.io=${DOCKERVERSION}
+if [ -z ${DOCKERVERSION} ]; then
+  apt-get install -y curl jq netcat docker.io
+else
+  apt-get install -y curl jq netcat docker.io=${DOCKERVERSION}
+fi
 apt-get install -y kubernetes-cni=${CNIVERSION}
 apt-get install -y --allow-unauthenticated kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
 apt-mark hold docker.io kubernetes-cni kubelet kubeadm kubectl

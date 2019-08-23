@@ -44,9 +44,9 @@ subsets:
   - addresses:
       - ip: "{{ $.Values.extsvcplt.auxip }}"
     ports:
-      - port: {{ include "common.ingresshttpport.aux" $ }}
+      - port: {{ include "common.ingresshttpport" $ }}
         name: {{ include "common.ingressurl.helm" $ }}-http-ingress-port
-      - port: {{ include "common.ingresshttpsport.aux" $ }}
+      - port: {{ include "common.ingresshttpsport" $ }}
         name: {{ include "common.ingressurl.helm" $ }}-https-ingress-port
 
 {{- end -}}

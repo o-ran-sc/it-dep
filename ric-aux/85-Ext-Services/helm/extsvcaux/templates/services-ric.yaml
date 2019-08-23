@@ -39,7 +39,7 @@ subsets:
   - addresses:
       - ip: "{{ .Values.extsvcaux.ricip }}"
     ports:
-      - port: {{ include "common.ingresshttpport.ric" . }}
+      - port: {{ include "common.ingresshttpport" . }}
         name: {{ include "common.ingressurl.ric" . }}-http-ingress-port
-      - port: {{ include "common.ingresshttpsport.ric" . }}
+      - port: {{ include "common.ingresshttpsport" . }}
         name: {{ include "common.ingressurl.ric" . }}-https-ingress-port

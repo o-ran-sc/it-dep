@@ -80,20 +80,11 @@
 ## helm charts are not using this common template. We need to make sure that these values  #
 ## agree with the values in the kong helm charts values.yaml files.                        #
 ############################################################################################  
-{{- define "common.ingresshttpport.ric" -}}
-  {{- printf "31080" -}}
-{{- end -}}
-
-{{- define "common.ingresshttpsport.ric" -}}
-  {{- printf "31443" -}}
-{{- end -}}
-
-
-{{- define "common.ingresshttpport.aux" -}}
+{{- define "common.ingresshttpport" -}}
   {{- printf "32080" -}}
 {{- end -}}
 
-{{- define "common.ingresshttpsport.aux" -}}
+{{- define "common.ingresshttpsport" -}}
   {{- printf "32443" -}}
 {{- end -}}
 

@@ -30,7 +30,7 @@ else
    RELEASE_NAME=$RICPLT_RELEASE_NAME
 fi
 
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr kong"
+RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr"
 
 
 echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"

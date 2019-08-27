@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "http://service-ricinfra-chartmuseum-http.ricinfra:8080"
+  helmRepository: "https://aux-entry/helm"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -41,7 +41,6 @@ global:
   ingressurl:
     ric: ric-entry
     aux: aux-entry
-    helm: helm-entry 
 
   tillers:
     ricxapp:

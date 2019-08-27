@@ -24,10 +24,10 @@ spec:
       - {{ include "common.ingressurl.helm" . }}
       secretName: secret-{{ include "common.name.chartmuseum" . }}
   rules:
-    - host: {{ include "common.ingressurl.helm" . }}
-      http:
+    #- host: {{ include "common.ingressurl.helm" . }}
+    - http:
         paths:
           - backend:
               serviceName: {{ include "common.servicename.chartmuseum.http" . }}
               servicePort: http
-            path: "/"
+            path: "/helm"

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60555488_e0501e03",
+        "filename": "ric-aux/80-Auxiliary-Functions/helm/dashboard/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-08-27T02:04:45Z",
+      "side": 1,
+      "message": "Dir\u0027s under /tmp will go away after host reboot, defeating the purpose of PV.  Please change to for example  /opt/data/dashboard-data",
+      "revId": "54c9a35aa87c272bee8ade67a07697da5e05f25e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

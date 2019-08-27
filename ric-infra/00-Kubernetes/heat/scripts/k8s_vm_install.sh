@@ -278,6 +278,12 @@ EOF
     sleep 15
   done
 
+  echo "Preparing a master node (lowser ID) for using local FS for PV"
+  PV_NODE_NAME=$(kubectl get nodes |grep master | cut -f1 -d' ' | sort | head -1)
+  kubectl label --overwrite nodes $PV_NODE_NAME local-storage=enable
+  if [ "$PV_NODE_NAME" == "$(hostname)" ]; then
+    mkdir -p /opt/data/dashboard-data
+  fi
 
   echo "Starting an NC TCP server on port 29999 to indicate we are ready"
   nc -l -p 29999 &

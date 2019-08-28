@@ -45,6 +45,7 @@ global:
 
   tillers:
     ricxapp:
+      kubeapiServerEndpoint: https://kubernetes.default.svc.cluster.local/
       name: ricxapp
       nameSpace: ricxapp
       deployNameSpace: ricinfra
@@ -52,7 +53,7 @@ global:
         tillerTLSSecrets:
           repository: nexus3.o-ran-sc.org:10004
           name: it-dep-secret
-          tag: 0.0.1
+          tag: 0.0.2
         tiller:
           repository: gcr.io
           name: kubernetes-helm/tiller

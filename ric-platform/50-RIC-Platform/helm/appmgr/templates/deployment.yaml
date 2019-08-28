@@ -61,7 +61,7 @@ spec:
             - name: KUBECONFIG
               value: /tmp/kubeconfig
             - name: K8S_API_HOST
-              value: "kubernetes.default.svc.{{ default "cluster.local" .Values.global.dnsDomain }}"
+              value: {{ default "kubernetes.default.svc.cluster.local" .Values.global.k8sAPIHost }}
             - name: SECRET_NAMESPACE
               value: {{ include "common.tillerDeployNameSpace" $ctx }}
             - name: SECRET_NAME

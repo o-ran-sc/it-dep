@@ -60,7 +60,7 @@ fi
 
 
 
-RICINFRA_COMPONENTS="ricplt-tiller"
+RICINFRA_COMPONENTS="xapp-tiller"
 
 echo "Deploying RIC infra components [$RICINFRA_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"
@@ -78,8 +78,15 @@ for component in $RICINFRA_COMPONENTS; do
   cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
 
   if [ -z $OVERRIDEYAML ]; then
-    helm install --debug --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+
+    EMPTY_CHART=$(helm template $DIR/../helm/$component | grep apiVersion:)
+    if [ ! -z "$EMPTY_CHART" ]; then
+      helm install --debug --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+    fi
   else
-    helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+    EMPTY_CHART=$(helm template -f $OVERRIDEYAML $DIR/../helm/$component | grep apiVersion:)
+    if [ ! -z "$EMPTY_CHART" ]; then
+      helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
+    fi
   fi
 done

@@ -25,8 +25,8 @@ data:
     {{- $restport := (printf ":%s" (include "common.serviceport.appmgr.http" .) ) | quote -}}
     {{- $helmrepo := include "common.helmrepository" . | quote -}}
     {{- $reponame := default "helm-repo" .Values.appmgr.reponame | quote -}}
-    {{- $tiller := include "common.servicename.tiller" $ctx | quote -}}
-    {{- $tillernamespace := include "common.tillerNameSpace" $ctx | quote -}}
+    {{- $tillerdeploynamespace := include "common.tillerDeployNameSpace" $ctx -}}
+    {{- $tillerservice := include "common.servicename.tiller" $ctx -}}
     {{- $tillerport := include "common.tillerPort" $ctx | quote -}}
     {{- $xappnamespace := include "common.namespace.xapp" . | quote -}}
-    {{- (.Files.Glob "resources/appmgr.yaml").AsConfig | replace "__XAPP_NAMESPACE__" $xappnamespace | replace "__HELM_REPO__" $helmrepo | replace "__REST_PORT__" $restport | replace "__REPO_NAME__" $reponame | replace "__TILLER_SERVICE__" $tiller | replace "__TILLER_NAMESPACE__" $tillernamespace | replace "__TILLER_PORT__" $tillerport | nindent 2 }}
+    {{- (.Files.Glob "resources/appmgr.yaml").AsConfig | replace "__XAPP_NAMESPACE__" $xappnamespace | replace "__HELM_REPO__" $helmrepo | replace "__REST_PORT__" $restport | replace "__REPO_NAME__" $reponame | replace "__TILLER_SERVICE__" $tillerservice | replace "__TILLER_NAMESPACE__" $tillerdeploynamespace | replace "__TILLER_PORT__" $tillerport | nindent 2 }}

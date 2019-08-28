@@ -45,6 +45,9 @@ rules:
 - apiGroups: [""]
   resources: ["pods/portforward"]
   verbs: ["create"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["get"]
 - apiGroups: [""]  
   resources: ["pods", "configmaps", "deployments", "services"]
   verbs: ["get", "list", "create", "delete"]
@@ -58,6 +61,30 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: {{ include "common.tillerName" $ctx }}-tiller-base
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "common.serviceaccountname.tiller" $ctx }}
+    namespace: {{ $deployNameSpace }}
+---  
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: {{ include "common.tillerName" $ctx }}-tiller-operation
+  namespace: {{ $deployNameSpace }}
+rules:
+- apiGroups: [""]  
+  resources: ["configmaps"]
+  verbs: ["get", "list", "create", "delete", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: {{ include "common.serviceaccountname.tiller" $ctx }}-{{ $nameSpace }}-tiller-operation
+  namespace: {{ $deployNameSpace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "common.tillerName" $ctx }}-tiller-operation
 subjects:
   - kind: ServiceAccount
     name: {{ include "common.serviceaccountname.tiller" $ctx }}

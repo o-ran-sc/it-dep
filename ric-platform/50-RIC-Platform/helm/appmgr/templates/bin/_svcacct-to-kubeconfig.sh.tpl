@@ -35,7 +35,7 @@ users:
 clusters:
 - cluster:
     certificate-authority-data: ${CLUSTER_CA}
-    server: https://${K8S_API_HOST:-kubernetes.default.svc.cluster.local}/
+    server: ${K8S_API_HOST:-https://kubernetes.default.svc.cluster.local/}
   name: ${CLUSTER_NAME:-kubernetes}
 contexts:
 - context:

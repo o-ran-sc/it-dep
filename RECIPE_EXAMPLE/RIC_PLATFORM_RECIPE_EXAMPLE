@@ -37,6 +37,9 @@ global:
   # Name of the K8S secret that contains the credential of the helm repo
   helmRepositoryCred: xapp-mgr-creds
 
+  # Endpoint of k8s API server
+  k8sAPIHost: https://kubernetes.default.svc.cluster.local/
+
   # The ingress URL definitions for the ingress controller in four namespaces
   ingressurl:
     ric: ric-entry
@@ -52,7 +55,7 @@ global:
         tillerTLSSecrets:
           repository: nexus3.o-ran-sc.org:10004
           name: it-dep-secret
-          tag: 0.0.1
+          tag: 0.0.2
         tiller:
           repository: gcr.io
           name: kubernetes-helm/tiller

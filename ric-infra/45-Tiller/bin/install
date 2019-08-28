@@ -60,7 +60,7 @@ fi
 
 
 
-RICINFRA_COMPONENTS="ricplt-tiller"
+RICINFRA_COMPONENTS="xapp-tiller"
 
 echo "Deploying RIC infra components [$RICINFRA_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

@@ -1,4 +1,5 @@
 tillers:
+#   kubeapiServerEndpoint: https://kubernetes.default.svc.cluster.local/
 #   ricxapp:
 #     image:
 #       tillerTLSSecrets:

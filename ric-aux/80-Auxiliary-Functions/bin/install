@@ -59,7 +59,70 @@ else
    COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
 fi
 
-RICAUX_COMPONENTS="dashboard ves message-router"
+
+
+NODENAME=$(kubectl get node | awk '{print $1}')
+LABELFOUND=false
+for f in $NODENAME; do
+    LABEL=$(kubectl describe node $f | grep local-storage)
+    if [ ! -z "$LABEL" ]; then
+        LABELFOUND=true
+    fi
+done
+  
+if [ ! -z $OVERRIDEYAML ]; then
+  FOUND_STORAGECLASS=$(grep storageclass $OVERRIDEYAML)
+fi
+
+
+
+if  ! $LABELFOUND && [ -z "$FOUND_STORAGECLASS" ]; then
+    echo "***********************************************************************************************"
+    echo "*                                          ERROR!!!!!!!!!!!!!                                 *"
+    echo "***********************************************************************************************"
+    echo "* Nodes label \"local-storage=enable\" is not found in any of the cluster node.               *"
+    echo "* Please pick a node and label it using the following command.                                *"
+    echo "* kubectl label --overwrite nodes <YOUR_NODE_NAME> local-storage=enable                       *"
+    echo "***********************************************************************************************"
+
+  exit 1
+fi
+
+
+
+
+if [ -z "$FOUND_STORAGECLASS" ] && $LABELFOUND; then
+
+    DATAPATH=$(cat $DIR/../helm/dashboard/values.yaml | grep datapath | awk '{ print $2}' )
+
+
+    if [ ! -z $OVERRIDEYAML ]; then
+        DATAPATHOVERRIDE=$(cat $OVERRIDEYAML | grep datapath | awk '{ print $2}' )
+    fi
+
+    if [ ! -z "$DATAPATHOVERRIDE" ]; then
+        DATAPATH=$DATAPATHOVERRIDE
+    fi
+
+
+    echo "***********************************************************************************************"
+    echo "*                                          WARNING!!!!!!!!!!!!!                               *"
+    echo "***********************************************************************************************"
+    echo "* Chartmuseume will use local storage. Please make sure that directory                        *"
+    echo "* $DATAPATH                                                                                   *"
+    echo "* exists on the selected cluster node, and contains the proper files.                         *"
+    echo "***********************************************************************************************"
+
+
+fi
+
+
+
+
+
+
+
+RICAUX_COMPONENTS="dashboard ves message-router mrsub"
 
 echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

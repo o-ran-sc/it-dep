@@ -59,7 +59,7 @@ else
    COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
 fi
 
-RICAUX_COMPONENTS="dashboard ves message-router"
+RICAUX_COMPONENTS="dashboard ves message-router mrsub"
 
 echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

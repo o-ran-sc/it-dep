@@ -20,9 +20,9 @@ Generate certificates for the docker registry
 */}}
 
 {{- define "chartmuseum.gen-cert" -}}
-{{- $altNames := list ( include "common.ingressurl.helm" . ) -}}
+{{- $altNames := list ( include "common.ingressurl.aux" . ) -}}
 {{- $ca := genCA "docker-registry-ca" 365 -}}
-{{- $cert := genSignedCert ( include "common.ingressurl.helm" . ) nil $altNames 365 $ca -}}
+{{- $cert := genSignedCert ( include "common.ingressurl.aux" . ) nil $altNames 365 $ca -}}
 tls.crt: {{ $cert.Cert | b64enc }}
 tls.key: {{ $cert.Key | b64enc }}
 {{- end -}}

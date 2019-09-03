@@ -54,26 +54,6 @@
 {{- end -}}
 
 
-{{- define "common.ingressurl.helm" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.ingressurl -}}
-      {{- if .Values.global.ingressurl.helm -}}
-        {{- printf "%s" .Values.global.ingressurl.helm -}}
-      {{- else -}}
-        {{- printf "helm-entry" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "helm-entry" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "helm-entry" -}}
-  {{- end -}}
-{{- end -}}
-
-
-
-
-
 
 ####################### Ingress Controller Ports ###########################################
 ## Currently the below values are hard-coded due to the fact that kong ingress controller  #

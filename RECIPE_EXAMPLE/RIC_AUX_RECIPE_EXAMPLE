@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "http://aux-entry/helm"
+  helmRepository: "http://aux-entry"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs

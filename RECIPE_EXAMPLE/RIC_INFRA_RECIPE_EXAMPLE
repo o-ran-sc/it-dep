@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://helm-entry"
+  helmRepository: "http://helm-entry"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -88,7 +88,7 @@ cluster:
   deployK8S: false
   deployNexus: false
   deployK8SMonitoringStake: false
-  useLocalHelmRepo: false
+  useLocalHelmRepo: true
   useLocalDockerRegistry: false
 
 credential:

@@ -1,4 +1,4 @@
-###############################################################################
+################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
@@ -14,22 +14,25 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+
 apiVersion: v1
-kind: ConfigMap
+kind: Service
 metadata:
-  name: {{ include "common.configmapname.rtmgr" . }}-env
-data:
-   DBAAS_SERVICE_HOST: {{ include "common.servicename.dbaas.tcp" . | quote }}
-   DBAAS_SERVICE_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }}
-   DBAAS_PORT_6379_TCP_ADDR: {{ include "common.servicename.dbaas.tcp" . | quote }}
-   DBAAS_PORT_6379_TCP_PORT: {{ include "common.serviceport.dbaas.tcp" . | quote }} 
-   RMR_RTG_SVC: {{ include "common.serviceport.rtmgr.rmr.route" . | quote }}
-   XMURL: "http://{{ include "common.servicename.appmgr.http" . }}:{{ include "common.serviceport.appmgr.http" . }}/ric/v1/xapps"
-   RTFILE: "/db/rt.json"
-   CFGFILE: "/cfg/rtmgr-config.json"
-   RPE: "{{ .Values.rtmgr.rpe }}"
-   SBI: "{{ .Values.rtmgr.sbi }}"
-   SBIURL: "{{ .Values.rtmgr.sbiurl }}"
-   NBI: "{{ .Values.rtmgr.nbi }}"
-   NBIURL: "http://{{ include "common.servicename.rtmgr.http" . }}:{{ include "common.serviceport.rtmgr.http" . }}"
-   LOGLEVEL: "{{ .Values.rtmgr.loglevel }}"
+  name: {{ include "common.servicename.rtmgr.http" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rtmgr" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }} 
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ include "common.serviceport.rtmgr.http" . }}
+      protocol: "TCP"
+      name: "http"
+      targetPort: "http"
+  selector:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rtmgr" . }}
+    release: {{ .Release.Name }}
+

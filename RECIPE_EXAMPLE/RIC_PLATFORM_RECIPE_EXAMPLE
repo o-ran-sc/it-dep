@@ -147,6 +147,7 @@ rtmgr:
   image:
     name: ric-plt-rtmgr
     tag: 0.3.2
+  loglevel: DEBUG
 
 # Subscription Manager
 submgr:

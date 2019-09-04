@@ -29,7 +29,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "https://helm-entry"
+  helmRepository: "http://aux-entry/helm"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -160,7 +160,7 @@ submgr:
 extsvcplt:
   auxip:
     # The ip address of the aux cluster ingress controller
-    <IP_ADDRESS of the AUX cluster>    
+    <IP_ADDRESS of the RIC cluster>
   ricip:
     # The ip address of the ric cluster ingress controller
     <IP_ADDRESS of the RIC cluster>

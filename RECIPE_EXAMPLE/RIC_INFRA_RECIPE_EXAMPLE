@@ -86,7 +86,7 @@ global:
 cluster:
   deployK8S: false
   deployNexus: false
-  deployK8SMonitoringStake: false
+  deployK8SMonitoringStack: false
   useLocalHelmRepo: true
   useLocalDockerRegistry: false
 

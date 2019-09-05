@@ -166,6 +166,5 @@ helm package -d /tmp /tmp/$CHART_NAME
 
 
 echo $HELM_REPO
-curl -k -u $HELM_REPO_USERNAME:$HELM_REPO_PASSWORD $HELM_REPO --upload-file /tmp/$CHART_NAME-$CHART_VERSION.tgz -v
-
-
+#curl -k -u $HELM_REPO_USERNAME:$HELM_REPO_PASSWORD $HELM_REPO --upload-file /tmp/$CHART_NAME-$CHART_VERSION.tgz -v
+curl -Lk -u $HELM_REPO_USERNAME:$HELM_REPO_PASSWORD "$HELM_REPO"/api/charts --data-binary "@/tmp/$CHART_NAME-$CHART_VERSION.tgz"

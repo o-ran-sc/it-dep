@@ -93,6 +93,11 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.vespamgr.http" -}}
+  {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.servicename.nexus.http" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}

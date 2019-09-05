@@ -55,6 +55,11 @@
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.containername.vespamgr" -}}
+  {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.containername.nexus" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}

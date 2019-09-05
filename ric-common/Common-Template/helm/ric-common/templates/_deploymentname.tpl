@@ -55,6 +55,11 @@
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.deploymentname.vespamgr" -}}
+  {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.deploymentname.nexus" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}

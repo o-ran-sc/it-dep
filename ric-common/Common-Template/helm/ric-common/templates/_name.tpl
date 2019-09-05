@@ -182,6 +182,27 @@
 {{- end -}}
 
 
+{{- define "common.name.vespamgr" -}}
+  {{- if .Values.vespamgr -}}
+    {{- if .Values.vespamgr.nameOverride -}}
+      {{- printf "%s" .Values.vespamgr.nameOverride -}}
+    {{- else -}}
+      {{- printf "vespamgr" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "vespamgr" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.fullname.vespamgr" -}}
+  {{- $name := ( include "common.name.vespamgr" . ) -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+
 
 {{- define "common.name.nexus" -}}
   {{- if .Values.nexus -}}

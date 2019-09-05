@@ -45,7 +45,6 @@ global:
   ingressurl:
     ric: ric-entry
     aux: aux-entry
-    helm: helm-entry 
 
   tillers:
     ricxapp:

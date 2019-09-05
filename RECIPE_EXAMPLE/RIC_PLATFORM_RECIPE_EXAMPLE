@@ -156,6 +156,14 @@ submgr:
     name: ric-plt-submgr
     tag: 0.5.0
 
+# VESPA Manager
+vespamgr:
+  # Use the following option to override the docker registry value
+  # repositoryOverride:
+  image:
+    name: ric-plt-vespamgr
+    tag: 0.0.1
+
 # the service for redirecting to AUX cluster
 extsvcplt:
   auxip:

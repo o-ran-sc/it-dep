@@ -53,6 +53,8 @@
 {{- define "common.serviceport.appmgr.rmr.route" -}}4561{{- end -}}
 {{- define "common.serviceport.appmgr.http" -}}8080{{- end -}}
 
+{{- define "common.serviceport.vespamgr.http" -}}8080{{- end -}}
+
 {{- define "common.serviceport.nexus.http" -}}8080{{- end -}}
 
 {{- define "common.serviceport.chartmuseum.http" -}}8080{{- end -}}

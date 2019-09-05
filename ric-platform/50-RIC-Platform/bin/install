@@ -60,7 +60,7 @@ else
 fi
 
 
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr"
+RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr vespamgr"
 
 echo "Deploying RIC Platform components [$RICPLT_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

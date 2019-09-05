@@ -1,0 +1,17 @@
+# Default values for mrsub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ubuntu
+  tag: 16.04
+  pullPolicy: IfNotPresent
+
+
+mrsub:
+  mrhostport: "10.1.0.26:30227"
+  mrtopic: "unauthenticated.SEC_MEASUREMENT_OUTPUT"
+  logstashurl: "http://192.168.130.77:8081/ves/ves"
+

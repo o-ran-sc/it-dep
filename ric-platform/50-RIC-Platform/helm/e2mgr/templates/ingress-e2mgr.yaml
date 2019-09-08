@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /e2mgr
+      - path: {{ include "common.kongpath.ric.e2mgr" . }}
         backend:
           serviceName: {{ include "common.servicename.e2mgr.http" . }}
           servicePort: {{ include "common.serviceport.e2mgr.http" . }}

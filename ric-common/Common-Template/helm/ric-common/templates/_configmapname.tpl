@@ -56,6 +56,10 @@
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.configmapname.vespamgr" -}}
+  {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "common.configmapname.nexus" -}}
   {{- $name := ( include "common.fullname.nexus" . ) -}}

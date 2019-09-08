@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /a1mediator
+      - path: {{ include "common.kongpath.ric.a1mediator" . }}
         backend:
           serviceName: {{ include "common.servicename.a1mediator.http" . }}
           servicePort: {{ include "common.serviceport.a1mediator.http" . }}

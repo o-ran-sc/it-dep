@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /appmgr
+      - path: {{ include "common.kongpath.ric.appmgr" . }}
         backend:
           serviceName: {{ include "common.servicename.appmgr.http" . }}
           servicePort: {{ include "common.serviceport.appmgr.http" . }}

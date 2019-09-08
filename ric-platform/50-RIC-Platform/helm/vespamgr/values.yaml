@@ -35,3 +35,5 @@ vespamgr:
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
   # If need to change a service port, make the code change necessary, then
   # update the _ports.tpl file with the new port number.
+  
+  prometheusurl: "http://rec-prometheus-server.default"

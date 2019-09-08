@@ -50,10 +50,10 @@ spec:
             - name: http
               containerPort: {{ include "common.serviceport.vespamgr.http" . }}
               protocol: TCP
-          #envFrom:
-          #  - configMapRef:
-          #      name: vespa-config
-          #  - secretRef:
-          #      name: vespa-secrets
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.vespamgr" . }}
+            - secretRef:
+                name: vespa-secrets
 
 

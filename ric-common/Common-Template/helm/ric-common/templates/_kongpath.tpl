@@ -15,25 +15,12 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-#################################################################
-# Application configuration defaults.
-#################################################################
-# application image
+{{/*
+  This file defines the URL paths that kong proxies for different servicess.
+*/}}
 
-repository: "nexus3.o-ran-sc.org:10004"
-imagePullPolicy: IfNotPresent
-repositoryCred: docker-reg-cred
-
-vespamgr:
-  replicaCount: 1
-
-  image:
-    name: ric-plt-vespamgr
-    tag: 0.0.1
-
-  # Service ports are now defined in
-  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
-  # If need to change a service port, make the code change necessary, then
-  # update the _ports.tpl file with the new port number.
-  
-  prometheusurl: "http://rec-prometheus-server.default"
+{{- define "common.kongpath.aux.vescollector" -}}/vescollector{{- end -}}
+{{- define "common.kongpath.aux.helm" -}}/helm{{- end -}}
+{{- define "common.kongpath.ric.appmgr" -}}/appmgr{{- end -}}
+{{- define "common.kongpath.ric.a1mediator" -}}/a1mediator{{- end -}}
+{{- define "common.kongpath.ric.e2mgr" -}}/e2mgr{{- end -}}

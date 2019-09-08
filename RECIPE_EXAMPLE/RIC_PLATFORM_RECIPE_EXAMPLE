@@ -163,6 +163,8 @@ vespamgr:
   image:
     name: ric-plt-vespamgr
     tag: 0.0.1
+  prometheusurl: "http://rec-prometheus-server.default"
+
 
 # the service for redirecting to AUX cluster
 extsvcplt:

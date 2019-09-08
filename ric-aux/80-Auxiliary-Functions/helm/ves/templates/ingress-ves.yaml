@@ -6,7 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /vescollector
+      - path: {{ include "common.kongpath.aux.vescollector" . }}
         backend:
           serviceName: {{ include "common.servicename.ves.http" . }}
           servicePort: {{ include "common.serviceport.ves.http" . }}

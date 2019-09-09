@@ -21,17 +21,6 @@
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-source $ROOT_DIR/../etc/ric.conf
-source $ROOT_DIR/../etc/ric-infra.conf
-
-
-export RICINFRA_RELEASE_NAME=$helm_release_name
-
-export RICPLT_NAMESPACE=$plt_namespace
-export RICXAPP_NAMESPACE=$xapp_namespace
-export RICAUX_NAMESPACE=$aux_namespace
-export RICINFRA_NAMESPACE=$infra_namespace
-
 
 for component in $ROOT_DIR/../ric-infra/*/; do
     # Will print */ if no directories are available

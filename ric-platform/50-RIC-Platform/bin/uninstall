@@ -16,29 +16,16 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr vespamgr"
+
+echo "Undeploying RIC platform components [$COMPONENTS]"
 
 
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+for component in $COMPONENTS; do
+    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
+    if [ ! -z "$RELEASE_LIST" ];then
+        helm delete --purge $RELEASE_LIST
+    fi
 
-
-source $DIR/../etc/ric.conf
-
-if [ -z "$RICPLT_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICPLT_RELEASE_NAME
-fi
-
-RICPLT_COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr vespamgr"
-
-
-echo "Undeploying RIC Platform components [$RICPLT_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-
-
-for component in $RICPLT_COMPONENTS; do
-  helm delete --purge "${RELEASE_NAME}-$component"
 done

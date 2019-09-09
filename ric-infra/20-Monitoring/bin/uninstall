@@ -15,27 +15,16 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+COMPONENTS="elfkp"
+
+echo "Undeploying RIC infra components [$COMPONENTS]"
 
 
 
+for component in $COMPONENTS; do
+    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
+    if [ ! -z "$RELEASE_LIST" ];then
+        helm delete --purge $RELEASE_LIST
+    fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/elfkp.conf
-
-if [ -z "$RICAUX_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
-fi
-
-RICAUX_COMPONENTS="elfkp"
-
-echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-for component in $RICAUX_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-${component}" 
 done

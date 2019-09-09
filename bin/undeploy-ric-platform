@@ -21,12 +21,6 @@
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-source $ROOT_DIR/../etc/ric.conf
-
-export RICPLT_RELEASE_NAME=$helm_release_name
-
-export RICPLT_NAMESPACE=$plt_namespace
-
 
 for component in $ROOT_DIR/../ric-platform/*/; do
     # Will print */ if no directories are available

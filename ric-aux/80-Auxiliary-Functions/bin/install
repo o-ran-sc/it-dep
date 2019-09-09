@@ -17,49 +17,33 @@
 ################################################################################
 
 
-OVERRIDEYAML=$1
+while [ -n "$1" ]; do # while loop starts
+
+    case "$1" in
+
+    -f) OVERRIDEYAML=$2
+        shift
+        ;;
+    -c) LIST_OF_COMPONENTS=$2
+        shift
+        ;;
+    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
+
+    esac
+
+    shift
+
+done
 
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/aux.conf
-
-if [ -z "$RICAUX_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
+if [ -z "$OVERRIDEYAML" ];then
+    echo "****************************************************************************************************************"
+    echo "                                                     ERROR                                                      "
+    echo "****************************************************************************************************************"
+    echo "RIC deployment without deployment recipe is currently disabled. Please specify an recipe with the -f option."
+    echo "****************************************************************************************************************"
+    exit 1
 fi
-
-# Namespace configuration
-if [ -z "$RICPLT_NAMESPACE" ];then
-   PLT_NAMESPACE=$plt_namespace
-else
-   PLT_NAMESPACE=$RICPLT_NAMESPACE
-fi
-if [ -z "$RICXAPP_NAMESPACE" ];then
-   XAPP_NAMESPACE=$xapp_namespace
-else
-   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
-fi
-if [ -z "$RICAUX_NAMESPACE" ];then
-   AUX_NAMESPACE=$aux_namespace
-else
-   AUX_NAMESPACE=$RICAUX_NAMESPACE
-fi
-if [ -z "$RICINFRA_NAMESPACE" ];then
-   INFRA_NAMESPACE=$infra_namespace
-else
-   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
-fi
-
-if [ -z "$RIC_COMMON_OVERRIDE" ];then
-   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
-else
-   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
-fi
-
-
 
 NODENAME=$(kubectl get node | awk '{print $1}')
 LABELFOUND=false
@@ -70,9 +54,7 @@ for f in $NODENAME; do
     fi
 done
   
-if [ ! -z $OVERRIDEYAML ]; then
-  FOUND_STORAGECLASS=$(grep storageclass $OVERRIDEYAML)
-fi
+FOUND_STORAGECLASS=$(grep storageclass $OVERRIDEYAML)
 
 
 
@@ -85,7 +67,7 @@ if  ! $LABELFOUND && [ -z "$FOUND_STORAGECLASS" ]; then
     echo "* kubectl label --overwrite nodes <YOUR_NODE_NAME> local-storage=enable                       *"
     echo "***********************************************************************************************"
 
-  exit 1
+    exit 1
 fi
 
 
@@ -108,40 +90,36 @@ if [ -z "$FOUND_STORAGECLASS" ] && $LABELFOUND; then
     echo "***********************************************************************************************"
     echo "*                                          WARNING!!!!!!!!!!!!!                               *"
     echo "***********************************************************************************************"
-    echo "* Chartmuseume will use local storage. Please make sure that directory                        *"
+    echo "* Dashboard will use local storage. Please make sure that directory                        *"
     echo "* $DATAPATH                                                                                   *"
     echo "* exists on the selected cluster node, and contains the proper files.                         *"
     echo "***********************************************************************************************"
 
-
 fi
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+GLOBAL_BLOCK=$(cat $OVERRIDEYAML | awk '/^global:/{getline; while ($0 ~ /^ +.*|^$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *aux:/{print $2}')
+RELEASE_PREFIX=$(echo "$GLOBAL_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+COMPONENTS=${LIST_OF_COMPONENTS:-"dashboard ves message-router mrsub"}
 
-
-
-
-
-
-
-RICAUX_COMPONENTS="dashboard ves message-router mrsub"
-
-echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
+echo "Deploying RIC infra components [$COMPONENTS]"
 
 
 COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
-helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common/
+for component in $COMPONENTS; do
+    case "$component_name" in
+            dashboard)
+                mkdir -p $DIR/../helm/$component/charts/
+                cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
+                helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
+            ;;
+            *)
+                helm install --namespace "${NAMESPACE}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
+ 
+    esac
 
-
-for component in $RICAUX_COMPONENTS; do
-  echo "Preparing chart for comonent $component"
-
-  mkdir -p  $DIR/../helm/$component/charts/
-  cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
-  if [ -z $OVERRIDEYAML ]; then
-  helm install --namespace $AUX_NAMESPACE --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
-  else
-  helm install -f $OVERRIDEYAML --namespace $AUX_NAMESPACE --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
-  fi
 done

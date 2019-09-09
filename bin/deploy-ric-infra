@@ -16,84 +16,42 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# This script deploys RIC platform components automatically
+while [ -n "$1" ]; do # while loop starts
 
-OVERRIDEYAML=$1
+    case "$1" in
+
+    -f) OVERRIDEYAML=$2
+        shift
+        ;;
+    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
+
+    esac
+
+    shift
+
+done
+
 
 if [ -z "$OVERRIDEYAML" ];then
-echo "****************************************************************************************************************"
-echo "                                                     WARNING                                                    "
-echo "****************************************************************************************************************"
-echo "Preparing the clusters for RIC deployment without deployment recipe. Default configurations are used."
-echo "****************************************************************************************************************"
-
-
+    echo "****************************************************************************************************************"
+    echo "                                                     ERROR                                                      "
+    echo "****************************************************************************************************************"
+    echo "RIC deployment without deployment recipe is currently disabled. Please specify an recipe with the -f option."
+    echo "****************************************************************************************************************"
+    exit 1
 fi
 
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-source $ROOT_DIR/../etc/ric.conf
-source $ROOT_DIR/../etc/ric-infra.conf
 
+CHARTMUSEUM_BLOCK=$(cat $OVERRIDEYAML | awk '/^chartmuseum:/{getline; while ($0 ~ /^ +.*|^$/) {print $0; if (getline == 0) {break}}}')
+ELFKP_BLOCK=$(cat $OVERRIDEYAML | awk '/^elfkp:/{getline; while ($0 ~ /^ +.*|^$/) {print $0; if (getline == 0) {break}}}')
+K8S_BLOCK=$(cat $OVERRIDEYAML | awk '/^k8s:/{getline; while ($0 ~ /^ +.*|^$/) {print $0; if (getline == 0) {break}}}')
 
-export RICINFRA_RELEASE_NAME=$helm_release_name
-
-export RICPLT_NAMESPACE=$plt_namespace
-export RICXAPP_NAMESPACE=$xapp_namespace
-export RICAUX_NAMESPACE=$aux_namespace
-export RICINFRA_NAMESPACE=$infra_namespace
-
-
-if [ ! -z $OVERRIDEYAML ]; then
-	DEPLOY_K8S_FROM_OVERRIDE=$(cat $OVERRIDEYAML | grep deployK8S: | awk '{print $2}')
-	USE_LOCAL_HELM_REPO_FROM_OVERRIDE=$(cat $OVERRIDEYAML | grep useLocalHelmRepo: | awk '{print $2}')
-	USE_LOCAL_DOCKER_REGISTRY_FROM_OVERRIDE=$(cat $OVERRIDEYAML | grep useLocalDockerRegistry: | awk '{print $2}')
-	DEPLOY_K8S_MONITORING_FROM_OVERRIDE=$(cat $OVERRIDEYAML | grep deployK8SMonitoringStake: | awk '{print $2}')
-fi
-
-if [ -z $DEPLOY_K8S_FROM_OVERRIDE ]; then
-	export DEPLOY_K8S=$deployK8S
-else
-	export DEPLOY_K8S=$DEPLOY_K8S_FROM_OVERRIDE
-fi
-
-if [ -z $USE_LOCAL_HELM_REPO_FROM_OVERRIDE ]; then
-	export USE_LOCAL_HELM_REPO=$useLocalHelmRepo
-else
-	export USE_LOCAL_HELM_REPO=$USE_LOCAL_HELM_REPO_FROM_OVERRIDE
-fi
-
-if [ -z $USE_LOCAL_DOCKER_REGISTRY_FROM_OVERRIDE ]; then
-	export USE_LOCAL_DOCKER_REGISTRY=$useLocalDockerRegistry
-else
-	export USE_LOCAL_DOCKER_REGISTRY=$USE_LOCAL_DOCKER_REGISTRY_FROM_OVERRIDE
-fi
-
-if [ -z $DEPLOY_K8S_MONITORING_FROM_OVERRIDE ]; then
-	export DEPLOY_K8S_MONITORING=$deployK8S
-else
-	export DEPLOY_K8S_MONITORING=$DEPLOY_K8S_MONITORING_FROM_OVERRIDE
-fi
-
-
-if ! $USE_LOCAL_HELM_REPO; then
-        echo "****************************************************************************************************************"
-        echo "                                                     WARNING                                                    "
-        echo "****************************************************************************************************************"
-        echo "RIC will use an external helm repository. Please make sure that the certificate is included in the recipe file."
-        echo "****************************************************************************************************************"
-fi
-
-
-if $USE_LOCAL_DOCKER_REGISTRY; then
-        echo "****************************************************************************************************************"
-        echo "                                                     WARNING                                                    "
-        echo "****************************************************************************************************************"
-        echo "RIC will use an internal docker registry. You need to manually include the certificate to all servers in the cluster."
-        echo "****************************************************************************************************************"
-fi
-
+USE_LOCAL_HELM_REPO=$(echo "$CHARTMUSEUM_BLOCK" | grep "enable" | awk '{print $2}')
+DEPLOY_K8S=$(echo "$K8S_BLOCK" | grep "enable" | awk '{print $2}')
+DEPLOY_K8S_MONITORING=$(echo "$ELFKP_BLOCK" | grep "enable" | awk '{print $2}')
 
 
 for component in $ROOT_DIR/../ric-infra/*/; do
@@ -101,27 +59,26 @@ for component in $ROOT_DIR/../ric-infra/*/; do
 
 	case "$component_name" in
 		00-Kubernetes)
-			if $DEPLOY_K8S; then
-                        	. $component/bin/install $OVERRIDEYAM
-	        	fi
-		;;
-		10-Nexus)
-			if $USE_LOCAL_DOCKER_REGISTRY; then
-                        	. $component/bin/install $OVERRIDEYAM
+			if [ "$DEPLOY_K8S" == "true" ];then
+                        	. $component/bin/install -f $OVERRIDEYAML
 	        	fi
 		;;
 		15-Chartmuseum)
-			if $USE_LOCAL_HELM_REPO; then
-                        	. $component/bin/install $OVERRIDEYAM
+			if [ "$USE_LOCAL_HELM_REPO" == "true" ];then
+                        	. $component/bin/install -f $OVERRIDEYAML
 	        	fi
 		;;
 		20-Monitoring)
-			if $DEPLOY_K8S_MONITORING; then
-                        	. $component/bin/install $OVERRIDEYAM
+			if [ "$DEPLOY_K8S_MONITORING" == "true" ];then
+                        	. $component/bin/install -f $OVERRIDEYAML
 	        	fi
 		;;
+		30-Kong)
+                        . $component/bin/install -f $OVERRIDEYAML
+                        sleep 5
+                ;;
 	        *)
-	            . $component/bin/install $OVERRIDEYAM
+	            . $component/bin/install -f $OVERRIDEYAML
 	
 	esac
 done

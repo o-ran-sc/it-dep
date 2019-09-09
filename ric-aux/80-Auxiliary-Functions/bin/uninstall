@@ -17,26 +17,16 @@
 ################################################################################
 
 
+COMPONENTS="dashboard message-router ves mrsub"
 
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/aux.conf
-
-if [ -z "$RICAUX_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICAUX_RELEASE_NAME
-fi
-
-RICAUX_COMPONENTS="dashboard message-router ves mrsub"
-
-echo "Undeploying RIC AUX components [$RICAUX_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
+echo "Undeploying RIC aux components [$COMPONENTS]"
 
 
 
-for component in $RICAUX_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-$component" 
+for component in $COMPONENTS; do
+    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
+    if [ ! -z "$RELEASE_LIST" ];then
+        helm delete --purge $RELEASE_LIST
+    fi
+
 done

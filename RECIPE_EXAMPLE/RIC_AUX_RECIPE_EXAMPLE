@@ -19,6 +19,12 @@
 # Global common setting
 #-------------------------------------------------------------------------
 global:
+  releasePrefix: r1
+  namespace:
+    xapp: ricxapp
+    infra: ricinfra
+    platform: ricplt
+    aux: ricaux
   # Docker registry from which RIC platform components pull the images
   repository: nexus3.o-ran-sc.org:10004
 
@@ -103,6 +109,7 @@ dashboard:
     # internal URL for backend
     ecomp_rest_url:     http://portal-app.onap:8989/ONAPPORTAL/auxapi
     ueb_app_key: uebkey
+  datapath: /opt/data/dashboard-data
 
 extsvcaux:
   ricip:

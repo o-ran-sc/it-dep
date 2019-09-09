@@ -17,39 +17,21 @@
 ################################################################################
 
 
+COMPONENTS="xapp-tiller"
 
+echo "Undeploying RIC infra components [$COMPONENTS]"
+for component in $COMPONENTS; do
+    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
+    if [ ! -z "$RELEASE_LIST" ];then
+        NAMESPACE=$(helm list | grep "$component" | awk 'END{print $11}')
+	helm delete --purge $RELEASE_LIST
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+        SECRET_LIST=$(kubectl get secret -n $NAMESPACE | awk '{ if ($2=="Opaque"){ print $1}}')
+        
+        for component in $SECRET_LIST; do
+          kubectl delete secret -n $NAMESPACE $component
+        done
+    fi
 
-
-source $DIR/../etc/tiller.conf
-
-if [ -z "$RICINFRA_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICINFRA_RELEASE_NAME
-fi
-
-if [ -z "$RICINFRA_NAMESPACE" ];then
-   INFRA_NAMESPACE=$infra_namespace
-else
-   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
-fi
-
-RICINFRA_COMPONENTS="xapp-tiller"
-
-echo "Undeploying RIC infra components [$RICINFRA_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-for component in $RICINFRA_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-${component}" 
 done
 
-
-# We need to manually delete the secret creates by the secret container
-SECRET_LIST=$(kubectl get secret -n ricinfra | awk '{ if ($2=="Opaque"){ print $1}}')
-
-for component in $SECRET_LIST; do
-  kubectl delete secret -n $INFRA_NAMESPACE $component
-done

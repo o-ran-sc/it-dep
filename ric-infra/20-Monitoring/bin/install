@@ -15,64 +15,55 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+while [ -n "$1" ]; do # while loop starts
+
+    case "$1" in
+
+    -f) OVERRIDEYAML=$2
+        shift
+        ;;
+    -c) LIST_OF_COMPONENTS=$2
+        shift
+        ;;
+    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
+
+    esac
+
+    shift
+
+done
 
 
-OVERRIDEYAML=$1
-
+if [ -z "$OVERRIDEYAML" ];then
+    echo "****************************************************************************************************************"
+    echo "                                                     ERROR                                                      "
+    echo "****************************************************************************************************************"
+    echo "RIC deployment without deployment recipe is currently disabled. Please specify an recipe with the -f option."
+    echo "****************************************************************************************************************"
+    exit 1
+fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+GLOBAL_BLOCK=$(cat $OVERRIDEYAML | awk '/^global:/{getline; while ($0 ~ /^ +.*|^$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *infra:/{print $2}')
+RELEASE_PREFIX=$(echo "$GLOBAL_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+COMPONENTS=${LIST_OF_COMPONENTS:-"elfkp"}
 
-source $DIR/../etc/elfkp.conf
-
-if [ -z "$RICINFRA_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICINFRA_RELEASE_NAME
-fi
-# Namespace configuration
-if [ -z "$RICPLT_NAMESPACE" ];then
-   PLT_NAMESPACE=$plt_namespace
-else
-   PLT_NAMESPACE=$RICPLT_NAMESPACE
-fi
-if [ -z "$RICXAPP_NAMESPACE" ];then
-   XAPP_NAMESPACE=$xapp_namespace
-else
-   XAPP_NAMESPACE=$RICXAPP_NAMESPACE
-fi
-if [ -z "$RICAUX_NAMESPACE" ];then
-   AUX_NAMESPACE=$aux_namespace
-else
-   AUX_NAMESPACE=$RICAUX_NAMESPACE
-fi
-if [ -z "$RICINFRA_NAMESPACE" ];then
-   INFRA_NAMESPACE=$infra_namespace
-else
-   INFRA_NAMESPACE=$RICINFRA_NAMESPACE
-fi
-
-if [ -z "$RIC_COMMON_OVERRIDE" ];then
-   COMMON_OVERRIDE="--set global.namespace.platform=$PLT_NAMESPACE --set global.namespace.xapp=$XAPP_NAMESPACE --set global.namespace.aux=$AUX_NAMESPACE --set global.namespace.infra=$INFRA_NAMESPACE"
-else
-   COMMON_OVERRIDE=$RIC_COMMON_OVERRIDE
-fi
-
-#helm install --name my-release stable/elastic-stack --set elasticsearch.data.persistence.enabled=false --set elasticsearch.master.persistence.enabled=false --set logstash.persistence.enabled=false 
-
-RICAUX_COMPONENTS="elfkp"
-
-echo "Deploying RIC infra components [$RICAUX_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
+echo "Deploying RIC infra components [$COMPONENTS]"
 
 
-for component in $RICAUX_COMPONENTS; do
+
+
+for component in $COMPONENTS; do
+
   mkdir -p $DIR/../helm/$component/charts/
   pushd $DIR/../helm/$component/
   helm dep update
   popd
 
-  ELASTIC_SEARCH_HOST="${RELEASE_NAME}-${component}-elasticsearch-client.${NAMESPACE}.svc.cluster.local"
-  ELASTIC_SEARCH_PORT=9200
+  #ELASTIC_SEARCH_HOST="${RELEASE_NAME}-${component}-elasticsearch-client.${NAMESPACE}.svc.cluster.local"
+  #ELASTIC_SEARCH_PORT=9200
   #CMD="helm install --debug \
   #   --namespace ${NAMESPACE} --name ${RELEASE_NAME}-${component_clean} \
   #   -f ../helm/$component/values.yaml \
@@ -81,10 +72,5 @@ for component in $RICAUX_COMPONENTS; do
   #   --set logstash.elasticsearch.host=${ELASTIC_SEARCH_PORT} \
   #   $component"
   #eval "$CMD"
-
-  if [ -z $OVERRIDEYAML ]; then
-    helm install --debug --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
-  else
-    helm install -f $OVERRIDEYAML --namespace "${INFRA_NAMESPACE}" --name "${RELEASE_NAME}-$component" $COMMON_OVERRIDE $DIR/../helm/$component
-  fi
+  helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
 done

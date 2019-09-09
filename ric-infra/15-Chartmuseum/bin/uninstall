@@ -16,26 +16,15 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+COMPONENTS="chartmuseum"
+
+echo "Undeploying RIC infra components [$COMPONENTS]"
 
 
+for component in $COMPONENTS; do
+    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
+    if [ ! -z "$RELEASE_LIST" ];then
+        helm delete --purge $RELEASE_LIST
+    fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-
-source $DIR/../etc/chartmuseum.conf
-
-if [ -z "$RICINFRA_RELEASE_NAME" ];then
-   RELEASE_NAME=$helm_release_name
-else
-   RELEASE_NAME=$RICINFRA_RELEASE_NAME
-fi
-
-RICINFRA_COMPONENTS="chartmuseum"
-
-echo "Undeploying RIC infra components [$RICINFRA_COMPONENTS]"
-echo "Helm Release Name: $RELEASE_NAME"
-
-
-for component in $RICINFRA_COMPONENTS; do
-  helm delete --purge  "${RELEASE_NAME}-${component}" 
 done

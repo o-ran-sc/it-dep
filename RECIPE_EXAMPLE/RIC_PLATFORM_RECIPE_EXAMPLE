@@ -19,6 +19,12 @@
 # Global common setting
 #-------------------------------------------------------------------------
 global:
+  releasePrefix: r1
+  namespace:
+    xapp: ricxapp
+    infra: ricinfra
+    platform: ricplt
+    aux: ricaux
   # Docker registry from which RIC platform components pull the images
   repository: nexus3.o-ran-sc.org:10004
 

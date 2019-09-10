@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2f1c7b_4d0758c4",
+        "filename": "ric-common/Common-Template/helm/ric-common/Chart.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2019-09-10T16:15:02Z",
+      "side": 1,
+      "message": "This may break the requirement.yaml for all the helm charts since they are asking for ~2.0.0.\nDo we want to make it ^2.0.0?",
+      "revId": "7435633e4e50b515f732e63b1a8381a59261b2f9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

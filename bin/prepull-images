@@ -25,7 +25,7 @@ while [ -n "$1" ]; do # while loop starts
 
     case "$1" in
 
-    -f) OVERRIDEYAML=$2
+    -f) IMAGELISTFILE=$2
         shift
         ;; 
 
@@ -43,65 +43,18 @@ while [ -n "$1" ]; do # while loop starts
 
 done
 
-if [ -z $OVERRIDEYAML ]; then
-   echo "Deploy recipe is missing. Please use -f to specify the recipe path."
+if [ -z "$IMAGELISTFILE" ]; then
+   echo "Image list file is missing. Please use -f to specify the path."
    exit 1
 fi
 
-if [ -z $IMAGE_DIRECTORY_PATH ]; then
+if [ -z "$IMAGE_DIRECTORY_PATH" ]; then
     IMAGE_DIRECTORY_PATH=/tmp/ric_image
-    rm -rf $IMAGE_DIRECTORY_PATH
-    mkdir -p $IMAGE_DIRECTORY_PATH
 fi
 
 
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TEMP_DIR=/tmp
-rm -rf $TEMP_DIR/imagelist
-touch $TEMP_DIR/imagelist
-CHART_ARRAY=()
-while IFS= read -r -d $'\0'; do
-    CHART_ARRAY+=("$REPLY")
-done < <(find $ROOT_DIR/../ -name Chart.yaml -printf '%h\0')
-
-rm -fr $TEMP_DIR/ric-common*.tgz
-
-helm package -d $TEMP_DIR $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
-echo "***************************************"
-
-
-
-for dir in "${CHART_ARRAY[@]}"
-do
-  
-    #rm -rf $dir/charts
-    rm -rf $dir/tmpcharts
-    echo "Analyzing Chart $(echo $dir | awk '{n=split($0, a, "/"); print a[n]}')"    
-    echo $dir 
-    mkdir -p $dir/charts
-    cp $TEMP_DIR/ric-common*.tgz $dir/charts/
-
-    helm dep up $dir > /dev/null 2>&1
-    
-    
-    if [ -z $OVERRIDEYAML ]; then
-        IMAGE_ARRAY=$(helm template $dir | grep "image:" | awk '{ gsub(/.*image: /, "", $0); gsub(/"/, "", $0); print $0}')
-    else
-        IMAGE_ARRAY=$(helm template -f $OVERRIDEYAML $dir | grep "image:" | awk '{ gsub(/.*image: /, "", $0); gsub(/"/, "", $0); print $0}' )
-    fi
-
-    for f in $IMAGE_ARRAY; do
-	if [ ! -z $f ]; then
-	    FOUND=$(grep $f $TEMP_DIR/imagelist)
-	    if [ -z $FOUND ]; then
-		echo "Found unique docker image $f."
-                echo $f >> $TEMP_DIR/imagelist
-	    fi
-	fi
-    done
-
-    echo "***************************************"
-done
+rm -rf $IMAGE_DIRECTORY_PATH
+mkdir -p $IMAGE_DIRECTORY_PATH
 
 
 while IFS= read -r image
@@ -121,7 +74,7 @@ do
     echo "************************************************************"
 
 
-done < "$TEMP_DIR/imagelist"
+done < "$IMAGELISTFILE"
 
 
-
+echo "RIC Images are downloaded to: $IMAGE_DIRECTORY_PATH"

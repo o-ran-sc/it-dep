@@ -42,6 +42,7 @@ data:
     portalapi.username = {{ .Values.dashboard.portalapi.username }}
     portalapi.password = {{ .Values.dashboard.portalapi.password }}
     metrics.url.ac     = {{ .Values.dashboard.metrics.url.ac     }}
+    metrics.url.mc     = {{ .Values.dashboard.metrics.url.mc     }}
 
   key.properties: |
     cipher.enc.key     = {{ .Values.dashboard.cipher.enc.key }}

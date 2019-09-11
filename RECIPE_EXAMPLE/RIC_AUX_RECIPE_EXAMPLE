@@ -28,7 +28,7 @@ global:
   # Docker registry from which RIC platform components pull the images
   repository: nexus3.o-ran-sc.org:10004
 
-  # Name of the K8S docker credential that is onboarded by 20-credential 
+  # Name of the K8S docker credential that is onboarded by 20-credential
   repositoryCred: docker-reg-cred
 
   # Docker image pull policy
@@ -101,6 +101,7 @@ dashboard:
     metrics:
       url:
         ac: http://ric-aux-kibana-server:5601/goto/fedcba9876543210?embed=true
+        mc: http://ric-aux-kibana-server:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
     # key.properties
     cipher.enc.key: AGLDdG4D04BKm2IxIWEr8o==
     # portal.properties

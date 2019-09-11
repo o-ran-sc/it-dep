@@ -27,7 +27,7 @@ dashboard:
     tag: 1.2.0
   replicaCount: 1
 
-  # Service ports are now defined in 
+  # Service ports are now defined in
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
   # If need to change a service port, make the code change necessary, then
   # update the _ports.tpl file with the new port number.
@@ -81,3 +81,4 @@ dashboard:
   metrics:
     url:
       ac: http://ric-aux-kibana-server:5601/goto/1234567890abcdef?embed=true
+      mc: http://ric-aux-kibana-server:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true

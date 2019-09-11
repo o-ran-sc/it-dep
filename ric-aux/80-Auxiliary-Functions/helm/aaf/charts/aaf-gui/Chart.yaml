@@ -1,0 +1,4 @@
+apiVersion: v1
+description: ONAP AAF GUI
+name: aaf-gui
+version: 5.0.0

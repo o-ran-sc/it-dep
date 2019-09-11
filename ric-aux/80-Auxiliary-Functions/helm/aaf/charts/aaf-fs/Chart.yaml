@@ -1,0 +1,4 @@
+apiVersion: v1
+description: ONAP AAF File Server
+name: aaf-fs
+version: 5.0.0

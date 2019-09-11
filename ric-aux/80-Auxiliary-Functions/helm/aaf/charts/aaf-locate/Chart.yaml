@@ -1,0 +1,4 @@
+apiVersion: v1
+description: ONAP AAF Locate
+name: aaf-locate
+version: 5.0.0

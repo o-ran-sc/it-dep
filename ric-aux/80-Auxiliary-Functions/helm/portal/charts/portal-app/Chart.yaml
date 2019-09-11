@@ -1,0 +1,4 @@
+apiVersion: v1
+description: ONAP Portal application
+name: portal-app
+version: 5.0.0

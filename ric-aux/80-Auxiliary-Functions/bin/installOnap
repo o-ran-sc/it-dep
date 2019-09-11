@@ -122,7 +122,7 @@ fi
 
 
 
-RICAUX_COMPONENTS="dashboard mrsub ves message-router"
+RICAUX_COMPONENTS="onap portal aaf"
 
 echo "Deploying RIC AUX components [$RICAUX_COMPONENTS]"
 echo "Helm Release Name: $RELEASE_NAME"

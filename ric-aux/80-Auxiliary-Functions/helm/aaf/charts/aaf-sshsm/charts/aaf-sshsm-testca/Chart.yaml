@@ -1,0 +1,4 @@
+apiVersion: v1
+description: ONAP Trusted Platform Module Test CA Service
+name: aaf-sshsm-testca
+version: 5.0.0

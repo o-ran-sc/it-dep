@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7790b6f_99bb00ad",
+        "filename": "ric-platform/50-RIC-Platform/helm/vespamgr/templates/secret.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2019-09-11T10:09:07Z",
+      "side": 1,
+      "message": "VES Collector user credentials are required by ONAP VES Agent, meaning that VES Agent won’t start without these parameters.",
+      "revId": "3faa1eecb410bc1b7134797ddccb807f9868476b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,17 @@ global:
   readinessImage: readiness-check:2.0.0
   loggingRepository: docker.elastic.co
   loggingImage: beats/filebeat:5.5.0
+  env:
+    tomcatDir: "/opt/apache-tomcat-8.0.37"
+  # portal frontend port
+  portalPort: "8989"
+  portalFEPort: "30225"
+  # application's front end hostname.  Must be resolvable on the client side environment
+  portalHostName: "portal.api.simpledemo.onap.org"
+  keystoreFile: "keystoreONAPPortal.p12"
+  truststoreFile: "truststoreONAPall.jks"
+  keypass: ",@{9!OOv%HO@#c+0Z}axu!xV"
+  trustpass: "changeit"
 
 #################################################################
 # Application configuration defaults.

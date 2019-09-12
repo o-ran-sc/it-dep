@@ -15,6 +15,29 @@
 #################################################################
 # Global configuration defaults.
 #################################################################
+global:
+  nodePortPrefix: 302
+  readinessRepository: oomk8s
+  readinessImage: readiness-check:2.0.0
+  loggingRepository: docker.elastic.co
+  loggingImage: beats/filebeat:5.5.0
+  ubuntuInitRepository: oomk8s
+  ubuntuInitImage: ubuntu-init:1.0.0
+  tpm:
+    enabled: false
+    # if enabled, nodeselector will use the below
+    # values in the nodeselector section of the pod
+    nodeLabel: "tpm-node"
+    nodeLabelValue: "true"
+  abrmd:
+    enabled: true
+  distcenter:
+    enabled: true
+  testca:
+    enabled: true
+  persistence: {}
+  pullPolicy: "Always"
+  repository: "nexus3.onap.org:10001"
 
 #################################################################
 # Application configuration defaults.

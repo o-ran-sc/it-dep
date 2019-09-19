@@ -96,6 +96,7 @@ dashboard:
   properties:
     # application.properties
     portalapi:
+      security: false
       username: username
       password: password
     metrics:

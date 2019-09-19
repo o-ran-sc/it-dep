@@ -38,6 +38,7 @@ data:
     appmgr.url.suffix  = {{ .Values.dashboard.appmgr.url.suffix  }}
     e2mgr.url.prefix   = {{ include "dashboard.prefix.e2mgr" .   }}
     e2mgr.url.suffix   = {{ .Values.dashboard.e2mgr.url.suffix   }}
+    portalapi.security = {{ .Values.dashboard.portalapi.security }}
     portalapi.appname  = {{ .Values.dashboard.portalapi.appname  }}
     portalapi.username = {{ .Values.dashboard.portalapi.username }}
     portalapi.password = {{ .Values.dashboard.portalapi.password }}

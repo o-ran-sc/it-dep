@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 dashboard:
   image:
     name: ric-dashboard
-    tag: 1.2.0
+    tag: 1.2.1
   replicaCount: 1
 
   # Service ports are now defined in

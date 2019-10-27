@@ -52,6 +52,9 @@ spec:
           - mountPath: /opt/E2Manager/router.txt
             name: local-router-file
             subPath: router.txt
+          - mountPath: /opt/E2Manager/resources/configuration.yaml
+            name: local-configuration-file
+            subPath: configuration.yaml
           envFrom:
             - configMapRef:
                 name: {{ include "common.configmapname.e2mgr" . }}-env
@@ -70,3 +73,6 @@ spec:
         - name: local-router-file
           configMap:
             name: {{ include "common.configmapname.e2mgr" . }}-router-configmap
+        - name: local-configuration-file
+          configMap:
+            name: {{ include "common.configmapname.e2mgr" . }}-configuration-configmap

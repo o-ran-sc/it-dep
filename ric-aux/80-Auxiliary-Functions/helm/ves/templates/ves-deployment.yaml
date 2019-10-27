@@ -18,7 +18,7 @@
 
 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 metadata:
   name: {{ include "common.deploymentname.ves" . }}
   generation: 1
@@ -45,9 +45,12 @@ spec:
       volumes:
       - name: component-log
         emptyDir: {}
-      - name: dmaap-config-file
+      - name: ves-config-mount
         configMap:
           name: {{ include "common.configmapname.ves" . }}
+      - name: ves-config-mount-properties
+        configMap:
+          name: {{ include "common.configmapname.ves" . }}-properties
       imagePullSecrets:
       - name: onap-docker-registry-key
       containers:
@@ -62,9 +65,12 @@ spec:
         volumeMounts:
         - name: component-log
           mountPath: "/opt/app/VESCollector/logs/ecomp"
-        - name: dmaap-config-file
+        - name: ves-config-mount
           mountPath: "/opt/app/VESCollector/etc/DmaapConfig.json"
-          subPath: DMaapConfig.json
+          subPath: DmaapConfig.json
+        - name: ves-config-mount-properties
+          mountPath: "/opt/app/VESCollector/etc/collector.properties"
+          subPath: collector.properties
         readinessProbe:
           httpGet:
             path: "/healthcheck"

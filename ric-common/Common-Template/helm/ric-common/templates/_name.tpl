@@ -87,26 +87,25 @@
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.name.e2term" -}}
-  {{- if .Values.e2term -}}
-    {{- if .Values.e2term.nameOverride -}}
-      {{- printf "%s" .Values.e2term.nameOverride -}}
+
+{{- define "common.name.rsm" -}}
+  {{- if .Values.rsm -}}
+    {{- if .Values.rsm.nameOverride -}}
+      {{- printf "%s" .Values.rsm.nameOverride -}}
     {{- else -}}
-      {{- printf "e2term" -}}
+      {{- printf "rsm" -}}
     {{- end -}}
   {{- else -}}
-    {{- printf "e2term" -}}
+    {{- printf "rsm" -}}
   {{- end -}}
 {{- end -}}
 
 
-{{- define "common.fullname.e2term" -}}
-  {{- $name := ( include "common.name.e2term" . ) -}}
+{{- define "common.fullname.rsm" -}}
+  {{- $name := ( include "common.name.rsm" . ) -}}
   {{- $namespace := ( include "common.namespace.platform" . ) -}}
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
-
 
 
 
@@ -201,6 +200,25 @@
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+
+{{- define "common.name.jaegeradapter" -}}
+  {{- if .Values.jaegeradapter -}}
+    {{- if .Values.jaegeradapter.nameOverride -}}
+      {{- printf "%s" .Values.jaegeradapter.nameOverride -}}
+    {{- else -}}
+      {{- printf "jaegeradapter" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "jaegeradapter" -}}
+  {{- end -}}
+{{- end -}}
+ 
+
+{{- define "common.fullname.jaegeradapter" -}}
+  {{- $name := ( include "common.name.jaegeradapter" . ) -}}
+  {{- $namespace := ( include "common.namespace.platform" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 
 

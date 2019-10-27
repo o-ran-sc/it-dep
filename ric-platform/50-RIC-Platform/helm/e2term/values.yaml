@@ -44,8 +44,26 @@ e2term:
   replicaCount: 1
   env:
     print: "1"
- 
+    messagecollectorfile: "/data/outgoing/"
   # Service ports are now defined in 
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
   # If need to change a service port, make the code change necessary, then
   # update the _ports.tpl file with the new port number.
+
+  dataVolSize: 100Mi
+  storageClassName: local-storage
+  #storageClassName: ric-storage-class
+
+  pizpub:
+    enabled: true
+    nsPrefix: ric
+    imageVersion: 0.0.5155
+    imageName: pizpub
+    publishURL: "https://feeds-drtr.web.att.com/publish/3641"
+    user: "m14983@ric.att.com"
+    password: "pizPub01!"
+    feedId: 3641
+    dataRootDir: "/data"
+    scanDirectory: "outgoing"
+    processedDirectory: "sent"
+

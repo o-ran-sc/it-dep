@@ -18,9 +18,9 @@
 {{/*
   This file defines the URL paths that kong proxies for different servicess.
 */}}
-
 {{- define "common.kongpath.aux.vescollector" -}}/vescollector{{- end -}}
 {{- define "common.kongpath.aux.helm" -}}/helm{{- end -}}
 {{- define "common.kongpath.ric.appmgr" -}}/appmgr{{- end -}}
 {{- define "common.kongpath.ric.a1mediator" -}}/a1mediator{{- end -}}
 {{- define "common.kongpath.ric.e2mgr" -}}/e2mgr{{- end -}}
+{{- define "common.kongpath.ric.rsm" -}}/rsm{{- end -}}

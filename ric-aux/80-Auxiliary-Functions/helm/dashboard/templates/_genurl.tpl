@@ -55,3 +55,4 @@ Generate the URLS of the endpoints.
     {{- printf "http://%s/appmgr" $ingress -}}
   {{- end -}}
 {{- end -}}
+

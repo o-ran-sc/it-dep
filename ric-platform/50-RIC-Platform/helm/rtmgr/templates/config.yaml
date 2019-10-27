@@ -33,17 +33,17 @@ data:
        [
           {
              "name": "E2TERM",
-             "fqdn": "{{ include "common.servicename.e2term.rmr" . }}",
+             "fqdn": "{{ printf "%s.%s" (include "common.servicename.e2term.rmr" .) (include "common.namespace.platform" .) }}",
              "port": {{ include "common.serviceport.e2term.rmr.data" . }}
           },
           {
              "name": "SUBMAN",
-             "fqdn": "{{ include "common.servicename.submgr.rmr" . }}",
+             "fqdn": "{{ printf "%s.%s" (include "common.servicename.submgr.rmr" .) (include "common.namespace.platform" .) }}",
              "port": {{ include "common.serviceport.submgr.rmr.data" . }}
           },
           {
              "name": "E2MAN",
-             "fqdn": "{{ include "common.servicename.e2mgr.rmr" . }}",
+             "fqdn": "{{ printf "%s.%s" (include "common.servicename.e2mgr.rmr" .) (include "common.namespace.platform" .) }}",
              "port": {{ include "common.serviceport.e2mgr.rmr.data" . }}
           }
        ]

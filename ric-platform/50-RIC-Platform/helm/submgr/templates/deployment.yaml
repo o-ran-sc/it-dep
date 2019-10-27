@@ -67,3 +67,15 @@ spec:
             - name: rmrdata
               containerPort: {{ include "common.serviceport.submgr.rmr.data" . }}
               protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /cfg
+      volumes:
+        - name: config-volume
+          configMap:
+            name: submgrcfg
+            items:
+              - key: submgrcfg
+                path: submgr-config.yaml
+                mode: 0644
+

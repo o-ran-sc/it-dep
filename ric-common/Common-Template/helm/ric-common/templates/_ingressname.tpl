@@ -27,6 +27,11 @@
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.ingressname.rsm" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.ingressname.e2term" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
@@ -59,5 +64,10 @@
 
 {{- define "common.ingressname.ves" -}}
   {{- $name := ( include "common.fullname.ves" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.ingressname.dashboard" -}}
+  {{- $name := ( include "common.fullname.dashboard" . ) -}}
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

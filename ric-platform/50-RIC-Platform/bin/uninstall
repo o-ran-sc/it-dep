@@ -16,7 +16,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-COMPONENTS="appmgr rtmgr dbaas e2mgr e2term a1mediator submgr vespamgr"
+COMPONENTS="appmgr rtmgr e2mgr e2term a1mediator submgr vespamgr jaegeradapter"
 
 echo "Undeploying RIC platform components [$COMPONENTS]"
 

@@ -12,7 +12,7 @@ prometheus:
     persistentVolume:
       enabled: false
   kubeStateMetrics:
-    enabled: true
+    enabled: false
   nodeExporter:
     enabled: false
   pushgateway:
@@ -20,10 +20,16 @@ prometheus:
     persistentVolume:
       enabled: false
   server:
+    ingress:
+      enabled: true
+      hosts:
+        - prometheus-entry
     persistentVolume:
-      enabled: false
+            enabled: false
 
 
+fluentd-elasticsearch:
+  enabled: true
 
 elastic-stack:
   enabled: true
@@ -41,11 +47,19 @@ elastic-stack:
 
   kibana:
     enabled: true
+    files:
+      kibana.yml:
+        elasticsearch.url: http://r1-elfkp-elasticsearch-client:9200
     env:
-      ELASTICSEARCH_URL: http://http.default.svc.cluster.local:9200
+      ELASTICSEARCH_URL: http://r1-elfkp-elasticsearch-client:9200
+      ELASTICSEARCH_HOSTS: http://r1-elfkp-elasticsearch-client:9200
+    ingress:
+      enabled: true
+      hosts:
+        - "kibana-entry"
 
   logstash:
-    enabled: true
+    enabled: false
     persistence:
       enabled: false
     # elasticsearch:
@@ -61,13 +75,17 @@ elastic-stack:
     #   - elastic-stack-elasticsearch-client:9200
 
   fluentd:
-    enabled: false
+    enabled: true
+    output:
+      host: r1-elfkp-elasticsearch-client
 
   fluent-bit:
     enabled: false
 
   fluentd-elasticsearch:
-    enabled: false
+    enabled: true
+    elasticsearch:
+      host: 'r1-elfkp-elasticsearch-client'
 
   nginx-ldapauth-proxy:
     enabled: false

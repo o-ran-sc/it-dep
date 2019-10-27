@@ -27,6 +27,9 @@ global:
     aux: ricaux
   # Docker registry from which RIC platform components pull the images
   repository: nexus3.o-ran-sc.org:10004
+  onapRepository: nexus3.onap.org:10001
+  ubuntuInitRepository: registry.hub.docker.com
+  busyBoxRepository: docker.io
 
   # Name of the K8S docker credential that is onboarded by 20-credential
   repositoryCred: docker-reg-cred
@@ -51,66 +54,181 @@ global:
   ingressurl:
     ric: ric-entry
     aux: aux-entry
+    dashboard: dashboard.ric.org
+  # Change to an unused port prefix range to prevent port conflicts
+  # with other instances running within the same k8s cluster
+  nodePortPrefix: 302
+  nodePortPrefixExt: 304
 
-  tillers:
-    ricxapp:
-      name: ricxapp
-      nameSpace: ricxapp
-      deployNameSpace: ricinfra
-      image:
-        tillerTLSSecrets:
-          repository: nexus3.o-ran-sc.org:10004
-          name: it-dep-secret
-          tag: 0.0.2
-        tiller:
-          repository: gcr.io
-          name: kubernetes-helm/tiller
-          tag: v2.12.3
-      secret:
-        create: true
-        tillerSecretName: secret-tiller-ricxapp
-        helmSecretName: secret-helm-client-ricxapp
-      tls:
-       authenticate: true
-       verify: true
-      serviceAccount:
-        name: tiller
-        role:
-        - apiGroups: [""]
-          resources: ["pods", "configmaps", "services"]
-          verbs: ["get", "list", "create", "delete"]
-        - apiGroups: ["extensions", "apps"]
-          resources: ["deployments"]
-          verbs: ["get", "list", "create", "delete"]
-      port: 44134
+  # Change this to define portal port used for webpage forwarding
+  portalFEPort: "8443"
+
+  # ONAP Repository
+  # Uncomment the following to enable the use of a single docker
+  # repository but ONLY if your repository mirrors all ONAP
+  # docker images. This includes all images from dockerhub and
+  # any other repository that hosts images for ONAP components.
+  repository: nexus3.onap.org:10001
+  repositoryCred:
+    user: docker
+    password: docker
+
+  # readiness check - temporary repo until images migrated to nexus3
+  readinessRepository: oomk8s
+  # logging agent - temporary repo until images migrated to nexus3
+  loggingRepository: docker.elastic.co
+  loggingImage: beats/filebeat:5.5.0
+
+  # image pull policy
+  pullPolicy: Always
+
+
+  portalHostName: "portal.ric.org"
+  cookieDomain: "ric.org"
+  # default mount path root directory referenced
+  # by persistent volumes and log files
+  persistence:
+    mountPath: /dockerdata-nfs
+    enableDefaultStorageclass: false
+    parameters: {}
+    storageclassProvisioner: kubernetes.io/no-provisioner
+    volumeReclaimPolicy: Retain
+
+  # override default resource limit flavor for all charts
+  flavor: unlimited
+
+  # flag to enable debugging - application support required
+  debugEnabled: false
+
+  aaf:
+    image: onap/aaf/aaf_core:2.1.15
+    config:
+      image: onap/aaf/aaf_config:2.1.15
+    cass:
+      image: onap/aaf/aaf_cass:2.1.15
+
+
 
 #-------------------------------------------------------------------------
 # Auxiliary Functions
 #-------------------------------------------------------------------------
+aaf-sms:
+  image: onap/aaf/sms:4.0.1
+  aaf-sms-quorumclient:
+    image: onap/aaf/smsquorumclient:4.0.0
+  aaf-sms-vault:
+    image:
+      consul: library/consul:1.0.6
+      vault: library/vault:0.10.0
+
+aaf-sshsm:
+  aaf-sshsm-abrmd:
+    image: onap/aaf/abrmd:4.0.0
+  aaf-sshsm-distcenter:
+    image: onap/aaf/distcenter:4.0.0
+  aaf-sshsm-testca:
+    image: onap/aaf/testcaservice:4.0.0
+
+portal-cassandra:
+  image: onap/music/cassandra_music:3.0.0
+portal-mariadb:
+  config:
+    ricdashboardHostName: "dashboard.ric.org"
+    ricdashboardPort: "32443"
+    ricdashboardProtocol: "https"
+  image: onap/portal-db:2.5.0
+portal-app:
+  image: onap/portal-app:2.5.0
+
+persistence:
+  enabled: true
+
 dashboard:
   # Override the name using the following option
   # nameOverride:
   image:
     name: ric-dashboard
-    tag: 1.2.0
-  properties:
-    # application.properties
-    portalapi:
-      username: username
-      password: password
-    metrics:
+    tag: 1.2.4
+  caasingress:
+    aux:
       url:
-        ac: http://ric-aux-kibana-server:5601/goto/fedcba9876543210?embed=true
-        mc: http://ric-aux-kibana-server:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
-    # key.properties
-    cipher.enc.key: AGLDdG4D04BKm2IxIWEr8o==
-    # portal.properties
-    # external URL for user browser
-    ecomp_redirect_url: https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
-    # internal URL for backend
-    ecomp_rest_url:     http://portal-app.onap:8989/ONAPPORTAL/auxapi
+        prefix: "https://<CAAS_INGRESS_IP>:16443"
+    plt:
+      url:
+        prefix: "https://<CAAS_INGRESS_IP>:16443"
+  cipher:
+    enc:
+      key: AGLDdG4D04BKm2IxIWEr8o==
+  portalapi:
+    # application.properties
+    security: true
+    username: Default
+    password: password
+    ecomp_redirect_url: https://portal.ric.org:8443/ONAPPORTAL/login.htm
+    ecomp_rest_url:     http://portal-app:8989/ONAPPORTAL/auxapi
     ueb_app_key: uebkey
+  metrics:
+    url:
+      ac: http://mcdashboard.ric.org:5601/goto/1234567890abcdef?embed=true
+      mc: http://mcdashboard.ric.org:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
   datapath: /opt/data/dashboard-data
+
+
+
+ves:
+  onapRepository: "nexus3.onap.org:10001"
+
+  image:
+    name: org.onap.dcaegen2.collectors.ves.vescollector
+    tag: 1.4.5
+
+mrsub:
+  image:
+    name: mrsubp
+    tag: 0.0.1
+    pullPolicy: IfNotPresent
+  logStashHost: "r1-mc-stack-logstash.ricaux"
+  logStashPort: 5044
+  messageRouterHost: "ricaux-message-router.ricaux"
+  messageRouterPort: 3904
+
+
+# image settings for dmaap
+onapRepository: nexus3.onap.org:10001
+image: onap/dmaap/dmaap-mr:1.1.13
+ubuntuInitRepository: docker.io
+ubuntuInitImage: oomk8s/ubuntu-init:2.0.0
+busyBoxRepository: docker.io
+busyBoxImage: busybox:1.30
+
+# image settings for dmaap subchart kafka
+message-router-kafka:
+  ubuntuInitRepository: docker.io
+  ubuntuInitImage: oomk8s/ubuntu-init:2.0.0
+  busyBoxRepository: docker.io
+  busyBoxImage: busybox:1.30
+  onapRepository: nexus3.onap.org:10001
+  image: onap/dmaap/kafka111:1.0.0
+# image settings for dmaap subchart zookeeper
+message-router-zookeeper:
+  ubuntuInitRepository: docker.io
+  ubuntuInitImage: oomk8s/ubuntu-init:2.0.0
+  busyBoxRepository: docker.io
+  busyBoxImage: busybox:1.30
+  onapRepository: nexus3.onap.org:10001
+  image: onap/dmaap/zookeeper:5.0.0
+
+# MC Dashboard components
+elasticsearch:
+  enabled: true
+
+kibana:
+  enabled: true
+
+logstash:
+  enabled: true
+# end of MC Dashboard components
+
 
 extsvcaux:
   ricip:

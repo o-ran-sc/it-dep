@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -23,6 +23,10 @@ metadata:
   namespace: {{ include "common.namespace" . }}
 spec:
   replicas: {{ .Values.global.aaf.hello.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "common.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:

@@ -53,6 +53,21 @@
   {{- end -}}
 {{- end -}}
 
+{{- define "common.ingressurl.dashboard" -}}
+  {{- if .Values.global -}}
+    {{- if .Values.global.ingressurl -}}
+      {{- if .Values.global.ingressurl.dashboard -}}
+        {{- printf "%s" .Values.global.ingressurl.dashboard -}}
+      {{- else -}}
+        {{- printf "dashboard-entry" -}}
+      {{- end -}}
+    {{- else -}}
+      {{- printf "dashboard-entry" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- printf "dashboard-entry" -}}
+  {{- end -}}
+{{- end -}}
 
 
 ####################### Ingress Controller Ports ###########################################

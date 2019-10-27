@@ -72,9 +72,11 @@ config:
   soMonitoringPort: "30224"
   # application's front end hostname.  Must be resolvable on the client side environment
   soMonitoringHostName: "so-monitoring"
-  ricdashboardPort: 30080
-  ricdashboardHostName: 192.168.130.61
-
+  
+  # Ingress URL assigned to RIC dashboard. This has to agree with the ingress URL defined in the common template
+  ricdashboardPort: "32443"
+  ricdashboardProtocol: "https"
+  ricdashboardHostName: "dashboard-entry"
 
 # default number of instances
 replicaCount: 1
@@ -92,12 +94,12 @@ liveness:
   enabled: true
 
 readiness:
-  initialDelaySeconds: 450
+  initialDelaySeconds: 30
   periodSeconds: 10
 
 ## Persist data to a persitent volume
 persistence:
-  enabled: true
+  enabled: false
 
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
@@ -117,6 +119,8 @@ persistence:
   size: 2Gi
   mountPath: /dockerdata-nfs
   mountSubPath: portal/mariadb/data
+  storageClass: "manual"
+
 
 service:
   type: ClusterIP

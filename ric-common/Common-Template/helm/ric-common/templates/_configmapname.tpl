@@ -36,8 +36,8 @@
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.configmapname.e2term" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+{{- define "common.configmapname.rsm" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -58,6 +58,11 @@
 
 {{- define "common.configmapname.vespamgr" -}}
   {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.configmapname.jaegeradapter" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

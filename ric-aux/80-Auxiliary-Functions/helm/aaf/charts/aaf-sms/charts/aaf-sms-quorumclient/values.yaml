@@ -50,6 +50,7 @@ persistence:
   size: 10Mi
   mountPath: /dockerdata-nfs
   mountSubPath: sms/quorum/data
+  storageClass: "manual"
 
 ingress:
   enabled: false

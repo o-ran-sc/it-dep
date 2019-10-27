@@ -54,6 +54,19 @@ spec:
           - mountPath: /opt/e2/router.txt
             name: local-router-file
             subPath: router.txt
+          - mountPath: /tmp/rmr_verbose
+            name: local-router-file
+            subPath: rmr_verbose
+{{ if .Values.e2term.pizpub.enabled }}
+          - mountPath: "{{ .Values.e2term.env.messagecollectorfile }}"
+            name: vol-shared
+            readOnly: false
+            subPath: "{{ .Values.e2term.pizpub.scanDirectory }}"
+{{ else }}
+          - mountPath: "{{ .Values.e2term.env.messagecollectorfile }}"
+            name: vol-shared
+            readOnly: false
+{{ end }}
           envFrom:
             - configMapRef:
                 name: {{ include "common.configmapname.e2term" . }}-env
@@ -66,7 +79,38 @@ spec:
           tty: true
           securityContext:
             privileged: {{ .Values.e2term.privilegedmode }}
+
+{{ if .Values.e2term.pizpub.enabled }}
+        - name: {{ include "common.containername.e2term" . }}-pizpub
+          image: {{ include "common.repository" . }}/{{ .Values.e2term.pizpub.imageName }}:{{ .Values.e2term.pizpub.imageVersion }}
+          imagePullPolicy: {{ include "common.pullPolicy" . }}
+          volumeMounts:
+          - mountPath: /etc/localtime
+            name: localtime
+            readOnly: true
+          - mountPath: "{{ .Values.e2term.pizpub.dataRootDir }}"
+            name: vol-shared
+            readOnly: false
+          - name: pizpub-config
+            mountPath: /opt/app/config/conf/
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "/opt/app/config/conf/cleaner.sh", "{{ .Values.e2term.pizpub.dataRootDir }}/{{ .Values.e2term.pizpub.processedDirectory }}", "3"]
+{{ end }}
       volumes:
         - name: local-router-file
           configMap:
             name: {{ include "common.configmapname.e2term" . }}-router-configmap
+{{ if .Values.e2term.pizpub.enabled }}
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+        - name: pizpub-config
+          configMap:
+            name: {{ include "common.configmapname.e2term" . }}-pizpub
+{{ end }}
+        - name: vol-shared
+          persistentVolumeClaim:
+            claimName: {{ include "common.pvcname.e2term" . }}
+

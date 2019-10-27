@@ -27,15 +27,13 @@
   port numbers consistent with the ports that the container code implements.
 */}}
 
-{{- define "common.serviceport.e2term.rmr.data" -}}38000{{- end -}}
-{{- define "common.serviceport.e2term.rmr.route" -}}4561{{- end -}}
-{{- define "common.serviceport.e2term.http" -}}8080{{- end -}}
-{{- define "common.serviceport.e2term.sctp" -}}5577{{- end -}}
-
-
 {{- define "common.serviceport.e2mgr.rmr.data" -}}3801{{- end -}}
 {{- define "common.serviceport.e2mgr.rmr.route" -}}4561{{- end -}}
 {{- define "common.serviceport.e2mgr.http" -}}3800{{- end -}}
+
+{{- define "common.serviceport.rsm.rmr.data" -}}4801{{- end -}}
+{{- define "common.serviceport.rsm.rmr.route" -}}4561{{- end -}}
+{{- define "common.serviceport.rsm.http" -}}4800{{- end -}}
 
 {{- define "common.serviceport.a1mediator.rmr.data" -}}4562{{- end -}}
 {{- define "common.serviceport.a1mediator.rmr.route" -}}4561{{- end -}}
@@ -54,6 +52,27 @@
 {{- define "common.serviceport.appmgr.http" -}}8080{{- end -}}
 
 {{- define "common.serviceport.vespamgr.http" -}}8080{{- end -}}
+
+{{- define "common.serviceport.jaegeradapter.zipkincompact" -}}5775{{- end -}}
+{{- define "common.serviceport.jaegeradapter.jaegercompact" -}}6831{{- end -}}
+{{- define "common.serviceport.jaegeradapter.jaegerbinary" -}}6832{{- end -}}
+{{- define "common.serviceport.jaegeradapter.httpquery" -}}16686{{- end -}}
+{{- define "common.serviceport.jaegeradapter.httpconfig" -}}5778{{- end -}}
+{{- define "common.serviceport.jaegeradapter.zipkinhttp" -}}9411{{- end -}}
+{{- define "common.serviceport.jaegeradapter.jaegerhttp" -}}14268{{- end -}}
+{{- define "common.serviceport.jaegeradapter.jaegerhttpt" -}}14267{{- end -}}
+ 
+{{- define "common.portname.jaegeradapter.zipkincompact" -}}"zipkincompact"{{- end -}}
+{{- define "common.portname.jaegeradapter.jaegercompact" -}}"jaegercompact"{{- end -}}
+{{- define "common.portname.jaegeradapter.jaegerbinary" -}}"jaegerbinary"{{- end -}}
+{{- define "common.portname.jaegeradapter.zipkinhttp" -}}"zipkinhttp"{{- end -}}
+{{- define "common.portname.jaegeradapter.jaegerhttp" -}}"jaegerhttp"{{- end -}}
+{{- define "common.portname.jaegeradapter.jaegerhttpt" -}}"jaegerhttpt"{{- end -}}
+{{- define "common.portname.jaegeradapter.httpquery" -}}"httpquery"{{- end -}}
+{{- define "common.portname.jaegeradapter.httpconfig" -}}"httpconfig"{{- end -}}
+
+
+
 
 {{- define "common.serviceport.nexus.http" -}}8080{{- end -}}
 

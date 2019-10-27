@@ -36,8 +36,14 @@ data:
     anrxapp.url.suffix = {{ .Values.dashboard.anrxapp.url.suffix }}
     appmgr.url.prefix  = {{ include "dashboard.prefix.appmgr" .  }}
     appmgr.url.suffix  = {{ .Values.dashboard.appmgr.url.suffix  }}
+    caasingress.insecure = {{ .Values.dashboard.caasingress.insecure  }}
+    caasingress.aux.url.prefix  = {{ .Values.dashboard.caasingress.aux.url.prefix }}
+    caasingress.aux.url.suffix  = {{ .Values.dashboard.caasingress.aux.url.suffix }}
+    caasingress.plt.url.prefix  = {{ .Values.dashboard.caasingress.plt.url.prefix  }}
+    caasingress.plt.url.suffix  = {{ .Values.dashboard.caasingress.plt.url.suffix  }}
     e2mgr.url.prefix   = {{ include "dashboard.prefix.e2mgr" .   }}
     e2mgr.url.suffix   = {{ .Values.dashboard.e2mgr.url.suffix   }}
+    portalapi.security = {{ .Values.dashboard.portalapi.security }}
     portalapi.appname  = {{ .Values.dashboard.portalapi.appname  }}
     portalapi.username = {{ .Values.dashboard.portalapi.username }}
     portalapi.password = {{ .Values.dashboard.portalapi.password }}
@@ -55,3 +61,7 @@ data:
     ecomp_redirect_url = {{ .Values.dashboard.portalapi.ecomp_redirect_url }}
     ecomp_rest_url     = {{ .Values.dashboard.portalapi.ecomp_rest_url }}
     ueb_app_key        = {{ .Values.dashboard.portalapi.ueb_app_key }}
+
+  # Temp solution before Portal 2.6
+  users.json: |
+    [{"orgId":null,"managerId":null,"firstName":"First","middleInitial":null,"lastName":"Last","phone":null,"email":null,"hrid":null,"orgUserId":null,"orgCode":null,"orgManagerUserId":null,"jobTitle":null,"loginId":"demo","active":true,"roles":[{"id":1,"name":"System_Administrator","roleFunctions":null}]}]

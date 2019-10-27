@@ -14,14 +14,13 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "common.configmapname.ves" . }}
 data:
-  DMaapConfig.json: |
+  DmaapConfig.json: |
     {
       "channels": [
         {
@@ -34,3 +33,10 @@ data:
         }
       ]
     }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmapname.ves" . }}-properties
+data:
+  {{- (.Files.Glob "resources/*").AsConfig | nindent 2 }}

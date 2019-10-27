@@ -38,6 +38,14 @@ spec:
   persistentVolumeReclaimPolicy: {{ .Values.persistence.status.volumeReclaimPolicy }}
   hostPath:
      path: {{ .Values.persistence.status.mountPath | default .Values.persistence.mountPath }}/{{ .Release.Name }}/{{ .Values.persistence.status.mountSubPath }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: aaf-storage
+          operator: In
+          values:
+          - enable
 {{- if .Values.persistence.status.storageClass }}
 {{- if (eq "-" .Values.persistence.status.storageClass) }}
   storageClassName: ""

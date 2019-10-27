@@ -1,6 +1,7 @@
 # modify below for RIC infrastructure (docker-k8s-helm) component versions
 INFRA_DOCKER_VERSION=""
-INFRA_K8S_VERSION="1.13.3"
-INFRA_CNI_VERSION="0.6.0"
+INFRA_K8S_VERSION="1.16.0"
+INFRA_CNI_VERSION="0.7.5"
+#INFRA_K8S_VERSION="1.13.3"
+#INFRA_CNI_VERSION="0.6.0"
 INFRA_HELM_VERSION="2.12.3"
-

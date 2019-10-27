@@ -28,6 +28,6 @@ submgr:
 
   image:
     name: ric-plt-submgr
-    tag: 0.1.1
+    tag: 0.10.5
 
   replicaCount: 1

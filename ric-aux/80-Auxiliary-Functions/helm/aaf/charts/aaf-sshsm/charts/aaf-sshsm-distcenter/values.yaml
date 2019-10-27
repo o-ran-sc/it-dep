@@ -66,6 +66,7 @@ persistence:
   size: 10Mi
   mountPath: /dockerdata-nfs
   mountSubPath: sshsm/distcenter/data
+  storageClass: "manual"
 
 ingress:
   enabled: false

@@ -25,4 +25,4 @@ spec:
   selector:
     matchLabels:
       app: {{ include "common.name" . }}
-  maxUnavailable: {{ include "zk.maxUnavailable" . }}
+  maxUnavailable: 1

@@ -55,13 +55,9 @@ COMPONENTS=${LIST_OF_COMPONENTS:-"kong"}
 echo "Deploying RIC infra components [$COMPONENTS]"
 
 
-COMMON_CHART_VERSION=$(cat $DIR/../../../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $DIR/../../../ric-common/Common-Template/helm/ric-common
 
 
 for component in $COMPONENTS; do
 
-  mkdir -p $DIR/../helm/$component/charts/
-  cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $DIR/../helm/$component/charts/
   helm install -f $OVERRIDEYAML --namespace "${NAMESPACE}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
 done

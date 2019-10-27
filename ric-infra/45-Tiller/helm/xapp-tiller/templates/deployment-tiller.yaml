@@ -114,7 +114,7 @@ subjects:
     namespace: {{ $deployNameSpace }}
 {{- end }}
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -124,6 +124,10 @@ metadata:
   namespace: {{ $deployNameSpace }}
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: helm
+      name: tiller
   template:
     metadata:
       labels:

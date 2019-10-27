@@ -24,7 +24,7 @@ repositoryCred: docker-reg-cred
 dashboard:
   image:
     name: ric-dashboard
-    tag: 1.2.0
+    tag: 1.2.2
   replicaCount: 1
 
   # Service ports are now defined in
@@ -42,8 +42,8 @@ dashboard:
   userfile: /dashboard-data/users.json
   # on the server
   datapath: /opt/data/dashboard-data
-
-  # The URL prefixes use K8S/Kong service names
+  
+  # Many URL prefixes use K8S/Kong service names
   a1med:
     url:
       # The default a1mediator prefix is http://ricplt-entry/a1mediator
@@ -62,6 +62,21 @@ dashboard:
       # You can override the value using the following option
       # prefix:
       suffix: /ric/v1
+  caasingress:
+    # Ignore SSL problems to CaaS-Ingress by enabling this
+    insecure: true
+    aux:
+      url:
+        # The default AUX CaaS-Ingress prefix is TBD
+        # You can override the value using the following option
+        # prefix:
+        suffix: /api
+    plt:
+      url:
+        # The default PLT CaaS-Ingress prefix is TBD
+        # You can override the value using the following option
+        # prefix:
+        suffix: /api
   e2mgr:
     url:
       # The default e2mgr prefix is http://ricplt-entry/e2mgr
@@ -72,11 +87,12 @@ dashboard:
     enc:
       key:
   portalapi:
+    security: false
     appname: RIC-Dashboard
-    username:
-    password:
+    username: Default
+    password: password
     ecomp_redirect_url: https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
-    ecomp_rest_url: http://portal-app.onap:8989/ONAPPORTAL/auxapi
+    ecomp_rest_url: http://portal-app:8989/ONAPPORTAL/auxapi
     ueb_app_key: uebkey
   metrics:
     url:

@@ -40,8 +40,8 @@
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.e2term.rmr" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+{{- define "common.servicename.rsm.rmr" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -73,8 +73,8 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.e2term.http" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+{{- define "common.servicename.rsm.http" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -118,6 +118,18 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.jaegeradapter.query" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
+  {{- printf "service-%s-query" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- define "common.servicename.jaegeradapter.collector" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
+  {{- printf "service-%s-collector" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- define "common.servicename.jaegeradapter.agent" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
+  {{- printf "service-%s-agent" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 ###################### TCP Service ##################################
 

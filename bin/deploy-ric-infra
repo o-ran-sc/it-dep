@@ -54,10 +54,12 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 CHARTMUSEUM_BLOCK=$(cat $OVERRIDEYAML | awk '/^chartmuseum:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
 ELFKP_BLOCK=$(cat $OVERRIDEYAML | awk '/^elfkp:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
 K8S_BLOCK=$(cat $OVERRIDEYAML | awk '/^k8s:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
+ESREADER_BLOCK=$(cat $OVERRIDEYAML | awk '/^esreader:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
 
 USE_LOCAL_HELM_REPO=$(echo "$CHARTMUSEUM_BLOCK" | grep "enable" | awk '{print $2}')
 DEPLOY_K8S=$(echo "$K8S_BLOCK" | grep "enable" | awk '{print $2}')
 DEPLOY_K8S_MONITORING=$(echo "$ELFKP_BLOCK" | grep "enable" | awk '{print $2}')
+DEPLOY_ESREADER=$(echo "$ESREADER_BLOCK" | grep "enable" | awk 'NR==1 {print $2}')
 
 
 for component in $ROOT_DIR/../ric-infra/*/; do
@@ -76,6 +78,11 @@ for component in $ROOT_DIR/../ric-infra/*/; do
 		;;
 		20-Monitoring)
 			if [ "$DEPLOY_K8S_MONITORING" == "true" ];then
+                        	. $component/bin/install -f $OVERRIDEYAML
+	        	fi
+		;;
+		25-ESReader)
+			if [ "$DEPLOY_ESREADER" == "true" ];then
                         	. $component/bin/install -f $OVERRIDEYAML
 	        	fi
 		;;

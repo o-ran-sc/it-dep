@@ -1,0 +1,43 @@
+#   Copyright (c) 2019 AT&T Intellectual Property.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.servicename.jaegeradapter.agent" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.jaegeradapter" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: {{ include "common.portname.jaegeradapter.zipkincompact" . }}
+      port: {{ include "common.serviceport.jaegeradapter.zipkincompact" . }}
+      protocol: UDP
+      targetPort: {{ include "common.serviceport.jaegeradapter.zipkincompact" . }}
+    - name: {{ include "common.portname.jaegeradapter.jaegercompact" . }} 
+      port: {{ include "common.serviceport.jaegeradapter.jaegercompact" . }} 
+      protocol: UDP
+      targetPort: {{ include "common.serviceport.jaegeradapter.jaegercompact" . }} 
+    - name: {{ include "common.portname.jaegeradapter.jaegerbinary" . }}
+      port: {{ include "common.serviceport.jaegeradapter.jaegerbinary" . }}
+      protocol: UDP
+      targetPort: {{ include "common.serviceport.jaegeradapter.jaegerbinary" . }}
+  selector:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.jaegeradapter" . }}
+    release: {{ .Release.Name }}
+

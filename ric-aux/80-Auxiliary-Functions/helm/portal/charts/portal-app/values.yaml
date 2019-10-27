@@ -29,6 +29,7 @@ global:
   portalFEPort: "30225"
   # application's front end hostname.  Must be resolvable on the client side environment
   portalHostName: "portal.api.simpledemo.onap.org"
+  cookieDomain: "onap.org"
   keystoreFile: "keystoreONAPPortal.p12"
   truststoreFile: "truststoreONAPall.jks"
   keypass: ",@{9!OOv%HO@#c+0Z}axu!xV"

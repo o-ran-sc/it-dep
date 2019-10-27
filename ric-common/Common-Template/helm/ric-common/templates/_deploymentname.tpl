@@ -35,8 +35,8 @@
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.e2term" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+{{- define "common.deploymentname.rsm" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -57,6 +57,11 @@
 
 {{- define "common.deploymentname.vespamgr" -}}
   {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.deploymentname.jaegeradapter" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

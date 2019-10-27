@@ -59,6 +59,8 @@ spec:
               name: rtmgrcfg
               readOnly: true
           ports:
+            - name: "http"
+              containerPort: {{ include "common.serviceport.rtmgr.http" . }}
             - name: "rmrroute"
               containerPort: {{ include "common.serviceport.rtmgr.rmr.route" . }}
             - name: "rmrdata"

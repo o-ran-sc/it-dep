@@ -34,6 +34,6 @@ spec:
   ports:
     - port: {{ $root.Values.service.externalPort }}
       targetPort: {{ $root.Values.service.externalPort }}
-      nodePort: {{ $root.Values.service.baseNodePort  | add $i }}
+      nodePort: {{ add 30940 $i }}
       name: {{ $root.Values.service.name }}-{{ $i }}
 {{ end }}

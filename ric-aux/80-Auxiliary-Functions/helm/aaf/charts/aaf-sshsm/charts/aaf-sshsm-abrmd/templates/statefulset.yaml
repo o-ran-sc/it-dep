@@ -16,7 +16,7 @@
 
 {{- if and .Values.global.tpm.enabled .Values.global.abrmd.enabled -}}
 
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "common.fullname" . }}
@@ -28,6 +28,10 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.name" . }}
+      release: {{ .Release.Name }}
   serviceName:
   template:
     metadata:

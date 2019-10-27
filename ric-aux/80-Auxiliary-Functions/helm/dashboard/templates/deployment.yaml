@@ -40,6 +40,9 @@ spec:
       hostname: {{ include "common.name.dashboard" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
+      {{- with .Values.dashboard.nodeselector }}
+      nodeSelector: {{ toYaml . | trim | nindent 8 -}}
+      {{- end }}
       containers:
         - name: {{ include "common.containername.dashboard" . }}
           image: {{ include "common.repository" . }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
@@ -61,8 +64,12 @@ spec:
               mountPath: /maven/portal.properties
               subPath: portal.properties
               readOnly: true
-            - name: dashboard-users
-              mountPath: /dashboard-data
+# Temp solution until portal 2.6
+            - name: appconfig
+              mountPath: /dashboard-data/users.json
+              subPath: users.json
+#            - name: dashboard-users
+#              mountPath: /dashboard-data
           livenessProbe:
             httpGet:
               path: /api/admin/health

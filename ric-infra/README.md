@@ -8,9 +8,11 @@ Such a development cluster is mimicking a closed field-trial environment.
 ### Directory Structure
 .
 ├── 00-Kubernetes             Contains scripts to deploy K8S cluster
-├── 10-Nexus                  Contains scripts and helm charts to deploy the docker registry and helm repo
-├── 20-Monitoring             Helm charts for installed ELFK stack
+├── 15-Chartmuseum            Contains scripts and helm charts to deploy the Helm chart museum
+├── 20-Monitoring             Helm charts for installing ELFK stack
+├── 30-Kong                   Helm charts for installing Kong Proxy/Ingress Controller
 ├── 40-Credential             Helm charts to onboard credential and secrets for docker registry and helm repo
+├── 45-Tiller                 
 └── README.md                 This file
 
 
@@ -20,31 +22,34 @@ $ # Modify the configuration files in ./00-Kubernetes/etc/
 $ . ./00-Kubernetes/bin/install
 ```
 
-### To deploy Nexus repo manager
+
+### To deploy the Chartmuseum
 ```sh
-$ # Modify the configuration files in ./10-Nexus/etc/
-$ . ./10-Nexus/bin/install
+$ # An override file must be used.
+$ # Modify the override file, for example ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
+$ #. ./15-Chartmuseum/bin/install -f YOUR_OVERRIDE_FILE
+$ # To uninstall,
+$ . ./15-Chartmuseum/bin/uninstall
 ```
 
 
-### Nexus Deployment Options
-You can configure the Helm release name, Kubernetes namespace, and specify ingress controller port using configuration
-files located in ./10-Nexus/etc/
-
-In the one-click deployment solution, the above setting will be overrided by environment variables shown below.
-*RICINFRA_RELEASE_NAME
-*RICINFRA_NAMESPACE
-*INGRESS_PORT
-
-
-### Passing credential to RIC
-The installation process of the Nexus repo manager will generate certificates and credential for docker registry and
-helm repo.
-
 ### To deploy ELFK stack
 ```sh
-$ # Modify the configuration files in ./20-Monitoring/etc/
-$ . ./20-Monitoring/bin/install
+$ # An override file must be used.
+$ # Modify the override file, for example ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
+$ . ./20-Monitoring/bin/install -f YOUR_OVERRIDE_FILE
+$ # To uninstall,
+$ . ./20-Monitoring/bin/uninstall
+```
+
+
+### To deploy Kong
+```sh
+$ # An override file must be used.
+$ # Modify the override file, for example ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
+$ . ./30-Kong/bin/install -f YOUR_OVERRIDE_FILE
+$ # To uninstall,
+$ . ./30-Kong/bin/uninstall
 ```
 
 
@@ -62,5 +67,12 @@ You can configure the Helm release name, Kubernetes namespace using configuratio
 Please make sure that the namespace is the same one as the one used for RIC platform components.
 
 
+### To deploy an additional Tiller for xapp deployment
+```sh
+$ # An override file must be used.
+$ # Modify the override file, for example ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
+$ . ./45-Tiller/bin/install -f YOUR_OVERRIDE_FILE
+$ # To uninstall,
+$ . ./45-Tiller/bin/uninstall
+```
 
-TODO: Fill in the details about how to pass the credential to RIC 

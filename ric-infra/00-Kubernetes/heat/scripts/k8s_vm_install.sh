@@ -1,7 +1,6 @@
 #!/bin/bash -x
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -49,11 +48,8 @@ start_ipv6_if () {
   IPv6IF="$1"
   if ifconfig -a $IPv6IF; then
     echo "" >> /etc/network/interfaces.d/50-cloud-init.cfg
-    #echo "auto ${IPv6IF}" >> /etc/network/interfaces.d/50-cloud-init.cfg
     echo "allow-hotplug ${IPv6IF}" >> /etc/network/interfaces.d/50-cloud-init.cfg
     echo "iface ${IPv6IF} inet6 auto" >> /etc/network/interfaces.d/50-cloud-init.cfg
-    #dhclient -r $IPv6IF
-    #systemctl restart networking
     ifconfig ${IPv6IF} up
   fi
 }
@@ -63,6 +59,9 @@ set -x
 export DEBIAN_FRONTEND=noninteractive
 echo "__host_private_ip_addr__ $(hostname)" >> /etc/hosts
 printenv
+
+IPV6IF=""
+#IPV6IF="ens4"
 
 mkdir -p /opt/config
 echo "__docker_version__" > /opt/config/docker_version.txt
@@ -76,6 +75,7 @@ echo "__mtu__" > /opt/config/mtu.txt
 echo "__cinder_volume_id__" > /opt/config/cinder_volume_id.txt
 echo "__stack_name__" > /opt/config/stack_name.txt
 
+# assume we are setting up AUX cluster VM if hostname contains "aux"
 ISAUX='false'
 if [[ $(cat /opt/config/stack_name.txt) == *aux* ]]; then
   ISAUX='true'
@@ -89,10 +89,13 @@ modprobe -- nf_conntrack_ipv4
 modprobe -- nf_conntrack_ipv6
 modprobe -- nf_conntrack_proto_sctp
 
-start_ipv6_if ens4
+if [ ! -z "$IPV6IF" ]; then
+  start_ipv6_if $IPV6IF
+fi
 
 # disable swap
-SWAPFILES=$(grep swap /etc/fstab | sed '/^#/ d' |cut -f1 -d' ')
+#SWAPFILES=$(grep swap /etc/fstab | sed '/^[ \t]*#/ d' |cut -f1 -d' ')
+SWAPFILES=$(grep swap /etc/fstab | sed '/^[ \t]*#/ d' | sed 's/[\t ]/ /g' | tr -s " " | cut -f1 -d' ')
 if [ ! -z $SWAPFILES ]; then
   for SWAPFILE in $SWAPFILES
   do
@@ -104,15 +107,10 @@ if [ ! -z $SWAPFILES ]; then
       else
         swapoff $SWAPFILE
       fi
-      # edit /etc/fstab file, remove line with /swapfile
-      sed -i -e "/$SWAPFILE/d" /etc/fstab
+      sed -i "\%$SWAPFILE%d" /etc/fstab
     fi
   done
 fi
-# disable swap
-#swapoff /swapfile
-# edit /etc/fstab file, remove line with /swapfile
-#sed -i -e '/swapfile/d' /etc/fstab
 
 
 DOCKERV=$(cat /opt/config/docker_version.txt)
@@ -122,6 +120,25 @@ KUBECNIV=$(cat /opt/config/k8s_cni_version.txt)
 KUBEVERSION="${KUBEV}-00"
 CNIVERSION="${KUBECNIV}-00"
 DOCKERVERSION="${DOCKERV}"
+
+# adjust package version tag
+UBUNTU_RELEASE=$(lsb_release -r | sed 's/^[a-zA-Z:\t ]\+//g')
+if [[ ${UBUNTU_RELEASE} == 16.* ]]; then
+  echo "Installing on Ubuntu $UBUNTU_RELEASE (Xenial Xerus) host"
+  if [ ! -z "${DOCKERV}" ]; then
+    DOCKERVERSION="${DOCKERV}-0ubuntu1~16.04.5"
+  fi
+elif [[ ${UBUNTU_RELEASE} == 18.* ]]; then
+  echo "Installing on Ubuntu $UBUNTU_RELEASE (Bionic Beaver)"
+  if [ ! -z "${DOCKERV}" ]; then
+    DOCKERVERSION="${DOCKERV}-0ubuntu1~18.04.5"
+  fi
+else
+  echo "Unsupported Ubuntu release ($UBUNTU_RELEASE) detected.  Exit."
+  exit
+fi
+
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
 
@@ -131,35 +148,51 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
 
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
-apt-get install -y virt-what
+RES=$(apt-get install -y virt-what curl jq netcat 2>&1)
+if [[ $RES == */var/lib/dpkg/lock* ]]; then
+  echo "Fail to get dpkg lock.  Wait for any other package installation"
+  echo "process to finish, then rerun this script"
+  exit -1
+fi
+
 if ! echo $(virt-what) | grep "virtualbox"; then
-  # this version of low latency kernel causes virtualbox VM to hand.  
+  # this version of low latency kernel causes virtualbox VM to hang.
   # install if identifying the VM not being a virtualbox VM.
   apt-get install -y linux-image-4.15.0-45-lowlatency
 fi
+
+
 if [ -z ${DOCKERVERSION} ]; then
-  apt-get install -y curl jq netcat docker.io
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold docker.io
 else
-  apt-get install -y curl jq netcat docker.io=${DOCKERVERSION}
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold docker.io=${DOCKERVERSION}
 fi
-apt-get install -y kubernetes-cni=${CNIVERSION}
-apt-get install -y --allow-unauthenticated kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
+systemctl enable docker.service
+
+if [ -z ${CNIVERSION} ]; then
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubernetes-cni
+else
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubernetes-cni=${CNIVERSION}
+fi
+
+if [ -z ${KUBEVERSION} ]; then
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubeadm kubelet kubectl
+else
+  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
+fi
+
 apt-mark hold docker.io kubernetes-cni kubelet kubeadm kubectl
 
 
 # test access to k8s docker registry
-kubeadm config images pull
+kubeadm config images pull --kubernetes-version=${KUBEV}
 
 
+NODETYPE="master"
 # non-master nodes have hostnames ending with -[0-9][0-9]
-if [[ $(hostname) == *-[0-9][0-9] ]]; then
-  echo "Done for non-master node"
-  echo "Starting an NC TCP server on port 29999 to indicate we are ready"
-  nc -l -p 29999 &
-else 
+if [ "$NODETYPE" == "master" ]; then
   # below are steps for initializating master node, only run on the master node.  
   # minion node join will be triggered from the caller of the stack creation as ssh command.
-
 
   # create kubenetes config file
   if [[ ${KUBEV} == 1.13.* ]]; then
@@ -173,7 +206,6 @@ networking:
   dnsDomain: cluster.local
   podSubnet: 10.244.0.0/16
   serviceSubnet: 10.96.0.0/12
-
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
@@ -191,18 +223,32 @@ networking:
   dnsDomain: cluster.local
   podSubnet: 10.244.0.0/16
   serviceSubnet: 10.96.0.0/12
-
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: ipvs
 EOF
-
+  elif [[ ${KUBEV} == 1.16.* ]]; then
+    cat <<EOF >/root/config.yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kubernetesVersion: v${KUBEV}
+kind: ClusterConfiguration
+apiServer:
+  extraArgs:
+    feature-gates: SCTPSupport=true
+networking:
+  dnsDomain: cluster.local
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: ipvs
+EOF
   else
     echo "Unsupported Kubernetes version requested.  Bail."
     exit
   fi
-
 
   # create a RBAC file for helm (tiller)
   cat <<EOF > /root/rbac-config.yaml
@@ -226,19 +272,9 @@ subjects:
     namespace: kube-system
 EOF
 
+
   # start cluster (make sure CIDR is enabled with the flag)
   kubeadm init --config /root/config.yaml
-
-
-  # install Helm
-  HELMV=$(cat /opt/config/helm_version.txt)
-  HELMVERSION=${HELMV}
-  cd /root
-  mkdir Helm
-  cd Helm
-  wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
-  tar -xvf helm-v${HELMVERSION}-linux-amd64.tar.gz
-  mv linux-amd64/helm /usr/local/bin/helm
 
   # set up kubectl credential and config
   cd /root
@@ -251,8 +287,11 @@ EOF
   kubectl get pods --all-namespaces
 
   # install flannel
-  kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
-
+  if [[ ${KUBEV} == 1.16.* ]]; then
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  else
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+  fi
 
   # waiting for all 8 kube-system pods to be in running state
   # (at this point, minions have not joined yet)
@@ -265,14 +304,28 @@ EOF
   # install RBAC for Helm
   kubectl create -f rbac-config.yaml
 
+  # install Helm
+  HELMV=$(cat /opt/config/helm_version.txt)
+  HELMVERSION=${HELMV}
+  cd /root
+  mkdir Helm
+  cd Helm
+  wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
+  tar -xvf helm-v${HELMVERSION}-linux-amd64.tar.gz
+  mv linux-amd64/helm /usr/local/bin/helm
 
   rm -rf /root/.helm
-  helm init --service-account tiller
+  if [[ ${KUBEV} == 1.16.* ]]; then
+    # helm init uses API extensions/v1beta1 which is depreciated by Kubernetes
+    # 1.16.0.  Until upstream (helm) provides a fix, this is the work-around.
+    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
+  else
+    helm init --service-account tiller
+  fi
   export HELM_HOME="/root/.helm"
 
   # waiting for tiller pod to be in running state
   wait_for_pods_running 1 kube-system tiller-deploy
-
   while ! helm version; do
     echo "Waiting for Helm to be ready"
     sleep 15
@@ -284,9 +337,6 @@ EOF
   if [ "$PV_NODE_NAME" == "$(hostname)" ]; then
     mkdir -p /opt/data/dashboard-data
   fi
-
-  echo "Starting an NC TCP server on port 29999 to indicate we are ready"
-  nc -l -p 29999 &
 
   echo "Done with master node setup"
 fi
@@ -303,14 +353,14 @@ if [[ ! -z "${__RUNRICENV_HELMREPO_IP__}" && ! -z "${__RUNRICENV_HELMREPO_HOST__
   echo "${__RUNRICENV_HELMREPO_IP__} ${__RUNRICENV_HELMREPO_HOST__}" >> /etc/hosts
 fi
 
-if [ ! -z "${__RUNRICENV_HELMREPO_CERT__}" ]; then
+if [[ "${__RUNRICENV_HELMREPO_CERT_LEN__}" -gt "100" ]]; then
   cat <<EOF >/etc/ca-certificates/update.d/helm.crt
 ${__RUNRICENV_HELMREPO_CERT__}
 EOF
 fi
 
 # add cert for accessing docker registry in Azure
-if [ ! -z "${__RUNRICENV_DOCKER_CERT__}" ]; then
+if [[ "${__RUNRICENV_DOCKER_CERT_LEN__}" -gt "100" ]]; then
   mkdir -p /etc/docker/certs.d/${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}
   cat <<EOF >/etc/docker/ca.crt
 ${__RUNRICENV_DOCKER_CERT__}
@@ -323,3 +373,4 @@ EOF
   docker pull ${__RUNRICENV_DOCKER_HOST__}:${__RUNRICENV_DOCKER_PORT__}/whoami:0.0.1
 fi
 
+if [ "$(uname -r)" != "4.15.0-45-lowlatency" ]; then reboot; fi

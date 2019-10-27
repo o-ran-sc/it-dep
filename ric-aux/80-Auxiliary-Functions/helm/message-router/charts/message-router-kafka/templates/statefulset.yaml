@@ -16,7 +16,7 @@
 ################################################################################
 
 
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "common.fullname" . }}
@@ -29,6 +29,10 @@ metadata:
 spec:
   serviceName: {{ .Values.service.name }}
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app:  {{ include "common.name" . }}
+      release: {{ .Release.Name }}
   podManagementPolicy: Parallel
   template:
     metadata:
@@ -176,4 +180,4 @@ spec:
             heritage: "{{ .Release.Service }}"
 {{ end }}
       imagePullSecrets:
-      - name: "{{ include "common.namespace" . }}-docker-registry-key"
+      - name: "docker-reg-cred"

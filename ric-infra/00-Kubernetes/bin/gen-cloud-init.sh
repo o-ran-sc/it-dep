@@ -80,6 +80,9 @@ fi
 if [ -z "$__RUNRICENV_DOCKER_CERT__" ]; then
    export __RUNRICENV_DOCKER_CERT__=$dockercert
 fi
+if [ -z "$__RUNRICENV_DOCKER_CERT_LEN__" ]; then
+   export __RUNRICENV_DOCKER_CERT_LEN__=$(echo $dockercert | wc -c)
+fi
 if [ -z "$__RUNRICENV_HELMREPO_HOST__" ]; then
    export __RUNRICENV_HELMREPO_HOST__=$helmrepo
 fi
@@ -98,6 +101,9 @@ fi
 if [ -z "$__RUNRICENV_HELMREPO_CERT__" ]; then
    export __RUNRICENV_HELMREPO_CERT__=$helmcert
 fi
+if [ -z "$__RUNRICENV_HELMREPO_CERT_LEN__" ]; then
+   export __RUNRICENV_HELMREPO_CERT_LEN__=$(echo $helmcert | wc -c)
+fi
 
 
 filename=$(basename -- "$TMPL")
@@ -112,30 +118,32 @@ envsubst '${__RUNRICENV_GERRIT_HOST__}
           ${__RUNRICENV_DOCKER_USER__}
           ${__RUNRICENV_DOCKER_PASS__}
           ${__RUNRICENV_DOCKER_CERT__}
+          ${__RUNRICENV_DOCKER_CERT__}
+          ${__RUNRICENV_DOCKER_CERT_LEN__}
           ${__RUNRICENV_HELMREPO_HOST__}
           ${__RUNRICENV_HELMREPO_PORT__}
           ${__RUNRICENV_HELMREPO_IP__}
           ${__RUNRICENV_HELMREPO_CERT__}
+          ${__RUNRICENV_HELMREPO_CERT_LEN__}
           ${__RUNRICENV_HELMREPO_USER__}
           ${__RUNRICENV_HELMREPO_PASS__}' < "$TMPL" > "$filename"
 
 # fill values that are supplied by Heat stack deployment process as much as we can
-sed -e "s/__docker_version__/${INFRA_DOCKER_VERSION}/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__k8s_version__/${INFRA_K8S_VERSION}/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__k8s_cni_version__/${INFRA_CNI_VERSION}/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__helm_version__/${INFRA_HELM_VERSION}/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__k8s_mst_private_ip_addr__/\$(hostname -I)/g" "$filename" > tmp && mv tmp "$filename"
-sed -e "s/__host_private_ip_addr__/\$(hostname -I)/g" "$filename" > tmp && mv tmp "$filename"
-#sed -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename" > tmp && mv tmp "$filename" 
-sed -e "s/__k8s_mst_floating_ip_addr__/\$(curl ifconfig.co)/g" "$filename" > tmp && mv tmp "$filename" 
-sed -e "s/__stack_name__/\$(hostname)/g" "$filename" > tmp && mv tmp "$filename"
+sed -i "" -e "s/__docker_version__/${INFRA_DOCKER_VERSION}/g" "$filename"
+sed -i "" -e "s/__k8s_version__/${INFRA_K8S_VERSION}/g" "$filename"
+sed -i "" -e "s/__k8s_cni_version__/${INFRA_CNI_VERSION}/g" "$filename"
+sed -i "" -e "s/__helm_version__/${INFRA_HELM_VERSION}/g" "$filename"
+sed -i "" -e "s/__k8s_mst_private_ip_addr__/\$(hostname -I)/g" "$filename"
+sed -i "" -e "s/__host_private_ip_addr__/\$(hostname -I)/g" "$filename"
+#sed -i "" -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename"
+sed -i "" -e "s/__k8s_mst_floating_ip_addr__/\$(curl ifconfig.co)/g" "$filename"
+sed -i "" -e "s/__stack_name__/\$(hostname)/g" "$filename"
 #echo "__mtu__" > /opt/config/mtu.txt
 #echo "__cinder_volume_id__" > /opt/config/cinder_volume_id.txt
 
+# because cloud init user data has a 16kB limit, remove all comment lines to save space.
+sed -i "" -e '/^[ \t]*#/d' "$filename" 
 
 chmod +x "$filename"
-if [ -z "$1" ]; then
-  mv "$filename" k8s-1node-cloud-init.sh
-  # reboot VM to load the new kernel.
-  echo 'if [ "$(uname -r)" != "4.15.0-45-lowlatency" ]; then reboot; fi' >> k8s-1node-cloud-init.sh
-fi
+
+mv "$filename" ./k8s-1node-cloud-init.sh

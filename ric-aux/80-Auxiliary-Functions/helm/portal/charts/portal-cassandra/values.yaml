@@ -73,6 +73,8 @@ persistence:
   size: 2Gi
   mountPath: /dockerdata-nfs
   mountSubPath: portal/cassandra/data
+  storageClass: "manual"
+
 
 service:
   type: ClusterIP

@@ -35,8 +35,8 @@
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.containername.e2term" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+{{- define "common.containername.rsm" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -57,6 +57,11 @@
 
 {{- define "common.containername.vespamgr" -}}
   {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.containername.jaegeradapter" -}}
+  {{- $name := ( include "common.fullname.jaegeradapter" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

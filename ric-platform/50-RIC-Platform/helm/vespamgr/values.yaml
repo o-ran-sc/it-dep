@@ -29,7 +29,7 @@ vespamgr:
 
   image:
     name: ric-plt-vespamgr
-    tag: 0.0.1
+    tag: 0.0.3
 
   # Service ports are now defined in
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.

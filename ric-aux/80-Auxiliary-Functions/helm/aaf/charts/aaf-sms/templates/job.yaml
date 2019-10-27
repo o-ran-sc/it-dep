@@ -36,13 +36,8 @@ spec:
       - image:  "{{ .Values.global.readinessRepository }}/{{ .Values.global.readinessImage }}"
         imagePullPolicy: {{ .Values.global.pullPolicy | default .Values.pullPolicy }}
         name: {{ include "common.name" . }}-readiness
-        command:
-        - /root/ready.py
-        args:
-        - --container-name
-        - "aaf-sms"
-        - --container-name
-        - "aaf-sms-quorumclient"
+        command: ["/bin/sh", "-c"]
+        args: ["sed -i s/client.AppsV1beta1Api/client.AppsV1Api/g /root/ready.py && sed -i s/client.ExtensionsV1beta1Api/client.AppsV1Api/g /root/ready.py && /root/ready.py --container-name aaf-sms --container-name aaf-sms-quorumclient"]        
         env:
         - name: NAMESPACE
           valueFrom:

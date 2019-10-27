@@ -42,6 +42,9 @@ spec:
       hostname: {{ include "common.name.vespamgr" . }}
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}
+      {{- with .Values.vespamgr.nodeselector }}
+      nodeSelector: {{ toYaml . | trim | nindent 8 -}}
+      {{- end }}
       containers:
         - name: {{ include "common.containername.vespamgr" . }}
           image: {{ include "common.repository" . }}/{{ .Values.vespamgr.image.name }}:{{ .Values.vespamgr.image.tag }}
@@ -55,5 +58,14 @@ spec:
                 name: {{ include "common.configmapname.vespamgr" . }}
             - secretRef:
                 name: vespa-secrets
-
+          env:
+            - name: VESMGR_APPMGRDOMAIN
+              value: appmgr-service
+          livenessProbe:
+            httpGet:
+              path: /supervision
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            timeoutSeconds: 20
 

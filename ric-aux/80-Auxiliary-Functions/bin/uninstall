@@ -17,7 +17,7 @@
 ################################################################################
 
 
-COMPONENTS="dashboard message-router ves mrsub"
+COMPONENTS="dashboard message-router ves mrsub mc-stack portal aaf"
 
 echo "Undeploying RIC aux components [$COMPONENTS]"
 

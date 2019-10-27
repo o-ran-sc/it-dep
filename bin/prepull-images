@@ -59,6 +59,11 @@ mkdir -p $IMAGE_DIRECTORY_PATH
 
 while IFS= read -r image
 do
+    if [[ $image == "#"* ]]; then
+        # supporting comment lines
+        continue
+    fi
+
     IMAGENAME=$(echo $image | awk '{ n=split($0, a, "/"); print a[n] }')
 
     echo "Pulling image $image"

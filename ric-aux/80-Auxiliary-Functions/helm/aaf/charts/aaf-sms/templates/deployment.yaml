@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "common.fullname" . }}
@@ -24,6 +24,10 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
@@ -34,13 +38,8 @@ spec:
       - image:  "{{ .Values.global.readinessRepository }}/{{ .Values.global.readinessImage }}"
         imagePullPolicy: {{ .Values.global.pullPolicy | default .Values.pullPolicy }}
         name: {{ include "common.name" . }}-readiness
-        command:
-        - /root/ready.py
-        args:
-        - --container-name
-        - "aaf-sms-vault"
-        - --container-name
-        - "aaf-sms-vault-backend"
+        command: ["/bin/sh", "-c"]
+        args: ["sed -i s/client.AppsV1beta1Api/client.AppsV1Api/g /root/ready.py && /root/ready.py --container-name aaf-sms-vault --container-name aaf-sms-vault-backend"]
         env:
         - name: NAMESPACE
           valueFrom:

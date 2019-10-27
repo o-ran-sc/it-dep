@@ -1,0 +1,798 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+replicaCount: 1
+
+podDisruptionBudget:
+  maxUnavailable: 1
+
+updateStrategy:
+  type: RollingUpdate
+
+terminationGracePeriodSeconds: 30
+
+image:
+  repository: docker.elastic.co/logstash/logstash-oss
+  tag: 7.3.0
+  pullPolicy: IfNotPresent
+  ## Add secrets manually via kubectl on kubernetes cluster and reference here
+  #  pullSecrets:
+  #    - name: "myKubernetesSecret"
+
+service:
+  type: ClusterIP
+  # clusterIP: None
+  # nodePort:
+  # Set this to local, to preserve client source ip.  Default stripes out the source ip
+  # externalTrafficPolicy: Local
+  annotations: {}
+    ## AWS example for use with LoadBalancer service type.
+    # external-dns.alpha.kubernetes.io/hostname: logstash.cluster.local
+    # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  ports:
+    # syslog-udp:
+    #   port: 1514
+    #   targetPort: syslog-udp
+    #   protocol: UDP
+    # syslog-tcp:
+    #   port: 1514
+    #   targetPort: syslog-tcp
+    #   protocol: TCP
+    beats:
+      port: 5044
+      targetPort: 8080
+      protocol: TCP
+    # http:
+    #  port: 8080
+    #  targetPort: http
+    #  protocol: TCP
+    # loadBalancerIP: 10.0.0.1
+    # loadBalancerSourceRanges:
+    #   - 192.168.0.1
+ports:
+  # - name: syslog-udp
+  #   containerPort: 1514
+  #   protocol: UDP
+  # - name: syslog-tcp
+  #   containerPort: 1514
+  #   protocol: TCP
+  - name: beats
+    containerPort: 5044
+    protocol: TCP
+  # - name: http
+  #   containerPort: 8080
+  #   protocol: TCP
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - logstash.cluster.local
+  tls: []
+  #  - secretName: logstash-tls
+  #    hosts:
+  #      - logstash.cluster.local
+
+# set java options like heap size
+logstashJavaOpts: "-Xmx1g -Xms1g"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+priorityClassName: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+securityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+
+affinity: {}
+  # podAntiAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     - topologyKey: "kubernetes.io/hostname"
+  #       labelSelector:
+  #         matchLabels:
+  #           release: logstash
+
+podAnnotations: {}
+  # iam.amazonaws.com/role: "logstash-role"
+  # prometheus.io/scrape: "true"
+  # prometheus.io/path: "/metrics"
+  # prometheus.io/port: "9198"
+
+podLabels: {}
+  # team: "developers"
+  # service: "logstash"
+
+extraEnv: []
+
+extraInitContainers: []
+  # - name: echo
+  #   image: busybox
+  #   imagePullPolicy: Always
+  #   args:
+  #     - echo
+  #     - hello
+
+podManagementPolicy: OrderedReady
+ # can be OrderReady or Parallel
+#livenessProbe:
+  #httpGet:
+    #path: /
+    #port: monitor
+  #initialDelaySeconds: 20
+  # periodSeconds: 30
+  # timeoutSeconds: 30
+  # failureThreshold: 6
+  # successThreshold: 1
+
+#readinessProbe:
+  #httpGet:
+    #path: /
+    #port: monitor
+  #initialDelaySeconds: 20
+  # periodSeconds: 30
+  # timeoutSeconds: 30
+  # failureThreshold: 6
+  # successThreshold: 1
+
+persistence:
+  enabled: false
+  ## logstash data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessMode: ReadWriteOnce
+  size: 2Gi
+
+volumeMounts:
+  - name: data
+    mountPath: /usr/share/logstash/data
+  - name: patterns
+    mountPath: /usr/share/logstash/patterns
+  - name: files
+    mountPath: /usr/share/logstash/files
+  - name: pipeline
+    mountPath: /usr/share/logstash/pipeline
+
+volumes: []
+  # - name: tls
+  #   secret:
+  #     secretName: logstash-tls
+  # - name: pipeline
+  #   configMap:
+  #     name: logstash-pipeline
+  # - name: certs
+  #   hostPath:
+  #     path: /tmp
+
+exporter:
+  logstash:
+    enabled: false
+    image:
+      repository: bonniernews/logstash_exporter
+      tag: v0.1.2
+      pullPolicy: IfNotPresent
+    env: {}
+    resources: {}
+    path: /metrics
+    port: 9198
+    target:
+      port: 9600
+      path: /metrics
+    livenessProbe:
+      httpGet:
+        path: /metrics
+        port: ls-exporter
+      periodSeconds: 15
+      timeoutSeconds: 60
+      failureThreshold: 8
+      successThreshold: 1
+    readinessProbe:
+      httpGet:
+        path: /metrics
+        port: ls-exporter
+      periodSeconds: 15
+      timeoutSeconds: 60
+      failureThreshold: 8
+      successThreshold: 1
+
+elasticsearch:
+  host: elasticsearch-data.kube-system.svc.rec.io
+  port: 9200
+
+## ref: https://github.com/elastic/logstash-docker/blob/master/build/logstash/env2yaml/env2yaml.go
+config:
+  config.reload.automatic: "true"
+  path.config: /usr/share/logstash/pipeline
+  path.data: /usr/share/logstash/data
+
+  ## ref: https://www.elastic.co/guide/en/logstash/current/persistent-queues.html
+  queue.checkpoint.writes: 1
+  queue.drain: "true"
+  queue.max_bytes: 1gb  # disk capacity must be greater than the value of `queue.max_bytes`
+  queue.type: persisted
+
+## Patterns for filters.
+## Each YAML heredoc will become a separate pattern file.
+patterns:
+  # main: |-
+  #   TESTING {"foo":.*}$
+
+## Custom files that can be referenced by plugins.
+## Each YAML heredoc will become located in the logstash home directory under
+## the files subdirectory.
+files:
+  # logstash-template.json: |-
+  #   {
+  #     "order": 0,
+  #     "version": 1,
+  #     "index_patterns": [
+  #       "logstash-*"
+  #     ],
+  #     "settings": {
+  #       "index": {
+  #         "refresh_interval": "5s"
+  #       }
+  #     },
+  #     "mappings": {
+  #       "doc": {
+  #         "_meta": {
+  #           "version": "1.0.0"
+  #         },
+  #         "enabled": false
+  #       }
+  #     },
+  #     "aliases": {}
+  #   }
+
+## Custom binary files encoded as base64 string that can be referenced by plugins
+## Each base64 encoded string is decoded & mounted as a file under logstash home directory under
+## the files subdirectory.
+binaryFiles: {}
+
+## NOTE: To achieve multiple pipelines with this chart, current best practice
+## is to maintain one pipeline per chart release. In this way configuration is
+## simplified and pipelines are more isolated from one another.
+
+inputs:
+  main: |-
+    input {
+      # udp {
+      #   port => 1514
+      #   type => syslog
+      # }
+      # tcp {
+      #   port => 1514
+      #   type => syslog
+      # }
+      #beats {
+      #  port => 5044
+      #}
+      http {
+        port => 8080
+      }
+      # http {
+      #   port => 8080
+      # }
+      # kafka {
+      #   ## ref: https://www.elastic.co/guide/en/logstash/current/plugins-inputs-kafka.html
+      #   bootstrap_servers => "kafka-input:9092"
+      #   codec => json { charset => "UTF-8" }
+      #   consumer_threads => 1
+      #   topics => ["source"]
+      #   type => "example"
+      # }
+    }
+
+
+filters:
+  main: |-
+    filter {
+      if "GS-LITE MC" in [message] {
+        if "mc_connected_cnt" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","count_connected_ue","TS"]
+            separator => ","
+            convert => {
+              "count_connected_ue" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "mc_unique_ue_cnt" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","count_unique_ue","TS"]
+            separator => ","
+            convert => {
+              "count_unique_ue" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "reconfig_status_reject_cause" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","total_reconfig_reject","count_radio_network","count_transport","count_protocol","count_misc","GNB_ID","TS"]
+            separator => ","
+            convert => {
+              "total_reconfig_reject" => "integer"
+              "count_radio_network" => "integer"
+              "count_transport" => "integer"
+              "count_protocol" => "integer"
+              "count_misc" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "release_req_success_stats" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","min_success_time","max_success_time","avg_success_time","pctl_05_success_time","pctl_95_success_time","GNB_ID","stddev_success_time","TS"]
+            separator => ","
+            convert => {
+              "min_success_time" => "float"
+              "max_success_time" => "float"
+              "avg_success_time" => "float"
+              "pctl_05_success_time" => "float"
+              "pctl_95_success_time" => "float"
+              "stddev_success_time" => "float"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "mod_status_refuse_cause" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","total_reconfig_refuse","count_radio_network","count_transport","count_protocol","count_misc","GNB_ID","TS"]
+            separator => ","
+            convert => {
+              "total_reconfig_refuse" => "integer"
+              "count_radio_network" => "integer"
+              "count_transport" => "integer"
+              "count_protocol" => "integer"
+              "count_misc" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "release_cause" in [message] {
+          csv { 
+            columns => ["reportingEntityName","eventType","total_reconfig_refuse","count_radio_network","count_transport","count_protocol","count_misc","GNB_ID","TS"]
+            separator => ","
+            convert => { 
+              "total_reconfig_refuse" => "integer"
+              "count_radio_network" => "integer"
+              "count_transport" => "integer"
+              "count_protocol" => "integer"
+              "count_misc" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "addreq_pdf_nr_gnb" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","rsrp_medium","rsrp_bad","cnt","rsrp_vbad","GNB_ID","rsrp_good","rsrp_vgood","TS"]
+            separator => ","
+            convert => {
+              "rsrp_medium" => "integer"
+              "rsrp_bad" => "integer"
+              "cnt" => "integer"
+              "rsrp_vbad" => "integer"
+              "rsrp_good" => "integer"
+              "rsrp_vgood" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "addreq_success_stats" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","stddev_success_time","max_success_time","avg_success_time","pctl_95_success_time","pctl_05_success_time","GNB_ID","min_success_time","TS"]
+            separator => ","
+            convert => {
+              "stddev_success_time" => "float"
+              "max_success_time" => "float"
+              "avg_success_time" => "float"
+              "pctl_95_success_time" => "float"
+              "pctl_05_success_time" => "float"
+              "min_success_time" => "float"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "mc_connects_cnt" in [message] {
+          csv { 
+            columns => ["reportingEntityName","eventType","count_ue_connects","TS"]
+            separator => ","
+            convert => { 
+              "count_ue_connects" => "integer"
+              "TS" => "integer"
+            } 
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "erab_stats" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","qCI_other","total_erabs","qCI_9","qCI_8","qCI_7","qCI_6","qCI_5","qCI_4","qCI_3","qCI_2","qCI_1","TS"]
+            separator => ","
+            convert => {
+              "qCI_other" => "integer"
+              "total_erabs" => "integer"
+              "qCI_9" => "integer"
+              "qCI_8" => "integer"
+              "qCI_7" => "integer"
+              "qCI_6" => "integer"
+              "qCI_5" => "integer"
+              "qCI_4" => "integer"
+              "qCI_3" => "integer"
+              "qCI_2" => "integer"
+              "qCI_1" => "integer" 
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "mc_disconnects_cnt" in [message] {
+          csv { 
+            columns => ["reportingEntityName","eventType","count_ue_disconnects","TS"]
+            separator => ","
+            convert => { 
+              "count_ue_disconnects" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "reconfig_status_success_rate" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","successful_reconfiguration_requests","GNB_ID","success_rate","total_reconfiguration_requests","TS"]
+            separator => ","
+            convert => {
+              "successful_reconfiguration_requests" => "integer"
+              "success_rate" => "integer"
+              "total_reconfiguration_requests" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "addreq_pdf_nr_cell" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","rsrp_medium","rsrp_bad","cnt","rsrp_vbad","CELL_ID","rsrp_good","rsrp_vgood","TS"]
+            separator => ","
+            convert => {
+              "rsrp_medium" => "integer"
+              "rsrp_bad" => "integer"
+              "cnt" => "integer"
+              "rsrp_vbad" => "integer"
+              "CELL_ID" => "integer"
+              "rsrp_good" => "integer"
+              "rsrp_vgood" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "rrcx_pdf_serv_cell" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","rsrp_medium","rsrp_bad","cnt","rsrp_vbad","CELL_ID","rsrp_good","rsrp_vgood","TS"]
+            separator => ","
+            convert => {
+              "rsrp_medium" => "integer"
+              "rsrp_bad" => "integer"
+              "cnt" => "integer"
+              "rsrp_vbad" => "integer"
+              "CELL_ID" => "integer"
+              "rsrp_good" => "integer"
+              "rsrp_vgood" => "integer"
+              "TS" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "rrcx_stats_serv_gnb" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","median_rsrp","cnt","max_rsrp","stddev_rsrp","GNB_ID","pctl_95_rsrp","pctl_05_rsrp","TS","min_rsrp"]
+            separator => ","
+            convert => {
+              "median_rsrp" => "integer"
+              "cnt" => "integer"
+              "max_rsrp" => "integer"
+              "stddev_rsrp" => "float"
+              "pctl_95_rsrp" => "integer"
+              "pctl_05_rsrp" => "integer"
+              "TS" => "integer"
+              "min_rsrp" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "addreq_stats_nr_cell" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","median_rsrp","cnt","max_rsrp","stddev_rsrp","CELL_ID","pctl_95_rsrp","pctl_05_rsrp","TS","min_rsrp"]
+            separator => ","
+            convert => {
+              "median_rsrp" => "integer"
+              "cnt" => "integer"
+              "max_rsrp" => "integer"
+              "stddev_rsrp" => "float"
+              "CELL_ID" => "integer"
+              "pctl_95_rsrp" => "integer"
+              "pctl_05_rsrp" => "integer"
+              "TS" => "integer"
+              "min_rsrp" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "addreq_stats_nr_gnb" in [message] {
+          csv { 
+            columns => ["reportingEntityName","eventType","median_rsrp","cnt","max_rsrp","stddev_rsrp","GNB_ID","pctl_95_rsrp","pctl_05_rsrp","TS","min_rsrp"]
+            separator => ","
+            convert => {
+              "median_rsrp" => "integer"
+              "cnt" => "integer"
+              "max_rsrp" => "integer"
+              "stddev_rsrp" => "float"
+              "pctl_95_rsrp" => "integer"
+              "pctl_05_rsrp" => "integer"
+              "TS" => "integer"
+              "min_rsrp" => "integer"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+        else if "mc_connection_stats" in [message] {
+          csv {
+            columns => ["reportingEntityName","eventType","avg_connected_time","pctl_05_connected_time","pctl_95_connected_time","min_connected_time","stddev_connected_time", "max_connected_time", "TS"]
+            separator => ","
+            convert => {
+              "avg_connected_time" => "float"
+              "pctl_05_connected_time" => "float"
+              "pctl_95_connected_time" => "float"
+              "min_connected_time" => "float"
+              "stddev_connected_time" => "float"
+              "max_connected_time" => "float"
+              "TS" => "float"
+            }
+          }
+          date {
+            match => [ "TS", "UNIX" ]
+            target => "TS"
+          }
+        }
+      }
+      else if "AC xAPP" in [message] {
+        csv {
+          columns => ["reportingEntityName","SgNB_Request_Rate","SgNB_Accept_Rate"]
+          separator => ","
+          convert => {
+            "SgNB_Request_Rate" => "integer"
+            "SgNB_Accept_Rate" => "integer"
+          }
+        }
+      }
+      else {
+        csv {
+          columns => ["reportingEntityName","Unknown1","Unknown2"]
+          separator => ","
+        }
+      }
+    }
+
+
+outputs:
+  main: |-
+    output {
+      if "GS-LITE MC" in [reportingEntityName] {
+         if "mc_connected_cnt" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-connected-cnt"
+           }
+         }
+         else if "erab_stats" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-erab-stats"
+           }
+         }
+         else if "reconfig_status_reject_cause" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-reconfig-status-reject-cause"
+           }
+         }
+         else if "release_req_success_stats" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-release-req-success-stats"
+           }
+         }
+         else if "mod_status_refuse_cause" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-mod-status-refuse-cause"
+           }      
+         }
+         else if "release_cause" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-release-cause"
+           }
+         }
+         else if "mc_unique_ue_cnt" in [eventType] {
+            elasticsearch {
+                  hosts => "elasticsearch-data.kube-system.svc.rec.io"
+                  index => "events-ves-mc-unique-ue-cnt"
+           }
+         }
+         else if "mc_connection_stats" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-conn-stats"
+           }
+        }
+        else if "addreq_pdf_nr_gnb" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-addreq-pdf-nr-gnb"
+           }
+        }
+        else if "rrcx_stats_serv_gnb" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-rrcx-stats-serv-gnb"
+           }
+        }
+        else if "rrcx_pdf_serv_cell" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-rrcx-pdf-serv-cell"
+           }
+        }
+        else if "reconfig_status_success_rate" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-reconfig-status-success-rate"
+           }
+        }
+        else if "mc_disconnects_cnt" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-disconnects-cnt"
+           }
+        }
+        else if "mc_connects_cnt" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-connects-cnt"
+           }
+        }
+        else if "addreq_success_stats" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-addreq-success-stats"
+           }
+        }
+        else if "addreq_stats_nr_gnb" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-addreq-stats-nr-gnb"
+           }
+        }
+        else if "addreq_stats_nr_cell" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-addreq-stats-nr-cell"
+           }
+        }
+        else if "addreq_pdf_nr_cell" in [eventType] {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-mc-addreq-pdf-nr-cell"
+           }
+        }
+      }
+      else if "AC xAPP" in [reportingEntityName] {
+          elasticsearch {
+             hosts => "elasticsearch-data.kube-system.svc.rec.io"
+             index => "events-ves-ac"
+          }
+      }
+      else {
+           elasticsearch {
+              hosts => "elasticsearch-data.kube-system.svc.rec.io"
+              index => "events-ves-other"
+           }
+      }
+    }

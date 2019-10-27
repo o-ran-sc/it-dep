@@ -35,8 +35,9 @@
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.serviceaccountname.e2term" -}}
-  {{- $name := ( include "common.fullname.e2term" . ) -}}
+
+{{- define "common.serviceaccountname.rsm" -}}
+  {{- $name := ( include "common.fullname.rsm" . ) -}}
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 

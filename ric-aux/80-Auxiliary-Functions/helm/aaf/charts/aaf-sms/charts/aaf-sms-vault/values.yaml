@@ -79,6 +79,7 @@ persistence:
   size: 2Gi
   mountPath: /dockerdata-nfs
   mountSubPath: sms/consul/data
+  storageClass: "manual"
 
 service:
   type: ClusterIP

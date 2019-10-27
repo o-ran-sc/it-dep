@@ -115,7 +115,7 @@ persistence:
   mountPath: /dockerdata-nfs
   dataMountSubPath: sshsm/data
   dbusMountSubPath: sshsm/dbus
-
+  storageClass: "manual"
 # Configure resource requests and limits
 resources:
   small:

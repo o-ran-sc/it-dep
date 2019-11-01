@@ -1,7 +1,5 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -15,17 +13,15 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
-COMPONENTS="appmgr rtmgr dbaas1 e2mgr e2term a1mediator submgr vespamgr rsm jaegeradapter"
-
-echo "Undeploying RIC platform components [$COMPONENTS]"
-
-
-
-for component in $COMPONENTS; do
-    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
-    if [ ! -z "$RELEASE_LIST" ];then
-        helm delete --purge $RELEASE_LIST
-    fi
-
-done
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "common.ingressname.rsm" . }}
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ include "common.kongpath.ric.rsm" . }}
+        backend:
+          serviceName: {{ include "common.servicename.rsm.http" . }}
+          servicePort: {{ include "common.serviceport.rsm.http" . }}

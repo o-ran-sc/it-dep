@@ -1,0 +1,139 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmapname.rsm" . }}-router-configmap
+  namespace: {{ include "common.namespace.platform" . }}
+data:
+  rmr_verbose: |
+    0
+  router.txt: |
+    newrt|start
+    rte|10090|{{ include "common.servicename.e2term.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
+    newrt|end
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmapname.rsm" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+data:
+  configuration.yaml: |
+    logging:
+      {{- if hasKey .Values.rsm "logLevel" }}
+      logLevel: {{ .Values.rsm.logLevel }}
+      {{- else }}
+      logLevel:  "info"
+      {{- end }}
+    http:
+      {{- if hasKey .Values.rsm "httpPort" }}
+      port: {{ .Values.rsm.httpPort }}
+      {{- else }}
+      port: 4800
+      {{- end }}
+    rmr:
+      {{- if hasKey .Values.rsm "rmrPort" }}
+      port: {{ .Values.rsm.rmrPort }}
+      {{- else }}
+      port: 4801
+      {{- end }}
+      {{- if hasKey .Values.rsm "maxMsgSize" }}
+      maxMsgSize: {{ .Values.rsm.maxMsgSize }}
+      {{- else }}
+      maxMsgSize: 4096
+      {{- end }}
+      {{- if hasKey .Values.rsm "readyIntervalSec" }}
+      readyIntervalSec: {{ .Values.rsm.readyIntervalSec }}
+      {{- else }}
+      readyIntervalSec: 1
+      {{- end }}
+    rnib:
+      {{- if hasKey .Values.rsm "maxRnibConnectionAttempts" }}
+      maxRnibConnectionAttempts: {{ .Values.rsm.maxRnibConnectionAttempts }}
+      {{- else }}
+      maxRnibConnectionAttempts: 3
+      {{- end }}
+      {{- if hasKey .Values.rsm "rnibRetryIntervalMs" }}
+      rnibRetryIntervalMs: {{ .Values.rsm.rnibRetryIntervalMs }}
+      {{- else }}
+      rnibRetryIntervalMs: 10
+      {{- end }}
+    characteristics:
+      {{- if hasKey .Values.rsm "enableResourceStatus" }}
+      enableResourceStatus: {{ .Values.rsmenableResourceStatus }}
+      {{- else }}
+      enableResourceStatus: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "prbPeriodic" }}
+      prbPeriodic: {{ .Values.rsm.prbPeriodic }}
+      {{- else }}
+      prbPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "tnlLoadIndPeriodic" }}
+      tnlLoadIndPeriodic: {{ .Values.rsm.tnlLoadIndPeriodic }}
+      {{- else }}
+      tnlLoadIndPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "hwLoadIndPeriodic" }}
+      hwLoadIndPeriodic: {{ .Values.rsm.hwLoadIndPeriodic }}
+      {{- else }}
+      hwLoadIndPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "absStatusPeriodic" }}
+      absStatusPeriodic: {{ .Values.rsm.absStatusPeriodic }}
+      {{- else }}
+      absStatusPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "rsrpMeasurementPeriodic" }}
+      rsrpMeasurementPeriodic: {{ .Values.rsm.rsrpMeasurementPeriodic }}
+      {{- else }}
+      rsrpMeasurementPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "csiPeriodic" }}
+      csiPeriodic: {{ .Values.rsm.csiPeriodic }}
+      {{- else }}
+      csiPeriodic: true
+      {{- end }}
+      {{- if hasKey .Values.rsm "periodicityMs" }}
+      periodicityMs: {{ .Values.rsm.periodicityMs }}
+      {{- else }}
+      periodicityMs: 1
+      {{- end }}
+      {{- if hasKey .Values.rsm "periodicityRsrpMeasurementMs" }}
+      periodicityRsrpMeasurementMs: {{ .Values.rsm.periodicityRsrpMeasurementMs }}
+      {{- else }}
+      periodicityRsrpMeasurementMs: 120
+      {{- end }}
+      {{- if hasKey .Values.rsm "periodicityCsiMs" }}
+      periodicityCsiMs: {{ .Values.rsm.periodicityCsiMs }}
+      {{- else }}
+      periodicityCsiMs: 5
+      {{- end }}
+    resourceStatusParams:
+      enableResourceStatus: true
+      partialSuccessAllowed: true
+      prbPeriodic: true
+      tnlLoadIndPeriodic: true
+      hwLoadIndPeriodic: true
+      absStatusPeriodic: true
+      rsrpMeasurementPeriodic: true
+      csiPeriodic: true
+      periodicityMs: 1000
+      periodicityRsrpMeasurementMs: 480
+      periodicityCsiMs: 20
+---

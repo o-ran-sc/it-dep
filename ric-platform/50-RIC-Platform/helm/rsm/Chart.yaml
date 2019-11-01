@@ -1,7 +1,5 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -16,16 +14,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-COMPONENTS="appmgr rtmgr dbaas1 e2mgr e2term a1mediator submgr vespamgr rsm jaegeradapter"
-
-echo "Undeploying RIC platform components [$COMPONENTS]"
-
-
-
-for component in $COMPONENTS; do
-    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
-    if [ ! -z "$RELEASE_LIST" ];then
-        helm delete --purge $RELEASE_LIST
-    fi
-
-done
+appVersion: "1.0"
+apiVersion: v1
+description: Oran rsm Helm charts
+name: rsm
+version: 2.0.6

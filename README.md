@@ -1,3 +1,45 @@
+<!---
+
+Copyright (c) 2019  Intellectual Property.
+
+Licensed under the Creative Commons License, Attribution 4.0 Intl.
+(the"Documentation License"); you may not use this documentation
+except incompliance with the Documentation License. You may obtain
+a copy of the Documentation License at 
+
+    https://creativecommons.org/licenses/by/4.0/
+
+Unless required by applicable law or agreed to in writing, 
+documentation distributed under the Documentation License is
+distributed on an "AS IS"BASIS, WITHOUT WARRANTIES OR CONDITIONS
+OF ANY KIND, either express or implied. See the Documentation
+License for the specific language governing permissions and
+limitations under the Documentation License.
+
+-->
+
+[comment]: <> (   Copyright (c) 2019 AT&T Intellectual Property.                    ) 
+[comment]: <> (   Licensed under the Creative Commons License, Attribution 4.0 Intl. (the
+[comment]: <> (   "License") 
+[comment]: <> (   you may not use this file except in compliance with the License.  
+[comment]: <> (   You may obtain a copy of the License at                                    #
+[comment]: <> (                                                                              #
+[comment]: <> (       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                licensedunder the Creative Commons License, Attribution 4.0 Intl. (the"Documentation License"); you may not use this documentation except incompliance with the Documentation License. You may obtain a copy of theDocumentation License athttps://creativecommons.org/licenses/by/4.0/
+
+                                                                 #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+
+
+This is a comment, it will not be included)
+[comment]: <> (in  the output file unless you use it in)
+[comment]: <> (a reference style link.)
+
+
 # RIC Integration
   
 This repo contains RAN Intelligent Controller (RIC) deployments related files.

@@ -1,7 +1,5 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -16,16 +14,39 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-COMPONENTS="appmgr rtmgr dbaas1 e2mgr e2term a1mediator submgr vespamgr rsm jaegeradapter"
+#################################################################
+# Application configuration defaults.
+#################################################################
+# application image
 
-echo "Undeploying RIC platform components [$COMPONENTS]"
+repository: "nexus3.o-ran-sc.org:10004"
+imagePullPolicy: IfNotPresent
+repositoryCred: docker-reg-cred
 
 
+# Uncomment the following line to override the docker registry
+#repositoryOverride: ""
 
-for component in $COMPONENTS; do
-    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
-    if [ ! -z "$RELEASE_LIST" ];then
-        helm delete --purge $RELEASE_LIST
-    fi
 
-done
+# Uncomment the following line to override the docker registry credential
+#repositoryCredOverride: ""
+
+# Uncomment the following line to override the image pull policy
+#imagePullPolicyOverride: ""
+
+
+rsm:
+  image:
+    name: ric-plt-rsm
+    tag: 2.0.6
+
+  privilegedmode: false
+
+  replicaCount: 1
+  enableResourceStatus: true
+
+
+  # Service ports are now defined in
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.

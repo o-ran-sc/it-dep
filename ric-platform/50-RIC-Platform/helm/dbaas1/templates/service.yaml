@@ -1,7 +1,5 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -16,16 +14,22 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-COMPONENTS="appmgr rtmgr dbaas1 e2mgr e2term a1mediator submgr vespamgr rsm jaegeradapter"
-
-echo "Undeploying RIC platform components [$COMPONENTS]"
-
-
-
-for component in $COMPONENTS; do
-    RELEASE_LIST=$(helm list | grep "$component" | awk '{print $1}')
-    if [ ! -z "$RELEASE_LIST" ];then
-        helm delete --purge $RELEASE_LIST
-    fi
-
-done
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.servicename.dbaas.tcp" . }}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }} 
+spec:
+  selector:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.dbaas" . }}
+    release: {{ .Release.Name }}
+  ports:
+  - port: {{ include "common.serviceport.dbaas.tcp" . }}
+    targetPort: "sql"
+    protocol: "TCP"
+    name: "sql"

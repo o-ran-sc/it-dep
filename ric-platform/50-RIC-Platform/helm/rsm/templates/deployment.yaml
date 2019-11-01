@@ -1,0 +1,77 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.deploymentname.rsm" .}}
+  namespace: {{ include "common.namespace.platform" . }}
+  labels:
+    app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rsm" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.rsm.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rsm" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      {{- if .Values.rsm.annotations }}
+      annotations:
+        {{- .Values.rsm.annotations | nindent 8 -}}
+      {{ end }}
+      labels:
+        app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rsm" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.rsm" . }} 
+      imagePullSecrets:
+        - name: {{ include "common.repositoryCred" . }}
+      containers:
+        - name: {{ include "common.containername.rsm" . }}
+          image: {{ include "common.repository" . }}/{{ .Values.rsm.image.name }}:{{ .Values.rsm.image.tag }}
+          imagePullPolicy: {{ include "common.pullPolicy" . }}
+          volumeMounts:
+          - mountPath: /opt/RSM/router.txt
+            name: local-router-file
+            subPath: router.txt
+          - mountPath: /opt/RSM/resources/configuration.yaml
+            name: local-configuration-file
+            subPath: configuration.yaml
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.configmapname.rsm" . }}-env
+          ports:
+            - name: "http"
+              containerPort: {{ include "common.serviceport.rsm.http" . }}
+            - name: "rmrroute"
+              containerPort: {{ include "common.serviceport.rsm.rmr.route" . }}
+            - name: "rmrdata"
+              containerPort: {{ include "common.serviceport.rsm.rmr.data" . }}
+          stdin: true
+          tty: true
+          securityContext:
+            privileged: {{ .Values.rsm.privilegedmode}}
+      volumes:
+        - name: local-router-file
+          configMap:
+            name: {{ include "common.configmapname.rsm" . }}-router-configmap
+        - name: local-configuration-file
+          configMap:
+            name: {{ include "common.configmapname.rsm" . }}

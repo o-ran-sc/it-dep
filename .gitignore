@@ -4,3 +4,5 @@
 *.tgz
 *.swp
 *.lock
+.tox
+docs/_build/

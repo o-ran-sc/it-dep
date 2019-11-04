@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e688f91_37a8b637",
+        "filename": "docs/api-docs.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "I plan to have this dec section.  It will be about how component APIs are exposed.",
+      "parentUuid": "f376db55_893c14ef",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3a364ff_bb0fab6a",
         "filename": "docs/conf.yaml",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "36304d68_1fe317ff",
+        "filename": "docs/conf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3a364ff_bb0fab6a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2639e934_97ee808b",
         "filename": "docs/developer-guides.rst",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-11-04T00:40:36Z",
       "side": 1,
       "message": "If it/dep has no developer guide, then remove this file.  It/dep is a special repo, it\u0027s not like a regular system component.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f7369ad_bf45a771",
+        "filename": "docs/developer-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "This will be about developing Helm charts and deployment scripts.",
+      "parentUuid": "2639e934_97ee808b",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "ab08eb50_05c9be5a",
+        "filename": "docs/installation-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "These are copied from doc-template under DOC project repo.  I want to get CI working first then fill in correct details.",
+      "parentUuid": "db901fd4_04f278f6",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "257b0be1_df12b6ca",
         "filename": "docs/release-notes.rst",
         "patchSetId": 1
@@ -209,6 +305,30 @@
     },
     {
       "key": {
+        "uuid": "1953dcce_9e9f6928",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d08f427b_fb13cbdd",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9878e262_5e13ebf5",
         "filename": "tox.ini",
         "patchSetId": 1
@@ -229,6 +349,30 @@
       "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b85fff58_aa3000a3",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-04T02:51:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9878e262_5e13ebf5",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 4
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

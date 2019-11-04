@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f376db55_893c14ef",
+        "filename": "docs/api-docs.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "Does it/dep have an API? I don\u0027t think so. I would delete this file.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3a364ff_bb0fab6a",
+        "filename": "docs/conf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "the project should be it-dep (no slash, use a dash instead)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2639e934_97ee808b",
+        "filename": "docs/developer-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "If it/dep has no developer guide, then remove this file.  It/dep is a special repo, it\u0027s not like a regular system component.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907658d3_1c14ab42",
+        "filename": "docs/index.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "I don\u0027t think you have an API",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b51e29_c060085c",
+        "filename": "docs/installation-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "its, not it is (it\u0027s)",
+      "range": {
+        "startLine": 26,
+        "startChar": 52,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db901fd4_04f278f6",
+        "filename": "docs/installation-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "Is this supposed to be just a template, just waiting for content?  It\u0027s wrong now.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257b0be1_df12b6ca",
+        "filename": "docs/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "Does it/dep keep an overvall version history and release notes?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 1
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee34247_c5e44ec5",
+        "filename": "docs/user-guides.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "This is still just template text, I would not commit the file yet.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 3
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d08f427b_fb13cbdd",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9878e262_5e13ebf5",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2019-11-04T00:40:36Z",
+      "side": 1,
+      "message": "Please remove extra whitespace",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 4
+      },
+      "revId": "4275f4268af24ae8ba4a559c11ee3cbe31d09b00",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

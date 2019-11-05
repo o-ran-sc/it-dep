@@ -112,5 +112,8 @@ EOF
 cd $DIR
 dpkg-buildpackage -us -uc
 
+EXPORT_PATH="${EXPORT_PATH:-/tmp/exported}"
+mkdir -p "${EXPORT_PATH}"
+cp /tmp/ric-deployment-tools_${VERSION}_all.deb "${EXPORT_PATH}"
 
 echo "RIC it/dep repo has been packaged as /tmp/ric-deployment-tools_${VERSION}_all.deb."

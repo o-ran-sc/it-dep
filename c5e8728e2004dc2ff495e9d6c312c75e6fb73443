@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92deb7a0_0eab1c1e",
+        "filename": "bin/package-ric-deployment-tools",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-06T00:22:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c68b2f94_cea8b51c",
+      "range": {
+        "startLine": 115,
+        "startChar": 9,
+        "endLine": 115,
+        "endChar": 22
+      },
+      "revId": "c5e8728e2004dc2ff495e9d6c312c75e6fb73443",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "370561ab_c1389c9d",
         "filename": "ci/Dockerfile-package",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "804226df_82349a19",
+        "filename": "ci/Dockerfile-package",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-06T00:22:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "370561ab_c1389c9d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "c5e8728e2004dc2ff495e9d6c312c75e6fb73443",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7817089_cf2ac48c",
         "filename": "ci/Dockerfile-package",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "c5e8728e2004dc2ff495e9d6c312c75e6fb73443",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "062ea2e8_6d963b3b",
+        "filename": "ci/Dockerfile-package",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2019-11-06T00:22:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7817089_cf2ac48c",
+      "range": {
+        "startLine": 30,
+        "startChar": 66,
+        "endLine": 30,
+        "endChar": 67
+      },
+      "revId": "c5e8728e2004dc2ff495e9d6c312c75e6fb73443",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

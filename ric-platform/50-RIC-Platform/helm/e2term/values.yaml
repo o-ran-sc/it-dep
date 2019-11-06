@@ -55,15 +55,4 @@ e2term:
   #storageClassName: ric-storage-class
 
   pizpub:
-    enabled: true
-    nsPrefix: ric
-    imageVersion: 0.0.5155
-    imageName: pizpub
-    publishURL: "https://feeds-drtr.web.att.com/publish/3641"
-    user: "m14983@ric.att.com"
-    password: "pizPub01!"
-    feedId: 3641
-    dataRootDir: "/data"
-    scanDirectory: "outgoing"
-    processedDirectory: "sent"
-
+    enabled: false

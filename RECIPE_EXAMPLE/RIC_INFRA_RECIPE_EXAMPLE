@@ -130,17 +130,6 @@ esreader:
 
   pizpub:
     enabled: false
-    nsPrefix: ric
-    imageVersion: 0.0.4911
-    imageName: pizpub
-    publishURL: https://feeds-drtr.web.att.com/publish/3641
-    user: m14983@ric.att.com
-    password: pizPub01!
-    feedId: 3641
-    dataRootDir: /data
-    scanDirectory: outgoing
-    processedDirectory: sent
-
 
 elfkp:
   enable: false

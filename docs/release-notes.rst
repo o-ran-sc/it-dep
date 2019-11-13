@@ -23,6 +23,9 @@ This document provides the release notes for <RELEASE> of <COMPONENT>.
    :local:
 
 
+Release Notes
+=============
+
 Version history
 ---------------
 
@@ -36,7 +39,7 @@ Version history
 
 
 Summary
-=======
+-------
 
 The Amber Release of it/dep repositoy hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying O-RAN SC software.
 
@@ -50,7 +53,7 @@ For Amber release this repo contains:
 
 
 Release Data
-============
+------------
 
 +--------------------------------------+--------------------------------------+
 | **Project**                          | Integration and Testing              |
@@ -109,7 +112,7 @@ Bug corrections
 +--------------------------------------+--------------------------------------+
 
 Deliverables
-============
+-------------
 
 
 
@@ -126,8 +129,8 @@ Documentation deliverables
 Documentation for installing, usinhg, and developing for Integraion and Testing project can be found at: 
 https://o-ran-sc-doc.readthedocs.io/projects/o-ran-sc-it-dep/en/latest/index.html
 
-Known Limitations, Issues and Workarounds
-=========================================
+Known Limitations, Issues, and Workarounds
+------------------------------------------
 
 System Limitations
 ------------------
@@ -158,7 +161,7 @@ Workarounds
 
 
 References
-==========
+-----------
 
 
 

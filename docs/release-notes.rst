@@ -30,13 +30,7 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
-| 20XX-XX-XX         | 0.1.0              |                    | First draft        |
-|                    |                    |                    |                    |
-+--------------------+--------------------+--------------------+--------------------+
-|                    | 0.1.1              |                    |                    |
-|                    |                    |                    |                    |
-+--------------------+--------------------+--------------------+--------------------+
-|                    | 1.0                |                    |                    |
+| 2019-11-12         | 0.1.0              | Lusheng Ji         | First draft        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
 
@@ -44,31 +38,34 @@ Version history
 Summary
 =======
 
-<SUMMARIZE THE RELEASE - THE CONTENT - AND OTHER IMPORTANT HIGH LEVEL PROPERTIES>
+The Amber Release of it/dep repositoy hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying O-RAN SC software.
 
+For Amber release this repo contains: 
+
+- Deployment scripts for a dev-test 1-node Kubernetes cluster.
+- Deployment scripts and Helm charts for Near Realtime RAN Intelligent Controller Platform.
+- Deployment scripts and Helm charts for infrastructure services supporting the Near Realtime RAN Intelligent Controller Platform.
+- Deployment scripts and Helm charts for auxiliary services and components for operating the Near Realtime RAN Intelligent Controller Platform.
 
 
 
 Release Data
 ============
-<STATE RELEVANT RELEASE DATA/RECORDS>
-
-<EXAMPLE>:
 
 +--------------------------------------+--------------------------------------+
-| **Project**                          | E.g. Arno/genesis/fuel@opnfv         |
+| **Project**                          | Integration and Testing              |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Repo/commit-ID**                   | E.g. genesis/adf634a0d4.....         |
+| **Repo/commit-ID**                   | it/dep                               |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release designation**              | E.g. Arno RC2                        |
+| **Release designation**              | Amber                                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | E.g. 2015-04-16                      |
+| **Release date**                     | 2019-11-22                           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | E.g. OPNFV Internal quality assurance|
+| **Purpose of the delivery**          | First release                        |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
@@ -77,9 +74,6 @@ Release Data
 
 Feature additions
 -------------------
-<STATE ADDED FEATURES BY REFERENCE TO JIRA>
-
-<EXAMPLE>:
 
 **JIRA BACK-LOG:**
 
@@ -117,38 +111,30 @@ Bug corrections
 Deliverables
 ============
 
-<Deliverables>
 
 
 Software deliverables
 ---------------------
 
-<STATE WHAT SOFTWARE DELIVERABLES THAT ARE RELATED TO THIS VERSION, AND WHERE THOSE CAN BE RETRIEVED>
+The deployment artifacts can be accessed as Debian software package:
+https://packagecloud.io/o-ran-sc/staging/packages/debian/stretch/ric-deployment-tools_2.0.0_all.deb
 
-<EXAMPLE>:
 
 Documentation deliverables
 ---------------------------
 
-<STATE WHAT DOCUMENTATION DELIVERABLES THAT ARE RELATED TO THIS VERSION, AND WHERE THOSE CAN BE RETRIEVED>
-
-<EXAMPLE>:
-
+Documentation for installing, usinhg, and developing for Integraion and Testing project can be found at: 
+https://o-ran-sc-doc.readthedocs.io/projects/o-ran-sc-it-dep/en/latest/index.html
 
 Known Limitations, Issues and Workarounds
 =========================================
 
 System Limitations
 ------------------
-<STATE ALL RELEVANT SYSTEM LIMITATIONS, IF THERE IS ANY>
-
 
 
 Known issues
 ------------------
-<STATE ALL KNOWN ISSUES WITH JIRA REFERENCE>
-
-<EXAMPLE>:
 
 **JIRA TICKETS:**
 
@@ -168,14 +154,11 @@ Known issues
 Workarounds
 ------------------
 
-<STATE ALL KNOWN WORKAROUNDS TO THE ISSUES STATED ABOVE, IF THERE IS ANY>
-
 
 
 
 References
 ==========
-<STATE RELEVANT REFERENCES FOR THIS RELEASE/VERSION>
 
 
 

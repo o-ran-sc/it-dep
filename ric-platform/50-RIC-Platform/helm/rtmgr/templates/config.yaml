@@ -45,6 +45,11 @@ data:
              "name": "E2MAN",
              "fqdn": "{{ printf "%s.%s" (include "common.servicename.e2mgr.rmr" .) (include "common.namespace.platform" .) }}",
              "port": {{ include "common.serviceport.e2mgr.rmr.data" . }}
+          },
+          {
+             "name": "RSM",
+             "fqdn": "{{ printf "%s.%s" (include "common.servicename.rsm.rmr" .) (include "common.namespace.platform" .) }}",
+             "port": {{ include "common.serviceport.rsm.rmr.data" . }}
           }
        ]
     }

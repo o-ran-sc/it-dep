@@ -15,18 +15,17 @@
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
 
+Overview
+========
 
-.. Integration and Testing Documentation
+The Amber Release of it/dep repositoy hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying O-RAN SC software.
 
-Integration and Testing
-===========================
+For Amber release this repo contains:
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+- Deployment scripts for a dev-test 1-node Kubernetes cluster.
+- Deployment scripts and Helm charts for Near Realtime RAN Intelligent Controller Platform.
+- Deployment scripts and Helm charts for infrastructure services supporting the Near Realtime RAN Intelligent Controller Platform.
+- Deployment scripts and Helm charts for auxiliary services and components for operating the Near Realtime RAN Intelligent Controller Platform.
 
-   overview
-   release-notes
-   installation-guides
-   api-docs
-   developer-guides
+
+

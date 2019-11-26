@@ -23,7 +23,8 @@
 Abstract
 ========
 
-This document describes how to install <Component>, it's dependencies and required system resources.
+This document describes how to install the components deployed by scripts and Helm charts
+under the it/dep repository, it's dependencies and required system resources.
 
 .. contents::
    :depth: 3
@@ -36,92 +37,29 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
-| 20XX-XX-XX         | 0.1.0              | 		       | First draft        |
-|                    |                    |                    |                    |
-+--------------------+--------------------+--------------------+--------------------+
-|                    | 0.1.1              |                    |                    |
-|                    |                    |                    |                    |
-+--------------------+--------------------+--------------------+--------------------+
-|                    | 1.0                |                    |                    |
-|                    |                    |                    |                    |
+| 2019-11-25         | 0.1.0              |Lusheng Ji          | First draft        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
 
 
 Introduction
 ============
-.. <INTRODUCTION TO THE SCOPE AND INTENTION OF THIS DOCUMENT AS WELL AS TO THE SYSTEM TO BE INSTALLED>
 
-.<EXAMPLE>:
+.. image:: images/nrtric-amber.png
+   :width: 600
+.. image:: images/kong-extservice.png
+   :width: 600
 
-This document describes the supported software and hardware configurations for the reference component as well as providing guidelines on how to install and configure such reference system.
+.. include:: ./installation-virtualbox.rst
 
-The audience of this document is assumed to have good knowledge in RAN network nd Linux system.
+.. include:: ./installation-k8s1node.rst
 
+.. include:: ./installation-ric.rst 
 
-Preface
-=======
-.. <DESCRIBE NEEDED PREREQUISITES, PLANNING, ETC.>
+.. include:: ./installation-aux.rst
 
-<EXAMPLE>:
-
-Before starting the installation of <project name>, some planning must preceed.
-
-.. note:any preperation you need before setting up sotfware and hardware 
+.. include:: ./installation-xapps.rst
 
 
-Hardware requirements
-=====================
-.. <PROVIDE A LIST OF MINIMUM HARDWARE REQUIREMENTS NEEDED FOR THE INSTALL>
-
-<EXAMPLE>:
-
-Following minimum hardware requirements must be met for installation of <project name>:
-
-+--------------------+----------------------------------------------------+
-| **HW Aspect**      | **Requirement**                                    |
-|                    |                                                    |
-+--------------------+----------------------------------------------------+
-| **# of servers**   | 		                                          |
-+--------------------+----------------------------------------------------+
-| **CPU**            | 						          |
-|                    |                                                    |
-+--------------------+----------------------------------------------------+
-| **RAM**            | 							  |
-|                    |                                                    |
-+--------------------+----------------------------------------------------+
-| **Disk**           | 					                  |
-|                    |                                                    |
-+--------------------+----------------------------------------------------+
-| **NICs**           | 							  |
-|                    |                                                    |
-|                    | 							  |
-|                    |                                                    |
-|                    |  					 	  |
-|                    |                                                    |
-+--------------------+----------------------------------------------------+
-
-
-
-
-
-Software installation and deployment
-==========================================
-.. <DESCRIBE THE FULL PROCEDURES FOR THE INSTALLATION OF THE O-RAN COMPONENT INSTALLATION AND DEPLOYMENT>
-
-<EXAMPLE>:
-
-This section describes the installation of the <project name> installation on the reference hardware.
-
-
-
-References
-==========
-.. <PROVIDE NEEDED/USEFUL REFERENCES>
-
-<EXAMPLES>:
-
-OpenStack
-^^^^^^^^^^^
 
 

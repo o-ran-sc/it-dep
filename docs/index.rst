@@ -25,9 +25,8 @@ Integration and Testing
    :maxdepth: 2
    :caption: Contents:
 
+   overview
    release-notes
    installation-guides
-   user-guides
    api-docs
    developer-guides
-

@@ -142,7 +142,8 @@ sed -i "" -e "s/__stack_name__/\$(hostname)/g" "$filename"
 #echo "__cinder_volume_id__" > /opt/config/cinder_volume_id.txt
 
 # because cloud init user data has a 16kB limit, remove all comment lines to save space.
-sed -i "" -e '/^[ \t]*#/d' "$filename" 
+# except for the #! line
+sed -i "" -e '/^[ \t]*#[^!]/d' "$filename" 
 
 chmod +x "$filename"
 

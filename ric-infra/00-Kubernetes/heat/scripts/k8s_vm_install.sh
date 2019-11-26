@@ -61,8 +61,8 @@ echo "__host_private_ip_addr__ $(hostname)" >> /etc/hosts
 printenv
 
 IPV6IF=""
-#IPV6IF="ens4"
 
+rm -rf /opt/config
 mkdir -p /opt/config
 echo "__docker_version__" > /opt/config/docker_version.txt
 echo "__k8s_version__" > /opt/config/k8s_version.txt
@@ -148,6 +148,7 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
 
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
+apt-get -y autoremove
 RES=$(apt-get install -y virt-what curl jq netcat 2>&1)
 if [[ $RES == */var/lib/dpkg/lock* ]]; then
   echo "Fail to get dpkg lock.  Wait for any other package installation"
@@ -161,24 +162,44 @@ if ! echo $(virt-what) | grep "virtualbox"; then
   apt-get install -y linux-image-4.15.0-45-lowlatency
 fi
 
-
-if [ -z ${DOCKERVERSION} ]; then
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold docker.io
-else
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold docker.io=${DOCKERVERSION}
+if kubeadm version; then
+  # remove existing Kubernetes installation
+  echo "Removing existing Kubernetes installation, version $(kubeadm version)"
+  kubeadm reset -f
+  rm -rf ~/.kube
 fi
+
+APTOPTS="--allow-downgrades --allow-change-held-packages --allow-unauthenticated --ignore-hold "
+if [ -z ${DOCKERVERSION} ]; then
+  apt-get install -y $APTOPTS docker.io
+else
+  apt-get install -y $APTOPTS docker.io=${DOCKERVERSION}
+fi
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+mkdir -p /etc/systemd/system/docker.service.d
 systemctl enable docker.service
+systemctl daemon-reload
+systemctl restart docker
 
 if [ -z ${CNIVERSION} ]; then
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubernetes-cni
+  apt-get install -y $APTOPTS kubernetes-cni
 else
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubernetes-cni=${CNIVERSION}
+  apt-get install -y $APTOPTS kubernetes-cni=${CNIVERSION}
 fi
 
 if [ -z ${KUBEVERSION} ]; then
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubeadm kubelet kubectl
+  apt-get install -y $APTOPTS kubeadm kubelet kubectl
 else
-  apt-get install -y --allow-change-held-packages --allow-unauthenticated --ignore-hold kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
+  apt-get install -y $APTOPTS kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
 fi
 
 apt-mark hold docker.io kubernetes-cni kubelet kubeadm kubectl
@@ -288,9 +309,9 @@ EOF
 
   # install flannel
   if [[ ${KUBEV} == 1.16.* ]]; then
-    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    kubectl apply -f "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
   else
-    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+    kubectl apply -f "https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml"
   fi
 
   # waiting for all 8 kube-system pods to be in running state
@@ -307,9 +328,7 @@ EOF
   # install Helm
   HELMV=$(cat /opt/config/helm_version.txt)
   HELMVERSION=${HELMV}
-  cd /root
-  mkdir Helm
-  cd Helm
+  cd /root && rm -rf Helm && mkdir Helm && cd Helm
   wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
   tar -xvf helm-v${HELMVERSION}-linux-amd64.tar.gz
   mv linux-amd64/helm /usr/local/bin/helm
@@ -318,10 +337,13 @@ EOF
   if [[ ${KUBEV} == 1.16.* ]]; then
     # helm init uses API extensions/v1beta1 which is depreciated by Kubernetes
     # 1.16.0.  Until upstream (helm) provides a fix, this is the work-around.
-    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
+    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml > helm-init.yaml
+    sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' ./helm-init.yaml > helm-init-patched.yaml
+    kubectl apply -f ./helm-init-patched.yaml
   else
     helm init --service-account tiller
   fi
+  helm init -c
   export HELM_HOME="/root/.helm"
 
   # waiting for tiller pod to be in running state

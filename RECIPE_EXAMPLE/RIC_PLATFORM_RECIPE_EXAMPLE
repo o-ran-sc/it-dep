@@ -26,7 +26,7 @@ global:
     platform: ricplt
     aux: ricaux
   # Docker registry from which RIC platform components pull the images
-  repository: nexus3.o-ran-sc.org:10004
+  repository: nexus3.o-ran-sc.org:10004/o-ran-sc
 
   # Name of the K8S docker credential that is onboarded by 20-credential 
   repositoryCred: docker-reg-cred
@@ -59,7 +59,7 @@ global:
       deployNameSpace: ricinfra
       image:
         tillerTLSSecrets:
-          repository: nexus3.o-ran-sc.org:10004
+          repository: nexus3.o-ran-sc.org:10004/o-ran-sc
           name: it-dep-secret
           tag: 0.0.2
         tiller:
@@ -94,7 +94,7 @@ a1mediator:
   # repositoryOverride:
   image:
     name: ric-plt-a1
-    tag: 0.10.3
+    tag: 1.0.4
   rmr_timeout_config:
     rcv_retry_interval_ms: 500
     rcv_retry_times: 20
@@ -108,7 +108,7 @@ appmgr:
       name: it-dep-init
       tag: 0.0.1
     name: ric-plt-appmgr
-    tag: 0.1.9
+    tag: 0.2.0
 
 
 
@@ -120,7 +120,7 @@ dbaas:
     iterminationGracePeriodSeconds: 0
     image:
       name: ric-plt-dbaas
-      tag: 0.1.0
+      tag: 0.2.2
 
 # E2 Manager
 e2mgr:
@@ -128,7 +128,7 @@ e2mgr:
   # repositoryOverride:
   image:
     name: ric-plt-e2mgr
-    tag: 2.0.7
+    tag: 3.0.1
   env:
     RIC_ID: "bbbccc-abcd0e/20"
   privilegedmode: false
@@ -140,7 +140,7 @@ e2term:
   # repositoryOverride:
   image:
     name: ric-plt-e2
-    tag: 2.0.7
+    tag: 3.0.1
   env:
     print: "1"
   privilegedmode: false
@@ -150,16 +150,13 @@ e2term:
   storageClassName: local-storage
   #storageClassName: ric-storage-class
 
-  pizpub:
-    enabled: false
-
 # Routing Manager
 rtmgr:
   # Use the following option to override the docker registry value
   # repositoryOverride:
   image:
     name: ric-plt-rtmgr
-    tag: 0.3.3
+    tag: 0.3.9
   loglevel: DEBUG
 
 # Subscription Manager
@@ -168,7 +165,7 @@ submgr:
   # repositoryOverride:
   image:
     name: ric-plt-submgr
-    tag: 0.10.0
+    tag: 0.10.7
 
 # VESPA Manager
 vespamgr:
@@ -176,14 +173,14 @@ vespamgr:
   # repositoryOverride:
   image:
     name: ric-plt-vespamgr
-    tag: 0.0.5
+    tag: 0.0.8
   prometheusurl: "http://rec-prometheus-server.default"
 
 # RAN Resource Monitor
 rsm:
   image:
-    name: ric-plt-rsm
-    tag: 2.0.6
+    name: ric-plt-resource-status-manager
+    tag: 3.0.1
 
 # Jaeger Adapter
 jaegeradapter:
@@ -198,7 +195,7 @@ jaegeradapter:
 extsvcplt:
   auxip:
     # The ip address of the aux cluster ingress controller
-    <IP_ADDRESS of the RIC cluster>
+    10.0.2.101
   ricip:
     # The ip address of the ric cluster ingress controller
-    <IP_ADDRESS of the RIC cluster>
+    10.0.2.100

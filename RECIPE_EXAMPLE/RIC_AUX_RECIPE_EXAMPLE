@@ -69,9 +69,9 @@ global:
   # docker images. This includes all images from dockerhub and
   # any other repository that hosts images for ONAP components.
   repository: nexus3.onap.org:10001
-  repositoryCred:
-    user: docker
-    password: docker
+  #repositoryCred:
+  #  user: docker
+  #  password: docker
 
   # readiness check - temporary repo until images migrated to nexus3
   readinessRepository: oomk8s
@@ -83,13 +83,13 @@ global:
   pullPolicy: Always
 
 
-  portalHostName: "portal.ric.org"
-  cookieDomain: "ric.org"
+  portalHostName: "portal.ric.o-ran-sc.org"
+  cookieDomain: "o-ran-sc.org"
   # default mount path root directory referenced
   # by persistent volumes and log files
   persistence:
     mountPath: /dockerdata-nfs
-    enableDefaultStorageclass: false
+    enableDefaultStorageclass: true
     parameters: {}
     storageclassProvisioner: kubernetes.io/no-provisioner
     volumeReclaimPolicy: Retain
@@ -141,14 +141,16 @@ portal-app:
   image: onap/portal-app:2.5.0
 
 persistence:
-  enabled: true
+  enabled: false
 
 dashboard:
   # Override the name using the following option
   # nameOverride:
+  repositoryOverride: nexus3.o-ran-sc.org:10004
+
   image:
-    name: ric-dashboard
-    tag: 1.2.4
+    name: o-ran-sc/ric-dashboard
+    tag: 1.3.0
   caasingress:
     aux:
       url:
@@ -179,7 +181,7 @@ ves:
   onapRepository: "nexus3.onap.org:10001"
 
   image:
-    name: org.onap.dcaegen2.collectors.ves.vescollector
+    name: onap/org.onap.dcaegen2.collectors.ves.vescollector
     tag: 1.4.5
 
 mrsub:
@@ -233,7 +235,7 @@ logstash:
 extsvcaux:
   ricip:
     # The ip address of the ric cluster ingress controller
-    <IP_ADDRESS of the RIC cluster>
+    10.0.2.100
   auxip:
     # The ip address of the aux cluster ingress controller
-    <IP_ADDRESS of the AUX cluster>
+    10.0.2.101

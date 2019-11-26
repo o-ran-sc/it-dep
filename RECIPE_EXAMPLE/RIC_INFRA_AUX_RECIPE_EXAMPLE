@@ -36,7 +36,7 @@ global:
   imagePullPolicy: Always
 
   # Helm repo that will be used by xApp manager
-  helmRepository: "http://10.0.2.100:32080/helm"
+  helmRepository: "http:////10.0.2.100:32080/helm"
 
   # Certificate of the helm repo
   helmRepositoryCert: xapp-mgr-certs
@@ -110,7 +110,7 @@ k8s:
   enable: false
 
 chartmuseum:
-  enable: true
+  enable: false
   repositoryOverride: "docker.io"
   image:
     name: chartmuseum/chartmuseum
@@ -124,7 +124,7 @@ chartmuseum:
 
 
 elfkp:
-  enable: false
+  enable: true
 
 kong:
   proxy:

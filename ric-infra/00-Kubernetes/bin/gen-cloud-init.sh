@@ -129,21 +129,21 @@ envsubst '${__RUNRICENV_GERRIT_HOST__}
           ${__RUNRICENV_HELMREPO_PASS__}' < "$TMPL" > "$filename"
 
 # fill values that are supplied by Heat stack deployment process as much as we can
-sed -i "" -e "s/__docker_version__/${INFRA_DOCKER_VERSION}/g" "$filename"
-sed -i "" -e "s/__k8s_version__/${INFRA_K8S_VERSION}/g" "$filename"
-sed -i "" -e "s/__k8s_cni_version__/${INFRA_CNI_VERSION}/g" "$filename"
-sed -i "" -e "s/__helm_version__/${INFRA_HELM_VERSION}/g" "$filename"
-sed -i "" -e "s/__k8s_mst_private_ip_addr__/\$(hostname -I)/g" "$filename"
-sed -i "" -e "s/__host_private_ip_addr__/\$(hostname -I)/g" "$filename"
-#sed -i "" -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename"
-sed -i "" -e "s/__k8s_mst_floating_ip_addr__/\$(curl ifconfig.co)/g" "$filename"
-sed -i "" -e "s/__stack_name__/\$(hostname)/g" "$filename"
+sed -i -e "s/__docker_version__/${INFRA_DOCKER_VERSION}/g" "$filename"
+sed -i -e "s/__k8s_version__/${INFRA_K8S_VERSION}/g" "$filename"
+sed -i -e "s/__k8s_cni_version__/${INFRA_CNI_VERSION}/g" "$filename"
+sed -i -e "s/__helm_version__/${INFRA_HELM_VERSION}/g" "$filename"
+sed -i -e "s/__k8s_mst_private_ip_addr__/\$(hostname -I)/g" "$filename"
+sed -i -e "s/__host_private_ip_addr__/\$(hostname -I)/g" "$filename"
+#sed -i -e "s/__k8s_mst_floating_ip_addr__/\$(ec2metadata --public-ipv4)/g" "$filename"
+sed -i -e "s/__k8s_mst_floating_ip_addr__/\$(curl ifconfig.co)/g" "$filename"
+sed -i -e "s/__stack_name__/\$(hostname)/g" "$filename"
 #echo "__mtu__" > /opt/config/mtu.txt
 #echo "__cinder_volume_id__" > /opt/config/cinder_volume_id.txt
 
 # because cloud init user data has a 16kB limit, remove all comment lines to save space.
 # except for the #! line
-sed -i "" -e '/^[ \t]*#[^!]/d' "$filename" 
+sed -i -e '/^[ \t]*#[^!]/d' "$filename" 
 
 chmod +x "$filename"
 

@@ -40,6 +40,12 @@ spec:
         app: {{ include "common.namespace.platform" . }}-{{ include "common.name.rsm" . }}
         release: {{ .Release.Name }}
     spec:
+      initContainers:
+      - name: redis-init
+        image: "redis"
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'redis-cli -h service-ricplt-dbaas-tcp -p 6379 set "{rsm},CFG:GENERAL:v1.0.0"  "{\"enableResourceStatus\":true,\"partialSuccessAllowed\":true,\"prbPeriodic\":true,\"tnlLoadIndPeriodic\":true,\"wwLoadIndPeriodic\":true,\"absStatusPeriodic\":true,\"rsrpMeasurementPeriodic\":true,\"csiPeriodic\":true,\"periodicityMs\":1,\"periodicityRsrpMeasurementMs\":3,\"periodicityCsiMs\":4}" nx']
+
       hostname: {{ include "common.name.rsm" . }} 
       imagePullSecrets:
         - name: {{ include "common.repositoryCred" . }}

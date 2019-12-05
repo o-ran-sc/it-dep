@@ -71,5 +71,5 @@ spec:
             name: {{ include "common.configmapname.rtmgr" . }}-rtmgrcfg
             items:
               - key: rtmgrcfg
-                path: rtmgr-config.json
+                path: rtmgr-config.yaml
                 mode: 0644

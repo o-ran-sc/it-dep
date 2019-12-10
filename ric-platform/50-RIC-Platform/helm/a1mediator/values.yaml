@@ -29,7 +29,7 @@ a1mediator:
 
   image:
     name: ric-plt-a1
-    tag: 0.10.3
+    tag: 2.0.0
 
   # Service ports are now defined in
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
@@ -38,5 +38,6 @@ a1mediator:
 
 # these are ENV variables that A1 takes; see docs
   rmr_timeout_config:
-    rcv_retry_interval_ms: 500
-    rcv_retry_times: 20
+    a1_rcv_retry_times: 20
+    ins_del_no_resp_ttl: 5
+    ins_del_resp_ttl: 10

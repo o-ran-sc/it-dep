@@ -35,4 +35,3 @@ spec:
   selector:
     app: {{ include "common.namespace.platform" . }}-{{ include "common.name.a1mediator" . }}
     release: {{ .Release.Name }}
-

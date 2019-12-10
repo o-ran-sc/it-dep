@@ -23,23 +23,12 @@ metadata:
 data:
   local.rt: |
     newrt|start
-    rte|10060|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
-    rte|10061|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
-    rte|10062|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
-    rte|10080|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
-    rte|10360|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
-    rte|10361|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
-    rte|10362|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
-    rte|12010|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
-    rte|12011|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
-    rte|12012|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
-    rte|12021|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563;service-ricxapp-ueec-rmr.{{ include "common.namespace.xapp" . }}:4560
-    rte|12022|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563;service-ricxapp-ueec-rmr.{{ include "common.namespace.xapp" . }}:4560
-    rte|12050|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563;service-ricxapp-ueec-rmr.{{ include "common.namespace.xapp" . }}:4560
-    rte|20000|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
-    rte|20002|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
-    rte|20001|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.a1mediator.rmr.data" . }}
-    rte|20003|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.a1mediator.rmr.data" . }}
+    # Warning! this is not a functioning table because the subscription manager and route manager are now involved in a1 flows
+    # the real routing table requires subscription ids as routing is now done over sub ids, but this isn't known until xapp deploy time, it's a dynamic process triggered by the xapp manager
+    # there is a single message type for all messages a1 sends out now, subid is the other necessary piece of info
+    # there are two message types a1 listens for; 20011 (instance response) and 20012 (query)
+    # xapps likely use rts to reply with 20012 so the routing entry isn't needed for that in most cases
+    mse|20010|SUBID|service-ricxapp-admctrl-rmr.{{ include "common.namespace.xapp" . }}:4563
+    rte|20011|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.a1mediator.rmr.data" . }}
+    rte|20012|{{ include "common.servicename.a1mediator.rmr" . }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.a1mediator.rmr.data" . }}
     newrt|end
-  rmr_string_int_mapping.txt: {{ tpl (.Files.Get "resources/rmr_string_int_mapping.txt") . | quote }}
-  ricmanifest.json: {{ tpl (.Files.Get "resources/ricmanifest.json") . | quote }}

@@ -49,12 +49,6 @@ spec:
         - name: {{ include "common.containername.a1mediator" . }}
           volumeMounts:
           - name: a1conf
-            mountPath: /opt/ricmanifest.json
-            subPath: ricmanifest.json
-          - name: a1conf
-            mountPath: /opt/rmr_string_int_mapping.txt
-            subPath: rmr_string_int_mapping.txt
-          - name: a1conf
             mountPath: /opt/route/local.rt
             subPath: local.rt
           envFrom:

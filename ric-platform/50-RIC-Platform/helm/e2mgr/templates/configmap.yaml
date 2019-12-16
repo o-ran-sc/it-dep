@@ -109,6 +109,18 @@ data:
     rnibRetryIntervalMs: {{ .Values.e2mgr.rnibRetryIntervalMs }}
     {{- else }} 
     rnibRetryIntervalMs: 10
-    {{- end }}   
+    {{- end }}
+
+    {{- if hasKey .Values.e2mgr "keepAliveResponseTimeoutMs" }}
+    keepAliveResponseTimeoutMs: {{ .Values.e2mgr.keepAliveResponseTimeoutMs }}
+    {{- else }}
+    keepAliveResponseTimeoutMs: 1500
+    {{- end }}
+
+    {{- if hasKey .Values.e2mgr "keepAliveDelayMs" }}
+    keepAliveDelayMs: {{ .Values.e2mgr.keepAliveDelayMs }}
+    {{- else }}
+    keepAliveDelayMs: 500
+    {{- end }}
 
 ---

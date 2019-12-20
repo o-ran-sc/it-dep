@@ -44,7 +44,6 @@ rtmgr:
   sbiurl: 0.0.0.0
   nbi: httpRESTful
   nbiurl: http://0.0.0.0:8888
-  loglevel: DEBUG
 
   # Service ports are now defined in 
   # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.

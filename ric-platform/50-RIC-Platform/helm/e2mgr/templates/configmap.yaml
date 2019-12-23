@@ -80,6 +80,12 @@ data:
       {{- else }}
       maxMsgSize: 4096
       {{- end }}
+    routingManager:
+      {{- if hasKey .Values.e2mgr "baseUrl" }}
+      baseUrl: {{ .Values.e2mgr.baseUrl }}
+      {{- else }}
+      baseUrl: "http://10.0.2.15:12020/ric/v1/handles/v1/"
+      {{- end }}
 
     {{- if hasKey .Values.e2mgr "notificationResponseBuffer" }}
     notificationResponseBuffer: {{ .Values.e2mgr.notificationResponseBuffer }}

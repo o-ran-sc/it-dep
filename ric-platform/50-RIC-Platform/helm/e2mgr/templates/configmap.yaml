@@ -28,6 +28,7 @@ data:
     rte|1080|{{ include "common.servicename.e2mgr.rmr" .      }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2mgr.rmr.data" . }}
     rte|1090|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
     rte|1100|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
+    rte|1101|{{ include "common.servicename.e2term.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.e2term.rmr.data" . }}
     rte|1200|{{ include "common.servicename.rsm.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.rsm.rmr.data" . }}
     rte|1210|{{ include "common.servicename.rsm.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.rsm.rmr.data" . }}
     rte|1220|{{ include "common.servicename.rsm.rmr" .     }}.{{ include "common.namespace.platform" . }}:{{ include "common.serviceport.rsm.rmr.data" . }}
@@ -80,6 +81,12 @@ data:
       {{- else }}
       maxMsgSize: 4096
       {{- end }}
+    routingManager:
+      {{- if hasKey .Values.e2mgr "baseUrl" }}
+      baseUrl: {{ .Values.e2mgr.baseUrl }}
+      {{- else }}
+      baseUrl: "http://service-ricplt-rtmgr-rmr:3800/ric/v1/handles/"
+      {{- end }}
 
     {{- if hasKey .Values.e2mgr "notificationResponseBuffer" }}
     notificationResponseBuffer: {{ .Values.e2mgr.notificationResponseBuffer }}
@@ -114,13 +121,13 @@ data:
     {{- if hasKey .Values.e2mgr "keepAliveResponseTimeoutMs" }}
     keepAliveResponseTimeoutMs: {{ .Values.e2mgr.keepAliveResponseTimeoutMs }}
     {{- else }}
-    keepAliveResponseTimeoutMs: 1500
+    keepAliveResponseTimeoutMs: 4500
     {{- end }}
 
     {{- if hasKey .Values.e2mgr "keepAliveDelayMs" }}
     keepAliveDelayMs: {{ .Values.e2mgr.keepAliveDelayMs }}
     {{- else }}
-    keepAliveDelayMs: 500
+    keepAliveDelayMs: 1500
     {{- end }}
 
 ---

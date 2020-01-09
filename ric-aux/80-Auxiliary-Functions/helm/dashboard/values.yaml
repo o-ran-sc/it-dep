@@ -1,6 +1,6 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
+#   Copyright (c) 2020 AT&T Intellectual Property.                             #
+#   Copyright (c) 2020 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -17,14 +17,12 @@
 
 # Deployment values for dashboard.
 
-repository: "nexus3.o-ran-sc.org:10004"
-imagePullPolicy: IfNotPresent
-repositoryCred: docker-reg-cred
-
 dashboard:
+  imagePullPolicy: IfNotPresent
   image:
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
     name: ric-dashboard
-    tag: 1.2.2
+    tag: 2.0.0
   replicaCount: 1
 
   # Service ports are now defined in
@@ -43,46 +41,27 @@ dashboard:
   # on the server
   datapath: /opt/data/dashboard-data
   
-  # Many URL prefixes use K8S/Kong service names
+  # The URL prefixes are specific to instances
+  # and may be K8S service names, see below.
   a1med:
     url:
-      # The default a1mediator prefix is http://ricplt-entry/a1mediator
-      # You can override the value using the following option
-      # prefix:
-      suffix: ''
-  anrxapp:
-    url:
-      # The default anrxapp prefix is http://ricxapp-entry/anr
-      # You can override the value using the following option
-      # prefix:
-      suffix: ''
+      # uses pltUrlPrefix
+      suffix: /a1mediator
   appmgr:
     url:
-      # The default appmgr prefix is http://ricplt-entry/appmgr
-      # You can override the value using the following option
-      # prefix:
-      suffix: /ric/v1
+      # uses pltUrlPrefix
+      suffix: /appmgr/ric/v1
   caasingress:
     # Ignore SSL problems to CaaS-Ingress by enabling this
     insecure: true
-    aux:
-      url:
-        # The default AUX CaaS-Ingress prefix is TBD
-        # You can override the value using the following option
-        # prefix:
-        suffix: /api
     plt:
       url:
-        # The default PLT CaaS-Ingress prefix is TBD
-        # You can override the value using the following option
-        # prefix:
+        # uses caasUrlPrefix
         suffix: /api
   e2mgr:
     url:
-      # The default e2mgr prefix is http://ricplt-entry/e2mgr
-      # You can override the value using the following option
-      # prefix:
-      suffix: /v1
+      # uses pltUrlPrefix
+      suffix: /e2mgr/v1
   cipher:
     enc:
       key:
@@ -98,3 +77,33 @@ dashboard:
     url:
       ac: http://ric-aux-kibana-server:5601/goto/1234567890abcdef?embed=true
       mc: http://ric-aux-kibana-server:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
+  # Regions and instances
+  # The regions are a just convenience for users,
+  # the keys must be unique across all instances.
+  ricinstances: |
+    regions:
+      -
+        name: Region AAA
+        instances:
+          -
+            key: i1
+            name: Primary RIC Instance
+            appUrlPrefix: App prefix 1
+            caasUrlPrefix: Caas prefix 1
+            pltUrlPrefix: Plt prefix 1
+          -
+            key: i2
+            name: RIC Instance Nr Two
+            appUrlPrefix: App prefix 2
+            caasUrlPrefix: Caas prefix 2
+            pltUrlPrefix: Plt prefix 2
+      -
+        name: Region DDD
+        instances:
+          -
+            key: i3
+            name: RIC Instance in region D
+            appUrlPrefix: App prefix 3
+            caasUrlPrefix: Caas prefix 3
+            pltUrlPrefix: Plt prefix 3
+# end

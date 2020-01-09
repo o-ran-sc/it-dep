@@ -43,7 +43,7 @@ do
     mkdir -p $dir/charts
     cp $TEMP_DIR/ric-common*.tgz $dir/charts/
 
-    echo "Update chart depenedency"
+    echo "Update chart dependency"
     helm dep up $dir 
     # Lint clearly marks errors; e.g., [ERROR]
     if [ -z $OVERRIDEYAML ]; then

@@ -1,6 +1,6 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
+#   Copyright (c) 2020 AT&T Intellectual Property.                             #
+#   Copyright (c) 2020 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,7 +14,8 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
+{{- $imagectx := dict "ctx" . "defaultregistry" .Values.dashboard.image.registry }}
+{{- $pullpolicyctx := dict "ctx" . "defaultpullpolicy" .Values.dashboard.imagePullPolicy }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,22 +40,22 @@ spec:
     spec:
       hostname: {{ include "common.name.dashboard" . }}
       imagePullSecrets:
-        - name: {{ include "common.repositoryCred" . }}
+        - name: {{ include "common.dockerregistry.credential" $imagectx }}
       {{- with .Values.dashboard.nodeselector }}
       nodeSelector: {{ toYaml . | trim | nindent 8 -}}
       {{- end }}
       containers:
         - name: {{ include "common.containername.dashboard" . }}
-          image: {{ include "common.repository" . }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
-          imagePullPolicy: {{ include "common.pullPolicy" . }}
+          image: {{ include "common.dockerregistry.url" $imagectx }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          imagePullPolicy: {{ include "common.dockerregistry.pullpolicy" $pullpolicyctx }}
           ports:
             - name: http
               containerPort: {{ include "common.serviceport.dashboard.container" . }}
               protocol: TCP
           volumeMounts:
             - name: appconfig
-              mountPath: /config/application.properties
-              subPath: application.properties
+              mountPath: /config/application.yml
+              subPath: application.yml
               readOnly: true
             - name: appconfig
               mountPath: /maven/key.properties

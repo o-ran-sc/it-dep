@@ -1,6 +1,6 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
+#   Copyright (c) 2020 AT&T Intellectual Property.                             #
+#   Copyright (c) 2020 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -21,10 +21,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - {{ include "common.ingressurl.dashboard" . }}
+      - {{ include "common.ingresscontroller.url.dashboard" . }}
       secretName: secret-{{ include "common.name.dashboard" . }}
   rules:
-    - host: {{ include "common.ingressurl.dashboard" . }}
+    - host: {{ include "common.ingresscontroller.url.dashboard" . }}
       http:
         paths:
           - backend:

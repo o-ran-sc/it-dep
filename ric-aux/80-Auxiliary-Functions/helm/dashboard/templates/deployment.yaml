@@ -53,8 +53,8 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: appconfig
-              mountPath: /config/application.properties
-              subPath: application.properties
+              mountPath: /config/application.yaml
+              subPath: application.yaml
               readOnly: true
             - name: appconfig
               mountPath: /maven/key.properties

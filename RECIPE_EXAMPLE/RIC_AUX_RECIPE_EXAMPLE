@@ -150,14 +150,7 @@ dashboard:
 
   image:
     name: o-ran-sc/ric-dashboard
-    tag: 1.3.0
-  caasingress:
-    aux:
-      url:
-        prefix: "https://<CAAS_INGRESS_IP>:16443"
-    plt:
-      url:
-        prefix: "https://<CAAS_INGRESS_IP>:16443"
+    tag: 2.0.0
   cipher:
     enc:
       key: AGLDdG4D04BKm2IxIWEr8o==
@@ -173,6 +166,14 @@ dashboard:
     url:
       ac: http://mcdashboard.ric.org:5601/goto/1234567890abcdef?embed=true
       mc: http://mcdashboard.ric.org:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
+  ricinstances:
+    instances:
+      -
+        key: i1
+        name: Primary RIC Instance
+        appUrlPrefix:  http://ricxapp-entry
+        caasUrlPrefix: https://<CAAS_INGRESS_IP>:16443
+        pltUrlPrefix:  http://ricplt-entry
   datapath: /opt/data/dashboard-data
 
 

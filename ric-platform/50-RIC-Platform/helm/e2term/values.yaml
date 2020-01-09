@@ -35,13 +35,13 @@ repositoryCred: docker-reg-cred
 
 e2term:
   image:
-    name: e2
-    tag: 1.6.0
+    name: ric-plt-e2
+    tag: 3.0.4.2
   
   privilegedmode: true
-  hostnetworkmode: true
+  hostnetworkmode: false
 
-  replicaCount: 1
+  replicaCount: 2
   env:
     print: "1"
     messagecollectorfile: "/data/outgoing/"

@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2020 AT&T Intellectual Property.                             #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -19,9 +19,9 @@ Generate certificates for the docker registry
 */}}
 
 {{- define "dashboard.gen-cert" -}}
-{{- $altNames := list ( include "common.ingressurl.dashboard" . ) -}}
+{{- $altNames := list ( include "common.ingresscontroller.url.dashboard" . ) -}}
 {{- $ca := genCA "docker-registry-ca" 365 -}}
-{{- $cert := genSignedCert ( include "common.ingressurl.dashboard" . ) nil $altNames 365 $ca -}}
+{{- $cert := genSignedCert ( include "common.ingresscontroller.url.dashboard" . ) nil $altNames 365 $ca -}}
 tls.crt: {{ $cert.Cert | b64enc }}
 tls.key: {{ $cert.Key | b64enc }}
 {{- end -}}

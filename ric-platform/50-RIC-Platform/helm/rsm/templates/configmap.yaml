@@ -73,4 +73,9 @@ data:
       {{- else }}
       rnibRetryIntervalMs: 10
       {{- end }}
+    resourceStatusParams:
+      enableResourceStatus: true
+      periodicityCsiMs: 80
+      periodicityMs: 5000
+      periodicityRsrpMeasurementMs: 640
 ---

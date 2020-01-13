@@ -120,7 +120,7 @@ dbaas:
     iterminationGracePeriodSeconds: 0
     image:
       name: ric-plt-dbaas
-      tag: 0.2.2
+      tag: 0.1.0
 
 # E2 Manager
 e2mgr:
@@ -128,7 +128,7 @@ e2mgr:
   # repositoryOverride:
   image:
     name: ric-plt-e2mgr
-    tag: 3.0.1
+    tag: 2.0.10
   env:
     RIC_ID: "bbbccc-abcd0e/20"
   privilegedmode: false
@@ -140,7 +140,7 @@ e2term:
   # repositoryOverride:
   image:
     name: ric-plt-e2
-    tag: 3.0.1
+    tag: 2.0.10
   env:
     print: "1"
   privilegedmode: false
@@ -180,7 +180,7 @@ vespamgr:
 rsm:
   image:
     name: ric-plt-resource-status-manager
-    tag: 3.0.1
+    tag: 2.0.10
 
 # Jaeger Adapter
 jaegeradapter:

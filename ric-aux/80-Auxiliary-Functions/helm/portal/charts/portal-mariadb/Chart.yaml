@@ -1,4 +1,0 @@
-apiVersion: v1
-description: MariaDB Service
-name: portal-mariadb
-version: 5.0.0

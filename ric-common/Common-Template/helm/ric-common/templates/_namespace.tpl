@@ -1,6 +1,5 @@
 ################################################################################
 #   Copyright (c) 2019 AT&T Intellectual Property.                             #
-#   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -15,78 +14,47 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{/*
-  Resolve the namespace to apply to a chart. The default namespace suffix
-  is the name of the chart. This can be overridden if necessary (eg. for subcharts)
-  using the following value:
-
-  - .Values.nsPrefix  : override namespace prefix
-*/}}
-
 {{- define "common.namespace.platform" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.namespace -}}
-      {{- if .Values.global.namespace.platform -}}
-        {{- printf "%s" .Values.global.namespace.platform -}}
-      {{- else -}}
-        {{- printf "ricplt" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricplt" -}}
-    {{- end -}}
+  {{- $keylist := list "common" "namespace" "platform" -}}
+  {{- $ctx := dict "ctx" $.Values "keylist" $keylist -}}
+  {{- $namespace := include "locate" $ctx -}}
+  {{- if not (empty $namespace) -}}
+    {{- $namespace -}}
   {{- else -}}
     {{- printf "ricplt" -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "common.namespace.aux" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.namespace -}}
-      {{- if .Values.global.namespace.aux -}}
-        {{- printf "%s" .Values.global.namespace.aux -}}
-      {{- else -}}
-        {{- printf "ricaux" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricaux" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "ricaux" -}}
-  {{- end -}}
-{{- end -}}
-
-{{- define "common.namespace.xapp" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.namespace -}}
-      {{- if .Values.global.namespace.xapp -}}
-        {{- printf "%s" .Values.global.namespace.xapp -}}
-      {{- else -}}
-        {{- printf "ricxapp" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricxapp" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "ricxapp" -}}
-  {{- end -}}
-{{- end -}}
-
 {{- define "common.namespace.infra" -}}
-  {{- if .Values.global -}}
-    {{- if .Values.global.namespace -}}
-      {{- if .Values.global.namespace.infra -}}
-        {{- printf "%s" .Values.global.namespace.infra -}}
-      {{- else -}}
-        {{- printf "ricinfra" -}}
-      {{- end -}}
-    {{- else -}}
-      {{- printf "ricinfra" -}}
-    {{- end -}}
+  {{- $keylist := list "common" "namespace" "infra" -}}
+  {{- $ctx := dict "ctx" $.Values "keylist" $keylist -}}
+  {{- $namespace := include "locate" $ctx -}}
+  {{- if not (empty $namespace) -}}
+    {{- $namespace -}}
   {{- else -}}
     {{- printf "ricinfra" -}}
   {{- end -}}
 {{- end -}}
 
-{{- define "common.namespace" -}}
-  {{- default .Release.Namespace .Values.nsPrefix -}}
+{{- define "common.namespace.xapp" -}}
+  {{- $keylist := list "common" "namespace" "xapp" -}}
+  {{- $ctx := dict "ctx" $.Values "keylist" $keylist -}}
+  {{- $namespace := include "locate" $ctx -}}
+  {{- if not (empty $namespace) -}}
+    {{- $namespace -}}
+  {{- else -}}
+    {{- printf "ricxapp" -}}
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "common.namespace.aux" -}}
+  {{- $keylist := list "common" "namespace" "aux" -}}
+  {{- $ctx := dict "ctx" $.Values "keylist" $keylist -}}
+  {{- $namespace := include "locate" $ctx -}}
+  {{- if not (empty $namespace) -}}
+    {{- $namespace -}}
+  {{- else -}}
+    {{- printf "ricaux" -}}
+  {{- end -}}
 {{- end -}}

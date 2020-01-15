@@ -1,0 +1,12 @@
+
+ingress:
+  plt:
+    crt: {}
+    key: {}
+  aux:
+    crt: {}
+    key: {}
+
+ca:
+  crt: {}
+  key: {}

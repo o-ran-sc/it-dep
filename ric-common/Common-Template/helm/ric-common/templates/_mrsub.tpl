@@ -14,17 +14,9 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# template for component name
+
 {{- define "common.name.mrsub" -}}
-  {{- if .Values.mrsub -}}
-    {{- if .Values.mrsub.nameOverride -}}
-      {{- printf "%s" .Values.mrsub.nameOverride -}}
-    {{- else -}}
-      {{- printf "mrsub" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "mrsub" -}}
-  {{- end -}}
+  {{- printf "mrsub" -}}
 {{- end -}}
 
 {{- define "common.fullname.mrsub" -}}

@@ -22,27 +22,44 @@
 OVERRIDEYAML=$1
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-TEMP_DIR=/tmp
+
+# Start Helm local repo if there isn't one
+HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')
+if [ -z "$HELM_REPO_PID" ]; then
+    nohup helm serve >& /dev/null &
+fi
+
+# Package ric-common and serve it using Helm local repo
+HELM_HOME=$(helm home)
+COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
+cp /tmp/aux-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+
+
+helm repo index $HELM_HOME/repository/local/
+
+
+# Make sure that helm local repo is added
+helm repo remove local
+helm repo add local http://127.0.0.1:8879/charts
+
+# Create array of helm charts
 CHART_ARRAY=()
 while IFS= read -r -d $'\0'; do
     CHART_ARRAY+=("$REPLY")
-done < <(find $ROOT_DIR/../ -name Chart.yaml -printf '%h\0')
+done < <(find $ROOT_DIR/../ -maxdepth 5 -name Chart.yaml -printf '%h\0')
 
-rm -fr $TEMP_DIR/ric-common*.tgz
-
-helm package -d $TEMP_DIR $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
 echo "***************************************"
-
 
 
 for dir in "${CHART_ARRAY[@]}"
 do
   
-    #rm -rf $dir/charts
-    #rm -rf $dir/tmpcharts
-    mkdir -p $dir/charts
-    cp $TEMP_DIR/ric-common*.tgz $dir/charts/
-
     echo "Update chart depenedency"
     helm dep up $dir 
     # Lint clearly marks errors; e.g., [ERROR]

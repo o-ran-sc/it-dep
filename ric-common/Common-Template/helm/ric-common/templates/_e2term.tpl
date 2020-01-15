@@ -14,17 +14,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# template for component name
 {{- define "common.name.e2term" -}}
-  {{- if .Values.e2term -}}
-    {{- if .Values.e2term.nameOverride -}}
-      {{- printf "%s" .Values.e2term.nameOverride -}}
-    {{- else -}}
-      {{- printf "e2term" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "e2term" -}}
-  {{- end -}}
+  {{- printf "e2term" -}}
 {{- end -}}
 
 {{- define "common.fullname.e2term" -}}
@@ -80,4 +71,10 @@
 {{- define "common.serviceaccountname.e2term" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{- define "common.ingressname.e2term" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

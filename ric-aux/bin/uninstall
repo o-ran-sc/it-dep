@@ -1,0 +1,46 @@
+#!/bin/bash
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+
+COMPONENTS="dashboard message-router ves mrsub mc-stack portal aaf infrastructure"
+RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep aux-recipe | awk '{print $1}')
+kubectl get configmap  -n $RECIPE_NAMESPACE aux-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
+
+if [ ! -s /tmp/recipe.yaml ]; then
+    echo "AUX recipe is not found. Are you sure the ric platform is deployed successfully?"
+    exit 0
+fi
+
+COMMON_BLOCK=$(cat /tmp/recipe.yaml | awk '/^common:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
+AUXNAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *aux:/{print $2}')
+INFRANAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *infra:/{print $2}')
+RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+
+echo "Undeploying AUX components [$COMPONENTS]"
+
+
+for component in $COMPONENTS; do
+    helm delete --purge ${RELEASE_PREFIX}-$component
+done
+
+kubectl delete cm -n ${AUXNAMESPACE:-ricaux} ricaux-recipe
+
+kubectl delete ns ${INFRANAMESPACE:-ricinfra}
+kubectl delete ns ${AUXNAMESPACE:-ricaux}
+kubectl delete ns onap

@@ -14,18 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# template for component name
+
 {{- define "common.name.esreader" -}}
-  {{- if .Values.esreader -}}
-    {{- if .Values.esreader.nameOverride -}}
-      {{- printf "%s" .Values.esreader.nameOverride -}}
-    {{- else -}}
-      {{- printf "esreader" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "esreader" -}}
-  {{- end -}}
+  {{- printf "esreader" -}}
 {{- end -}}
+
 
 {{- define "common.fullname.esreader" -}}
   {{- $name := ( include "common.name.esreader" . ) -}}

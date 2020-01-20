@@ -26,7 +26,7 @@ global:
     platform: ricplt
     aux: ricaux
   # Docker registry from which RIC platform components pull the images
-  repository: nexus3.o-ran-sc.org:10004/o-ran-sc
+  repository: nexus3.o-ran-sc.org:10002/o-ran-sc
 
   # Name of the K8S docker credential that is onboarded by 20-credential 
   repositoryCred: docker-reg-cred
@@ -110,8 +110,6 @@ appmgr:
     name: ric-plt-appmgr
     tag: 0.1.10
 
-
-
 # DBAAS 
 dbaas:
   # Use the following option to override the docker registry value
@@ -125,14 +123,13 @@ dbaas:
 # E2 Manager
 e2mgr:
   # Use the following option to override the docker registry value
-  # repositoryOverride:
+  repositoryOverride: nexus3.o-ran-sc.org:10004/o-ran-sc
   image:
     name: ric-plt-e2mgr
-    tag: 3.0.1
+    tag: 3.0.5.1
   env:
     RIC_ID: "bbbccc-abcd0e/20"
   privilegedmode: false
-
 
 # E2 Termination
 e2term:
@@ -157,7 +154,7 @@ rtmgr:
   image:
     name: ric-plt-rtmgr
     tag: 0.3.9
-  loglevel: DEBUG
+  # loglevel: DEBUG
 
 # Subscription Manager
 submgr:
@@ -178,9 +175,10 @@ vespamgr:
 
 # RAN Resource Monitor
 rsm:
+  repositoryOverride: nexus3.o-ran-sc.org:10004/o-ran-sc
   image:
     name: ric-plt-resource-status-manager
-    tag: 3.0.1
+    tag: 3.0.3
 
 # Jaeger Adapter
 jaegeradapter:
@@ -189,7 +187,6 @@ jaegeradapter:
     name: jaegertracing/all-in-one
     tag: 1.12
     pullPolicy: IfNotPresent
-
 
 # the service for redirecting to AUX cluster
 extsvcplt:

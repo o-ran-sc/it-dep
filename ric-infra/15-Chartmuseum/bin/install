@@ -99,7 +99,7 @@ if [ -z "$FOUND_STORAGECLASS" ] && $LABELFOUND; then
     echo "***********************************************************************************************"
     echo "*                                          WARNING!!!!!!!!!!!!!                               *"
     echo "***********************************************************************************************"
-    echo "* Chartmuseume will use local storage. Please make sure that directory                        *"
+    echo "* Chartmuseum will use local storage. Please make sure that directory                         *"
     echo "* $DATAPATH                                                                                   *"
     echo "* contains the proper files.                                                                  *"
     echo "***********************************************************************************************"

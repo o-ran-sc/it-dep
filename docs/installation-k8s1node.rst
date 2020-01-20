@@ -1,10 +1,10 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. SPDX-License-Identifier: CC-BY-4.0
 .. ===============LICENSE_START=======================================================
-.. Copyright (C) 2019 AT&T Intellectual Property 
+.. Copyright (C) 2019-2020 AT&T Intellectual Property
 .. ===================================================================================
-.. This documentation file is distributed under the Creative Commons Attribution 
-.. 4.0 International License (the "License"); you may not use this file except in 
+.. This documentation file is distributed under the Creative Commons Attribution
+.. 4.0 International License (the "License"); you may not use this file except in
 .. compliance with the License.  You may obtain a copy of the License at
 ..
 .. http://creativecommons.org/licenses/by/4.0
@@ -50,19 +50,19 @@ After the configurations are updated, the following steps will create a script f
   cd bin
   ./gen-cloud-init.sh
 
-A file named **k8s-1node-cloud-init.sh** would now appear under the bin directory. 
+A file named **k8s-1node-cloud-init.sh** would now appear under the bin directory.
 
 
 Setting up Kubernetes Cluster
 -----------------------------
 
-The new **k8s-1node-cloud-init.sh** file is now ready for setting up the Kubernetes cluster.  
+The new **k8s-1node-cloud-init.sh** file is now ready for setting up the Kubernetes cluster.
 
 It can be run from a root shell of an existing Ubuntu 16.04 or 18.04 VM.  Running this script will replace any existing installation of Docker host, Kubernetes, and Helm on the VM.
 
 It can also be used as the user-data (a.k.a. cloud-init script) supplicated to Open Stack when launching a new Ubuntu 16.04 or 18.04 VM.
 
-Upon successful execution of the script, when integrated by the kubectl command, the VM should display information similar to below: 
+Upon successful execution of the script, when integrated by the kubectl command, the VM should display information similar to below:
 
 ::
 

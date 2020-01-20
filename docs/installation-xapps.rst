@@ -15,23 +15,23 @@
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
 
-Running the Near Realtime RIC
-==================================================================
-
 Loading xApp Helm Charts
---------------------------
+------------------------
 
-The RIC Platform App Manager deploys RIC applications (a.k.a. xApps) using Helm charts stored in a private Helm repo.  In the dev testing deployment described in this documentation, this private Helm repo is the Chart Museum pod that is deployed within the ric infrastructure group into the RIC cluster.
+The RIC Platform App Manager deploys RIC applications (a.k.a. xApps) using Helm charts stored in a private Helm repo.
+In the dev testing deployment described in this documentation, this private Helm repo is the Chart Museum pod that is deployed within the ric infrastructure group into the RIC cluster.
 
 The Helm repo location and credential for access the repo are specified in both the infrastructure and platform recipe files.  
 
-Before any xApp can be deployed, its Helm chart must be loaded into this private Helm repo before the App manager can deploy them.  The example below show a command sequence that completes:
-1. Add the Helm repo at the Helm client running on the RIC cluster host VM (via Kong Ingress Controller);
-2. Load the xApp Helm chart into the Helm repo;
-3. Update the local cache for the Helm repo and check the Helm chart is loaded;
-4. Calling App Manager to deploy the xApp;
-5. Calling App Manager to delete the xApp;
-6. Delete the xApp helm chart from the private Helm repo.
+Before any xApp can be deployed, its Helm chart must be loaded into this private Helm repo before the App manager can deploy them. 
+The example below show a command sequence that completes:
+
+#. Add the Helm repo at the Helm client running on the RIC cluster host VM (via Kong Ingress Controller);
+#. Load the xApp Helm chart into the Helm repo;
+#. Update the local cache for the Helm repo and check the Helm chart is loaded;
+#. Calling App Manager to deploy the xApp;
+#. Calling App Manager to delete the xApp;
+#. Delete the xApp helm chart from the private Helm repo.
 
 .. code:: bash
 
@@ -78,6 +78,4 @@ Before any xApp can be deployed, its Helm chart must be loaded into this private
    # to delete a chart
    curl -L -X DELETE -u helm:helm http://10.0.2.100:32080/api/charts/admin-xapp/0.0.5
 
-For more xApp deployment and usage examples, please see documentations for the it/test repositooory.
-
-
+For more xApp deployment and usage examples, please see the documentation for the it/test repository.

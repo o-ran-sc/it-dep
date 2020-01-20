@@ -28,10 +28,10 @@ Run the following commands in a root shell:
 
 Edit the recipe files RIC_INFRA_RECIPE_EXAMPLE and RIC_PLATFORM_RECIPE_EXAMPLE.  In particular the following values often need adaptation to local deployments:
 
-1. Docker registry URL;
-2. Docker registry credential;
-3. Helm repo credential;
-4. Component docker container image tags.
+#. Docker registry URL;
+#. Docker registry credential;
+#. Helm repo credential;
+#. Component docker container image tags.
 
 
 Deploying the Infrastructure and Platform Groups

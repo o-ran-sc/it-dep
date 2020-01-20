@@ -22,18 +22,18 @@ Networking
 The set up requires two VMs connected by a private network.  With VirtualBox, this can be
 done by going under its "Preferences" menu and setting up a private NAT network.
 
-#. "Preference", then select the "Network" tab;
+#. Pick "Preferences", then select the "Network" tab;
 #. Click on the "+" icon to create a new NAT network.  A new entry will appear in the NAT networks list
 #. Double click on the new network to edit its details; give it a name such as "RICNetwork"
-#. On the next page, make sure to check: "Enable Network", uncheck the "Supports DHCP" box, and make a note of the "Network CIDR" (for this example, it is 10.0.2.0/24);
-#. Click on the "Port Forwarding" button to create the following rules:
+#. In the dialog, make sure to check the "Enable Network" box, uncheck the "Supports DHCP" box, and make a note of the "Network CIDR" (for this example, it is 10.0.2.0/24);
+#. Click on the "Port Forwarding" button then in the table create the following rules:
 
    #. "ssh to ric", TCP, 127.0.0.1, 22222, 10.0.2.100, 22;
    #. "ssh to aux", TCP, 127.0.0.1, 22223, 10.0.2.101, 22;
    #. "entry to ric", TCP, 127.0.0.1, 22224, 10.0.2.100, 32080;
    #. "entry to aux", TCP, 127.0.0.1, 22225, 10.0.2.101, 32080.
 
-#. "Ok" all the way back to create the network.
+#. Click "Ok" all the way back to create the network.
 
 
 Creating VMs
@@ -51,7 +51,7 @@ Create a VirtualBox VM:
 
       #. Check "Enable Network Adapter";
       #. Attached to "NAT Network";
-      #. Network name for what was created in the previous section: "RICNetwork".
+      #. Select the Network that was created in the previous section: "RICNetwork".
 
 Repeat the process and create the second VM named **myaux**.
 
@@ -59,7 +59,8 @@ Repeat the process and create the second VM named **myaux**.
 Booting VM and OS Installation
 ------------------------------
 
-Follow the OS installation steps to install OS to the VM virtual disk media.  Make sure to install openssh server.
+Follow the OS installation steps to install OS to the VM virtual disk media.  During the setup you must
+configure static IP addresses as discussed next.  And make sure to install openssh server.
 
 
 VM Network Configuration
@@ -69,9 +70,9 @@ Depending on the version of the OS, the networking may be configured during the 
 The network interface is configured with a static IP address:
 
 - IP Address:  10.0.2.100 for myric or 10.0.2.101 for myaux;
-- Network: 10.0.2.10/24, or network mask 255.255.255.0
+- Subnet 10.0.2.0/24, or network mask 255.255.255.0
 - Default gateway: 10.0.2.1
-- Name server: 8.8.8.8
+- Name server: 8.8.8.8; if access to that is is blocked, configure a local DNS server
 
 
 Accessing the VMs

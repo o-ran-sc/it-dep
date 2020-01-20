@@ -16,39 +16,47 @@
 .. ===============LICENSE_END=========================================================
 
 
-
-Resource Requirements
----------------------
-
-To run Near Realtime RAN Controller in a dev testing setting , the minimum requirement for resources is a VM with 4 vCPUs, 16G RAM, and at least 40G of vDisk space.
-
-
-
 Script for Setting Up 1-node Kubernetes Cluster
 -----------------------------------------------
 
+The it/dep repo can be used for generating a simple script that can help setting up a
+one-node Kubernetes cluster for dev and testing purposes.  Related files are under the
+**ric-infra/00-Kubernetes** directory.  To get started, clone the repository on the
+target VM:
 
-The it/dep repo can be used for generating a simple script that can help setting up a one-node Kubernetes cluster for dev and testing purposes.  Related files are under the **ric-infra/00-Kubernetes** directory.
+::
+
+    git clone https://gerrit.o-ran-sc.org/r/it/dep
+
 
 Configurations
 --------------
 
 The generation of the script reads in the parameters from the following files:
 
-- etc/env.rc: Normally no change needed for this file.  If where the Kubernetes cluster runs has special requirements, such as running private Docker registry with self-signed certificates, or hostnames that can be only resolved  via private /etc/hosts entries, such parameters are entered into this file.
-- etc/infra.rc: This file specifies the versions docker host, Kubernetes, and Kubernetes CNI versions.  If a version is left empty, the installation will use the default version that the OS package management software would install.
-- etc/openstack.rc: If the Kubernetes cluster is deployed on Open Stack VMs, this file specifies parameters for accessing the APIs of the Open Stack installation.  This is not supported in Amber release yet.
+- etc/env.rc: Normally no change needed for this file.  If where the Kubernetes cluster runs
+  has special requirements, such as running private Docker registry with self-signed certificates,
+  or hostnames that can be only resolved via private /etc/hosts entries, such parameters are
+  entered into this file.
+- etc/infra.rc: This file specifies the docker host, Kubernetes, and Kubernetes CNI versions.
+  If a version is left empty, the installation will use the default version that the OS package
+  management software would install.
+- etc/openstack.rc: If the Kubernetes cluster is deployed on Open Stack VMs, this file specifies
+  parameters for accessing the APIs of the Open Stack installation.  This is not supported in Amber
+  release yet.
 
 
 Generating Set-up Script
 ------------------------
 
-After the configurations are updated, the following steps will create a script file that can be used for setting up a one-node Kubernetes cluster.
+After the configurations are updated, the following steps will create a script file that can be
+used for setting up a one-node Kubernetes cluster.  You must run this command on a Linux machine
+with the 'envsubst' command installed.
 
 ::
 
-  cd bin
-  ./gen-cloud-init.sh
+  % cd bin
+  % ./gen-cloud-init.sh
 
 A file named **k8s-1node-cloud-init.sh** would now appear under the bin directory.
 
@@ -58,11 +66,20 @@ Setting up Kubernetes Cluster
 
 The new **k8s-1node-cloud-init.sh** file is now ready for setting up the Kubernetes cluster.
 
-It can be run from a root shell of an existing Ubuntu 16.04 or 18.04 VM.  Running this script will replace any existing installation of Docker host, Kubernetes, and Helm on the VM.
+It can be run from a root shell of an existing Ubuntu 16.04 or 18.04 VM.  Running this script
+will replace any existing installation of Docker host, Kubernetes, and Helm on the VM.  The
+script will reboot the machine upon successful completion.  Run the script like this:
 
-It can also be used as the user-data (a.k.a. cloud-init script) supplicated to Open Stack when launching a new Ubuntu 16.04 or 18.04 VM.
+::
 
-Upon successful execution of the script, when integrated by the kubectl command, the VM should display information similar to below:
+  % sudo -i
+  # ./k8s-1node-cloud-init.sh
+
+This script can also be used as the user-data (a.k.a. cloud-init script) supplied to Open Stack
+when launching a new Ubuntu 16.04 or 18.04 VM.
+
+Upon successful execution of the script and reboot of the machine, when queried in a root shell
+with the kubectl command the VM should display information similar to below:
 
 ::
 
@@ -77,4 +94,3 @@ Upon successful execution of the script, when integrated by the kubectl command,
   kube-system   kube-proxy-867v5                       1/1     Running      0         103m
   kube-system   kube-scheduler-ljitest                 1/1     Running      0         102m
   kube-system   tiller-deploy-68bf6dff8f-6pwvc         1/1     Running      0         102m
-

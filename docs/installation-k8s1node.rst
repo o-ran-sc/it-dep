@@ -16,17 +16,16 @@
 .. ===============LICENSE_END=========================================================
 
 
-Script for Setting Up 1-node Kubernetes Cluster
+Script for Setting Up 1-Node Kubernetes Cluster
 -----------------------------------------------
 
 The it/dep repo can be used for generating a simple script that can help setting up a
 one-node Kubernetes cluster for dev and testing purposes.  Related files are under the
-**ric-infra/00-Kubernetes** directory.  To get started, clone the repository on the
-target VM:
+**ric-infra/00-Kubernetes** directory.  Clone the it/dep git repository on the target VM. 
 
 ::
 
-    git clone https://gerrit.o-ran-sc.org/r/it/dep
+  % git clone https://gerrit.o-ran-sc.org/r/it/dep
 
 
 Configurations

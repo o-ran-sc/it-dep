@@ -1,10 +1,10 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International License.
 .. SPDX-License-Identifier: CC-BY-4.0
 .. ===============LICENSE_START=======================================================
-.. Copyright (C) 2019 AT&T Intellectual Property 
+.. Copyright (C) 2019-2020 AT&T Intellectual Property
 .. ===================================================================================
-.. This documentation file is distributed under the Creative Commons Attribution 
-.. 4.0 International License (the "License"); you may not use this file except in 
+.. This documentation file is distributed under the Creative Commons Attribution
+.. 4.0 International License (the "License"); you may not use this file except in
 .. compliance with the License.  You may obtain a copy of the License at
 ..
 .. http://creativecommons.org/licenses/by/4.0
@@ -28,10 +28,10 @@ Run the following commands in a root shell:
 
 Edit the recipe files RIC_INFRA_RECIPE_EXAMPLE and RIC_PLATFORM_RECIPE_EXAMPLE.  In particular the following values often need adaptation to local deployments:
 
-1. Docker registry URL;
-2. Docker registry credential;
-3. Helm repo credential;
-4. Component docker container image tags.
+#. Docker registry URL;
+#. Docker registry credential;
+#. Helm repo credential;
+#. Component docker container image tags.
 
 
 Deploying the Infrastructure and Platform Groups
@@ -43,7 +43,7 @@ After the recipes are edited, the Near Realtime RIIC is ready to be deployed.
 
   cd dep/bin
   ./deploy-ric-infra ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
-  ./deploy-ric-platform ../RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE 
+  ./deploy-ric-platform ../RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE
 
 
 Checking the Deployment Status

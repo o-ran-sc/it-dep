@@ -51,7 +51,9 @@ The following diagram depicts the installation architecture.
 .. image:: images/nrtric-amber.png
    :width: 600
 
-Within the RIC cluster, Kubernetes resources are deployed using three name spaces: ricinfra, ricplt, and ricxapp.  Similarly, within the AUX cluster, Kubernetes resources are deployed using two name spaces: ricinfra, and ricaux.
+Within the RIC cluster, Kubernetes resources are deployed using three name spaces: ricinfra, ricplt,
+and ricxapp.  Similarly, within the AUX cluster, Kubernetes resources are deployed using two name spaces:
+ricinfra, and ricaux.
 
 For each cluster, there is a Kong ingress controller that proxies incoming API calls into the cluster.
 With Kong, service APIs provided by Kubernetes resources can be accessed at the cluster node IP and

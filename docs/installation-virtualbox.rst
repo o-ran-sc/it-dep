@@ -41,7 +41,7 @@ Creating VMs
 
 Create a VirtualBox VM:
 
-#. "New", then enter the following in the pop-up: Name it for example **myric**, of "Linux" type, and at least 4G RAM and 10G disk;
+#. "New", then enter the following in the pop-up: Name it for example **myric**, of "Linux" type, and at least 6G RAM and 20G disk;
 #. "Create" to create the VM.  It will appear in the list of VMs.
 #. Highlight the new VM entry, right click on it, select "Settings".
 

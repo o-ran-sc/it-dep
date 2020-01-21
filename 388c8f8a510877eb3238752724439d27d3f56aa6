@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b42d2601_dc9a57ea",
+        "filename": "docs/installation-aux.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-01-21T14:33:42Z",
+      "side": 1,
+      "message": "We will need a: ./deploy-ric-infra ../RECIPE_EXAMPLE/RIC_INFRA_AUX_RECIPE_EXAMPLE",
+      "revId": "388c8f8a510877eb3238752724439d27d3f56aa6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

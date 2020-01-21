@@ -28,7 +28,7 @@ dependencies:
     repository: "file://./subcharts/docker-credential"
     condition: docker-credential.enabled
   - name: kong
-    version: 0.17.0
+    version: 0.36.6
     repository: "file://./subcharts/kong"
     condition: kong.enabled
   - name: certificate-manager

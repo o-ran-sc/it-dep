@@ -23,8 +23,14 @@ extsvcaux:
 docker-credential:
   enabled: true
   credential:
-    oran:
+    oran-release:
       registry: "nexus3.o-ran-sc.org:10002"
+      credential:
+        user: "docker"
+        password: "docker"
+        email: "@"
+    oran-staging:
+      registry: "nexus3.o-ran-sc.org:10004"
       credential:
         user: "docker"
         password: "docker"

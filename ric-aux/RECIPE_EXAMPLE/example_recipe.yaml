@@ -41,16 +41,18 @@ extsvcaux:
   auxip: "10.0.0.1"
 
 
-#Specify the docker registry credential using the following
-docker-credential:
-  enabled: true
-  credential:
-    oran:
-      registry: "nexus3.o-ran-sc.org:10002"
-      credential:
-        user: "docker"
-        password: "docker"
-        email: "@"
+# Specify the docker registry credential using the following
+# The release and staging LF repos' credentials have already been included.
+# Please do not create duplicated entries 
+#docker-credential:
+#  enabled: true
+#  credential:
+#    SOME_KEY_NAME:
+#      registry: ""
+#      credential:
+#        user: ""
+#        password: ""
+#        email: ""
 
 
 dashboard:

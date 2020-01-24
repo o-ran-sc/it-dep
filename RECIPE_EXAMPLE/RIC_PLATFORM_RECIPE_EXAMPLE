@@ -34,7 +34,13 @@ global:
   # Docker image pull policy
   imagePullPolicy: Always
 
-  # Helm repo that will be used by xApp manager
+  # Helm repo that will be used by xApp manager, for hosting xApp charts.
+  # (The example value below points to a Helm repo that is to be set up in the
+  # AUX cluster.  If the goal is to use any other Helm chart repo, configure
+  # this parameter accordingly.  For example, if the plan is to use a chart
+  # repo in the RIC cluster, which can be done by enabling the Chart Museum
+  # component in RIC_INFRA recipe, this line should be:
+  #   helmRepository: "http://service-ricinfra-chartmuseum-http.ricinfra:8080" )
   helmRepository: "http://aux-entry/helm"
 
   # Certificate of the helm repo

@@ -33,15 +33,19 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
-| 2019-11-25         | 0.1.0              |Lusheng Ji          | First draft        |
+| 2019-11-25         | 0.1.0              |Lusheng Ji          | Amber              |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-01-23         | 0.2.0              |Zhe Huang           | Bronze RC          |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
+
 
 
 Overview
 ========
 
-The installation of Amber Near Realtime RAN Intelligent Controller is spread onto two separate
+The installation of Near Realtime RAN Intelligent Controller is spread onto two separate
 Kubernetes clusters.  The first cluster is used for deploying the Near Realtime RIC (platform and
 applications), and the other is for deploying other auxiliary functions.  They are referred to as
 RIC cluster and AUX cluster respectively.
@@ -52,7 +56,7 @@ The following diagram depicts the installation architecture.
    :width: 600
 
 Within the RIC cluster, Kubernetes resources are deployed using three name spaces: ricinfra, ricplt,
-and ricxapp.  Similarly, within the AUX cluster, Kubernetes resources are deployed using two name spaces:
+and ricxapp by default.  Similarly, within the AUX cluster, Kubernetes resources are deployed using two name spaces:
 ricinfra, and ricaux.
 
 For each cluster, there is a Kong ingress controller that proxies incoming API calls into the cluster.
@@ -67,10 +71,22 @@ together to realize cross-cluster communication.
    :width: 600
 
 
-VirtualBox VMs as Installation Hosts
-====================================
 
-The deployment of Amber Near Realtime RIC can be done on a wide range of hosts, including
+Prerequisites
+=============
+
+Both RIC and AUX clusters need to fulfill the following prerequisites.
+
+- Kubernetes v.1.16.0 or above
+- helm v2.12.3 or above
+- Read-write access to directory /mnt
+
+The following two sections show two example methods to create an environment for installing RIC.
+
+VirtualBox VMs as Installation Hosts
+------------------------------------
+
+The deployment of Near Realtime RIC can be done on a wide range of hosts, including
 bare metal servers, OpenStack VMs, and VirtualBox VMs.  This section provides detailed instructions
 for setting up Oracle VirtualBox VMs to be used as installation hosts.
 
@@ -78,7 +94,7 @@ for setting up Oracle VirtualBox VMs to be used as installation hosts.
 
 
 One-Node Kubernetes Cluster
-===========================
+---------------------------
 
 This section describes how to set up a one-node Kubernetes cluster onto a VM installation host.
 

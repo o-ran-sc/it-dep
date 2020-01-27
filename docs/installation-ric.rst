@@ -29,39 +29,51 @@ Clone the it/dep git repository that has deployment scripts and support files on
 Check out the appropriate branch of the repository with the release you want to deploy.
 For example:
 
-::
+  git clone https://gerrit.o-ran-sc.org/r/it/dep
+  cd dep
+  git submodule update --init --recursive --remote
 
-  % git checkout Amber
+Modify the deployment recipe
+----------------------------
 
-In the RECIPE_EXAMPLE directory, edit the recipe files RIC_INFRA_RECIPE_EXAMPLE and
-RIC_PLATFORM_RECIPE_EXAMPLE. In particular the following values often need adaptation
-to local deployments:
+Edit the recipe files ./RECIPE_EXAMPLE/PLATFORM/example_recipe.yaml.
 
-#. Docker registry URL (property "repository"). This is the default source for
-   container images. For example,
-   nexus3.o-ran-sc.org:10004/o-ran-sc is the staging registry and has freshly built images;
-   nexus3.o-ran-sc.org:10002/o-ran-sc is the release registry and has stable images.
-#. Docker registry credential. This is a name of a Kubernetes credential. Some registries
-   allow anonymous read access, including nexus3.o-ran-sc.org.
-#. Helm repo and credential. The xApp Manager deploys xApps from charts in this repo.
-   No changes are required here for basic dev testing of platform components.
-#. Component docker container image repository override and tag.  The recipes specify
-   the docker image to use in terms of name and tag.  These entries also allow override
-   of the default docker registry URL (see above); for example, the default might be the
-   releases registry and then a component under test is deployed from the staging registry.
+- Specify the IP addresses used by the RIC and AUX cluster ingress controller (e.g., the main interface IP) in the following section. If you do not plan to set up an AUX cluster, you can put down any private IPs (e.g., 10.0.2.1 and 10.0.2.2).
+
+.. code:: bash
+
+  extsvcplt:
+    ricip: ""
+    auxip: ""
+
+- To specify which version of the RIC platform components will be deployed, update the RIC platform component container tags in their corresponding section.
+- You can specify which docker registry will be used for each component. If the docker registry requires login credential, you can add the credential in the following section. Please note that the installation suite has already included credentials for O-RAN Linux Foundation docker registries. Please do not create duplicate entries.
+
+.. code:: bash
+
+  docker-credential:
+    enabled: true
+    credential:
+      SOME_KEY_NAME:
+        registry: ""
+        credential:
+          user: ""
+          password: ""
+          email: ""
+
+For more advanced recipe configuration options, please refer to the recipe configuration guideline.
 
 
 Deploying the Infrastructure and Platform Groups
 ------------------------------------------------
 
-After the recipes are edited, the Near Realtime RIC is ready to be deployed.
-Perform the following steps in a root shell.
+After the recipes are edited, the Near Realtime RIC platform is ready to be deployed.
 
 .. code:: bash
 
-  % sudo -i
-  # cd dep/bin
-  # ./deploy-ric-platform ../RECIPE_EXAMPLE/PLATFORM/example_recipe.yaml
+  cd dep/bin
+  ./deploy-ric-platform ../RECIPE_EXAMPLE/PLATFORM/example_recipe.yaml
+
 
 Checking the Deployment Status
 ------------------------------
@@ -74,38 +86,37 @@ STATUS column from both kubectl outputs to ensure that all are either
 .. code::
 
   # helm list
-  NAME             	REVISION	UPDATED                 	STATUS  	CHART               	APP VERSION	NAMESPACE
-  r3-a1mediator    	1       	Tue Jan 28 20:11:39 2020	DEPLOYED	a1mediator-3.0.0    	1.0        	ricplt
-  r3-appmgr        	1       	Tue Jan 28 20:10:52 2020	DEPLOYED	appmgr-3.0.0        	1.0        	ricplt
-  r3-dbaas1        	1       	Tue Jan 28 20:11:13 2020	DEPLOYED	dbaas1-3.0.0        	1.0        	ricplt
-  r3-e2mgr         	1       	Tue Jan 28 20:11:23 2020	DEPLOYED	e2mgr-3.0.0         	1.0        	ricplt
-  r3-e2term        	1       	Tue Jan 28 20:11:31 2020	DEPLOYED	e2term-3.0.0        	1.0        	ricplt
-  r3-infrastructure	1       	Tue Jan 28 20:10:39 2020	DEPLOYED	infrastructure-3.0.0	1.0        	ricplt
-  r3-jaegeradapter 	1       	Tue Jan 28 20:12:14 2020	DEPLOYED	jaegeradapter-3.0.0 	1.0        	ricplt
-  r3-rsm           	1       	Tue Jan 28 20:12:04 2020	DEPLOYED	rsm-3.0.0           	1.0        	ricplt
-  r3-rtmgr         	1       	Tue Jan 28 20:11:02 2020	DEPLOYED	rtmgr-3.0.0         	1.0        	ricplt
-  r3-submgr        	1       	Tue Jan 28 20:11:48 2020	DEPLOYED	submgr-3.0.0        	1.0        	ricplt
-  r3-vespamgr      	1       	Tue Jan 28 20:11:56 2020	DEPLOYED	vespamgr-3.0.0      	1.0        	ricplt
+  NAME                  REVISION        UPDATED                         STATUS          CHART                   APP VERSION     NAMESPACE
+  r3-a1mediator         1               Thu Jan 23 14:29:12 2020        DEPLOYED        a1mediator-3.0.0        1.0             ricplt
+  r3-appmgr             1               Thu Jan 23 14:28:14 2020        DEPLOYED        appmgr-3.0.0            1.0             ricplt
+  r3-dbaas1             1               Thu Jan 23 14:28:40 2020        DEPLOYED        dbaas1-3.0.0            1.0             ricplt
+  r3-e2mgr              1               Thu Jan 23 14:28:52 2020        DEPLOYED        e2mgr-3.0.0             1.0             ricplt
+  r3-e2term             1               Thu Jan 23 14:29:04 2020        DEPLOYED        e2term-3.0.0            1.0             ricplt
+  r3-infrastructure     1               Thu Jan 23 14:28:02 2020        DEPLOYED        infrastructure-3.0.0    1.0             ricplt
+  r3-jaegeradapter      1               Thu Jan 23 14:29:47 2020        DEPLOYED        jaegeradapter-3.0.0     1.0             ricplt
+  r3-rsm                1               Thu Jan 23 14:29:39 2020        DEPLOYED        rsm-3.0.0               1.0             ricplt
+  r3-rtmgr              1               Thu Jan 23 14:28:27 2020        DEPLOYED        rtmgr-3.0.0             1.0             ricplt
+  r3-submgr             1               Thu Jan 23 14:29:23 2020        DEPLOYED        submgr-3.0.0            1.0             ricplt
+  r3-vespamgr           1               Thu Jan 23 14:29:31 2020        DEPLOYED        vespamgr-3.0.0          1.0             ricplt
+
+  # kubectl get pods -n ricplt
+  NAME                                               READY   STATUS             RESTARTS   AGE
+  deployment-ricplt-a1mediator-69f6d68fb4-7trcl      1/1     Running            0          159m
+  deployment-ricplt-appmgr-845d85c989-qxd98          2/2     Running            0          160m
+  deployment-ricplt-dbaas-7c44fb4697-flplq           1/1     Running            0          159m
+  deployment-ricplt-e2mgr-569fb7588b-wrxrd           1/1     Running            0          159m
+  deployment-ricplt-e2term-alpha-db949d978-rnd2r     1/1     Running            0          159m
+  deployment-ricplt-jaegeradapter-585b4f8d69-tmx7c   1/1     Running            0          158m
+  deployment-ricplt-rsm-755f7c5c85-j7fgf             1/1     Running            0          158m
+  deployment-ricplt-rtmgr-c7cdb5b58-2tk4z            1/1     Running            0          160m
+  deployment-ricplt-submgr-5b4864dcd7-zwknw          1/1     Running            0          159m
+  deployment-ricplt-vespamgr-864f95c9c9-5wth4        1/1     Running            0          158m
+  r3-infrastructure-kong-68f5fd46dd-lpwvd            2/2     Running            3          160m
 
   # kubectl get pods -n ricinfra
   NAME                                        READY   STATUS      RESTARTS   AGE
-  deployment-tiller-ricxapp-d4f98ff65-xxpbb   1/1     Running     0          2m46s
-  tiller-secret-generator-76b5t               0/1     Completed   0          2m46s
-
-  # kubectl get pods -n ricplt
-  NAME                                               READY   STATUS         RESTARTS   AGE
-  deployment-ricplt-a1mediator-69f6d68fb4-ndkdv      1/1     Running        0          95s
-  deployment-ricplt-appmgr-845d85c989-4z7t5          2/2     Running        0          2m22s
-  deployment-ricplt-dbaas-7c44fb4697-6lbqq           1/1     Running        0          2m1s
-  deployment-ricplt-e2mgr-569fb7588b-fqfqn           1/1     Running        0          111s
-  deployment-ricplt-e2term-alpha-db949d978-nsjds     1/1     Running        0          103s
-  deployment-ricplt-jaegeradapter-585b4f8d69-gvmdf   1/1     Running        0          60s
-  deployment-ricplt-rsm-755f7c5c85-wdn46             0/1     ErrImagePull   0          69s
-  deployment-ricplt-rtmgr-c7cdb5b58-lsqw4            1/1     Running        0          2m12s
-  deployment-ricplt-submgr-5b4864dcd7-5k26s          1/1     Running        0          86s
-  deployment-ricplt-vespamgr-864f95c9c9-lj74h        1/1     Running        0          78s
-  r3-infrastructure-kong-79b6d8b95b-4lg58            2/2     Running        1          2m33s
-
+  deployment-tiller-ricxapp-d4f98ff65-9q6nb   1/1     Running     0          163m
+  tiller-secret-generator-plpbf               0/1     Completed   0          163m
 
 Checking Container Health
 -------------------------

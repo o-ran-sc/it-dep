@@ -43,7 +43,7 @@ extsvcaux:
 
 # Specify the docker registry credential using the following
 # The release and staging LF repos' credentials have already been included.
-# Please do not create duplicated entries 
+# Please do not create duplicate entries
 #docker-credential:
 #  enabled: true
 #  credential:

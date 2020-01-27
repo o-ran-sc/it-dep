@@ -29,16 +29,34 @@ Run the following commands in a root shell:
 
 .. code:: bash
 
-  git clone http://gerrit.o-ran-sc.org/r/it/dep
-  cd RECIPE_EXAMPLE
+  git clone https://gerrit.o-ran-sc.org/r/it/dep -b r3
+  cd dep
+  git submodule update --init --recursive --remote
 
-Edit the recipe files RIC_INFRA_RECIPE_EXAMPLE and RIC_PLATFORM_RECIPE_EXAMPLE.
-In particular the following values often need adaptation to local deployments:
 
-#. Docker registry URL
-#. Docker registry credential
-#. Helm repo credential
-#. Component docker container image tags.
+Modify the deployment recipe
+---------------------------------------
+
+Edit the recipe files ./RECIPE_EXAMPLE/AUX/example_recipe.yaml.
+
+- Please specify the IP addresses used by the RIC and AUX cluster ingress controller (e.g., the main interface IP) in the following section.
+  extsvcplt:
+    ricip: ""
+    auxip: ""
+- To specify which version of the RIC platform components will be deployed, please update the RIC platform component container tags in their corresponding section.
+- You can specify which docker registry will be used for each component. If the docker registry requires login credential, you can add the credential in the following section.
+  Please note that the installation suit has already included credentials for O-RAN Linux Foundation docker registries. Please do not create duplicated entries.
+  docker-credential:
+    enabled: true
+    credential:
+      SOME_KEY_NAME:
+        registry: ""
+        credential:
+          user: ""
+          password: ""
+          email: ""
+
+For more advanced recipe configuration options, please refer to the recipe configuration guideline.
 
 
 Deploying the Aux Group
@@ -49,8 +67,7 @@ After the recipes are edited, the AUX group is ready to be deployed.
 .. code:: bash
 
   cd dep/bin
-  ./deploy-ric-infra ../RECIPE_EXAMPLE/RIC_INFRA_AUX_RECIPE_EXAMPLE
-  ./deploy-ric-aux ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
+  ./deploy-ric-aux ../RECIPE_EXAMPLE/AUX/example_recipe.yaml
 
 
 Checking the Deployment Status
@@ -60,4 +77,34 @@ Now check the deployment status and results similar to the below indicate a comp
 
 .. code::
 
-  TBD
+  # helm list
+  NAME             	REVISION	UPDATED                 	STATUS  	CHART               	APP VERSION	NAMESPACE
+  r3-aaf           	1       	Mon Jan 27 13:24:59 2020	DEPLOYED	aaf-5.0.0           	           	onap     
+  r3-dashboard     	1       	Mon Jan 27 13:22:52 2020	DEPLOYED	dashboard-1.2.2     	1.0        	ricaux   
+  r3-infrastructure	1       	Mon Jan 27 13:22:44 2020	DEPLOYED	infrastructure-3.0.0	1.0        	ricaux   
+  r3-mc-stack      	1       	Mon Jan 27 13:23:37 2020	DEPLOYED	mc-stack-0.0.1      	1          	ricaux   
+  r3-message-router	1       	Mon Jan 27 13:23:09 2020	DEPLOYED	message-router-1.1.0	           	ricaux   
+  r3-mrsub         	1       	Mon Jan 27 13:23:24 2020	DEPLOYED	mrsub-0.1.0         	1.0        	ricaux   
+  r3-portal        	1       	Mon Jan 27 13:24:12 2020	DEPLOYED	portal-5.0.0        	           	ricaux   
+  r3-ves           	1       	Mon Jan 27 13:23:01 2020	DEPLOYED	ves-1.1.1           	1.0        	ricaux
+  # kubectl get pods -n ricaux
+  NAME                                           READY   STATUS     RESTARTS   AGE
+  deployment-ricaux-dashboard-f78d7b556-m5nbw    1/1     Running    0          6m30s
+  deployment-ricaux-ves-69db8c797-v9457          1/1     Running    0          6m24s
+  elasticsearch-master-0                         1/1     Running    0          5m36s
+  r3-infrastructure-kong-7697bccc78-nsln7        2/2     Running    3          6m40s
+  r3-mc-stack-kibana-78f648bdc8-nfw48            1/1     Running    0          5m37s
+  r3-mc-stack-logstash-0                         1/1     Running    0          5m36s
+  r3-message-router-message-router-0             1/1     Running    3          6m11s
+  r3-message-router-message-router-kafka-0       1/1     Running    1          6m11s
+  r3-message-router-message-router-kafka-1       1/1     Running    2          6m11s
+  r3-message-router-message-router-kafka-2       1/1     Running    1          6m11s
+  r3-message-router-message-router-zookeeper-0   1/1     Running    0          6m11s
+  r3-message-router-message-router-zookeeper-1   1/1     Running    0          6m11s
+  r3-message-router-message-router-zookeeper-2   1/1     Running    0          6m11s
+  r3-mrsub-5c94f5b8dd-wxcw5                      1/1     Running    0          5m58s
+  r3-portal-portal-app-8445f7f457-dj4z8          2/2     Running    0          4m53s
+  r3-portal-portal-cassandra-79cf998f69-xhpqg    1/1     Running    0          4m53s
+  r3-portal-portal-db-755b7dc667-kjg5p           1/1     Running    0          4m53s
+  r3-portal-portal-db-config-bfjnc               2/2     Running    0          4m53s
+  r3-portal-portal-zookeeper-5f8f77cfcc-t6z7w    1/1     Running    0          4m53s  

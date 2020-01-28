@@ -1177,6 +1177,30 @@
     },
     {
       "key": {
+        "uuid": "6a4416b0_19d08529",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-28T20:30:45Z",
+      "side": 1,
+      "message": "Those are not, in general, default values.  Right.  But for people going thru this the first time, people who want to set up a dev/test instance, they are exactly correct, right?  Would you consider listing them in a sentence nearby?",
+      "parentUuid": "14de1a14_3a3639bd",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54e9b017_d9319ecd",
         "filename": "docs/installation-ric.rst",
         "patchSetId": 4

@@ -1130,6 +1130,29 @@
     },
     {
       "key": {
+        "uuid": "2c732955_e526925b",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-28T20:13:51Z",
+      "side": 1,
+      "message": "Could you please use the previously mentioned IP addresses here like 10.0.2.100  and  10.0.2.101?  That\u0027s right for a dev/test installation, right?  That would really help.",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54e9b017_d9319ecd",
         "filename": "docs/installation-ric.rst",
         "patchSetId": 4
@@ -1221,6 +1244,29 @@
       "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57c8950d_19eea383",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-28T20:13:51Z",
+      "side": 1,
+      "message": "suite? script?   I\u0027m sure you don\u0027t mean \"suit\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 36,
+        "endLine": 45,
+        "endChar": 40
+      },
+      "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     },
     {
       "key": {

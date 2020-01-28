@@ -439,6 +439,29 @@
     },
     {
       "key": {
+        "uuid": "f73e527c_89a36e7a",
+        "filename": "docs/installation-k8s1node.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-28T18:31:07Z",
+      "side": 1,
+      "message": "This file is now in dep/tools/k8s/bin just need to make it a bit clearer above",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a17e908_e8f89c36",
         "filename": "docs/installation-ric.rst",
         "patchSetId": 4

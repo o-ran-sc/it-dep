@@ -45,6 +45,30 @@
       "revId": "12d0d13a91f87717bdd00ae809491409ae18cbe9",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a245e586_3fbe31ff",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-28T20:23:19Z",
+      "side": 1,
+      "message": "I updated the deploy and undeploy commands, also the output.",
+      "parentUuid": "93ac654c_127bc5c2",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "12d0d13a91f87717bdd00ae809491409ae18cbe9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

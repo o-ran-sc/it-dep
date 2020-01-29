@@ -1201,6 +1201,30 @@
     },
     {
       "key": {
+        "uuid": "10954675_f9d15e9a",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-01-29T16:43:07Z",
+      "side": 1,
+      "message": "That\u0027s the problem. It is not correct because those are actually my IPs.\nIn a generic dev env, those IPs do not exist yet.\n\nSo maybe let me make it optional with more explanation.",
+      "parentUuid": "6a4416b0_19d08529",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "57b83e4f0556b9afbc722e7c3ed28b9213d67724",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "54e9b017_d9319ecd",
         "filename": "docs/installation-ric.rst",
         "patchSetId": 4

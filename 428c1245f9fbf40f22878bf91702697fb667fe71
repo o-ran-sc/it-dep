@@ -22,6 +22,30 @@
       "revId": "428c1245f9fbf40f22878bf91702697fb667fe71",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c104bde_f69f5cdc",
+        "filename": "docs/installation-xapps.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-01-29T16:43:07Z",
+      "side": 1,
+      "message": "Good point, we don\u0027t have one yet. We use RANCODEV previously. We are still discussing how we can host the xApp charts for ORAN community. Maybe we can create a dummy xApp chart.",
+      "parentUuid": "95383299_6dd9124a",
+      "range": {
+        "startLine": 25,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "428c1245f9fbf40f22878bf91702697fb667fe71",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

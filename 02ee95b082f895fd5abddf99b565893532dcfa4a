@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c31af3f_e741deeb",
+        "filename": "docs/installation-aux.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-29T20:24:19Z",
+      "side": 1,
+      "message": "still not right - suite?  script??",
+      "range": {
+        "startLine": 53,
+        "startChar": 29,
+        "endLine": 53,
+        "endChar": 33
+      },
+      "revId": "02ee95b082f895fd5abddf99b565893532dcfa4a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeeb9c85_696eed4c",
+        "filename": "docs/installation-ric.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-29T20:24:19Z",
+      "side": 1,
+      "message": "pls drop trailing ws",
+      "revId": "02ee95b082f895fd5abddf99b565893532dcfa4a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e656a1da_c069c095",
+        "filename": "ric-aux/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-29T20:24:19Z",
+      "side": 1,
+      "message": "drop last d",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 33
+      },
+      "revId": "02ee95b082f895fd5abddf99b565893532dcfa4a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "794221e9_cbf1e3aa",
+        "filename": "ric-aux/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-29T20:24:19Z",
+      "side": 1,
+      "message": "drop trailing ws",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "02ee95b082f895fd5abddf99b565893532dcfa4a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

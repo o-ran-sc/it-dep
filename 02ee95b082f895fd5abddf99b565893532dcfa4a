@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "a05441ff_1958750d",
+        "filename": "docs/installation-k8s1node.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2020-01-31T19:15:02Z",
+      "side": 1,
+      "message": "Please change to:\n\n    % cd tools/k8s/bin",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 10
+      },
+      "revId": "02ee95b082f895fd5abddf99b565893532dcfa4a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aeeb9c85_696eed4c",
         "filename": "docs/installation-ric.rst",
         "patchSetId": 7

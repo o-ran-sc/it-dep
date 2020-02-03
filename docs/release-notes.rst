@@ -33,6 +33,9 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-02-02         | 0.1.1              | Lusheng Ji         | Amber maintenance  |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
 | 2019-11-12         | 0.1.0              | Lusheng Ji         | First draft        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
@@ -65,7 +68,10 @@ Release Data
 | **Release designation**              | Amber                                |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
-| **Release date**                     | 2019-11-22                           |
+| **Release date**                     | 2020-02-02 (Maintenance)             |
+|                                      |                                      |
+|                                      +--------------------------------------+
+|                                      | 2019-11-22 (First Release)           |
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 | **Purpose of the delivery**          | First release                        |
@@ -119,15 +125,15 @@ Deliverables
 Software deliverables
 ---------------------
 
-The deployment artifacts can be accessed as Debian software package:
-https://packagecloud.io/o-ran-sc/staging/packages/debian/stretch/ric-deployment-tools_2.0.0_all.deb
+The deployment artifacts can be accessed by cloning the Amber branch of the Git repository:
+git clone -b Amber http://gerrit.o-ran-sc.org/r/it/dep
 
 
 Documentation deliverables
 ---------------------------
 
 Documentation for installing, usinhg, and developing for Integraion and Testing project can be found at: 
-https://o-ran-sc-doc.readthedocs.io/projects/o-ran-sc-it-dep/en/latest/index.html
+https://docs.o-ran-sc.org/projects/o-ran-sc-it-dep/en/latest/index.html
 
 Known Limitations, Issues, and Workarounds
 ------------------------------------------

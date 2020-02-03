@@ -59,9 +59,8 @@ echo "***************************************"
 
 for dir in "${CHART_ARRAY[@]}"
 do
-  
-    echo "Update chart depenedency"
-    helm dep up $dir 
+    echo "Update chart dependency"
+    helm dep up $dir
     # Lint clearly marks errors; e.g., [ERROR]
     if [ -z $OVERRIDEYAML ]; then
         helm lint $dir > /tmp/output 2>&1
@@ -69,8 +68,8 @@ do
         helm lint -f $OVERRIDEYAML $dir> /tmp/output 2>&1
     fi
     echo "***************************************************************************************************************"
-    cat /tmp/output 
-    
+    cat /tmp/output
+
     egrep -q '^Error: [0-9]* chart\(s\) linted, [0-9]* chart\(s\) failed' /tmp/output && exit 1
     echo "***************************************************************************************************************"
 
@@ -80,15 +79,8 @@ do
 	helm template -f $OVERRIDEYAML $dir > /tmp/output 2>&1
     fi
     echo "***************************************************************************************************************"
-    cat /tmp/output 
-   sleep 1 
+    cat /tmp/output
+   sleep 1
     egrep -n '%!.\(.*=.*\)' /tmp/output && echo "Error: Type mismatch." && exit 1
     echo "***************************************************************************************************************"
-
 done
-#Error: 1 chart(s) linted, 1 chart(s) failed
-
-
-
-exit 0
-

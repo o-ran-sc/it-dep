@@ -27,28 +27,35 @@ metadata:
   name: {{ include "common.configmapname.dashboard" . }}-appconfig
 data:
   # one key per file
-  application.properties: |
-    server.port        = {{ include "common.serviceport.dashboard.container" . }}
-    userfile           = {{ .Values.dashboard.userfile }}
-    a1med.url.prefix   = {{ include "dashboard.prefix.a1mediator" . }}
-    a1med.url.suffix   = {{ .Values.dashboard.a1med.url.suffix   }}
-    anrxapp.url.prefix = {{ include "dashboard.prefix.anrxapp" . }}
-    anrxapp.url.suffix = {{ .Values.dashboard.anrxapp.url.suffix }}
-    appmgr.url.prefix  = {{ include "dashboard.prefix.appmgr" .  }}
-    appmgr.url.suffix  = {{ .Values.dashboard.appmgr.url.suffix  }}
-    caasingress.insecure = {{ .Values.dashboard.caasingress.insecure  }}
-    caasingress.aux.url.prefix  = {{ .Values.dashboard.caasingress.aux.url.prefix }}
-    caasingress.aux.url.suffix  = {{ .Values.dashboard.caasingress.aux.url.suffix }}
-    caasingress.plt.url.prefix  = {{ .Values.dashboard.caasingress.plt.url.prefix  }}
-    caasingress.plt.url.suffix  = {{ .Values.dashboard.caasingress.plt.url.suffix  }}
-    e2mgr.url.prefix   = {{ include "dashboard.prefix.e2mgr" .   }}
-    e2mgr.url.suffix   = {{ .Values.dashboard.e2mgr.url.suffix   }}
-    portalapi.security = {{ .Values.dashboard.portalapi.security }}
-    portalapi.appname  = {{ .Values.dashboard.portalapi.appname  }}
-    portalapi.username = {{ .Values.dashboard.portalapi.username }}
-    portalapi.password = {{ .Values.dashboard.portalapi.password }}
-    metrics.url.ac     = {{ .Values.dashboard.metrics.url.ac     }}
-    metrics.url.mc     = {{ .Values.dashboard.metrics.url.mc     }}
+  application.yaml: |
+    server:
+      port: {{ include "common.serviceport.dashboard.container" . }}
+    userfile: {{ .Values.dashboard.userfile }}
+    portalapi:
+      # constants for all deployments
+      decryptor: org.oransc.ric.portal.dashboard.portalapi.PortalSdkDecryptorAes
+      usercookie: UserId
+      # different in all deployments
+      security: {{ .Values.dashboard.portalapi.security }}
+      appname: {{ .Values.dashboard.portalapi.appname  }}
+      username: {{ .Values.dashboard.portalapi.username }}
+      password: {{ .Values.dashboard.portalapi.password }}
+    a1med:
+      url:
+        suffix: {{ .Values.dashboard.a1med.url.suffix   }}
+    appmgr:
+      url:
+        suffix: {{ .Values.dashboard.appmgr.url.suffix  }}
+    e2mgr:
+      url:
+        suffix: {{ .Values.dashboard.e2mgr.url.suffix   }}
+    caasingress:
+      insecure: { .Values.dashboard.caasingress.insecure  }}
+        plt:
+          url:
+            suffix: {{ .Values.dashboard.caasingress.plt.url.suffix  }}
+    ricinstances: 
+{{ tpl .Values.dashboard.ricinstances . | indent 6 }}
 
   key.properties: |
     cipher.enc.key     = {{ .Values.dashboard.cipher.enc.key }}

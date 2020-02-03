@@ -126,7 +126,7 @@ Software deliverables
 ---------------------
 
 The deployment artifacts can be accessed by cloning the Amber branch of the Git repository:
-git clone -b Amber http://gerrit.o-ran-sc.org/r/it/dep
+git clone -b Amber https://gerrit.o-ran-sc.org/r/it/dep
 
 
 Documentation deliverables

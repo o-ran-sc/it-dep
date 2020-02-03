@@ -29,7 +29,7 @@ if [ -z "$HELM_REPO_PID" ]; then
     nohup helm serve >& /dev/null &
 fi
 
-# Package ric-common and serve it using Helm local repo
+echo "Package ric-common and serve it using Helm local repo"
 HELM_HOME=$(helm home)
 COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
@@ -39,16 +39,13 @@ AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
 cp /tmp/aux-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
 
-
-
 helm repo index $HELM_HOME/repository/local/
 
-
-# Make sure that helm local repo is added
+echo "Make sure that helm local repo is added"
 helm repo remove local
 helm repo add local http://127.0.0.1:8879/charts
 
-# Create array of helm charts
+echo "Create array of helm charts"
 CHART_ARRAY=()
 while IFS= read -r -d $'\0'; do
     CHART_ARRAY+=("$REPLY")
@@ -59,9 +56,8 @@ echo "***************************************"
 
 for dir in "${CHART_ARRAY[@]}"
 do
-  
-    echo "Update chart depenedency"
-    helm dep up $dir 
+    echo "Update chart dependency for directory $dir"
+    helm dep up $dir
     # Lint clearly marks errors; e.g., [ERROR]
     if [ -z $OVERRIDEYAML ]; then
         helm lint $dir > /tmp/output 2>&1
@@ -69,8 +65,8 @@ do
         helm lint -f $OVERRIDEYAML $dir> /tmp/output 2>&1
     fi
     echo "***************************************************************************************************************"
-    cat /tmp/output 
-    
+    cat /tmp/output
+
     egrep -q '^Error: [0-9]* chart\(s\) linted, [0-9]* chart\(s\) failed' /tmp/output && exit 1
     echo "***************************************************************************************************************"
 
@@ -80,15 +76,8 @@ do
 	helm template -f $OVERRIDEYAML $dir > /tmp/output 2>&1
     fi
     echo "***************************************************************************************************************"
-    cat /tmp/output 
-   sleep 1 
+    cat /tmp/output
+   sleep 1
     egrep -n '%!.\(.*=.*\)' /tmp/output && echo "Error: Type mismatch." && exit 1
     echo "***************************************************************************************************************"
-
 done
-#Error: 1 chart(s) linted, 1 chart(s) failed
-
-
-
-exit 0
-

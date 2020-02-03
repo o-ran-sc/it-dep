@@ -58,52 +58,12 @@ extsvcaux:
 dashboard:
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    registry: nexus3.o-ran-sc.org:10004/o-ran-sc
     name: ric-dashboard
-    tag: 1.3.0
-  # Many URL prefixes use K8S/Kong service names
-  a1med:
-    url:
-      # The default a1mediator prefix is http://ricplt-entry/a1mediator
-      # You can override the value using the following option
-      # prefix:
-      suffix: ''
-  anrxapp:
-    url:
-      # The default anrxapp prefix is http://ricxapp-entry/anr
-      # You can override the value using the following option
-      # prefix:
-      suffix: ''
-  appmgr:
-    url:
-      # The default appmgr prefix is http://ricplt-entry/appmgr
-      # You can override the value using the following option
-      # prefix:
-      suffix: /ric/v1
-  caasingress:
-    # Ignore SSL problems to CaaS-Ingress by enabling this
-    insecure: true
-    aux:
-      url:
-        # The default AUX CaaS-Ingress prefix is TBD
-        # You can override the value using the following option
-        # prefix:
-        suffix: /api
-    plt:
-      url:
-        # The default PLT CaaS-Ingress prefix is TBD
-        # You can override the value using the following option
-        # prefix:
-        suffix: /api
-  e2mgr:
-    url:
-      # The default e2mgr prefix is http://ricplt-entry/e2mgr
-      # You can override the value using the following option
-      # prefix:
-      suffix: /v1
+    tag: 2.0.0
   cipher:
     enc:
-      key:
+      key: AGLDdG4D04BKm2IxIWEr8o==
   portalapi:
     security: false
     appname: RIC-Dashboard
@@ -112,11 +72,18 @@ dashboard:
     ecomp_redirect_url: https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
     ecomp_rest_url: http://portal-app:8989/ONAPPORTAL/auxapi
     ueb_app_key: uebkey
-  metrics:
-    url:
-      ac: http://ric-aux-kibana-server:5601/goto/1234567890abcdef?embed=true
-      mc: http://ric-aux-kibana-server:5601/goto/b35690798f2a32d065f5107aecd84308?embed=true
-
+  # instances are passed as string and reformatted into YAML
+  ricinstances: |
+    regions:
+      -
+        name: Region PIZ-R4
+        instances:
+          -
+            key: i1
+            name: RIC
+            appUrlPrefix: http://ric-entry
+            caasUrlPrefix: http://caas-ingress-is-REC-only
+            pltUrlPrefix: http://ric-entry
 
 portal-mariadb:
   config:

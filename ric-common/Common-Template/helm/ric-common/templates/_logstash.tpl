@@ -14,18 +14,10 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# template for component name
 {{- define "common.name.logstash" -}}
-  {{- if .Values.logstash -}}
-    {{- if .Values.logstash.nameOverride -}}
-      {{- printf "%s" .Values.logstash.nameOverride -}}
-    {{- else -}}
-      {{- printf "logstash" -}}
-    {{- end -}}
-  {{- else -}}
-    {{- printf "logstash" -}}
-  {{- end -}}
+  {{- printf "logstash" -}}
 {{- end -}}
+
 
 {{- define "common.fullname.logstash" -}}
   {{- $name := ( include "common.name.logstash" . ) -}}

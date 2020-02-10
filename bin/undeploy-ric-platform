@@ -21,12 +21,7 @@
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-
-for component in $ROOT_DIR/../ric-platform/*/; do
-    # Will print */ if no directories are available
-    . $component/bin/uninstall
-
-done
+$ROOT_DIR/../ric-dep/bin/uninstall
 
 
 

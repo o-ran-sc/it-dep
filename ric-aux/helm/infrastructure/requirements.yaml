@@ -1,0 +1,37 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+dependencies:
+  - name: ric-common
+    version: ~3.0.0
+    repository: "@local"
+  - name: extsvcaux
+    version: 0.2.0
+    repository: "file://subcharts/extsvcaux"
+    condition: extsvcaux.enabled
+  - name: docker-credential
+    version: 1.0.0
+    repository: "file://./subcharts/docker-credential"
+    condition: docker-credential.enabled
+  - name: kong
+    version: 0.36.6
+    repository: "file://./subcharts/kong"
+    condition: kong.enabled
+  - name: certificate-manager
+    version: 0.1.0
+    repository: "file://./subcharts/certificate-manager"
+    condition: certificate-manager.enabled

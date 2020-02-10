@@ -1,0 +1,74 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+# Defines multiple config maps for mounting as files; e.g., application.properties
+# The keys listed below MUST be configured in each deployment;
+# this list does not include all keys recognized by the app.
+# The template directives in the URL prefix definitions use common
+# K8S ingress values, but use Dashboard values if present.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.configmapname.dashboard" . }}-appconfig
+data:
+  # one key per file
+  application.yaml: |
+    server:
+      port: {{ include "common.serviceport.dashboard.container" . }}
+    userfile: {{ .Values.dashboard.userfile }}
+    portalapi:
+      # constants for all deployments
+      decryptor: org.oransc.ric.portal.dashboard.portalapi.PortalSdkDecryptorAes
+      usercookie: UserId
+      # different in all deployments
+      security: {{ .Values.dashboard.portalapi.security }}
+      appname: {{ .Values.dashboard.portalapi.appname  }}
+      username: {{ .Values.dashboard.portalapi.username }}
+      password: {{ .Values.dashboard.portalapi.password }}
+    a1med:
+      url:
+        suffix: {{ .Values.dashboard.a1med.url.suffix   }}
+    appmgr:
+      url:
+        suffix: {{ .Values.dashboard.appmgr.url.suffix  }}
+    e2mgr:
+      url:
+        suffix: {{ .Values.dashboard.e2mgr.url.suffix   }}
+    caasingress:
+      insecure: {{ .Values.dashboard.caasingress.insecure  }}
+      plt:
+        url:
+          suffix: {{ .Values.dashboard.caasingress.plt.url.suffix  }}
+    ricinstances:
+{{ tpl .Values.dashboard.ricinstances . | indent 6 }}
+
+  key.properties: |
+    cipher.enc.key     = {{ .Values.dashboard.cipher.enc.key }}
+
+  portal.properties: |
+    # fixed values
+    portal.api.impl.class = org.oransc.ric.portal.dashboard.portalapi.PortalRestCentralServiceImpl
+    role_access_centralized = remote
+    # variable values
+    ecomp_redirect_url = {{ .Values.dashboard.portalapi.ecomp_redirect_url }}
+    ecomp_rest_url     = {{ .Values.dashboard.portalapi.ecomp_rest_url }}
+    ueb_app_key        = {{ .Values.dashboard.portalapi.ueb_app_key }}
+
+  # Temp solution before Portal 2.6
+  users.json: |
+    [{"orgId":null,"managerId":null,"firstName":"First","middleInitial":null,"lastName":"Last","phone":null,"email":null,"hrid":null,"orgUserId":null,"orgCode":null,"orgManagerUserId":null,"jobTitle":null,"loginId":"demo","active":true,"roles":[{"id":1,"name":"System_Administrator","roleFunctions":null}]}]

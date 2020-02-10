@@ -121,13 +121,13 @@ data:
     {{- if hasKey .Values.e2mgr "keepAliveResponseTimeoutMs" }}
     keepAliveResponseTimeoutMs: {{ .Values.e2mgr.keepAliveResponseTimeoutMs }}
     {{- else }}
-    keepAliveResponseTimeoutMs: 4500
+    keepAliveResponseTimeoutMs: 360000
     {{- end }}
 
     {{- if hasKey .Values.e2mgr "keepAliveDelayMs" }}
     keepAliveDelayMs: {{ .Values.e2mgr.keepAliveDelayMs }}
     {{- else }}
-    keepAliveDelayMs: 1500
+    keepAliveDelayMs: 120000
     {{- end }}
 
 ---

@@ -1,0 +1,103 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+# Deployment values for dashboard.
+
+dashboard:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    name: ric-dashboard
+    tag: 2.0.0
+  replicaCount: 1
+
+  # Service ports are now defined in
+  # ric-common/Common-Template/helm/ric-common/templates/_ports.tpl file.
+  # If need to change a service port, make the code change necessary, then
+  # update the _ports.tpl file with the new port number.
+  # The keys listed below MUST be configured in each deployment;
+  # this list does not include all keys recognized by the app.
+
+  # Specify a storage class to bypass the local storage definition.
+  # storageclass:
+  # persist user details as JSON to a persistent volume
+  storagesize: 1Mi
+  # in the container
+  userfile: /dashboard-data/users.json
+  # on the server
+  datapath: /opt/data/dashboard-data
+  # The URL prefixes are specific to instances
+  # and may be K8S service names, see below.
+  a1med:
+    url:
+      # uses pltUrlPrefix
+      suffix: /a1mediator
+  appmgr:
+    url:
+      # uses pltUrlPrefix
+      suffix: /appmgr/ric/v1
+  caasingress:
+    # Ignore SSL problems to CaaS-Ingress by enabling this
+    insecure: true
+    plt:
+      url:
+        # uses caasUrlPrefix
+        suffix: /api
+  e2mgr:
+    url:
+      # uses pltUrlPrefix
+      suffix: /e2mgr/v1
+  cipher:
+    enc:
+      key:
+  portalapi:
+    security: false
+    appname: RIC-Dashboard
+    username: Default
+    password: password
+    ecomp_redirect_url: https://portal.api.simpledemo.onap.org:30225/ONAPPORTAL/login.htm
+    ecomp_rest_url: http://portal-app:8989/ONAPPORTAL/auxapi
+    ueb_app_key: uebkey
+  # Instance keys must be unique, but region names are for users only.
+  # Regions and instances are shown here only as documentation of the format.
+  ricinstances: |
+    regions:
+      -
+        name: Region AAA
+        instances:
+          -
+            key: i1
+            name: Primary RIC Instance
+            appUrlPrefix: App prefix 1
+            caasUrlPrefix: Caas prefix 1
+            pltUrlPrefix: Plt prefix 1
+          -
+            key: i2
+            name: RIC Instance Nr Two
+            appUrlPrefix: App prefix 2
+            caasUrlPrefix: Caas prefix 2
+            pltUrlPrefix: Plt prefix 2
+      -
+        name: Region DDD
+        instances:
+          -
+            key: i3
+            name: RIC Instance in region D
+            appUrlPrefix: App prefix 3
+            caasUrlPrefix: Caas prefix 3
+            pltUrlPrefix: Plt prefix 3
+# end

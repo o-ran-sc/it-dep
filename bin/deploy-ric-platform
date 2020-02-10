@@ -52,11 +52,28 @@ fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-for component in $ROOT_DIR/../ric-platform/*/; do
-    # Will print */ if no directories are available
-    . $component/bin/install -f $OVERRIDEYAML
+# Start Helm local repo if there isn't one
+HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')
+if [ -z "$HELM_REPO_PID" ]; then
+    nohup helm serve >& /dev/null &
+fi
 
-done
+# Package ric-common and serve it using Helm local repo
+HELM_HOME=$(helm home)
+COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+helm repo index $HELM_HOME/repository/local/
+
+
+# Make sure that helm local repo is added
+helm repo remove local
+helm repo add local http://127.0.0.1:8879/charts
+
+
+
+$ROOT_DIR/../ric-dep/bin/install -f $OVERRIDEYAML
+
 
 
 

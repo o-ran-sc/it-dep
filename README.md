@@ -32,92 +32,43 @@ This repo contains RAN Intelligent Controller (RIC) deployments related files.
 
 The RIC deployment scripts are designed to deploy RIC components using helm charts. A deployment recipe yaml file that
 contains parameter key:value pairs can be provided as a parameter for any deployment script in this repository. The
-deployment recipe is acting as the helm override values.yaml file. If no deployment recipe is provided, default parameters
-are used. The default parameters are set up to deploy a RIC instance using Linux Foundation repositories in a
-self-contained environment. 
+deployment recipe is acting as the helm override values.yaml file. The default parameters are set up to deploy a 
+RIC instance using Linux Foundation repositories in a self-contained environment. 
 
 
 ### Directory Structure
 .
 ├── bin
 ├── ci
-├── etc
+├── docs
 ├── LICENSES.txt	License information
 ├── README.md           This file
 ├── RECIPE_EXAMPLE	Directory that contains deploy recipe examples
 ├── ric-aux		Deployment scripts, charts and configuration files for RIC auxilary functions
 ├── ric-common		Deployment scripts, charts and configuration files for RIC common template
-├── ric-infra		Deployment scripts, charts and configuration files for infrastructure support
-├── ric-platform	Deployment scripts, charts and configuration files for RIC platform components
-└── ric-xapps		xApp related scripts, charts and configuration files
+├── ric-dep	        Deployment scripts, charts and configuration files for RIC platform components
+└── tools		Deployment scripts, charts and configuration files for K8S deployment
 
-### Directory Naming Convention
+The deployment scripts are designed to be modularized. Each submodule is managed independently in other Git repo and they can be deployed and undeployed separately. These submodules are coupled together throught the ric-common template which provides common references to naming convention, settings, and configurations. Currently ric-dep is the submodule for RIC platform deployment, and ric-aux is the submodule for the auxilary functions deployment (currently ric-aux is still managed by it/dep repo). In the future, more submodules can be added without changing the structure.
 
-The root directories are organized according to the deployment plans. Each directory contains subdirectories for
-different deployable components. The prefixes of these subdirectories represent the deployment order. The smaller the
-prefix number the eariler the corresponding component will be deployed.  Consider the following example,
-├── ric-aux
-│   ├── 80-Auxiliary-Functions
-│   ├── 85-Ext-Services
-│   └── README.md
-├── ric-infra
-│   ├── 00-Kubernetes
-│   ├── 10-Nexus
-│   ├── 20-Monitoring
-│   ├── 30-Kong
-│   ├── 40-Credential
-│   ├── 45-Tiller
-│   └── README.md
-├── ric-platform
-│   ├── 50-RIC-Platform
-│   ├── 55-Ext-Services
-│   └── README.md
-├── ric-aux
-│   ├── 80-Auxiliary-Functions
-│   ├── 85-Ext-Services
-│   └── README.md
-└── ric-xapps
-    ├── 90-xApps
-    └── README.md
+The one-click RIC deployment/undeployment scripts in the ./bin directory will call the deployment/undeployment scripts in the corresponding submodule directory respectively.
+In each of the submodule directories, ./bin contains the binary and script files and ./helm contains the helm charts. For the rest of the non-submodule directories please refer to the README.md files in them for more details. 
 
-when deploying the ric-platform, the credential is deployed before RIC-Platform.
 
-In each of the component directories, ./bin contains the binary and script files and ./helm contains the helm charts,
+### Prerequisites
 
-Some components contain an ./etc directory with configuration files and some contain a ./docker directory with docker related files for building the docker images.
-
-Please refer to the README.md files in individual directory for more details.
-
-Within ric-infra, ric-platform and ric-aux, each of the components above can be deployed and undeployed separately.
-There are also scripts for deploying the ric-infra, ric-platform or ric-aux in its entirety.
-
-The ./bin directory contains these scripts
-
-The following sections discuss one-script deployment for each
-
-### To deploy RIC Infrastructure
-
-Edit ./RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
-You can choose whether to enable Kubernetes deployment, Helm Chart museum and ELFKP stack
-You can specify the Helm release prefix and namespaces used
-You must specify username and password for Docker repo
-Then run the following to deploy:
-```sh
-$ . ./deploy-ric-infra -f ../RECIPE_EXAMPLE/RIC_INFRA_RECIPE_EXAMPLE
-```
-Run the following to undeploy:
-```sh
-$ . ./undeploy-ric-infra 
-```
+To deploy RIC, you need to have a cluster that runs kubernetes (version > v.1.16.0) and helm (version v2.14.3).
+Tools to install a K8S environment in an openstack cloud can be found in ./tools/k8s.
+Please refer to the README.md file for more details 
 
 ### To deploy RIC Platform
-
-Edit ./RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE
-You can specify the Helm release prefix and namespaces used
+Choose a deployment recipe (e.g, ./RECIPE_EXAMPLE/PLATFORM/amber_example_recipe.yaml)
+Make a copy of the recipe and edit the key:value pairs in it according to your needs
+Make sure that you have the correct docker image registry, name, and tag spcified for all the components.
 Set the values of extsvcaux/ricip and extsvcaux/auxip to be the external IP addresses of VM hosting RIC cluster and VM hosting AUX cluster, respectively.
-These values should be set in both the override file and the local values.yaml file
+Then run the following to deploy:
 ```sh
-$ . ./deploy-ric-platform -f ../RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE
+$ . ./deploy-ric-platform -f <PATH_TO_YOUR_MODIFIED_RECIPE>
 ```
 Run the following to undeploy:
 ```sh
@@ -125,13 +76,11 @@ $ . ./undeploy-ric-platform
 ```
 
 ### To deploy RIC Auxiliary functions
-
-Edit ./RECIPE_EXAMPLE/RIC_PLATFORM_RECIPE_EXAMPLE
-You can specify the Helm release prefix and namespaces used
+Choose a deployment recipe (e.g, ./RECIPE_EXAMPLE/AUX/amber_example_recipe.yaml)
+Make a copy of the recipe and edit the key:value pairs in it according to your needs
 Set the values of extsvcaux/ricip and extsvcaux/auxip to be the external IP addresses of VM hosting RIC cluster and VM hosting AUX cluster, respectively.
-These values should be set in both the override file and the local values.yaml file
 ```sh
-$ . ./deploy-ric-aux -f ../RECIPE_EXAMPLE/RIC_AUX_RECIPE_EXAMPLE
+$ . ./deploy-ric-aux -f <PATH_TO_YOUR_MODIFIED_RECIPE>
 ```
 Run the following to undeploy:
 ```sh

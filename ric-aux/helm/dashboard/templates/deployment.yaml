@@ -1,0 +1,90 @@
+################################################################################
+#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019 Nokia.                                                  #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+{{- $imagectx := dict "ctx" . "defaultregistry" .Values.dashboard.image.registry }}
+{{- $pullpolicyctx := dict "ctx" . "defaultpullpolicy" .Values.dashboard.imagePullPolicy }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.deploymentname.dashboard" . }}
+  namespace: {{ include "common.namespace.aux" . }}
+  labels:
+    app: {{ include "common.namespace.aux" . }}-{{ include "common.name.dashboard" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.dashboard.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.aux" . }}-{{ include "common.name.dashboard" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.aux" . }}-{{ include "common.name.dashboard" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.dashboard" . }}
+      imagePullSecrets:
+        - name: {{ include "common.dockerregistry.credential" $imagectx }}
+      {{- with .Values.dashboard.nodeselector }}
+      nodeSelector: {{ toYaml . | trim | nindent 8 -}}
+      {{- end }}
+      containers:
+        - name: {{ include "common.containername.dashboard" . }}
+          image: {{ include "common.dockerregistry.url" $imagectx }}/{{ .Values.dashboard.image.name }}:{{ .Values.dashboard.image.tag }}
+          imagePullPolicy: {{ include "common.dockerregistry.pullpolicy" $pullpolicyctx }}
+          ports:
+            - name: http
+              containerPort: {{ include "common.serviceport.dashboard.container" . }}
+              protocol: TCP
+          volumeMounts:
+            - name: appconfig
+              mountPath: /config/application.yaml
+              subPath: application.yaml
+              readOnly: true
+            - name: appconfig
+              mountPath: /maven/key.properties
+              subPath: key.properties
+              readOnly: true
+            - name: appconfig
+              mountPath: /maven/portal.properties
+              subPath: portal.properties
+              readOnly: true
+# Temp solution until portal 2.6
+            - name: appconfig
+              mountPath: /dashboard-data/users.json
+              subPath: users.json
+#            - name: dashboard-users
+#              mountPath: /dashboard-data
+          livenessProbe:
+            httpGet:
+              path: /api/admin/health
+              port: http
+            initialDelaySeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/admin/version
+              port: http
+            initialDelaySeconds: 15
+      volumes:
+        - name: appconfig
+          configMap:
+            name: {{ include "common.configmapname.dashboard" . }}-appconfig
+        - name: dashboard-users
+          persistentVolumeClaim:
+            claimName: pvc-{{ include "common.name.dashboard" . }}

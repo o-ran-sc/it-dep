@@ -29,6 +29,8 @@ Clone the it/dep git repository that has deployment scripts and support files on
 Check out the appropriate branch of the repository with the release you want to deploy.
 For example:
 
+.. code:: bash
+
   git clone https://gerrit.o-ran-sc.org/r/it/dep
   cd dep
   git submodule update --init --recursive --remote

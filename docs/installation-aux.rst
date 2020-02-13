@@ -95,6 +95,7 @@ Now check the deployment status and results similar to the below indicate a comp
   r3-mrsub              1               Mon Jan 27 13:23:24 2020        DEPLOYED        mrsub-0.1.0             1.0             ricaux
   r3-portal             1               Mon Jan 27 13:24:12 2020        DEPLOYED        portal-5.0.0                            ricaux
   r3-ves                1               Mon Jan 27 13:23:01 2020        DEPLOYED        ves-1.1.1               1.0             ricaux
+
   # kubectl get pods -n ricaux
   NAME                                           READY   STATUS     RESTARTS   AGE
   deployment-ricaux-dashboard-f78d7b556-m5nbw    1/1     Running    0          6m30s

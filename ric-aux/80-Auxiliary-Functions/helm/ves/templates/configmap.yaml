@@ -31,6 +31,46 @@ data:
           "type": "out",
           "cambria.hosts": "ricaux-message-router:3904"
         }
+ 	{
+          "name": "ves-fault",
+          "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "ricaux-message-router:3904"
+        },
+        {
+          "name": "ves-heartbeat",
+          "cambria.topic": "unauthenticated.SEC_FAULT_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "ricaux-message-router:3904"
+        },
+        {
+          "name": "ves-other",
+          "cambria.topic": "unauthenticated.SEC_OTHER_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "ricaux-message-router:3904"
+        },
+        {
+          "name": "ves-notification",
+          "cambria.topic": "unauthenticated.VES_NOTIFICATION_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "ricaux-message-router:3904"
+        },
+        {
+          "name": "ves-pnfRegistration",
+          "cambria.topic": "unauthenticated.VES_PNFREG_OUTPUT",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.hosts": "ricaux-message-router:3904"
+        }
       ]
     }
 ---

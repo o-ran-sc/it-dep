@@ -59,7 +59,7 @@ fi
 if [ -z "$WORKSPACE" ]; then
     export WORKSPACE=`git rev-parse --show-toplevel`
 fi
-PARTS_DIR=$WORKSPACE/ric-infra/00-Kubernetes/heat/parts
+PARTS_DIR=$WORKSPACE/tools/k8s/heat/parts
 
 cat <<EOF
 #

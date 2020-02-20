@@ -148,4 +148,8 @@ sed -i -e '/^[ \t]*#[^!]/d' "$filename"
 
 chmod +x "$filename"
 
-mv "$filename" ./k8s-1node-cloud-init.sh
+echo ${INFRA_DOCKER_VERSION}
+K8SV=$(echo ${INFRA_K8S_VERSION} | cut -f 1-2 -d '.' | sed -e 's/\./_/g')
+HV=$(echo ${INFRA_HELM_VERSION} | cut -f 1-2 -d '.' | sed -e 's/\./_/g')
+DV=$(echo ${INFRA_DOCKER_VERSION} | cut -f 1-2 -d '.' | sed -e 's/\./_/g')
+mv "$filename" ./k8s-1node-cloud-init-k_${K8SV:-cur}-h_${HV:-cur}-d_${DV:-cur}.sh

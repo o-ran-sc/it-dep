@@ -148,7 +148,7 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
 
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
-apt-get -y autoremove
+
 RES=$(apt-get install -y virt-what curl jq netcat 2>&1)
 if [[ $RES == */var/lib/dpkg/lock* ]]; then
   echo "Fail to get dpkg lock.  Wait for any other package installation"
@@ -162,14 +162,25 @@ if ! echo $(virt-what) | grep "virtualbox"; then
   apt-get install -y linux-image-4.15.0-45-lowlatency
 fi
 
-if kubeadm version; then
-  # remove existing Kubernetes installation
-  echo "Removing existing Kubernetes installation, version $(kubeadm version)"
-  kubeadm reset -f
-  rm -rf ~/.kube
-fi
-
 APTOPTS="--allow-downgrades --allow-change-held-packages --allow-unauthenticated --ignore-hold "
+
+# remove infrastructure stack if present
+# note the order of the packages being removed.
+for PKG in kubeadm docker.io; do
+  INSTALLED_VERSION=$(dpkg --list |grep ${PKG} |tr -s " " |cut -f3 -d ' ')
+  if [ ! -z ${INSTALLED_VERSION} ]; then
+    if [ "${PKG}" == "kubeadm" ]; then
+      kubeadm reset -f
+      rm -rf ~/.kube
+      apt-get -y --allow-change-held-packages --allow-unauthenticated --ignore-hold remove kubeadm kubelet kubectl kubernetes-cni
+    else
+      apt-get -y $APTOPTS remove "${PKG}"
+    fi
+  fi
+done
+apt-get -y autoremove
+
+# install docker
 if [ -z ${DOCKERVERSION} ]; then
   apt-get install -y $APTOPTS docker.io
 else
@@ -308,11 +319,7 @@ EOF
   kubectl get pods --all-namespaces
 
   # install flannel
-  if [[ ${KUBEV} == 1.16.* ]]; then
-    kubectl apply -f "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
-  else
-    kubectl apply -f "https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml"
-  fi
+  kubectl apply -f "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
 
   # waiting for all 8 kube-system pods to be in running state
   # (at this point, minions have not joined yet)
@@ -328,9 +335,11 @@ EOF
   # install Helm
   HELMV=$(cat /opt/config/helm_version.txt)
   HELMVERSION=${HELMV}
+  if [ ! -e helm-v${HELMVERSION}-linux-amd64.tar.gz ]; then
+    wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
+  fi
   cd /root && rm -rf Helm && mkdir Helm && cd Helm
-  wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
-  tar -xvf helm-v${HELMVERSION}-linux-amd64.tar.gz
+  tar -xvf ../helm-v${HELMVERSION}-linux-amd64.tar.gz
   mv linux-amd64/helm /usr/local/bin/helm
 
   rm -rf /root/.helm
@@ -347,7 +356,6 @@ EOF
   export HELM_HOME="/root/.helm"
 
   # waiting for tiller pod to be in running state
-  wait_for_pods_running 1 kube-system tiller-deploy
   while ! helm version; do
     echo "Waiting for Helm to be ready"
     sleep 15

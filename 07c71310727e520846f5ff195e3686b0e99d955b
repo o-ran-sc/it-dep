@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5918d4c9_9c2f3ab6",
+        "filename": "ric-common/Common-Template/helm/ric-common/templates/_o1mediator.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-02-21T18:39:38Z",
+      "side": 1,
+      "message": "Since those are all http services, do we need three separate services for them? Or can we just have one http service but assign three different ports for the supervise, mediation and event services?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 11
+      },
+      "revId": "07c71310727e520846f5ff195e3686b0e99d955b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

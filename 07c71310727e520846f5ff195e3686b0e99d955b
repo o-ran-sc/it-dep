@@ -22,6 +22,30 @@
       "revId": "07c71310727e520846f5ff195e3686b0e99d955b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ebe4355_c8ddce09",
+        "filename": "ric-common/Common-Template/helm/ric-common/templates/_o1mediator.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000001
+      },
+      "writtenOn": "2020-02-21T21:29:18Z",
+      "side": 1,
+      "message": "You are right.  We can use the same service (name).  I will also make additional changes as learning more about the O1.",
+      "parentUuid": "5918d4c9_9c2f3ab6",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 11
+      },
+      "revId": "07c71310727e520846f5ff195e3686b0e99d955b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

@@ -37,7 +37,7 @@ cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
 
 AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-common/Chart.yaml | grep version | awk '{print $2}')
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
-cp /tmp/aux-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+cp /tmp/aux-common-$AUX_COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
 
 helm repo index $HELM_HOME/repository/local/
 

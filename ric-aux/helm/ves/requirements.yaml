@@ -17,5 +17,5 @@
 
 dependencies:
   - name: ric-common
-    version: ~3.0.0
+    version: ~3.1.0
     repository: "@local"

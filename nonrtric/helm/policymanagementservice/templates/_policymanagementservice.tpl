@@ -14,23 +14,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ .Values.a1simulator.instanceName }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-  - name: http
-    protocol: TCP
-    port: {{ include "common.serviceport.a1simulator.http" . }}
-    targetPort: {{ include "common.serviceport.a1simulator.http" . }}
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{- define "common.name.policymanagementservice" -}}
+  {{- printf "policymanagementservice" -}}
+{{- end -}}
+
+{{- define "common.namespace.nonrtric" -}}
+  {{- printf "nonrtric" -}}
+{{- end -}}
+
+{{- define "common.fullname.policymanagementservice" -}}
+  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
+  {{- $namespace := ( include "common.namespace.nonrtric" . ) -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.containername.policymanagementservice" -}}
+  {{- $name := ( include "common.fullname.policymanagementservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.serviceport.policymanagementservice.http" -}}8081{{- end -}}

@@ -17,11 +17,11 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.a1simulator.instanceName }}
+  name: {{ include "common.name.policymanagementservice" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -31,24 +31,32 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ include "common.name.a1simulator" . }}
+      hostname: {{ include "common.name.policymanagementservice" . }}
       containers:
-      - name: {{ include "common.containername.a1simulator" . }}
-        image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
-        imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
+      - name: {{ include "common.container.policymanagementservice" . }}
+        image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
+        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
         ports:
-        - containerPort: {{ include "common.serviceport.a1simulator.http" . }}
+        - containerPort: {{ include "common.serviceport.policymanagementservice.http" . }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ include "common.serviceport.a1simulator.http" . }}
+            port: {{ include "common.serviceport.policymanagementservice.http" . }}
           initialDelaySeconds: 5
           periodSeconds: 15
+        volumeMounts:
+        - name: {{ .Release.Name }}-policy-conf
+          mountPath: /opt/app/policy-agent/config/application_configuration.json
+          subPath: application_configuration.json
+      volumes:
+        - name: {{ .Release.Name }}-policy-conf
+          configMap:
+            name: {{ .Release.Name }}-policy-configmap

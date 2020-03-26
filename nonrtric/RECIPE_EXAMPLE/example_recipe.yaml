@@ -1,0 +1,64 @@
+################################################################################
+#   Copyright (c) 2020 Nordix Foundation.                                      #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+#-------------------------------------------------------------------------
+# Global common setting
+#-------------------------------------------------------------------------
+
+common:
+  releasePrefix: r2
+
+# If a local docker registry is used, please specify it using the following option 
+#  localregistry: nexus3.o-ran-sc.org:10004
+
+# Change the overall image pull policy using the following option
+#  pullpolicy: IfNotPresent
+
+# Change the namespaces using the following options
+  namespace:
+    nonrtric: nonrtric
+
+# Specify the number of NEAR RIC instance
+  simulatorinstance:
+    count: 1
+
+# Specify the docker registry credential using the following
+# The release and staging LF repos' credentials have already been included.
+# Please do not create duplicate entries
+#docker-credential:
+#  enabled: true
+#  credential:
+#    SOME_KEY_NAME:
+#      registry: ""
+#      credential:
+#        user: ""
+#        password: ""
+#        email: ""
+
+
+a1simulator:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    name: near-rt-ric-simulator
+    tag: 1.0.1
+
+policymanagementservice:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    name: nonrtric-policy-agent
+    tag: 1.0.0

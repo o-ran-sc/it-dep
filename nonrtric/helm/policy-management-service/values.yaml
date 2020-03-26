@@ -14,23 +14,14 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ .Values.a1simulator.instanceName }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: nonrtric-{{ include "common.name.a1simulator" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-  - name: http
-    protocol: TCP
-    port: {{ include "common.serviceport.a1simulator.http" . }}
-    targetPort: {{ include "common.serviceport.a1simulator.http" . }}
-  selector:
-    app: nonrtric-{{ include "common.name.a1simulator" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+# Default values for a1-simulator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+policymanagementservice:
+  instanceName: policymanagementservice
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    name: nonrtric-policy-agent
+    tag: 1.0.0

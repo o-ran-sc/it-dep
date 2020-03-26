@@ -14,23 +14,41 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
+kind: Deployment
+apiVersion: apps/v1
 metadata:
-  name: {{ .Values.a1simulator.instanceName }}
+  name: deployment-{{ .Values.policymanagementservice.instanceName }}
   namespace: {{ include "common.namespace.nonrtric" . }}
+  generation: 1
   labels:
-    app: nonrtric-{{ include "common.name.a1simulator" . }}
+    app: nonrtric-{{ include "common.name.policymanagementservice" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  annotations:
+    deployment.kubernetes.io/revision: '1'
 spec:
-  ports:
-  - name: http
-    protocol: TCP
-    port: {{ include "common.serviceport.a1simulator.http" . }}
-    targetPort: {{ include "common.serviceport.a1simulator.http" . }}
+  replicas: 1
   selector:
-    app: nonrtric-{{ include "common.name.a1simulator" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+    matchLabels:
+      app: nonrtric-{{ include "common.name.policymanagementservice" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: nonrtric-{{ include "common.name.policymanagementservice" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.policymanagementservice" . }}
+      containers:
+      - name: {{ include "common.containername.policymanagementservice" . }}
+        image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
+        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
+        ports:
+        - containerPort: {{ include "common.serviceport.policymanagementservice.http" . }}
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: {{ include "common.serviceport.policymanagementservice.http" . }}
+          initialDelaySeconds: 5
+          periodSeconds: 15

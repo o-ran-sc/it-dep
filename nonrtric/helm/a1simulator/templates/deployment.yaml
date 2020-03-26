@@ -18,7 +18,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: deployment-{{ .Values.a1simulator.instanceName }}
-  namespace: nonrtric
+  namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
     app: nonrtric-{{ include "common.name.a1simulator" . }}

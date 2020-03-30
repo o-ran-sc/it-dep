@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "e49f3446_19294489",
+        "filename": "nonrtric/helm/a1simulator/templates/_a1simulator.tpl",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:21:19Z",
+      "side": 1,
+      "message": "this should also be replaced with:\n\n( include \"common.namespace.nonrtric\" . )",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0dbc02c2_05618018",
         "filename": "nonrtric/helm/a1simulator/templates/deployment.yaml",
         "patchSetId": 2

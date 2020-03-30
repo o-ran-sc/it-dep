@@ -1,0 +1,242 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ef10a67_4ca299b6",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "This comment section is not related to anything here.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a850c7a2_f71cae1b",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "Just wondering if we should use the released version of policymanagementservice, and change the port to 10002?",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dbc02c2_05618018",
+        "filename": "nonrtric/helm/a1simulator/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "For consistency with other projects, you can also replace the hardcoded \"nonrtric\" with \"{{ include \"common.namespace.nonrtric\" . }}\"",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31fa229b_41e8fef5",
+        "filename": "nonrtric/helm/a1simulator/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "see other comment.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67287e56_492c8c01",
+        "filename": "nonrtric/helm/a1simulator/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "see other comment.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1451044_6a099f4e",
+        "filename": "nonrtric/helm/a1simulator/templates/service.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "see other comment.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5658c99f_52e6d2f8",
+        "filename": "nonrtric/helm/a1simulator/templates/service.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "see other comment.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd3bf0e8_80ce3db9",
+        "filename": "nonrtric/helm/policymanagementservice/resources/config/application_configuration.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "I think you can replace this with the default name: a1-sim1\n\nThis would make it quicker for testing.\n\nAlso the port should be set to 8085 as default, as each A1 simulator instance uses 8085.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e863d51f_c3d981d5",
+        "filename": "nonrtric/helm/policymanagementservice/resources/config/application_configuration.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "This could be changed to a1-sim2",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b75799_ea17fbe8",
+        "filename": "nonrtric/helm/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "this should be renamed to policymanagementservice, as policy is misleading here.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2b104f_17064a54",
+        "filename": "nonrtric/helm/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "same comment as in a1simulator, the hardcoded \"nonrtric\" can be replaced with \"{{ include \"common.namespace.nonrtric\" . }}\".",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "966d3c7d_ad06b36d",
+        "filename": "nonrtric/helm/policymanagementservice/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "this should be renamed to policymanagementservice, as policy is misleading here.",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53b1940_1d4bf57f",
+        "filename": "nonrtric/helm/policymanagementservice/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "policymanagementservice",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad5e3d28_0606f674",
+        "filename": "nonrtric/helm/policymanagementservice/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T09:09:45Z",
+      "side": 1,
+      "message": "It was done this way for A1 simulator because we may have multiple instances of simulator. But I guess we need to have only one instance of policymanagementservice, so we don\u0027t need to provide the instance name as input and it can be hardcoded in the _policymanagementservice.tpl file. \n\nOther projects are doing in this way:\n\n{{- define \"common.servicename.policymanagementservice.http\" -}}\n  {{- $name :\u003d ( include \"common.fullname.policymanagementservice\" . ) -}}\n  {{- printf \"service-%s-http\" $name | trunc 63 | trimSuffix \"-\" -}}\n{{- end -}}",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f8ca54c4_d7cd1674",
+        "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T14:51:43Z",
+      "side": 1,
+      "message": "That\u0027s because, ric-common,ric-aux \u0026 other near ric components have their own ns.\nbut we have one ns for all the components.\nSame answer for other related comments.",
+      "parentUuid": "2b913678_101bc1ec",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d185c514_b06f1971",
         "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
         "patchSetId": 1
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "I don\u0027t think it can be copied. But even if it could be copied, we need to be able to modify some parameters depending on the deployment. For example, policycontroller.url.prefix\n\nIt is also not possible to skip some parameters, so we need to provide all the parameters expected by the application in this file.",
       "parentUuid": "20d0205b_f486ece8",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bce1431d_a8f69483",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T14:51:43Z",
+      "side": 1,
+      "message": "or you can create a resource folder and place the properties \u0026 configuration files and refer it here.\nplease check policymanagementservice.",
+      "parentUuid": "ac5bbfd1_f770fa7e",
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -206,6 +242,24 @@
       "side": 1,
       "message": "The controlpanel is actually expecting some settings for the portal. I think the end-goal for controlpanel is that it can be landed into ONAP portal. So, we can keep this for now, even if we are not currently using portal. The RIC dashboard (from where we originally cloned the code) is also using similar entries in the helm chart. See:\n\nhttps://gerrit.o-ran-sc.org/r/gitweb?p\u003dit/dep.git;a\u003dblob;f\u003dric-aux/helm/dashboard/templates/appconfig.yaml;h\u003d7f34a5235f5bc145bc85c33d58631257802d86ab;hb\u003drefs/heads/master",
       "parentUuid": "7d46dbfc_7ad4431f",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b01b73_5a63cc40",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T14:51:43Z",
+      "side": 1,
+      "message": "To onboard in ONAP Portal you need to follow different option. either you can onboard in Portal GUI or during deployment.\nThe above URL is for nonrtric gui to redirect to onap portal when some function is clicked. We haven\u0027t implemented that yet but it has nothing to do with ONAP Portal.",
+      "parentUuid": "cb1ec0aa_c11f9e9a",
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -346,6 +400,24 @@
       "side": 1,
       "message": "The testing shows that the application actually picks up the values from here. For now, I could not figure out in the code how it reads all the properties files. But if we would like to change the directory here to /opt/app/controlpanel, we will have to make code changes before that.",
       "parentUuid": "04cb3787_e1f8fa19",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eb5fda0_ab3c0bf4",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T14:51:43Z",
+      "side": 1,
+      "message": "For now we can leave it but this needs to be revisited again",
+      "parentUuid": "e33fbfe3_6a34a842",
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

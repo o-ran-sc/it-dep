@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "8cc5b1c5_076dcc71",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T14:20:47Z",
+      "side": 1,
+      "message": "Nexus shows that we have somehow released it with the name \"policy-agent\" instead of \"nonrtric-policy-agent\". But after the release, it has been changed to \"nonrtric-policy-agent\". That\u0027s why, you can find an image with this name in staging repo (using 10004), but not in release repo (using 10002).",
+      "parentUuid": "c3218670_b1c878f6",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e49f3446_19294489",
         "filename": "nonrtric/helm/a1simulator/templates/_a1simulator.tpl",
         "patchSetId": 2
@@ -299,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "65753110_57f923b8",
+        "filename": "nonrtric/helm/policymanagementservice/resources/config/application_configuration.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T14:20:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47d5ef55_02c9977e",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e863d51f_c3d981d5",
         "filename": "nonrtric/helm/policymanagementservice/resources/config/application_configuration.json",
         "patchSetId": 2
@@ -366,6 +402,24 @@
       "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b53db1e_b9f61b1b",
+        "filename": "nonrtric/helm/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T14:20:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "717999af_e974dcd0",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -439,6 +493,24 @@
     },
     {
       "key": {
+        "uuid": "78f1d683_21a4c470",
+        "filename": "nonrtric/helm/policymanagementservice/templates/deployment.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T14:20:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "65898d82_54fa56cd",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a53b1940_1d4bf57f",
         "filename": "nonrtric/helm/policymanagementservice/values.yaml",
         "patchSetId": 2
@@ -503,6 +575,24 @@
       "side": 1,
       "message": "Removed but no need to have any definition in tpl as we can reuse the existing name.",
       "parentUuid": "ad5e3d28_0606f674",
+      "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6ff3d7_f9521110",
+        "filename": "nonrtric/helm/policymanagementservice/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T14:20:47Z",
+      "side": 1,
+      "message": "That\u0027s the format being used by all the templates in ric-common and ric-aux. I think all the OSC components would be deployed in the same environment. So, it would not make sense that NEARRIC and NONRTRIC are using different formats for naming deployments, services, configmaps etc.",
+      "parentUuid": "a9e8903e_095d301d",
       "revId": "c3659b7f3ae4516d2325334534e1096ae1b3559c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

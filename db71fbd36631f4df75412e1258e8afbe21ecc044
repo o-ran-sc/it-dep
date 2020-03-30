@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1c2034c_ba2b3af9",
+        "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "You no need to mention the namespace in the deployment name as it is already deployed in that particular ns.",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d185c514_b06f1971",
+        "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "No need to mention the ns in the configmap. We could have something like this,\n\u003creleasename\u003e - \u003ccomponent\u003e - \u003capp or log\u003e - configmap",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d0205b_f486ece8",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "check whether you can copy the properties from the project rather than duplicating it",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30fd1716_2ee17a4c",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcba1fe_a5bf93bd",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "same as above",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d46dbfc_7ad4431f",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this entries.",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a2325d_f0843394",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "Same as above",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5497e07a_0dd21c95",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "Is it used in the project?",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05d3ab6e_f88fec5d",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "I think we can simply use the common.name.controlpanel as this will be used as the prefix name for pod and its not good to have the pod names starting with deployment-*",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04cb3787_e1f8fa19",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "is the application reading this value from the /maven repo?\n\nhow about /opt/app/controlpanel",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee5a1ea_a7f4f469",
+        "filename": "nonrtric/helm/controlpanel/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "You no need to mention the namespace in the services name as it is already deployed in that particular ns.",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "737ddc09_f5ecf0ca",
+        "filename": "nonrtric/helm/controlpanel/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-03-30T13:31:01Z",
+      "side": 1,
+      "message": "check is this url\u0027s are required",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

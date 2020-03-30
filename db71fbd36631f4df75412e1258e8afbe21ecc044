@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c3c2ee5e_e689a2e8",
+        "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ca54c4_d7cd1674",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d185c514_b06f1971",
         "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
         "patchSetId": 1
@@ -87,6 +105,24 @@
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa7eb27_2dcca7b5",
+        "filename": "nonrtric/helm/controlpanel/templates/_controlpanel.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2511b58_39d418cf",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +179,24 @@
     },
     {
       "key": {
+        "uuid": "81af4337_0c2d9e64",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bce1431d_a8f69483",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30fd1716_2ee17a4c",
         "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
         "patchSetId": 1
@@ -178,6 +232,24 @@
     },
     {
       "key": {
+        "uuid": "1d446b15_b9647f0c",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a3ef669_d6d75851",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afcba1fe_a5bf93bd",
         "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
         "patchSetId": 1
@@ -210,6 +282,24 @@
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b079d934_adc9756e",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e34634b0_f6758db3",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -266,6 +356,24 @@
     },
     {
       "key": {
+        "uuid": "7ebcc096_9b883f8b",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58b01b73_5a63cc40",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3a2325d_f0843394",
         "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
         "patchSetId": 1
@@ -298,6 +406,24 @@
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de0916a_f49644a8",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1253d10_c25f988a",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -336,6 +462,24 @@
     },
     {
       "key": {
+        "uuid": "a60abda0_75b5abbb",
+        "filename": "nonrtric/helm/controlpanel/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bb67497_ab7577ce",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05d3ab6e_f88fec5d",
         "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
         "patchSetId": 1
@@ -368,6 +512,24 @@
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4605e9_05c9317a",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e1cfec_9846003d",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -424,6 +586,24 @@
     },
     {
       "key": {
+        "uuid": "c6adc67e_7d899b85",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8eb5fda0_ab3c0bf4",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ee5a1ea_a7f4f469",
         "filename": "nonrtric/helm/controlpanel/templates/service.yaml",
         "patchSetId": 1
@@ -459,6 +639,24 @@
     },
     {
       "key": {
+        "uuid": "ab469aa0_73b8595b",
+        "filename": "nonrtric/helm/controlpanel/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccc9b034_f1c5d2e7",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "737ddc09_f5ecf0ca",
         "filename": "nonrtric/helm/controlpanel/values.yaml",
         "patchSetId": 1
@@ -491,6 +689,24 @@
       "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2a779e3_8c61ceed",
+        "filename": "nonrtric/helm/controlpanel/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-03-30T15:55:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85cdab79_56ca5892",
+      "revId": "db71fbd36631f4df75412e1258e8afbe21ecc044",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

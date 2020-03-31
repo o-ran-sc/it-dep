@@ -1,0 +1,54 @@
+---
+project: 'Integration and Testing'
+project_creation_date: '2019-05-21'
+project_category: ''
+lifecycle_state: 'Incubation'
+project_lead: &it-dep_ptl
+    name: 'Lusheng Ji'
+    email: 'lji@research.att.com'
+    id: 'wrider'
+    company: 'AT&T Labs-Research'
+    timezone: 'America/New_York'
+primary_contact: *it-dep_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.o-ran-sc.org/projects/INT'
+    key: 'INT'
+mailing_list:
+    type: 'groups.io'
+    url: 'https://lists.o-ran-sc.org/g/main'
+    tag: '<[it/dep]>'
+realtime_discussion:
+    type: 'irc'
+    server: 'freenode.net'
+    channel: '#o-ran-sc'
+meetings:
+    - type: 'zoom'
+      agenda: ''
+      url: ''
+      server: 'n/a'
+      channel: 'n/a'
+      repeats: 'weekly'
+      time: ''
+repositories:
+    - 'it/dep'
+committers:
+    - <<: *it-dep_ptl
+    - name: 'Zhe Huang'
+      email: 'zhehuang@research.att.com'
+      company: 'AT&T Labs-Research'
+      id: 'eefelixwong'
+      timezone: 'America/New_York'
+    - name: 'Dave Korman'
+      email: 'davek@research.att.com'
+      company: 'AT&T Labs-Research'
+      id: 'multics'
+      timezone: 'America/New_York'
+    - name: 'Chris Lott'
+      email: 'clott@research.att.com'
+      company: 'AT&T Labs-Research'
+      id: 'cl778h'
+      timezone: 'America/New_York'
+tsc:
+    # yamllint disable rule:line-length
+    approval: 'https://wiki.o-ran-sc.org/display/TOC#O-RANSCTechnicalOversightCommittee(TOC)-20190821'

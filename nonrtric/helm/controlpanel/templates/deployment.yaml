@@ -46,7 +46,7 @@ spec:
           imagePullPolicy: {{ .Values.controlpanel.imagePullPolicy }}
           ports:
             - name: http
-              containerPort: {{ include "common.serviceport.controlpanel.container" . }}
+              containerPort: {{ .Values.controlpanel.service.internalPort }}
               protocol: TCP
           volumeMounts:
             - name: configmap
@@ -55,7 +55,7 @@ spec:
               readOnly: true
           readinessProbe:
             tcpSocket:
-              port: {{ include "common.serviceport.controlpanel.container" . }}
+              port: {{ .Values.controlpanel.service.internalPort }}
             initialDelaySeconds: 15
             periodSeconds: 15
       volumes:

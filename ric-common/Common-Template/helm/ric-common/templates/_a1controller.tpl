@@ -14,16 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{- define "common.name.a1controller" -}}
+  {{- printf "a1controller" -}}
+{{- end -}}
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+{{- define "common.containername.a1controller" -}}
+  {{- $name := ( include "common.name.a1controller" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

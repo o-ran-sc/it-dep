@@ -26,3 +26,6 @@ controlpanel:
     name: nonrtric-controlpanel
     tag: 1.0.0
   replicaCount: 1
+  service:
+    internalPort: 8080
+    externalPort: 30090

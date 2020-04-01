@@ -28,9 +28,10 @@ spec:
   ports:
   - name: http
     protocol: TCP
-    port: {{ include "common.serviceport.a1simulator.http" . }}
-    targetPort: {{ include "common.serviceport.a1simulator.http" . }}
+    port: {{ .Values.a1simulator.service.internalPort }}
+    targetPort: {{ .Values.a1simulator.service.internalPort }}
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
     release: {{ .Release.Name }}
   type: ClusterIP
+  clusterIP: None

@@ -16,7 +16,7 @@
 ################################################################################
 
 
-COMPONENTS="a1simulator policymanagementservice"
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice"
 RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
 kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
 
@@ -29,25 +29,10 @@ COMMON_BLOCK=$(cat /tmp/recipe.yaml | awk '/^common:/{getline; while ($0 ~ /^ +.
 NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-SIMULATOR_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  simulatorinstance:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
-SIMULATOR_COUNT=$(echo "$SIMULATOR_BLOCK" | awk '/^ *count:/{print $2}')
 
 echo "Undeploying NONRTRIC components [$COMPONENTS]"
 
-
-for component in $COMPONENTS; do
-    case "$component" in
-            a1simulator)
-		            for((i=1;i<=$SIMULATOR_COUNT;i++)) ; do
-                        echo "Undeploying SIMUALATOR INSTANCE $i"
-                        helm delete --purge ${RELEASE_PREFIX}-$component-$i
-                    done
-	                ;;
-            *)
-                helm delete --purge ${RELEASE_PREFIX}-$component
-
-    esac
-done
+helm delete --purge ${RELEASE_PREFIX}
 
 kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
 

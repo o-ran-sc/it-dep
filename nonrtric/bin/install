@@ -51,10 +51,9 @@ COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^
 NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-SIMULATOR_BLOCK=$(cat $OVERRIDEYAML | awk '/^  simulatorinstance:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
-SIMULATOR_COUNT=$(echo "$SIMULATOR_BLOCK" | awk '/^ *count:/{print $2}')
-COMPONENTS=${LIST_OF_COMPONENTS:-"a1simulator policymanagementservice"}
-echo "SIMULATOR_COUNT [$SIMULATOR_COUNT]"
+PARENT_CHART=$(cat $OVERRIDEYAML | awk '/^ *component:/{print $2}')
+COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1simulator policymanagementservice"}
+echo "Chart name- $PARENT_CHART"
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
     kubectl create ns ${NONRTRIC_NAMESPACE:-nonrtric}
@@ -67,18 +66,5 @@ kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --fr
 
 echo "Deploying NONRTRIC components [$COMPONENTS]"
 
-for component in $COMPONENTS; do
-    helm dep up $DIR/../helm/$component
-    case "$component" in
-            a1simulator)
-		for((i=1;i<=$SIMULATOR_COUNT;i++)) ; do
-                    echo "CREATING SIMUALATOR INSTANCE $i"
-		    helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" --name "${RELEASE_PREFIX}-$component-$i" --set a1simulator.instanceName=a1-sim-$i $DIR/../helm/$component
-                done
-	    ;;
-            *)
-                helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
+helm install ../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" --name "${RELEASE_PREFIX}"
 
-    esac
-
-done

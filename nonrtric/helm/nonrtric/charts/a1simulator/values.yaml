@@ -14,17 +14,19 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.policymanagementservice" -}}
-  {{- printf "policymanagementservice" -}}
-{{- end -}}
+# Default values for a1-simulator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-{{- define "common.namespace.nonrtric" -}}
-  {{- printf "nonrtric" -}}
-{{- end -}}
-
-{{- define "common.container.policymanagementservice" -}}
-  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.serviceport.policymanagementservice.http" -}}8081{{- end -}}
+a1simulator:
+  instanceName: a1-sim1
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    name: near-rt-ric-simulator
+    tag: 1.0.1
+  replicaCount: 2
+  
+service:
+  type: ClusterIP
+  internalPort: 8085

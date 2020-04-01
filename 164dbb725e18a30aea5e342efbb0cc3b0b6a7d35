@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "f26316ce_886f40ce",
+        "filename": "nonrtric/helm/a1controller/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-01T12:50:16Z",
+      "side": 1,
+      "message": "We don\u0027t really need to access this url. The policymanagementservice just needs to make a POST request to the a1controller. For example, this should work:\n\ncurl -v -X POST \"http://admin:Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U@a1controller:8282/restconf/operations/A1-ADAPTER-API:getPolicyTypeIdentities\" -H \"accept: application/json\" -H \"Content-Type: application/json\" -d \"{\\\"input\\\":{\\\"near-rt-ric-url\\\":\\\"http://a1-sim1:8085\\\"}}\"",
+      "parentUuid": "911da534_92cd4025",
+      "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b35c226_6097ed26",
         "filename": "nonrtric/helm/a1controller/templates/service.yaml",
         "patchSetId": 1
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I think its more for scaling the db. Do our A1 Adapter work without this? Can you check?",
       "parentUuid": "aa116c66_7dac1c14",
+      "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d0ad3e7_80c10528",
+        "filename": "nonrtric/helm/a1controller/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-01T12:50:16Z",
+      "side": 1,
+      "message": "Yes I checked and tested, it does not work without having this.",
+      "parentUuid": "09b74543_d2f26a26",
       "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

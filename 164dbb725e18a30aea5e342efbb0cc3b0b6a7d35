@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3af9c3c4_53672e17",
+        "filename": "nonrtric/helm/a1controller/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-01T12:06:06Z",
+      "side": 1,
+      "message": "why do we need to access it from external? It can be accessed from any k8s node or from any pod inside the cluster. Since the policymanagementservice will be inside the same k8s env, I don\u0027t see any use of accessing a1controller from external. Currently, it can be accessed using http://a1controller.nonrtric:8282 from any namespace, and using http://a1controller:8282 from nonrtric namespace. I think that serves the purpose here.",
+      "parentUuid": "124d9a9d_e591cebc",
+      "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b35c226_6097ed26",
         "filename": "nonrtric/helm/a1controller/templates/service.yaml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-04-01T11:52:28Z",
       "side": 1,
       "message": "I\u0027m not sure about this service. do we need this?",
+      "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa116c66_7dac1c14",
+        "filename": "nonrtric/helm/a1controller/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-01T12:06:06Z",
+      "side": 1,
+      "message": "Yes that\u0027s required and serves the same purpose as \n\nlinks:\n  - db:dbhost\n  - db:sdnctldb01\n\nin docker-compose file. The a1controller is expecting that it can reach the DB at two hostnames (or aliases), i.e., dbhost and sdnctldb01. Adding them as services makes the a1controller able to access the DB at these names.",
+      "parentUuid": "6b35c226_6097ed26",
       "revId": "164dbb725e18a30aea5e342efbb0cc3b0b6a7d35",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

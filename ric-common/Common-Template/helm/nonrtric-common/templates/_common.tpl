@@ -14,16 +14,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+{{- define "common.namespace.nonrtric" -}}
+  {{- printf "nonrtric" -}}
+{{- end -}}

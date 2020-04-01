@@ -14,10 +14,10 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.a1simulator.instanceName }}
+  name: {{ .Values.a1simulator.instanceName }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
@@ -28,11 +28,12 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: 1
+  replicas: {{ .Values.a1simulator.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
       release: {{ .Release.Name }}
+  serviceName: {{ .Values.a1simulator.instanceName }}
   template:
     metadata:
       labels:
@@ -45,10 +46,10 @@ spec:
         image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
         imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
         ports:
-        - containerPort: {{ include "common.serviceport.a1simulator.http" . }}
+        - containerPort: {{ .Values.a1simulator.service.internalPort }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ include "common.serviceport.a1simulator.http" . }}
+            port: {{ .Values.a1simulator.service.internalPort }}
           initialDelaySeconds: 5
           periodSeconds: 15

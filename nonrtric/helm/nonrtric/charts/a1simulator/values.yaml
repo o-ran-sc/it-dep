@@ -14,13 +14,17 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for Policy Management Service.
+# Default values for a1-simulator.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-policymanagementservice:
+a1simulator:
+  instanceName: a1-sim1
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-    name: nonrtric-policy-agent
-    tag: 1.0.0
+    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+    name: near-rt-ric-simulator
+    tag: 1.0.1
+  replicaCount: 2
+  service:
+    internalPort: 8085

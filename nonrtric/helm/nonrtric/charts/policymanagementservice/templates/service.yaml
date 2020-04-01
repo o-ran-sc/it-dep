@@ -14,8 +14,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+kind: Service
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for Policy Management Service
-name: policymanagementservice
-version: 1.0.1
+metadata:
+  name: {{ include "common.name.policymanagementservice" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+  - name: {{ .Values.policymanagementservice.service.name }}
+    protocol: TCP
+    port: {{ .Values.policymanagementservice.service.internalPort }}
+    nodePort: {{ .Values.policymanagementservice.service.externalPort }}
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
+    release: {{ .Release.Name }}
+  type: NodePort

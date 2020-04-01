@@ -14,19 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.a1controller" -}}
-  {{- printf "a1controller" -}}
+{{- define "common.name.controlpanel" -}}
+  {{- printf "controlpanel" -}}
 {{- end -}}
 
-{{- define "common.namespace.nonrtric" -}}
-  {{- printf "nonrtric" -}}
-{{- end -}}
-
-{{- define "common.containername.a1controller" -}}
-  {{- $name := ( include "common.name.a1controller" . ) -}}
+{{- define "common.containername.controlpanel" -}}
+  {{- $name := ( include "common.name.controlpanel" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
-{{- define "common.serviceport.a1controller.internal" -}}8181{{- end -}}
-
-{{- define "common.serviceport.a1controller.external" -}}8282{{- end -}}

@@ -14,46 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
 apiVersion: v1
-metadata:
-  name: {{ include "common.name.a1controller" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  type: ClusterIP
-  ports:
-    - port: {{ include "common.serviceport.a1controller.external" . }}
-      protocol: TCP
-      targetPort: {{ include "common.serviceport.a1controller.internal" . }}
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
-    release: {{ .Release.Name }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: dbhost
-  namespace: {{ include "common.namespace.nonrtric" . }}
-spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
-  selector:
-    app: db
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sdnctldb01
-  namespace: {{ include "common.namespace.nonrtric" . }}
-spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
-  selector:
-    app: db
+description: A Helm chart for Policy Management Service
+name: policymanagementservice
+version: 1.0.0

@@ -14,23 +14,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ .Values.a1simulator.instanceName }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-  - name: http
-    protocol: TCP
-    port: {{ include "common.serviceport.a1simulator.http" . }}
-    targetPort: {{ include "common.serviceport.a1simulator.http" . }}
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{- define "common.namespace.nonrtric" -}}
+  {{- printf "nonrtric" -}}
+{{- end -}}

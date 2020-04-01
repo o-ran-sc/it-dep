@@ -14,8 +14,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+kind: Service
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for A1 simulator
-name: a1simulator
-version: 1.0.1
+metadata:
+  name: {{ include "common.name.controlpanel" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.controlpanel.service.internalPort }}
+      nodePort: {{ .Values.controlpanel.service.externalPort }}
+      protocol: TCP
+      targetPort: {{ .Values.controlpanel.service.internalPort }}
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+    release: {{ .Release.Name }}

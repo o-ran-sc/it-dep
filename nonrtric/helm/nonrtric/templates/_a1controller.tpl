@@ -14,14 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for a1controller.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+{{- define "common.name.a1controller" -}}
+  {{- printf "a1controller" -}}
+{{- end -}}
 
-a1controller:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: nonrtric-a1-controller
-    tag: 1.7.4
-  replicaCount: 1
+{{- define "common.containername.a1controller" -}}
+  {{- $name := ( include "common.name.a1controller" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

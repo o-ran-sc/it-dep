@@ -14,8 +14,20 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for A1 simulator
-name: a1simulator
-version: 1.0.1
+# Default values for controlpanel.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+controlpanel:
+  imagePullPolicy: IfNotPresent
+  # image registry and tag to be changed after first release of controlpanel
+  image:
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    name: nonrtric-controlpanel
+    tag: 1.0.0
+  replicaCount: 1
+
+service:
+  type: NodePort
+  internalPort: 8080
+  externalPort: 30090

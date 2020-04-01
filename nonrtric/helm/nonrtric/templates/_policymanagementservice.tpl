@@ -14,19 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.controlpanel" -}}
-  {{- printf "controlpanel" -}}
+{{- define "common.name.policymanagementservice" -}}
+  {{- printf "policymanagementservice" -}}
 {{- end -}}
 
-{{- define "common.namespace.nonrtric" -}}
-  {{- printf "nonrtric" -}}
-{{- end -}}
-
-{{- define "common.containername.controlpanel" -}}
-  {{- $name := ( include "common.name.controlpanel" . ) -}}
+{{- define "common.container.policymanagementservice" -}}
+  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
-{{- define "common.serviceport.controlpanel.http" -}}30090{{- end -}}
-
-{{- define "common.serviceport.controlpanel.container" -}}8080{{- end -}}

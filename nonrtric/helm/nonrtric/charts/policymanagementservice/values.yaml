@@ -24,3 +24,12 @@ policymanagementservice:
     registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
     name: nonrtric-policy-agent
     tag: 1.0.0
+
+service:
+  type: NodePort
+  name: policymanagementservice
+  internalPort: 8081
+  #Need to check the external port Availability
+  externalPort: 30091
+
+    

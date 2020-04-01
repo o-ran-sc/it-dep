@@ -14,23 +14,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.a1simulator" -}}
-  {{- printf "a1simulator" -}}
-{{- end -}}
-
 {{- define "common.namespace.nonrtric" -}}
   {{- printf "nonrtric" -}}
 {{- end -}}
-
-{{- define "common.fullname.a1simulator" -}}
-  {{- $name := ( include "common.name.a1simulator" . ) -}}
-  {{- $namespace := "nonrtric" -}}
-  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.containername.a1simulator" -}}
-  {{- $name := ( include "common.fullname.a1simulator" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.serviceport.a1simulator.http" -}}8085{{- end -}}

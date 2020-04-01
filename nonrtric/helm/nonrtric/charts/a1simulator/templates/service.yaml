@@ -14,16 +14,24 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
+kind: Service
 apiVersion: v1
-kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-policy-configmap
+  name: {{ .Values.a1simulator.instanceName }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-data:
-{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: {{ .Values.service.internalPort }}
+    targetPort: {{ .Values.service.internalPort }}
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+    release: {{ .Release.Name }}
+  type: ClusterIP
+  clusterIP: None

@@ -14,8 +14,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+kind: Service
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for nonrtric controlpanel
-name: controlpanel
-version: 1.0.0
+metadata:
+  name: {{ include "common.name.controlpanel" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.internalPort }}
+      nodePort: {{ .Values.service.externalPort }}
+      protocol: TCP
+      targetPort: {{ .Values.service.internalPort }}
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+    release: {{ .Release.Name }}

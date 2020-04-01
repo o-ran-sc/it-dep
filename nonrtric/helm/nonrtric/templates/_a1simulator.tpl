@@ -14,8 +14,17 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for Policy Management Service
-name: policymanagementservice
-version: 1.0.1
+{{- define "common.name.a1simulator" -}}
+  {{- printf "a1simulator" -}}
+{{- end -}}
+
+{{- define "common.fullname.a1simulator" -}}
+  {{- $name := ( include "common.name.a1simulator" . ) -}}
+  {{- $namespace := "nonrtric" -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.containername.a1simulator" -}}
+  {{- $name := ( include "common.fullname.a1simulator" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

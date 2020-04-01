@@ -15,24 +15,27 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+# This script deploys NonRtRic components automatically
 
-while [ -n "$1" ]; do # while loop starts
+if [ "$#" -eq 1 ]; then
+    OVERRIDEYAML=$1
+else
 
-    case "$1" in
+    while [ -n "$1" ]; do # while loop starts
 
-    -f) OVERRIDEYAML=$2
+        case "$1" in
+
+        -f) OVERRIDEYAML=$2
+            shift
+            ;;
+        *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
+
+        esac
+
         shift
-        ;;
-    -c) LIST_OF_COMPONENTS=$2
-        shift
-        ;;
-    *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
 
-    esac
-
-    shift
-
-done
+    done
+fi
 
 
 if [ -z "$OVERRIDEYAML" ];then
@@ -45,29 +48,30 @@ if [ -z "$OVERRIDEYAML" ];then
 fi
 
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
-NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
-NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
-RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-PARENT_CHART=$(cat $OVERRIDEYAML | awk '/^ *component:/{print $2}')
-COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice nonrtric"}
-echo "Chart name- $PARENT_CHART"
-
-if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
-    kubectl create ns ${NONRTRIC_NAMESPACE:-nonrtric}
-fi
-if ! kubectl get ns onap > /dev/null 2>&1; then
-    kubectl create ns onap
+# Start Helm local repo if there isn't one
+HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')
+if [ -z "$HELM_REPO_PID" ]; then
+    nohup helm serve >& /dev/null &
 fi
 
-kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --from-file=recipe=$OVERRIDEYAML
+# Package ric-common and serve it using Helm local repo
+HELM_HOME=$(helm home)
+COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
 
-echo "Deploying NONRTRIC components [$COMPONENTS]"
+COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice"}
+echo "Packaging NONRTRIC components [$COMPONENTS]"
 
-echo "Updating the Parent Chart [$PARENT_CHART]"
-helm dep up $DIR/../helm/$PARENT_CHART
+for component in $COMPONENTS; do
+    helm dep up $ROOT_DIR/../nonrtric/helm/$component
+    VERSION=$(cat $ROOT_DIR/../nonrtric/helm/$component/Chart.yaml | grep version | awk '{print $2}')
+    helm package -d /tmp $ROOT_DIR/../nonrtric/helm/$component
+    cp /tmp/$component-$VERSION.tgz $HELM_HOME/repository/local/
+done
 
-helm install $DIR/../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" --name "${RELEASE_PREFIX}"
+echo "Finished Packaging NONRTRIC components [$COMPONENTS]"
 
+$ROOT_DIR/../nonrtric/bin/install -f $OVERRIDEYAML

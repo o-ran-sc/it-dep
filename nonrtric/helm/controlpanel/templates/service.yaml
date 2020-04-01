@@ -27,10 +27,10 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ include "common.serviceport.controlpanel.container" . }}
-      nodePort: {{ include "common.serviceport.controlpanel.http" . }}
+    - port: {{ .Values.controlpanel.service.internalPort }}
+      nodePort: {{ .Values.controlpanel.service.externalPort }}
       protocol: TCP
-      targetPort: http
+      targetPort: {{ .Values.controlpanel.service.internalPort }}
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
     release: {{ .Release.Name }}

@@ -14,14 +14,17 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for a1-simulator.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+{{- define "common.name.a1simulator" -}}
+  {{- printf "a1simulator" -}}
+{{- end -}}
 
-a1simulator:
-  instanceName: a1-sim1
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: near-rt-ric-simulator
-    tag: 1.0.1
+{{- define "common.fullname.a1simulator" -}}
+  {{- $name := ( include "common.name.a1simulator" . ) -}}
+  {{- $namespace := "nonrtric" -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.containername.a1simulator" -}}
+  {{- $name := ( include "common.fullname.a1simulator" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

@@ -14,23 +14,16 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.controlpanel" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  type: NodePort
-  ports:
-    - port: {{ include "common.serviceport.controlpanel.container" . }}
-      nodePort: {{ include "common.serviceport.controlpanel.http" . }}
-      protocol: TCP
-      targetPort: http
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
-    release: {{ .Release.Name }}
+dependencies:
+  - name: a1controller
+    version: ~1.0.0
+    repository: "@local"
+  - name: a1simulator
+    version: ~1.0.0
+    repository: "@local"
+  - name: controlpanel
+    version: ~1.0.0
+    repository: "@local"
+  - name: policymanagementservice
+    version: ~1.0.0
+    repository: "@local"

@@ -17,48 +17,46 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: {{ include "common.name.controlpanel" . }}
+  name: {{ include "common.name.policymanagementservice" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: {{ .Values.controlpanel.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ include "common.name.controlpanel" . }}
+      hostname: {{ include "common.name.policymanagementservice" . }}
       containers:
-        - name: {{ include "common.containername.controlpanel" . }}
-          image: {{ .Values.controlpanel.image.registry }}/{{ .Values.controlpanel.image.name }}:{{ .Values.controlpanel.image.tag }}
-          imagePullPolicy: {{ .Values.controlpanel.imagePullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ include "common.serviceport.controlpanel.container" . }}
-              protocol: TCP
-          volumeMounts:
-            - name: configmap
-              mountPath: /maven/application.properties
-              subPath: application.properties
-              readOnly: true
-          readinessProbe:
-            tcpSocket:
-              port: {{ include "common.serviceport.controlpanel.container" . }}
-            initialDelaySeconds: 15
-            periodSeconds: 15
+      - name: {{ include "common.container.policymanagementservice" . }}
+        image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
+        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.policymanagementservice.service.internalPort }}
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.policymanagementservice.service.internalPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        volumeMounts:
+        - name: {{ include "common.name.policymanagementservice" . }}-policy-conf
+          mountPath: /opt/app/policy-agent/config/application_configuration.json
+          subPath: application_configuration.json
       volumes:
-        - name: configmap
+        - name: {{ include "common.name.policymanagementservice" . }}-policy-conf
           configMap:
-            name: {{ include "common.name.controlpanel" . }}-configmap
+            name: {{ include "common.name.policymanagementservice" . }}-configmap

@@ -14,17 +14,20 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.policymanagementservice" -}}
-  {{- printf "policymanagementservice" -}}
-{{- end -}}
+# Default values for Policy Management Service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-{{- define "common.namespace.nonrtric" -}}
-  {{- printf "nonrtric" -}}
-{{- end -}}
+policymanagementservice:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    name: nonrtric-policy-agent
+    tag: 1.0.0
+  service:
+    name: http
+    internalPort: 8081
+    #Need to check the external port Availability
+    externalPort: 30091
 
-{{- define "common.container.policymanagementservice" -}}
-  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.serviceport.policymanagementservice.http" -}}8081{{- end -}}
+    

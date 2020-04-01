@@ -14,15 +14,46 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for controlpanel.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-controlpanel:
-  imagePullPolicy: IfNotPresent
-  # image registry and tag to be changed after first release of controlpanel
-  image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-    name: nonrtric-controlpanel
-    tag: 1.0.0
-  replicaCount: 1
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "common.name.a1controller" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.a1controller.service.externalPort }}
+      protocol: TCP
+      targetPort: {{ .Values.a1controller.service.internalPort }}
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbhost
+  namespace: {{ include "common.namespace.nonrtric" . }}
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdnctldb01
+  namespace: {{ include "common.namespace.nonrtric" . }}
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: db

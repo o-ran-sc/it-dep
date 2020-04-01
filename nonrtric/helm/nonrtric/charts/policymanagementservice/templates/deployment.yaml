@@ -45,11 +45,11 @@ spec:
         image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
         imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
         ports:
-        - containerPort: {{ include "common.serviceport.policymanagementservice.http" . }}
+        - containerPort: {{ .Values.service.internalPort }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ include "common.serviceport.policymanagementservice.http" . }}
+            port: {{ .Values.service.internalPort }}
           initialDelaySeconds: 5
           periodSeconds: 15
         volumeMounts:

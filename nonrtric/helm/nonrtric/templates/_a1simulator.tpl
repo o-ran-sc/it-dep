@@ -14,19 +14,19 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.controlpanel" -}}
-  {{- printf "controlpanel" -}}
+{{- define "common.name.a1simulator" -}}
+  {{- printf "a1simulator" -}}
 {{- end -}}
 
-{{- define "common.namespace.nonrtric" -}}
-  {{- printf "nonrtric" -}}
+{{- define "common.fullname.a1simulator" -}}
+  {{- $name := ( include "common.name.a1simulator" . ) -}}
+  {{- $namespace := "nonrtric" -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.containername.controlpanel" -}}
-  {{- $name := ( include "common.name.controlpanel" . ) -}}
+{{- define "common.containername.a1simulator" -}}
+  {{- $name := ( include "common.fullname.a1simulator" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.serviceport.controlpanel.http" -}}30090{{- end -}}
-
-{{- define "common.serviceport.controlpanel.container" -}}8080{{- end -}}
+{{- define "common.serviceport.a1simulator.http" -}}8085{{- end -}}

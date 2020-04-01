@@ -14,17 +14,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.policymanagementservice" -}}
-  {{- printf "policymanagementservice" -}}
-{{- end -}}
-
 {{- define "common.namespace.nonrtric" -}}
   {{- printf "nonrtric" -}}
 {{- end -}}
-
-{{- define "common.container.policymanagementservice" -}}
-  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.serviceport.policymanagementservice.http" -}}8081{{- end -}}

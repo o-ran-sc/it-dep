@@ -14,23 +14,13 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-  - name: http
-    protocol: TCP
-    port: {{ include "common.serviceport.policymanagementservice.http" . }}
-    targetPort: {{ include "common.serviceport.policymanagementservice.http" . }}
-  selector:
-    app: nonrtric-{{ include "common.name.policymanagementservice" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{- define "common.name.policymanagementservice" -}}
+  {{- printf "policymanagementservice" -}}
+{{- end -}}
+
+{{- define "common.container.policymanagementservice" -}}
+  {{- $name := ( include "common.name.policymanagementservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.serviceport.policymanagementservice.http" -}}8081{{- end -}}

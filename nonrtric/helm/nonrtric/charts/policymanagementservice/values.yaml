@@ -14,8 +14,22 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for nonrtric controlpanel
-name: controlpanel
-version: 1.0.0
+# Default values for Policy Management Service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+policymanagementservice:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    name: nonrtric-policy-agent
+    tag: 1.0.0
+
+service:
+  type: NodePort
+  name: policymanagementservice
+  internalPort: 8081
+  #Need to check the external port Availability
+  externalPort: 8081
+
+    

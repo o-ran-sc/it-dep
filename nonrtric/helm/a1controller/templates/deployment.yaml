@@ -52,11 +52,11 @@ spec:
           command:
             - /opt/onap/sdnc/bin/startODL.sh
           ports:
-            - containerPort: {{ include "common.serviceport.a1controller.internal" . }}
+            - containerPort: {{ .Values.a1controller.service.internalPort }}
               protocol: TCP
           readinessProbe:
             tcpSocket:
-              port: {{ include "common.serviceport.a1controller.internal" . }}
+              port: {{ .Values.a1controller.service.internalPort }}
             initialDelaySeconds: 15
             periodSeconds: 15
 ---

@@ -26,11 +26,11 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   ports:
-  - name: http
+  - name: {{ .Values.policymanagementservice.service.name }}
     protocol: TCP
-    port: {{ include "common.serviceport.policymanagementservice.http" . }}
-    targetPort: {{ include "common.serviceport.policymanagementservice.http" . }}
+    port: {{ .Values.policymanagementservice.service.internalPort }}
+    nodePort: {{ .Values.policymanagementservice.service.externalPort }}
   selector:
-    app: nonrtric-{{ include "common.name.policymanagementservice" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
     release: {{ .Release.Name }}
-  type: ClusterIP
+  type: NodePort

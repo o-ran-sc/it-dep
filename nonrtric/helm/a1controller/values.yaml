@@ -25,3 +25,6 @@ a1controller:
     name: nonrtric-a1-controller
     tag: 1.7.4
   replicaCount: 1
+  service:
+    internalPort: 8181
+    externalPort: 8282

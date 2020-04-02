@@ -18,6 +18,10 @@
   {{- printf "a1simulator" -}}
 {{- end -}}
 
+{{- define "common.namespace.nonrtric" -}}
+  {{- printf "nonrtric" -}}
+{{- end -}}
+
 {{- define "common.fullname.a1simulator" -}}
   {{- $name := ( include "common.name.a1simulator" . ) -}}
   {{- $namespace := "nonrtric" -}}

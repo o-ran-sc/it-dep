@@ -121,6 +121,23 @@
     },
     {
       "key": {
+        "uuid": "a6e1c4c6_c2e6ca4f",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:22:19Z",
+      "side": 1,
+      "message": "Just came to my mind, we need to adapt a1simulator chart so that the A1_version can also be selected (OSC_2.1.0 and STD_1.1.3) using an environment variable. How can we achieve this with replicas, if some simulators could be using one version and other simulators using another version?",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87454cde_80da90a5",
         "filename": "nonrtric/helm/nonrtric/charts/controlpanel/values.yaml",
         "patchSetId": 3

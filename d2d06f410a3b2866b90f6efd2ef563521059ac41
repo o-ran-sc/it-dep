@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "b8edecc1_aa066d65",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:09:20Z",
+      "side": 1,
+      "message": "In my understanding, the purpose of a recipe file is that you can collect all your configurable parameters in a single file, and then the install script would read this file and create deployments based on the the configured parameters.\n\nAfter this change, I don\u0027t see any use of recipe file as nothing can be configured but instead the parameters need to be set in individual values.yaml files. Is that what we want to achieve here?\n\nI could not find any recipe example in it/dep that is as simple as this one. Are we deviating from what other projects have done in OSC?",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a6d6c9_098eb31f",
         "filename": "nonrtric/bin/install",
         "patchSetId": 3

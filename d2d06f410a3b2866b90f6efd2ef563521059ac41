@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6a6d6c9_098eb31f",
+        "filename": "nonrtric/bin/install",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "also add a1controller in this list.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8da70a5_7830337f",
+        "filename": "nonrtric/bin/uninstall",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "also add a1controller in this list.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7281c012_287ec032",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "I see no point of making this port configurable when the simulator always uses 8085. I think it should be kept in the tpl file.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95da9c3d_c0f792ab",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "if the port needs to be made configurable (which in my opinion should not be), then this type cal read from {{ .Values.service.type }}. Otherwise, type should be removed from values.yaml as it is not being used anywhere.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0eb76f0_43536526",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "what is the use of None here?",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a77902b_9c62d984",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "Do we need to have instanceName here after your change?\nAfter setting replicaCount\u003d2, do we have both simulators named as a1-sim1? In that case, how can we reach each individual simulator, like previously it could be done via a1-sim1:8085 and a1-sim2:8085? I am not sure if I understand how the statefulset really works.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87454cde_80da90a5",
+        "filename": "nonrtric/helm/nonrtric/charts/controlpanel/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "same comment as before. Do we need to make the ports configurable? I understand that externalPort could be configured, but why do we need to configure internalPort when controlpanel is always using 8080 and this port cannot be changed?",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d050c0f_71c0d877",
+        "filename": "nonrtric/helm/nonrtric/charts/policymanagementservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "what is the use of name here? we could already use \"{{ include \"common.name.policymanagementservice\" . }}\" in the yaml files.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58ad7166_f0d475d7",
+        "filename": "nonrtric/helm/nonrtric/charts/policymanagementservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-03T14:02:07Z",
+      "side": 1,
+      "message": "same comment as before.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

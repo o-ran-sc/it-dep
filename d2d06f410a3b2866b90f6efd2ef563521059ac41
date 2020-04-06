@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "6456e3b5_a7a819c9",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "When you have the following line in the install script, then -f option makes sure that it actually installs with the values defined in recipe file, instead of default values:\n\nhelm install -f $OVERRIDEYAML --namespace \"${NONRTRIC_NAMESPACE:-nonrtric}\" --name \"${RELEASE_PREFIX}-$component\" $DIR/../helm/$component\n\nSome quick tests that I did, show that the values are actually captured from the recipe. We can of course discuss more on this.",
+      "parentUuid": "1ba48822_6e7cf2d6",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a6d6c9_098eb31f",
         "filename": "nonrtric/bin/install",
         "patchSetId": 3
@@ -106,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "23bd56fb_de7b6c47",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "I am not aware of where that standard is defined. May be, you can point me somewhere.\n\nAs far as I see in OSC, the ports for each component are defined in tpl files. Check this:\nhttps://gerrit.o-ran-sc.org/r/gitweb?p\u003dit/dep.git;a\u003dtree;f\u003dric-common/Common-Template/helm/ric-common/templates;h\u003d1e209aa16d0b85555ba883d697cd32597be258bf;hb\u003drefs/heads/master\n\nI think this makes the ports hard-coded. However, if you provide them inside values.yaml file, the user can change the ports by using an overridden yaml file or using --set flag. What if a user ignorantly changes the a1simulator port to 8086 (instead of 8085), then it would not work. You cannot specify that it is possible to change the port but ask the user never try to change the port.",
+      "parentUuid": "19fccda5_e7ef8b02",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95da9c3d_c0f792ab",
         "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
         "patchSetId": 3
@@ -138,6 +174,24 @@
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374002f0_c40089f4",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7dd71a8d_d0e6ebac",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "c0a0ee83_be300dcd",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "567a20e6_3d6e1122",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a77902b_9c62d984",
         "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
         "patchSetId": 3
@@ -211,6 +283,24 @@
     },
     {
       "key": {
+        "uuid": "728e6905_1f5e0c63",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "Does it mean that the second simulator can be accessed using \"-1\" at the end instead of \"-0\", like this url?\nhttp://al-sim-a1-sim1-1:8085/A1-P/v1/policytypes\n\nIf yes, then using the instanceName\u003da1-sim1 is quite confusing here. You can just replace the instanceName by \"{{ include \"common.name.a1simulator\" . }}\" wherever that is used (including the statefulset), and remove it from this file. Then, the complete url for accessing each simulator would be:\nhttp://al-sim-a1simulator-0.a1simulator.nonrtric:8085/A1-P/v1/policytypes\nhttp://al-sim-a1simulator-1.a1simulator.nonrtric:8085/A1-P/v1/policytypes",
+      "parentUuid": "1aa871a3_c4846e24",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6e1c4c6_c2e6ca4f",
         "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
         "patchSetId": 3
@@ -240,6 +330,24 @@
       "side": 1,
       "message": "For this we need to understand how Bjorn \u0026 Maxime developed the simulator. AFAIK, they plan to have one simulator that supports multiple version. So its the same docker image which has the multi version capabilities.\nWe can discuss more with them.",
       "parentUuid": "a6e1c4c6_c2e6ca4f",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7139266e_289f7e25",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-04-06T12:41:41Z",
+      "side": 1,
+      "message": "Yes, there is one simulator that supports multiple versions. But when starting the docker container, we need to set an environment variable. That is:\n-e A1_VERSION\u003dOSC_2.1.0\nOR\n-e A1_VERSION\u003dSTD_1.1.3\ndepending on which version needs to be used.",
+      "parentUuid": "e0e1279e_c1547b0a",
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

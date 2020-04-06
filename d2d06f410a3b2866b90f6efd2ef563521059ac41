@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ba48822_6e7cf2d6",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "I think the receipe file values are not fully used in the respective charts. though its mentioned i think its not configurable at the moment. We can discuss this with Lusheng on call.",
+      "parentUuid": "b8edecc1_aa066d65",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6a6d6c9_098eb31f",
         "filename": "nonrtric/bin/install",
         "patchSetId": 3
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "19fccda5_e7ef8b02",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "As per tpl definition, the tpl function allows developers to evaluate strings as templates inside a template. Hence it is defined in values file. Also its the standard.",
+      "parentUuid": "7281c012_287ec032",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "95da9c3d_c0f792ab",
         "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
         "patchSetId": 3
@@ -81,6 +117,24 @@
       "writtenOn": "2020-04-03T14:02:07Z",
       "side": 1,
       "message": "if the port needs to be made configurable (which in my opinion should not be), then this type cal read from {{ .Values.service.type }}. Otherwise, type should be removed from values.yaml as it is not being used anywhere.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dd71a8d_d0e6ebac",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "It has no context with configuration. Just the standard way of writing.",
+      "parentUuid": "95da9c3d_c0f792ab",
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "567a20e6_3d6e1122",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/templates/service.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "I was working with other developer on this issue and we made the simulator to run in stateless service with this option. Yet to debug more on this but for now you can ignore this. I will come back to this after I finish other tasks",
+      "parentUuid": "b0eb76f0_43536526",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3a77902b_9c62d984",
         "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
         "patchSetId": 3
@@ -115,6 +187,24 @@
       "writtenOn": "2020-04-03T14:02:07Z",
       "side": 1,
       "message": "Do we need to have instanceName here after your change?\nAfter setting replicaCount\u003d2, do we have both simulators named as a1-sim1? In that case, how can we reach each individual simulator, like previously it could be done via a1-sim1:8085 and a1-sim2:8085? I am not sure if I understand how the statefulset really works.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa871a3_c4846e24",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "You need to use this url to access the simulator,\nhttp://al-sim-a1-sim1-0.a1-sim1.nonrtric:8085/A1-P/v1/policytypes OR\nhttp://al-sim-a1-sim1-0:8085/A1-P/v1/policytypes\n\nthis value is used within the statefulset so we can not remove this.",
+      "parentUuid": "3a77902b_9c62d984",
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -138,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "e0e1279e_c1547b0a",
+        "filename": "nonrtric/helm/nonrtric/charts/a1simulator/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "For this we need to understand how Bjorn \u0026 Maxime developed the simulator. AFAIK, they plan to have one simulator that supports multiple version. So its the same docker image which has the multi version capabilities.\nWe can discuss more with them.",
+      "parentUuid": "a6e1c4c6_c2e6ca4f",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87454cde_80da90a5",
         "filename": "nonrtric/helm/nonrtric/charts/controlpanel/values.yaml",
         "patchSetId": 3
@@ -149,6 +257,24 @@
       "writtenOn": "2020-04-03T14:02:07Z",
       "side": 1,
       "message": "same comment as before. Do we need to make the ports configurable? I understand that externalPort could be configured, but why do we need to configure internalPort when controlpanel is always using 8080 and this port cannot be changed?",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ed91c7_effd3b81",
+        "filename": "nonrtric/helm/nonrtric/charts/controlpanel/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "Already answered",
+      "parentUuid": "87454cde_80da90a5",
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -172,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "7b63128c_bafab34e",
+        "filename": "nonrtric/helm/nonrtric/charts/policymanagementservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d050c0f_71c0d877",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58ad7166_f0d475d7",
         "filename": "nonrtric/helm/nonrtric/charts/policymanagementservice/values.yaml",
         "patchSetId": 3
@@ -183,6 +327,24 @@
       "writtenOn": "2020-04-03T14:02:07Z",
       "side": 1,
       "message": "same comment as before.",
+      "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f987192e_6d3842bb",
+        "filename": "nonrtric/helm/nonrtric/charts/policymanagementservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-06T11:08:16Z",
+      "side": 1,
+      "message": "Already answered",
+      "parentUuid": "58ad7166_f0d475d7",
       "revId": "d2d06f410a3b2866b90f6efd2ef563521059ac41",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

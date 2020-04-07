@@ -24,11 +24,6 @@
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.configmapname.dbaasha" -}}
-  {{- $name := ( include "common.fullname.dbaasha" . ) -}}
-  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
 {{- define "common.statefulsetname.dbaasha" -}}
   {{- $name := ( include "common.fullname.dbaasha" . ) -}}
   {{- printf "statefulset-%s" $name | trunc 63 | trimSuffix "-" -}}

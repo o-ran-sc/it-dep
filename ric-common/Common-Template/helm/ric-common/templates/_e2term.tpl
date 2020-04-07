@@ -54,6 +54,10 @@
   {{- $name := ( include "common.fullname.e2term" . ) -}}
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+{{- define "common.servicename.e2term.sctp" -}}
+  {{- $name := ( include "common.fullname.e2term" . ) -}}
+  {{- printf "service-%s-sctp" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 
 {{- define "common.servicename.e2term.http" -}}
   {{- $name := ( include "common.fullname.e2term" . ) -}}
@@ -65,7 +69,7 @@
 {{- define "common.serviceport.e2term.rmr.data" -}}38000{{- end -}}
 {{- define "common.serviceport.e2term.rmr.route" -}}4561{{- end -}}
 {{- define "common.serviceport.e2term.http" -}}8080{{- end -}}
-{{- define "common.serviceport.e2term.sctp" -}}5577{{- end -}}
+{{- define "common.serviceport.e2term.sctp" -}}36422{{- end -}}
 
 
 {{- define "common.serviceaccountname.e2term" -}}

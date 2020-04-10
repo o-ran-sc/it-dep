@@ -15,10 +15,18 @@
 ################################################################################
 
 FROM buildpack-deps:stretch
-RUN apt-get update && apt-get -q -y install debhelper dpkg-dev build-essential rsync
+RUN apt-get update && apt-get -q -y install debhelper dpkg-dev build-essential rsync curl
 RUN mkdir /tmp/it-dep
 COPY . /tmp/it-dep
 WORKDIR /tmp/it-dep
+
+
+# Verify that the it/dep and the corresponding submodules are synced up
+ARG GH=get_helm.sh
+RUN curl --silent --show-error --connect-timeout 10 --retry 6 -L https://raw.githubusercontent.com/helm/helm/master/scripts/get -o ${GH}
+RUN bash ${GH}
+RUN helm init -c
+RUN ./bin/verify-ric-charts
 
 # building RIC deployment artifacts into a package
 RUN ./bin/package-ric-deployment-tools $(grep tag ./ci/package-tag.yaml | cut -f2 -d':')
@@ -31,4 +39,3 @@ RUN ./bin/package-ric-deployment-tools $(grep tag ./ci/package-tag.yaml | cut -f
 # assumption is that the target directory is mounted as a volume.
 #
 ENTRYPOINT [ "ci/publish.sh" ]
-

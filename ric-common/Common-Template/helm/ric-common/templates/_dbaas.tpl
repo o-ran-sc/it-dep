@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2020 AT&T Intellectual Property.                             #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -34,11 +34,15 @@
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.statefulsetname.dbaas" -}}
+  {{- $name := ( include "common.fullname.dbaas" . ) -}}
+  {{- printf "statefulset-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.containername.dbaas" -}}
   {{- $name := ( include "common.fullname.dbaas" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
 
 {{- define "common.serviceaccountname.dbaas" -}}
   {{- $name := ( include "common.fullname.dbaas" . ) -}}
@@ -50,4 +54,5 @@
   {{- printf "service-%s-tcp" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.serviceport.dbaas.tcp" -}}6379{{- end -}}
+{{- define "common.serviceport.dbaas.redis" -}}6379{{- end -}}
+{{- define "common.serviceport.dbaas.sentinel" -}}26379{{- end -}}

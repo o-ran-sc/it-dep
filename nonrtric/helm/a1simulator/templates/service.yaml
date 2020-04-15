@@ -17,7 +17,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ .Values.a1simulator.instanceName }}
+  name: {{ .Values.a1simulator.name }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}

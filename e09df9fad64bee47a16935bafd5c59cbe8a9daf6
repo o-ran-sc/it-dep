@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "267b913e_9d8c359d",
+        "filename": "nonrtric/helm/nonrtric/requirements.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-04-15T15:11:34Z",
+      "side": 1,
+      "message": "I will actually suggest we keep the nonrtric-common. In ric-common/Common-Template/helm, you can see multiple common template there. nonrtric-common should be one of them.",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "e09df9fad64bee47a16935bafd5c59cbe8a9daf6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "e09df9fad64bee47a16935bafd5c59cbe8a9daf6",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d88b8c5_caf028b8",
+        "filename": "nonrtric/helm/nonrtric/requirements.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-04-15T17:47:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267b913e_9d8c359d",
+      "range": {
+        "startLine": 30,
+        "startChar": 14,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "e09df9fad64bee47a16935bafd5c59cbe8a9daf6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

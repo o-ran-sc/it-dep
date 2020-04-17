@@ -39,6 +39,12 @@ AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
 cp /tmp/aux-common-$AUX_COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
 
+NONRTRIC_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
+cp /tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+
+
 helm repo index $HELM_HOME/repository/local/
 
 echo "Make sure that helm local repo is added"

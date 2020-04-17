@@ -14,16 +14,17 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{- define "common.name.a1simulator" -}}
+  {{- printf "a1simulator" -}}
+{{- end -}}
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+{{- define "common.fullname.a1simulator" -}}
+  {{- $name := ( include "common.name.a1simulator" . ) -}}
+  {{- $namespace := "nonrtric" -}}
+  {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.containername.a1simulator" -}}
+  {{- $name := ( include "common.fullname.a1simulator" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

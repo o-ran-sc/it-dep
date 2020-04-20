@@ -18,14 +18,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-controlpanel:
-  imagePullPolicy: IfNotPresent
-  # image registry and tag to be changed after first release of controlpanel
-  image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-    name: nonrtric-controlpanel
-    tag: 1.0.0
-  replicaCount: 1
-  service:
-    internalPort: 8080
-    externalPort: 30090
+imagePullPolicy: IfNotPresent
+image:
+  registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+  name: nonrtric-controlpanel
+  tag: 1.0.0
+replicaCount: 1
+service:
+  internalPort: 8080
+  externalPort: 30090

@@ -28,7 +28,7 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: {{ .Values.controlpanel.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
@@ -42,11 +42,11 @@ spec:
       hostname: {{ include "common.name.controlpanel" . }}
       containers:
         - name: {{ include "common.containername.controlpanel" . }}
-          image: {{ .Values.controlpanel.image.registry }}/{{ .Values.controlpanel.image.name }}:{{ .Values.controlpanel.image.tag }}
-          imagePullPolicy: {{ .Values.controlpanel.imagePullPolicy }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.controlpanel.service.internalPort }}
+              containerPort: {{ .Values.service.internalPort }}
               protocol: TCP
           volumeMounts:
             - name: configmap
@@ -55,7 +55,7 @@ spec:
               readOnly: true
           readinessProbe:
             tcpSocket:
-              port: {{ .Values.controlpanel.service.internalPort }}
+              port: {{ .Values.service.internalPort }}
             initialDelaySeconds: 15
             periodSeconds: 15
       volumes:

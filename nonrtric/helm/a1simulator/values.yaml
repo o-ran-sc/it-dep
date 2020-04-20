@@ -18,18 +18,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-a1simulator:
-  name: a1-sim
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-    name: a1-simulator
-    tag: 1.0.1
-  service:
-    internalPort: 8085
-  oscVersion:
-    name: a1-sim-osc
-    replicaCount: 2
-  stdVersion:
-    name: a1-sim-std
-    replicaCount: 2
+name: a1-sim
+imagePullPolicy: IfNotPresent
+image:
+  registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+  name: a1-simulator
+  tag: 1.0.1
+service:
+  internalPort: 8085
+oscVersion:
+  name: a1-sim-osc
+  replicaCount: 2
+stdVersion:
+  name: a1-sim-std
+  replicaCount: 2

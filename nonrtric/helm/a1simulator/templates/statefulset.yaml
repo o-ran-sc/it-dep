@@ -17,7 +17,7 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: {{ .Values.a1simulator.oscVersion.name }}
+  name: {{ .Values.oscVersion.name }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
@@ -28,12 +28,12 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: {{ .Values.a1simulator.oscVersion.replicaCount }}
+  replicas: {{ .Values.oscVersion.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
       release: {{ .Release.Name }}
-  serviceName: {{ .Values.a1simulator.name }}
+  serviceName: {{ .Values.name }}
   template:
     metadata:
       labels:
@@ -43,14 +43,14 @@ spec:
       hostname: {{ include "common.name.a1simulator" . }}
       containers:
       - name: {{ include "common.containername.a1simulator" . }}
-        image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
-        imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.a1simulator.service.internalPort }}
+        - containerPort: {{ .Values.service.internalPort }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.a1simulator.service.internalPort }}
+            port: {{ .Values.service.internalPort }}
           initialDelaySeconds: 5
           periodSeconds: 15
         env:
@@ -61,7 +61,7 @@ spec:
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: {{ .Values.a1simulator.stdVersion.name }}
+  name: {{ .Values.stdVersion.name }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
@@ -72,12 +72,12 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: {{ .Values.a1simulator.stdVersion.replicaCount }}
+  replicas: {{ .Values.stdVersion.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
       release: {{ .Release.Name }}
-  serviceName: {{ .Values.a1simulator.name }}
+  serviceName: {{ .Values.name }}
   template:
     metadata:
       labels:
@@ -87,14 +87,14 @@ spec:
       hostname: {{ include "common.name.a1simulator" . }}
       containers:
       - name: {{ include "common.containername.a1simulator" . }}
-        image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
-        imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.a1simulator.service.internalPort }}
+        - containerPort: {{ .Values.service.internalPort }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.a1simulator.service.internalPort }}
+            port: {{ .Values.service.internalPort }}
           initialDelaySeconds: 5
           periodSeconds: 15
         env:

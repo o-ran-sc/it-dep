@@ -18,13 +18,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-a1controller:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: nonrtric-a1-controller
-    tag: 1.7.4
-  replicaCount: 1
-  service:
-    internalPort: 8181
-    externalPort: 8282
+imagePullPolicy: IfNotPresent
+image:
+  registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+  name: nonrtric-a1-controller
+  tag: 1.7.4
+replicaCount: 1
+service:
+  internalPort: 8181
+  externalPort: 8282

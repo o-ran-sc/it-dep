@@ -27,9 +27,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ .Values.a1controller.service.externalPort }}
+    - port: {{ .Values.service.externalPort }}
       protocol: TCP
-      targetPort: {{ .Values.a1controller.service.internalPort }}
+      targetPort: {{ .Values.service.internalPort }}
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
     release: {{ .Release.Name }}

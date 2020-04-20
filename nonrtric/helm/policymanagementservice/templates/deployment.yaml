@@ -42,14 +42,14 @@ spec:
       hostname: {{ include "common.name.policymanagementservice" . }}
       containers:
       - name: {{ include "common.container.policymanagementservice" . }}
-        image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
-        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.policymanagementservice.service.internalPort }}
+        - containerPort: {{ .Values.service.internalPort }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.policymanagementservice.service.internalPort }}
+            port: {{ .Values.service.internalPort }}
           initialDelaySeconds: 5
           periodSeconds: 15
         volumeMounts:

@@ -28,7 +28,7 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
-  replicas: {{ .Values.a1controller.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
@@ -42,8 +42,8 @@ spec:
       hostname: {{ include "common.name.a1controller" . }}
       containers:
         - name: {{ include "common.containername.a1controller" . }}
-          image: {{ .Values.a1controller.image.registry }}/{{ .Values.a1controller.image.name }}:{{ .Values.a1controller.image.tag }}
-          imagePullPolicy: {{ .Values.a1controller.imagePullPolicy }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: openECOMP1.0
@@ -52,11 +52,11 @@ spec:
           command:
             - /opt/onap/sdnc/bin/startODL.sh
           ports:
-            - containerPort: {{ .Values.a1controller.service.internalPort }}
+            - containerPort: {{ .Values.service.internalPort }}
               protocol: TCP
           readinessProbe:
             tcpSocket:
-              port: {{ .Values.a1controller.service.internalPort }}
+              port: {{ .Values.service.internalPort }}
             initialDelaySeconds: 15
             periodSeconds: 15
 ---

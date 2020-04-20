@@ -26,10 +26,10 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   ports:
-  - name: {{ .Values.policymanagementservice.service.name }}
+  - name: {{ .Values.service.name }}
     protocol: TCP
-    port: {{ .Values.policymanagementservice.service.internalPort }}
-    nodePort: {{ .Values.policymanagementservice.service.externalPort }}
+    port: {{ .Values.service.internalPort }}
+    nodePort: {{ .Values.service.externalPort }}
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
     release: {{ .Release.Name }}

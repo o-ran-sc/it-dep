@@ -15,27 +15,9 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: ric-common
-    version: ^3.1.0
-    repository: "@local"
-  - name: extsvcaux
-    version: 0.2.0
-    repository: "file://subcharts/extsvcaux"
-    condition: extsvcaux.enabled
-  - name: docker-credential
-    version: 1.0.0
-    repository: "file://./subcharts/docker-credential"
-    condition: docker-credential.enabled
-  - name: kong
-    version: 0.36.6
-    repository: "file://./subcharts/kong"
-    condition: kong.enabled
-  - name: certificate-manager
-    version: 0.1.0
-    repository: "file://./subcharts/certificate-manager"
-    condition: certificate-manager.enabled
-  - name: danm-networks
-    version: 1.0.0
-    repository: "file://./subcharts/danm-networks"
-    condition: danm-networks.enabled
+apiVersion: v1
+appVersion: "1.0"
+description: A Helm chart for setting up danm networks
+name: danm-networks
+version: 1.0.0
+

@@ -29,6 +29,46 @@ spec:
         {{- if .Values.podAnnotations }}
 {{ toYaml .Values.podAnnotations | indent 8 }}
         {{- end }}
+        {{- if $.Values.global }}
+          {{- if $.Values.global.danm_networks }}
+            {{- $networklist := list }}
+            {{- range $network := $.Values.global.danm_networks }}
+              {{- if $network.tenants }}
+                {{- if $network.tenants.kong }}
+                  {{- $networklist = append $networklist $network }}
+                {{- end }}
+              {{- end }}
+            {{- end }}
+            {{- if $networklist }}
+        danm.k8s.io/interfaces: |
+          [
+            {{- range $network := $networklist }}
+              {{- printf "\n            {\"clusterNetwork\": \"%s\"" $network.name }}
+              {{- if $network.tenants.kong.ip }}
+                {{- printf ", \"ip\": \"%s\"" $network.tenants.kong.ip }}
+              {{- else }}
+                {{- printf ", \"ip\": \"dynamic\"" }}
+              {{- end }}
+              {{- if $network.tenants.kong.ip6 }}
+                {{- printf ", \"ip6\": \"%s\"" $network.tenants.kong.ip6 }}
+              {{- end }}
+              {{- if $network.tenants.kong.proutes }}
+                {{- printf ", \"proutes\": {" }}
+                {{- range $subnet, $gw := $network.tenants.kong.proutes }}
+                  {{- if eq $subnet ( first ( keys $network.tenants.kong.proutes ))}}
+                    {{- printf "\"%s\": \"%s\"" $subnet $gw }}
+                  {{- else }}
+                    {{- printf ", \"%s\": \"%s\"" $subnet $gw }}
+                  {{- end }}
+                {{- end }}
+                {{- printf "}" }}
+              {{- end }}
+              {{- printf "}" }}
+            {{- end }}
+          ] 
+            {{- end }}
+          {{- end }}
+        {{- end }}
       labels:
         {{- include "kong.metaLabels" . | nindent 8 }}
         app.kubernetes.io/component: app

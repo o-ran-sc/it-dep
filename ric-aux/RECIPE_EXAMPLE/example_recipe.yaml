@@ -19,7 +19,7 @@
 #-------------------------------------------------------------------------
 
 common:
-  releasePrefix: r3
+  releasePrefix: r4
 
 # If a local docker registry is used, please specify it using the following option 
 #  localregistry: nexus3.o-ran-sc.org:10004
@@ -60,7 +60,7 @@ dashboard:
   image:
     registry: nexus3.o-ran-sc.org:10004/o-ran-sc
     name: ric-dashboard
-    tag: 2.0.0
+    tag: 2.0.1
   cipher:
     enc:
       key: AGLDdG4D04BKm2IxIWEr8o==

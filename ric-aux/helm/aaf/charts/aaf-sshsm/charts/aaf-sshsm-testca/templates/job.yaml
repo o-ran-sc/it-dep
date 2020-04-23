@@ -44,7 +44,7 @@ spec:
         - /root/job_complete.py
         args:
         - -j
-        - "{{ include "common.namespace" . }}-aaf-sshsm-distcenter"
+        - "{{ .Release.Name }}-aaf-sshsm-distcenter"
         env:
         - name: NAMESPACE
           valueFrom:
@@ -117,13 +117,13 @@ spec:
           path: /etc/localtime
       - name: {{ include "common.fullname" . }}-data
         persistentVolumeClaim:
-          claimName: {{ include "common.namespace" . }}-aaf-sshsm-data
+          claimName: {{ .Release.Name }}-aaf-sshsm-data
       - name: {{ include "common.fullname" . }}-dbus
         persistentVolumeClaim:
-          claimName: {{ include "common.namespace" . }}-aaf-sshsm-dbus
+          claimName: {{ .Release.Name }}-aaf-sshsm-dbus
       - name: {{ include "common.fullname" . }}-secrets
         secret:
-          secretName: {{ include "common.namespace" . }}-aaf-sshsm
+          secretName: {{ .Release.Name }}-aaf-sshsm
       imagePullSecrets:
       - name: "{{ include "common.namespace" . }}-docker-registry-key"
 

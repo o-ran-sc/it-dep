@@ -35,3 +35,7 @@ dependencies:
     version: 0.1.0
     repository: "file://./subcharts/certificate-manager"
     condition: certificate-manager.enabled
+  - name: danm-networks
+    version: 1.0.0
+    repository: "file://./subcharts/danm-networks"
+    condition: danm-networks.enabled

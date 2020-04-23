@@ -46,7 +46,7 @@ spec:
         - /root/job_complete.py
         args:
         - --job-name
-        - {{ include "common.namespace" . }}-portal-db-config
+        - {{ .Release.Name }}-portal-db-config
         env:
         - name: NAMESPACE
           valueFrom:

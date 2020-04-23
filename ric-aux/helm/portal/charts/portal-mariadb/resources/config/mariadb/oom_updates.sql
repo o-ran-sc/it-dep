@@ -42,8 +42,6 @@ update fn_app set app_url = 'http://{{.Values.config.msbHostName}}:{{.Values.con
 
 
 
-/* Create RIC Dashboard app */
-
 INSERT IGNORE INTO `fn_app` (`app_id`, `app_name`, `app_image_url`, `app_description`, `app_notes`, `app_url`, `app_alternate_url`, `app_rest_endpoint`, `ml_app_name`, `ml_app_admin_id`, `mots_id`, `app_password`, `open`, `enabled`, `thumbnail`, `app_username`, `ueb_key`, `ueb_secret`, `ueb_topic_name`, `app_type`,`auth_central`,`auth_namespace`) VALUES
 (12, 'RIC-Dashboard', '', NULL, NULL, '{{.Values.config.ricdashboardProtocol}}://{{.Values.config.ricdashboardHostName}}:{{.Values.config.ricdashboardPort}}', '','http://service-ricaux-dashboard-http:8080/api/v3', '', '', NULL, 'password', 'N', 'Y', NULL, 'Default', 'ueb_key', 'ueb_secret', 'ECOMP-PORTAL-OUTBOX', 1,'N',NULL);
 

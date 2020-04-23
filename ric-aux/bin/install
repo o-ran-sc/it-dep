@@ -133,6 +133,28 @@ if [ -z "$FOUND_STORAGECLASS" ] && $LABELFOUND; then
 fi
 
 
+LABELFOUND=false
+for f in $NODENAME; do
+    LABEL=$(kubectl describe node $f | grep "portal-storage=enable")
+    if [ ! -z "$LABEL" ]; then
+        LABELFOUND=true
+    fi
+done
+
+if  ! $LABELFOUND; then
+    echo "***********************************************************************************************"
+    echo "*                                          ERROR!!!!!!!!!!!!!                                 *"
+    echo "***********************************************************************************************"
+    echo "* Nodes label \"portal-storage=enable\" is not found in any of the cluster node.               *"
+    echo "* Please pick a node and label it using the following command.   i                             *"
+    echo "* kubectl label --overwrite nodes <YOUR_NODE_NAME> portal-storage=enable                       *"
+    echo "***********************************************************************************************"
+
+    exit 1
+fi
+
+
+
 if ! kubectl get ns ${AUXNAMESPACE:-ricaux}> /dev/null 2>&1; then
     kubectl create ns ${AUXNAMESPACE:-ricaux}
 fi
@@ -143,7 +165,83 @@ if ! kubectl get ns onap > /dev/null 2>&1; then
     kubectl create ns onap
 fi
 
+HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"jobs.batch \"ricaux-portal-db-config\" is forbidden: User \"system:serviceaccount:ricaux:default\" cannot get resource \"jobs/status\" in API group \"batch\" in the namespace \"ricaux\"","reason":"Forbidden","details":{"name":"ricaux-portal-db-config","group":"batch","kind":"jobs"},"code":403}
+
+
+HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"pods is forbidden: User \"system:serviceaccount:onap:default\" cannot list resource \"pods\" in API group \"\" in the namespace \"onap\"","reason":"Forbidden","details":{"kind":"pods"},"code":403}
+
+
+
+echo Add cluster roles
+    cat >ricaux-role.yaml <<EOF
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ricaux-system-default
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+  - apiGroups: ["batch"]
+    resources: ["jobs/status"]
+    verbs: ["get"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ricaux-system-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ricaux-system-default
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: ${AUXNAMESPACE:-ricaux}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: onap-system-default
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+  - apiGroups: ["apps"]
+    resources: ["replicasets/status"]
+    verbs: ["get"]
+  - apiGroups: ["batch"]
+    resources: ["jobs/status"]
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets"]
+    verbs: ["get"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: onap-system-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: onap-system-default
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: onap
+EOF
+kubectl apply -f ricaux-role.yaml
+rm ricaux-role.yaml
+
 kubectl create configmap -n ${AUXNAMESPACE:-ricaux} aux-recipe --from-file=recipe=$OVERRIDEYAML
+
+
+
+echo "Clean up dockerdata-nfs directory"
+rm -rf /dockerdata-nfs
 
 
 echo "Deploying AUX components [$COMPONENTS]"

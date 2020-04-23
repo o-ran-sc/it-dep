@@ -165,11 +165,6 @@ if ! kubectl get ns onap > /dev/null 2>&1; then
     kubectl create ns onap
 fi
 
-HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"jobs.batch \"ricaux-portal-db-config\" is forbidden: User \"system:serviceaccount:ricaux:default\" cannot get resource \"jobs/status\" in API group \"batch\" in the namespace \"ricaux\"","reason":"Forbidden","details":{"name":"ricaux-portal-db-config","group":"batch","kind":"jobs"},"code":403}
-
-
-HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"pods is forbidden: User \"system:serviceaccount:onap:default\" cannot list resource \"pods\" in API group \"\" in the namespace \"onap\"","reason":"Forbidden","details":{"kind":"pods"},"code":403}
-
 
 
 echo Add cluster roles

@@ -16,39 +16,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# This script deploys RIC platform components automatically
-
-if [ "$#" -eq 1 ]; then
-    OVERRIDEYAML=$1
-else
-
-    while [ -n "$1" ]; do # while loop starts
-
-        case "$1" in
-
-        -f) OVERRIDEYAML=$2
-            shift
-            ;;
-        *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
-
-        esac
-
-        shift
-
-    done
-fi
-
-
-if [ -z "$OVERRIDEYAML" ];then
-    echo "****************************************************************************************************************"
-    echo "                                                     ERROR                                                      "
-    echo "****************************************************************************************************************"
-    echo "RIC deployment without deployment recipe is currently disabled. Please specify an recipe with the -f option."
-    echo "****************************************************************************************************************"
-    exit 1
-fi
-
-
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -58,10 +25,28 @@ if [ -z "$HELM_REPO_PID" ]; then
     nohup helm serve >& /dev/null &
 fi
 
-$ROOT_DIR/prepare-common-templates
 
-$ROOT_DIR/../ric-dep/bin/install -f $OVERRIDEYAML
 
+# Package common templates and serve it using Helm local repo
+HELM_HOME=$(helm home)
+COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/ric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/ric-common
+cp /tmp/ric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
+cp /tmp/aux-common-$AUX_COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+NONRTRIC_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
+cp /tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+
+helm repo index $HELM_HOME/repository/local/
+
+
+# Make sure that helm local repo is added
+helm repo remove local
+helm repo add local http://127.0.0.1:8879/charts
 
 
 

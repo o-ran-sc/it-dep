@@ -56,11 +56,7 @@ if [ -z "$HELM_REPO_PID" ]; then
     nohup helm serve >& /dev/null &
 fi
 
-# Package nonrtric-common and serve it using Helm local repo
-HELM_HOME=$(helm home)
-COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
-cp /tmp/nonrtric-common-$COMMON_CHART_VERSION.tgz $HELM_HOME/repository/local/
+$ROOT_DIR/prepare-common-templates
 
 COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice"}
 echo "Packaging NONRTRIC components [$COMPONENTS]"

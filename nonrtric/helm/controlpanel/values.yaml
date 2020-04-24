@@ -20,9 +20,8 @@
 
 controlpanel:
   imagePullPolicy: IfNotPresent
-  # image registry and tag to be changed after first release of controlpanel
   image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
     name: nonrtric-controlpanel
     tag: 1.0.0
   replicaCount: 1

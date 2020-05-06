@@ -16,6 +16,7 @@
 {{- if $.Values.global.danm_networks }}
 {{- range keys $.Values.global.danm_networks }}
 {{- with index $.Values.global.danm_networks . }}
+{{- if ne .name "default" }}
 ---
 apiVersion: danm.k8s.io/v1
 kind: ClusterNetwork
@@ -39,7 +40,7 @@ spec:
 {{- if .net6 }}
     net6: {{ .net6 }}
 {{- end }}
-{{- if .routes }}
+{{- if .routes6 }}
     routes6:
 {{- range $subnet, $route := .routes6 }}
       {{ $subnet | quote }}: {{ $route | quote }}
@@ -48,6 +49,7 @@ spec:
     host_device: {{ .host_device }}
     rt_tables: {{ .rt_tables }}
     vlan: {{ .vlan }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

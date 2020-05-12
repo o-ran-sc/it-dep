@@ -1,6 +1,6 @@
 #!/bin/bash -x
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019,2020 AT&T Intellectual Property.                        #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -314,6 +314,7 @@ EOF
   mkdir -p .kube
   cp -i /etc/kubernetes/admin.conf /root/.kube/config
   chown root:root /root/.kube/config
+  export KUBECONFIG=/root/.kube/config 
 
   # at this point we should be able to use kubectl
   kubectl get pods --all-namespaces
@@ -328,10 +329,6 @@ EOF
   # if running a single node cluster, need to enable master node to run pods
   kubectl taint nodes --all node-role.kubernetes.io/master-
 
-  cd /root
-  # install RBAC for Helm
-  kubectl create -f rbac-config.yaml
-
   # install Helm
   HELMV=$(cat /opt/config/helm_version.txt)
   HELMVERSION=${HELMV}
@@ -342,13 +339,17 @@ EOF
   tar -xvf ../helm-v${HELMVERSION}-linux-amd64.tar.gz
   mv linux-amd64/helm /usr/local/bin/helm
 
+  cd /root
+  # install RBAC for Helm
+  kubectl create -f rbac-config.yaml
+
   rm -rf /root/.helm
   if [[ ${KUBEV} == 1.16.* ]]; then
     # helm init uses API extensions/v1beta1 which is depreciated by Kubernetes
     # 1.16.0.  Until upstream (helm) provides a fix, this is the work-around.
-    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml > helm-init.yaml
-    sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' ./helm-init.yaml > helm-init-patched.yaml
-    kubectl apply -f ./helm-init-patched.yaml
+    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml > /tmp/helm-init.yaml
+    sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' /tmp/helm-init.yaml > /tmp/helm-init-patched.yaml
+    kubectl apply -f /tmp/helm-init-patched.yaml
   else
     helm init --service-account tiller
   fi

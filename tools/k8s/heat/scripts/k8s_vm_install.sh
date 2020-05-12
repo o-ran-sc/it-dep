@@ -1,6 +1,6 @@
 #!/bin/bash -x
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019,2020 AT&T Intellectual Property.                        #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -314,6 +314,7 @@ EOF
   mkdir -p .kube
   cp -i /etc/kubernetes/admin.conf /root/.kube/config
   chown root:root /root/.kube/config
+  export KUBECONFIG=/root/.kube/config 
 
   # at this point we should be able to use kubectl
   kubectl get pods --all-namespaces

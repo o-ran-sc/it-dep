@@ -63,7 +63,11 @@ spec:
                 {{- end }}
                 {{- printf "}" }}
               {{- end }}
+              {{- if ne $network.name (last $networklist).name }}
+              {{- printf "}," }}
+              {{- else }}
               {{- printf "}" }}
+              {{- end }}
             {{- end }}
           ] 
             {{- end }}

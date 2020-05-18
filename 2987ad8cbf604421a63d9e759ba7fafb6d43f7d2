@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39615a64_6c10225b",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-18T14:32:07Z",
+      "side": 1,
+      "message": "How will it work if someone would like to change the port to something other than 8080? Does the port need to be changed in two places: 1) recipe file, 2) application.properties?\nI don\u0027t see any use of internalPort parameter in the recipe file unless the port change in recipe file is reflected in the application.properties as well.",
+      "revId": "2987ad8cbf604421a63d9e759ba7fafb6d43f7d2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

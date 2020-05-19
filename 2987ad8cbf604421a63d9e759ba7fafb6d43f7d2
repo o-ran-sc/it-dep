@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9b23160a_ede4ace9",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-19T18:27:55Z",
+      "side": 1,
+      "message": "Lusheng, you are right. We haven\u0027t increased the version but we will do it before the release.",
+      "parentUuid": "81c056a2_ac103d63",
+      "revId": "2987ad8cbf604421a63d9e759ba7fafb6d43f7d2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39615a64_6c10225b",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "If we want to be able to change at only one place, we can name the port to something like __INTERNAL_PORT__ in application.properties and replace it to the value in the recipe file at helm rendering time.\nHere is an example.\nhttps://gerrit.o-ran-sc.org/r/gitweb?p\u003dric-plt/ric-dep.git;a\u003dblob;f\u003dhelm/appmgr/templates/appconfig.yaml;h\u003d2cbc0a1a5b3465e092cf6528f9ccd01caa0210fe;hb\u003drefs/heads/master",
       "parentUuid": "39615a64_6c10225b",
+      "revId": "2987ad8cbf604421a63d9e759ba7fafb6d43f7d2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73a9692_764721aa",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-19T18:27:55Z",
+      "side": 1,
+      "message": "@Rehan: both ports are different and anyone who wants to change the port should only change the value in recipe file. \n\n@Zhe Huang: I don\u0027t think we need to have this since the port is internal to the application and not to the container.",
+      "parentUuid": "ad426e57_6cf74fc6",
       "revId": "2987ad8cbf604421a63d9e759ba7fafb6d43f7d2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

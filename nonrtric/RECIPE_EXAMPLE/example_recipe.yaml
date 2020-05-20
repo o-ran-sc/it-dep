@@ -58,25 +58,49 @@ a1simulator:
 # image registry and tag to be changed after first release of controlpanel
 # Need to check the external port Availability
 controlpanel:
-  controlpanel:
-    imagePullPolicy: IfNotPresent
-    image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: nonrtric-controlpanel
-      tag: 1.0.0
-    replicaCount: 1
-    service:
-      internalPort: 8080
-      externalPort: 30090
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    name: nonrtric-controlpanel
+    tag: 1.0.0
+  replicaCount: 1
+  service:
+    allowHttp: true
+    httpName: http
+    internalPort1: 8080
+    targetPort1: 8080
+    externalPort1: 30091
+    httpsName: https
+    internalPort2: 8081
+    targetPort2: 8081
+    externalPort2: 30092
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
 
 # Need to check the external port Availability
 policymanagementservice:
-  policymanagementservice:
-    imagePullPolicy: IfNotPresent
-    image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: nonrtric-policy-agent
-      tag: 1.0.0
-    service:
-      internalPort: 8081
-      externalPort: 30091
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    name: nonrtric-policy-agent
+    tag: 1.0.0
+  service:
+    allowHttp: true
+    httpName: http
+    internalPort1: 9080
+    targetPort1: 9080
+    externalPort1: 30093
+    httpsName: https
+    internalPort2: 9081
+    targetPort2: 9081
+    externalPort2: 30094
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10

@@ -45,9 +45,10 @@ spec:
           image: {{ .Values.controlpanel.image.registry }}/{{ .Values.controlpanel.image.name }}:{{ .Values.controlpanel.image.tag }}
           imagePullPolicy: {{ .Values.controlpanel.imagePullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.controlpanel.service.internalPort }}
-              protocol: TCP
+          - containerPort: {{ .Values.controlpanel.service.targetPort1 }}
+            protocol: TCP
+          - containerPort: {{ .Values.controlpanel.service.targetPort2 }}
+            protocol: TCP
           volumeMounts:
             - name: configmap
               mountPath: /maven/application.properties
@@ -55,9 +56,14 @@ spec:
               readOnly: true
           readinessProbe:
             tcpSocket:
-              port: {{ .Values.controlpanel.service.internalPort }}
-            initialDelaySeconds: 15
-            periodSeconds: 15
+              port: {{ .Values.controlpanel.service.targetPort1 }}
+            initialDelaySeconds: {{ .Values.controlpanel.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.controlpanel.liveness.periodSeconds }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.controlpanel.service.targetPort1 }}
+            initialDelaySeconds: {{ .Values.controlpanel.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.controlpanel.liveness.periodSeconds }}
       volumes:
         - name: configmap
           configMap:

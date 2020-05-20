@@ -27,10 +27,18 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: {{ .Values.controlpanel.service.internalPort }}
-      nodePort: {{ .Values.controlpanel.service.externalPort }}
+    {{if eq .Values.controlpanel.service.allowHttp true -}}
+    - name: {{ index .Values.controlpanel.service.httpName }}
+      port: {{ .Values.controlpanel.service.internalPort1 }}
+      targetPort: {{ .Values.controlpanel.service.targetPort1 }}
+      nodePort: {{ .Values.controlpanel.service.externalPort1 }}
       protocol: TCP
-      targetPort: {{ .Values.controlpanel.service.internalPort }}
+    {{- end }}
+    - name: {{ index .Values.controlpanel.service.httpsName }}
+      port: {{ .Values.controlpanel.service.internalPort2 }}
+      targetPort: {{ .Values.controlpanel.service.targetPort2 }}
+      nodePort: {{ .Values.controlpanel.service.externalPort2 }}
+      protocol: TCP
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.controlpanel" . }}
     release: {{ .Release.Name }}

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f68a1091_d4376c88",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T10:33:01Z",
+      "side": 1,
+      "message": "You may keep it if you wish, but in my opinion if you would never change a parameter, it does not add any maintainability.",
+      "parentUuid": "8234dc8c_a72cc4cb",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0fbbf41_214a9245",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "20ed57da_b8cc635b",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T10:33:01Z",
+      "side": 1,
+      "message": "Yes, it is the same for http but the target port of https should be 8082. We should also not change the target ports of policymanagementservice. In this recipe, they are changed to 9080/9081, which should be 8081/8433 if I remember correctly.",
+      "parentUuid": "d1274be5_f9418406",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "876d7585_bcbd1791",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Whoever want to play around the ports will change the recipe file and they would obviously accustomed with the naming convention we used. \nI don\u0027t think the current naming is unclear.",
       "parentUuid": "876d7585_bcbd1791",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45300e62_84cf6c54",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T10:33:01Z",
+      "side": 1,
+      "message": "Well, it\u0027s up to you but at least for me, \u0027internalPortHttp\u0027 is much more clear than \u0027internalPort1\u0027. Since other teams would also be deploying nonrtric in their labs, we should not expect that they are very much familiar with our stuff.",
+      "parentUuid": "15df3236_290557bf",
       "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

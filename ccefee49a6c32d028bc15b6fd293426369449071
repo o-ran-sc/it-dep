@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f704fa3_388ac520",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T07:43:26Z",
+      "side": 1,
+      "message": "I don\u0027t see the purpose of this. The user will never change this, so it does not need to be in the recipe. The same for httpsName.",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0fbbf41_214a9245",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T07:43:26Z",
+      "side": 1,
+      "message": "why change the targetPort? I guess we agreed not to change the targetPort for this release.",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876d7585_bcbd1791",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-26T07:43:26Z",
+      "side": 1,
+      "message": "I would suggest to use \u0027internalPortHttp\u0027 and \u0027internalPortHttps\u0027 instead of \u0027internalPort1\u0027 and \u0027internalPort2\u0027 to make it clear for the user. The same for targetPort and externalPort.",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

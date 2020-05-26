@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8234dc8c_a72cc4cb",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-26T09:31:30Z",
+      "side": 1,
+      "message": "It is for better maintainability of the content.",
+      "parentUuid": "2f704fa3_388ac520",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0fbbf41_214a9245",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d1274be5_f9418406",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-26T09:31:30Z",
+      "side": 1,
+      "message": "yes. it is same as before",
+      "parentUuid": "c0fbbf41_214a9245",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "876d7585_bcbd1791",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-05-26T07:43:26Z",
       "side": 1,
       "message": "I would suggest to use \u0027internalPortHttp\u0027 and \u0027internalPortHttps\u0027 instead of \u0027internalPort1\u0027 and \u0027internalPort2\u0027 to make it clear for the user. The same for targetPort and externalPort.",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15df3236_290557bf",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-26T09:31:30Z",
+      "side": 1,
+      "message": "Whoever want to play around the ports will change the recipe file and they would obviously accustomed with the naming convention we used. \nI don\u0027t think the current naming is unclear.",
+      "parentUuid": "876d7585_bcbd1791",
       "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

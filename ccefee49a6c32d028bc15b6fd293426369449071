@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "182cb607_7dc56f32",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-05-26T11:15:57Z",
+      "side": 1,
+      "message": "Apologies. I have local example recipe file which has the correct value and due to some reason it got missed in this commit.",
+      "parentUuid": "20ed57da_b8cc635b",
+      "revId": "ccefee49a6c32d028bc15b6fd293426369449071",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "876d7585_bcbd1791",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 1

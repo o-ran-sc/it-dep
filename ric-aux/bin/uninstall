@@ -43,4 +43,4 @@ kubectl delete cm -n ${AUXNAMESPACE:-ricaux} ricaux-recipe
 
 kubectl delete ns ${INFRANAMESPACE:-ricinfra}
 kubectl delete ns ${AUXNAMESPACE:-ricaux}
-kubectl delete ns onap
+#kubectl delete ns onap

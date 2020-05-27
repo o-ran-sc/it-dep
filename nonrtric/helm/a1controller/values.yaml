@@ -25,5 +25,16 @@ a1controller:
     tag: 1.7.4
   replicaCount: 1
   service:
-    internalPort: 8181
-    externalPort: 8282
+    allowHttp: true
+    httpName: http
+    internalPort1: 8282
+    targetPort1: 8181
+    httpsName: https
+    internalPort2: 8383
+    targetPort2: 8443
+  liveness:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 60
+    periodSeconds: 10

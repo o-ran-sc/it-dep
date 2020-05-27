@@ -131,7 +131,7 @@ if [[ ${UBUNTU_RELEASE} == 16.* ]]; then
 elif [[ ${UBUNTU_RELEASE} == 18.* ]]; then
   echo "Installing on Ubuntu $UBUNTU_RELEASE (Bionic Beaver)"
   if [ ! -z "${DOCKERV}" ]; then
-    DOCKERVERSION="${DOCKERV}-0ubuntu1~18.04.5"
+    DOCKERVERSION="${DOCKERV}-0ubuntu1~18.04.4"
   fi
 else
   echo "Unsupported Ubuntu release ($UBUNTU_RELEASE) detected.  Exit."
@@ -148,8 +148,7 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
 
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
-
-RES=$(apt-get install -y virt-what curl jq netcat make 2>&1)
+RES=$(apt-get install -y virt-what curl jq netcat make ipset 2>&1)
 if [[ $RES == */var/lib/dpkg/lock* ]]; then
   echo "Fail to get dpkg lock.  Wait for any other package installation"
   echo "process to finish, then rerun this script"
@@ -260,7 +259,7 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: ipvs
 EOF
-  elif [[ ${KUBEV} == 1.16.* ]]; then
+  elif [[ ${KUBEV} == 1.15.* ]] || [[ ${KUBEV} == 1.16.* ]]; then
     cat <<EOF >/root/config.yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kubernetesVersion: v${KUBEV}
@@ -314,7 +313,8 @@ EOF
   mkdir -p .kube
   cp -i /etc/kubernetes/admin.conf /root/.kube/config
   chown root:root /root/.kube/config
-  export KUBECONFIG=/root/.kube/config 
+  export KUBECONFIG=/root/.kube/config
+  echo "KUBECONFIG=${KUBECONFIG}" >> /etc/environment
 
   # at this point we should be able to use kubectl
   kubectl get pods --all-namespaces
@@ -354,7 +354,8 @@ EOF
     helm init --service-account tiller
   fi
   helm init -c
-  export HELM_HOME="/root/.helm"
+  export HELM_HOME="$(pwd)/.helm"
+  echo "HELM_HOME=${HELM_HOME}" >> /etc/environment
 
   # waiting for tiller pod to be in running state
   while ! helm version; do

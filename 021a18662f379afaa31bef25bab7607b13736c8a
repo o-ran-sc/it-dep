@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94da530b_cc3d829d",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-27T15:35:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d56fb95_fd4fcb1c",
+      "revId": "021a18662f379afaa31bef25bab7607b13736c8a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5711f90f_80be1583",
         "filename": "nonrtric/helm/a1controller/values.yaml",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2020-05-27T14:40:29Z",
       "side": 1,
       "message": "Need to update controller part in application_configuration.json file?",
+      "revId": "021a18662f379afaa31bef25bab7607b13736c8a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b505ecc_d97b41cf",
+        "filename": "nonrtric/helm/a1controller/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-05-27T15:35:35Z",
+      "side": 1,
+      "message": "Since allowHttp is true by default, there is no need to update the application_configuration.json file. When using https, the baseUrl needs to be updated to \"https://a1controller:8383\". I think it would have been good to add this as a comment, but it is not possible to add comments in a json file. So, I just leave a comment here for the user.",
+      "parentUuid": "5711f90f_80be1583",
       "revId": "021a18662f379afaa31bef25bab7607b13736c8a",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

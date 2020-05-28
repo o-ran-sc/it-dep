@@ -62,8 +62,7 @@ spec:
           periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-conf
-          mountPath: /opt/app/policy-agent/config/application_configuration.json
-          subPath: application_configuration.json
+          mountPath: /opt/app/policy-agent/data
       volumes:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-conf
           configMap:

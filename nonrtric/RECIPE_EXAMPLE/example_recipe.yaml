@@ -47,7 +47,18 @@ a1simulator:
       name: a1-simulator
       tag: 1.0.1
     service:
-      internalPort: 8085
+      httpName: http
+      internalPort1: 8085
+      targetPort1: 8085
+      httpsName: https
+      internalPort2: 8185
+      targetPort2: 8185
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
     oscVersion:
       name: a1-sim-osc
       replicaCount: 2

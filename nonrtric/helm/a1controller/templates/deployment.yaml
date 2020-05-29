@@ -52,13 +52,20 @@ spec:
           command:
             - /opt/onap/sdnc/bin/startODL.sh
           ports:
-            - containerPort: {{ .Values.a1controller.service.internalPort }}
+            - containerPort: {{ .Values.a1controller.service.targetPort1 }}
+              protocol: TCP
+            - containerPort: {{ .Values.a1controller.service.targetPort2 }}
               protocol: TCP
           readinessProbe:
             tcpSocket:
-              port: {{ .Values.a1controller.service.internalPort }}
-            initialDelaySeconds: 15
-            periodSeconds: 15
+              port: {{ .Values.a1controller.service.targetPort1 }}
+            initialDelaySeconds: {{ .Values.a1controller.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.a1controller.readiness.periodSeconds }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.a1controller.service.targetPort1 }}
+            initialDelaySeconds: {{ .Values.a1controller.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.a1controller.liveness.periodSeconds }}
 ---
 apiVersion: apps/v1
 kind: Deployment

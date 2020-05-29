@@ -26,10 +26,14 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   ports:
-  - name: http
-    protocol: TCP
-    port: {{ .Values.a1simulator.service.internalPort }}
-    targetPort: {{ .Values.a1simulator.service.internalPort }}
+    - name: {{ index .Values.a1simulator.service.httpName }}
+      port: {{ .Values.a1simulator.service.internalPort1 }}
+      targetPort: {{ .Values.a1simulator.service.targetPort1 }}
+      protocol: TCP
+    - name: {{ index .Values.a1simulator.service.httpsName }}
+      port: {{ .Values.a1simulator.service.internalPort2 }}
+      targetPort: {{ .Values.a1simulator.service.targetPort2 }}
+      protocol: TCP
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
     release: {{ .Release.Name }}

@@ -46,13 +46,20 @@ spec:
         image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
         imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.a1simulator.service.internalPort }}
+        - containerPort: {{ .Values.a1simulator.service.targetPort1 }}
+          protocol: TCP
+        - containerPort: {{ .Values.a1simulator.service.targetPort2 }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.a1simulator.service.internalPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 15
+            port: {{ .Values.a1simulator.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.a1simulator.readiness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.a1simulator.readiness.periodSeconds }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.a1simulator.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.a1simulator.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.a1simulator.liveness.periodSeconds }}
         env:
         - name: A1_VERSION
           value: OSC_2.1.0
@@ -90,13 +97,20 @@ spec:
         image: {{ .Values.a1simulator.image.registry }}/{{ .Values.a1simulator.image.name }}:{{ .Values.a1simulator.image.tag }}
         imagePullPolicy: {{ .Values.a1simulator.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.a1simulator.service.internalPort }}
+        - containerPort: {{ .Values.a1simulator.service.targetPort1 }}
+          protocol: TCP
+        - containerPort: {{ .Values.a1simulator.service.targetPort2 }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.a1simulator.service.internalPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 15
+            port: {{ .Values.a1simulator.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.a1simulator.readiness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.a1simulator.readiness.periodSeconds }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.a1simulator.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.a1simulator.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.a1simulator.liveness.periodSeconds }}
         env:
         - name: A1_VERSION
           value: STD_1.1.3

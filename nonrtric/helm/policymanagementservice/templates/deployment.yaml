@@ -45,13 +45,21 @@ spec:
         image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
         imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
         ports:
-        - containerPort: {{ .Values.policymanagementservice.service.internalPort }}
+        - containerPort: {{ .Values.policymanagementservice.service.targetPort1 }}
+          protocol: TCP
+        - containerPort: {{ .Values.policymanagementservice.service.targetPort2 }}
           protocol: TCP
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.policymanagementservice.service.internalPort }}
-          initialDelaySeconds: 5
-          periodSeconds: 15
+            port: {{ .Values.policymanagementservice.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.policymanagementservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: {{ .Values.policymanagementservice.service.targetPort1 }}
+          initialDelaySeconds: {{ .Values.policymanagementservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-conf
           mountPath: /opt/app/policy-agent/config/application_configuration.json

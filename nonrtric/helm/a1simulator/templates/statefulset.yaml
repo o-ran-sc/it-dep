@@ -63,6 +63,8 @@ spec:
         env:
         - name: A1_VERSION
           value: OSC_2.1.0
+        - name: ALLOW_HTTP
+          value: {{ .Values.a1simulator.service.allowHttp | quote}}
 
 ---
 kind: StatefulSet
@@ -114,3 +116,5 @@ spec:
         env:
         - name: A1_VERSION
           value: STD_1.1.3
+        - name: ALLOW_HTTP
+          value: {{ .Values.a1simulator.service.allowHttp | quote}}

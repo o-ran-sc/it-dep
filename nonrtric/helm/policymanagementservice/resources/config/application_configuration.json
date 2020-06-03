@@ -20,13 +20,13 @@
           },
           {
             "name":"ric2",
-            "baseUrl":"http://a1-sim-osc-1.a1-sim:8085",
+            "baseUrl":"https://a1-sim-osc-1.a1-sim:8185",
             "controller": "controller1",
             "managedElementIds":[
                "kista_1",
                "kista_2"
             ]
-         },
+          },
           {
             "name":"ric3",
             "baseUrl":"https://a1-sim-std-0.a1-sim:8185",
@@ -35,7 +35,16 @@
                "kista_1",
                "kista_2"
             ]
-         }
+          },
+          {
+            "name":"ric4",
+            "baseUrl":"https://a1-sim-std-1.a1-sim:8185",
+            "controller": "controller1",
+            "managedElementIds":[
+               "kista_1",
+               "kista_2"
+            ]
+          }
        ],
        "streams_publishes":{
           "dmaap_publisher":{

@@ -49,8 +49,8 @@ spec:
               value: openECOMP1.0
             - name: SDNC_CONFIG_DIR
               value: /opt/onap/sdnc/data/properties
-          command:
-            - /opt/onap/sdnc/bin/startODL.sh
+          command: ["/bin/sh","-c"]
+          args: ["chmod +x /opt/onap/sdnc/bin/* && /opt/onap/sdnc/bin/startODL.sh"]
           ports:
             - containerPort: {{ .Values.a1controller.service.targetPort1 }}
               protocol: TCP

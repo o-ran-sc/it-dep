@@ -16,17 +16,17 @@
 
 dependencies:
   - name: a1controller
-    version: ~1.0.0
+    version: ~2.0.0
     repository: "@local"
   - name: a1simulator
-    version: ~1.0.1
+    version: ~2.0.0
     repository: "@local"
   - name: controlpanel
-    version: ~1.0.0
+    version: ~2.0.0
     repository: "@local"
   - name: policymanagementservice
-    version: ~1.0.0
+    version: ~2.0.0
     repository: "@local"
   - name: nonrtric-common
-    version: ^1.0.0
+    version: ^2.0.0
     repository: "@local"

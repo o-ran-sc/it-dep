@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1dccb49_c1b2d398",
+        "filename": "nonrtric/helm/a1controller/Chart.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-06-05T14:06:28Z",
+      "side": 0,
+      "message": "update this?",
+      "revId": "a5aac9a0ad7da25bfd0a31278fc4f56bebecad40",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

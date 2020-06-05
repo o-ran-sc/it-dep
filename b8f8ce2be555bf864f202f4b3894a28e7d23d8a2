@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0e8610e_8e18b063",
+        "filename": "nonrtric/helm/a1controller/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-06-05T14:06:28Z",
+      "side": 1,
+      "message": "Point to release?",
+      "revId": "b8f8ce2be555bf864f202f4b3894a28e7d23d8a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

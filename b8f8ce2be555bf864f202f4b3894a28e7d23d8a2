@@ -34,6 +34,24 @@
       "revId": "b8f8ce2be555bf864f202f4b3894a28e7d23d8a2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68929d5e_3979a91f",
+        "filename": "nonrtric/helm/a1controller/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2020-06-08T11:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4820276_12457371",
+      "revId": "b8f8ce2be555bf864f202f4b3894a28e7d23d8a2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

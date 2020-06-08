@@ -61,4 +61,4 @@
 
 {{- define "common.serviceport.alarmadapter.rmr.data" -}}4560{{- end -}}
 {{- define "common.serviceport.alarmadapter.rmr.route" -}}4561{{- end -}}
-{{- define "common.serviceport.alarmadapter.http" -}}3800{{- end -}}
+{{- define "common.serviceport.alarmadapter.http" -}}8080{{- end -}}

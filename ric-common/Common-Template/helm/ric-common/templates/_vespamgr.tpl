@@ -44,4 +44,10 @@
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "common.servicename.vespamgr.alert" -}}
+  {{- $name := ( include "common.fullname.vespamgr" . ) -}}
+  {{- printf "service-%s-alert" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "common.serviceport.vespamgr.http" -}}8080{{- end -}}
+{{- define "common.serviceport.vespamgr.alert" -}}9095{{- end -}}

@@ -55,6 +55,11 @@ extsvcaux:
 #        email: ""
 
 
+ves:
+  dmaapMrHostPort: "ricaux-message-router:3904"
+  dmaapMrTopicSecMeasurement: "unauthenticated.SEC_MEASUREMENT_OUTPUT"
+
+
 dashboard:
   imagePullPolicy: IfNotPresent
   image:

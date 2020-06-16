@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2019 AT&T Intellectual Property.                             #
+#   Copyright (c) 2019,2020 AT&T Intellectual Property.                        #
 #   Copyright (c) 2019 Nokia.                                                  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
@@ -25,11 +25,51 @@ data:
       "channels": [
         {
           "name": "ves-measurement",
-          "cambria.topic": "unauthenticated.SEC_MEASUREMENT_OUTPUT",
           "class": "HpCambriaOutputStream",
           "stripHpId": "true",
           "type": "out",
-          "cambria.hosts": "ricaux-message-router:3904"
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicSecMeasurement | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
+        },
+        {
+          "name": "ves-fault",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicSecFault | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
+        },
+        {
+          "name": "ves-heartbeat",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicSecFault | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
+        },
+        {
+          "name": "ves-other",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicSecOther | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
+        },
+        {
+          "name": "ves-notification",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicVesNotification | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
+        },
+        {
+          "name": "ves-pnfRegistration",
+          "class": "HpCambriaOutputStream",
+          "stripHpId": "true",
+          "type": "out",
+          "cambria.topic": {{ .Values.ves.dmaapMrTopicVesPnfReg | quote }},
+          "cambria.hosts": {{ .Values.ves.dmaapMrHostPorts | quote }}
         }
       ]
     }

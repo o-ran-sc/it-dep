@@ -157,7 +157,7 @@ policymanagementservice:
         "dmaap_subscriber":{
           "type":"message_router",
           "dmaap_info":{
-            "topic_url":"http://message-router.onap:3904/events/A1-POLICY-AGENT-READ/users/policy-agent"
+            "topic_url":"http://message-router.onap:3904/events/A1-POLICY-AGENT-READ/users/policy-agent?timeout=15000&limit=100"
           }
         }
       }

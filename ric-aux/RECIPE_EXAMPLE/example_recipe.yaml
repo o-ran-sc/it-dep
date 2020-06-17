@@ -55,6 +55,10 @@ extsvcaux:
 #        email: ""
 
 
+ves:
+  dmaapMrHostPorts: "message-router.onap:3904"
+
+
 dashboard:
   imagePullPolicy: IfNotPresent
   image:

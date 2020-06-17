@@ -28,3 +28,9 @@ ves:
     tag: 1.4.4
 
   replicaCount: 1
+  dmaapMrHostPorts: "ricaux-message-router:3904"
+  dmaapMrTopicSecMeasurement: "unauthenticated.SEC_MEASUREMENT_OUTPUT"
+  dmaapMrTopicSecFault: "unauthenticated.SEC_FAULT_OUTPUT"
+  dmaapMrTopicSecOther: "unauthenticated.SEC_OTHER_OUTPUT"
+  dmaapMrTopicVesNotification: "unauthenticated.VES_NOTIFICATION_OUTPUT"
+  dmaapMrTopicVesPnfReg: "unauthenticated.VES_PNFREG_OUTPUT"

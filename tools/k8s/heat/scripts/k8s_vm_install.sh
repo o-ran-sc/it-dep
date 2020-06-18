@@ -148,7 +148,7 @@ echo "APT::Acquire::Retries \"3\";" > /etc/apt/apt.conf.d/80-retries
 
 # install low latency kernel, docker.io, and kubernetes
 apt-get update
-RES=$(apt-get install -y virt-what curl jq netcat make ipset 2>&1)
+RES=$(apt-get install -y virt-what curl jq netcat make ipset moreutils 2>&1)
 if [[ $RES == */var/lib/dpkg/lock* ]]; then
   echo "Fail to get dpkg lock.  Wait for any other package installation"
   echo "process to finish, then rerun this script"

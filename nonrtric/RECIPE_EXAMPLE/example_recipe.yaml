@@ -19,7 +19,7 @@
 #-------------------------------------------------------------------------
 
 common:
-  releasePrefix: r2-dev-nonrtric
+  releasePrefix: bronze-nonrtric
 # Change the namespaces using the following options
   namespace:
     nonrtric: nonrtric

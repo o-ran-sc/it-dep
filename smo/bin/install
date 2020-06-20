@@ -184,7 +184,7 @@ fi
 echo "======> Deploying ONAP-lite"
 helm deploy dev local/onap --namespace onap -f ./override-oam.yaml
 
-echo "======> Waiting ONAP-lite to reach operatoinal state"
+echo "======> Waiting for ONAP-lite to reach operatoinal state"
 NUM_SDNR_RUNNING_PODS="0"
 NUM_MR_RUNNING_PODS="0"
 
@@ -206,7 +206,7 @@ REPOROOTDIR=$(git rev-parse --show-toplevel)
 
 cd bin
 ./deploy-nonrtric -f ${REPOROOTDIR}/RECIPE_EXAMPLE/NONRTRIC/example_recipe.yaml 
-echo "======> Waiting NONRTRIC to reach operatoinal state"
+echo "======> Waiting for NONRTRIC to reach operatoinal state"
 NUM_A1C_RUNNING_PODS="0"
 NUM_A1SIM_RUNNING_PODS="0"
 NUM_CP_RUNNING_PODS="0"
@@ -231,11 +231,18 @@ done
 
 
 
-echo && echo "===> Deploying VES collector"
+echo && echo "===> Deploying VES collector and its ingress"
+kubectl create ns ricinfra
+
+cd ${REPOROOTDIR}/ric-aux/helm/infrastructure
+helm dep update
+cd ..
+helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-infra --namespace ricaux ./infrastructure
+
 cd ${REPOROOTDIR}/ric-aux/helm/ves
 helm dep update
 cd ..
-helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name onap-ves --namespace onap ./ves
+helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-ves --namespace ricaux ./ves
 
 
 # edit RECIPE_EXAMPLE/AUX/example_recipe.yaml file

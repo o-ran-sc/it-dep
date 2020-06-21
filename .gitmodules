@@ -1,3 +1,4 @@
 [submodule "ric-dep"]
 	path = ric-dep
 	url = https://gerrit.o-ran-sc.org/r/ric-plt/ric-dep
+	branch = bronze

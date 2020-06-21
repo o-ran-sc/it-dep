@@ -33,17 +33,43 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-06-20         | 0.2.0              | Lusheng Ji         |                    |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
 | 2019-11-12         | 0.1.0              | Lusheng Ji         | First draft        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
 
 
-Summary
--------
+Releases
+--------
+
+0.2.0
+^^^^^
+
+**Release designation**: Bronze
+
+**Release Date**: 2020-06-21
+
+The 0.2.0 version of the it/dep repository hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying the Bronze Release of O-RAN SC software.
+
+- Deployment scripts for dev-test 1-node Kubernetes cluster.
+- Deployment scripts and Helm charts for O-RAN Near Realtime RAN Intelligent Controller Platform.
+- Deployment scripts and Helm charts for O-RAN Non Realtime RAN Intelligent Controller.
+- Deployment scripts for O-RAN Software Management and Orchestration.
+- Demonstration and testing scripts for use cases.
+
+
+
+0.1.0
+^^^^^
+**Release designation**: Amber
+
+**Release Date**: 2019-11-22
 
 The Amber Release of it/dep repositoy hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying O-RAN SC software.
 
-For Amber release this repo contains: 
+For Amber release this repo contains:
 
 - Deployment scripts for a dev-test 1-node Kubernetes cluster.
 - Deployment scripts and Helm charts for Near Realtime RAN Intelligent Controller Platform.
@@ -52,31 +78,9 @@ For Amber release this repo contains:
 
 
 
-Release Data
-------------
-
-+--------------------------------------+--------------------------------------+
-| **Project**                          | Integration and Testing              |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Repo/commit-ID**                   | it/dep                               |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release designation**              | Amber                                |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Release date**                     | 2019-11-22                           |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-| **Purpose of the delivery**          | First release                        |
-|                                      |                                      |
-+--------------------------------------+--------------------------------------+
-
-
-
 
 Feature additions
--------------------
+-----------------
 
 **JIRA BACK-LOG:**
 
@@ -111,33 +115,38 @@ Bug corrections
 |                                      |                                      |
 +--------------------------------------+--------------------------------------+
 
+
+
 Deliverables
--------------
-
-
+------------
 
 Software deliverables
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
-The deployment artifacts can be accessed as Debian software package:
-https://packagecloud.io/o-ran-sc/staging/packages/debian/stretch/ric-deployment-tools_2.0.0_all.deb
+The deployment artifacts can be accessed by cloning Git repository:
+
+  git clone https://gerrit.o-ran-sc.org/r/it/dep -b bronze
 
 
 Documentation deliverables
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Documentation for installing, usinhg, and developing for Integraion and Testing project can be found at: 
-https://o-ran-sc-doc.readthedocs.io/projects/o-ran-sc-it-dep/en/latest/index.html
+
+  https://docs.o-ran-sc.org/projects/o-ran-sc-it-dep/en/latest/index.html
+
+
 
 Known Limitations, Issues, and Workarounds
 ------------------------------------------
 
+
 System Limitations
-------------------
+^^^^^^^^^^^^^^^^^^
 
 
 Known issues
-------------------
+^^^^^^^^^^^^
 
 **JIRA TICKETS:**
 
@@ -155,14 +164,10 @@ Known issues
 +--------------------------------------+--------------------------------------+
 
 Workarounds
-------------------
-
-
+^^^^^^^^^^^
 
 
 References
------------
-
-
+----------
 
 

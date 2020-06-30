@@ -33,7 +33,7 @@ usage() {
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 set -a
-RCS="$(find $DIR/../etc -type f -maxdepth 1)"
+RCS="$(find $DIR/../etc -maxdepth 1 -type f)"
 for RC in $RCS; do
   echo "reading in values in $RC"
   source $RC

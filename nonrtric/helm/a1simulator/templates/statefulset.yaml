@@ -21,7 +21,7 @@ metadata:
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-oscVersion
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -31,13 +31,13 @@ spec:
   replicas: {{ .Values.a1simulator.oscVersion.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-oscVersion
       release: {{ .Release.Name }}
   serviceName: {{ .Values.a1simulator.name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-oscVersion
         release: {{ .Release.Name }}
     spec:
       hostname: {{ include "common.name.a1simulator" . }}
@@ -74,7 +74,7 @@ metadata:
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-stdVersion
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -84,13 +84,13 @@ spec:
   replicas: {{ .Values.a1simulator.stdVersion.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-stdVersion
       release: {{ .Release.Name }}
   serviceName: {{ .Values.a1simulator.name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1simulator" . }}-stdVersion
         release: {{ .Release.Name }}
     spec:
       hostname: {{ include "common.name.a1simulator" . }}

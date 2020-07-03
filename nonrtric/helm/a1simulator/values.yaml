@@ -41,7 +41,7 @@ a1simulator:
     periodSeconds: 10
   oscVersion:
     name: a1-sim-osc
-    replicaCount: 2
+    replicaCount: 1
   stdVersion:
     name: a1-sim-std
-    replicaCount: 2
+    replicaCount: 1

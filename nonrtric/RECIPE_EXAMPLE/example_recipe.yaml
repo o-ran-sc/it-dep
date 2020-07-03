@@ -74,10 +74,10 @@ a1simulator:
       periodSeconds: 10
     oscVersion:
       name: a1-sim-osc
-      replicaCount: 2
+      replicaCount: 1
     stdVersion:
       name: a1-sim-std
-      replicaCount: 2
+      replicaCount: 1
 
 # image registry and tag to be changed after first release of controlpanel
 # Need to check the external port Availability
@@ -133,15 +133,23 @@ policymanagementservice:
     ric: |
       [
         {
-          "name":"ric1",
-          "baseUrl":"http://192.168.130.80:32080/a1mediator",
-          "controller": "controller1",
-          "managedElementIds":
-          [
-             "kista_1",
-             "kista_2"
-          ]
-        }
+             "name":"ric1",
+             "baseUrl":"https://a1-sim-osc:8185",
+             "controller": "controller1",
+             "managedElementIds":[
+                "kista_1",
+                "kista_2"
+             ]
+          },
+          {
+            "name":"ric2",
+            "baseUrl":"https://a1-sim-std:8185",
+            "controller": "controller1",
+            "managedElementIds":[
+               "kista_1",
+               "kista_2"
+            ]
+          }
       ]
     streams_publishes: |
       {

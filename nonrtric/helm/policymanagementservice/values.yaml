@@ -42,7 +42,7 @@ policymanagementservice:
     periodSeconds: 10
   controllers: |
     [
-         {  
+         {
             "name": "controller1",
             "baseUrl": "https://a1controller:8383",
             "userName": "admin",
@@ -53,7 +53,7 @@ policymanagementservice:
     [
           {
              "name":"ric1",
-             "baseUrl":"https://a1-sim-osc-0.a1-sim:8185",
+             "baseUrl":"https://a1-sim-osc:8185",
              "controller": "controller1",
              "managedElementIds":[
                 "kista_1",
@@ -62,25 +62,7 @@ policymanagementservice:
           },
           {
             "name":"ric2",
-            "baseUrl":"https://a1-sim-osc-1.a1-sim:8185",
-            "controller": "controller1",
-            "managedElementIds":[
-               "kista_1",
-               "kista_2"
-            ]
-          },
-          {
-            "name":"ric3",
-            "baseUrl":"https://a1-sim-std-0.a1-sim:8185",
-            "controller": "controller1",
-            "managedElementIds":[
-               "kista_1",
-               "kista_2"
-            ]
-          },
-          {
-            "name":"ric4",
-            "baseUrl":"https://a1-sim-std-1.a1-sim:8185",
+            "baseUrl":"https://a1-sim-std:8185",
             "controller": "controller1",
             "managedElementIds":[
                "kista_1",

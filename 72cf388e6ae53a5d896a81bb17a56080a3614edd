@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "869724c8_69ca981b",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-08-04T08:40:59Z",
+      "side": 1,
+      "message": "update the version to 2.0.1",
+      "revId": "72cf388e6ae53a5d896a81bb17a56080a3614edd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fce9ca9b_15677f9c",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-08-04T08:40:59Z",
+      "side": 1,
+      "message": "update the version to 2.0.1",
+      "revId": "72cf388e6ae53a5d896a81bb17a56080a3614edd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

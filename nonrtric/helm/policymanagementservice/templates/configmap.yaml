@@ -18,7 +18,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.name.policymanagementservice" . }}-configmap
+  name: {{ include "common.name.policymanagementservice" . }}-configmap-config
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
@@ -27,3 +27,16 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
 {{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.name.policymanagementservice" . }}-configmap-data
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ tpl (.Files.Glob "resources/data/*").AsConfig . | indent 2 }}

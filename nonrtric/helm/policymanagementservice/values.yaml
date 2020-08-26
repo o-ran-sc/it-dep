@@ -42,7 +42,7 @@ policymanagementservice:
     periodSeconds: 10
   controllers: |
     [
-         {  
+         {
             "name": "controller1",
             "baseUrl": "https://a1controller:8383",
             "userName": "admin",

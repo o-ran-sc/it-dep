@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "010d970b_7a4b1b75",
+        "filename": "nonrtric/helm/policymanagementservice/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-08-27T11:26:07Z",
+      "side": 1,
+      "message": "I have deliberately put the mounthpath instead of subpath to support the dynamic loading of rics.\nCan you test by adding rics without restart?",
+      "revId": "8d749be5085a0901ee7c8e9718caba7ca5f477ad",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

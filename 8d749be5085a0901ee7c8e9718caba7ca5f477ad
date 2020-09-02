@@ -16,6 +16,24 @@
       "revId": "8d749be5085a0901ee7c8e9718caba7ca5f477ad",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c954d821_43a7e048",
+        "filename": "nonrtric/helm/policymanagementservice/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000247
+      },
+      "writtenOn": "2020-09-02T13:05:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "010d970b_7a4b1b75",
+      "revId": "8d749be5085a0901ee7c8e9718caba7ca5f477ad",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

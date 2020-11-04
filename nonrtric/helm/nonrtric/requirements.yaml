@@ -15,17 +15,20 @@
 ################################################################################
 
 dependencies:
-  - name: a1controller
-    version: ~2.0.0
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
+  # - name: a1controller
+  #   version: ~2.0.0
+  #   repository: "@local"
+  # - name: a1simulator
+  #   version: ~2.0.0
+  #   repository: "@local"
+  # - name: controlpanel
+  #   version: ~2.0.0
+  #   repository: "@local"
+  # - name: policymanagementservice
+  #   version: ~2.0.0
+  #   repository: "@local"
+  - name: enrichmentservice
+    version: ~1.0.0
     repository: "@local"
   - name: nonrtric-common
     version: ^2.0.0

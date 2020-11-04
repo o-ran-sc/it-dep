@@ -1,4 +1,3 @@
-#!/bin/bash
 ################################################################################
 #   Copyright (c) 2020 Nordix Foundation.                                      #
 #                                                                              #
@@ -15,25 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice"
-RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
-kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
-
-if [ ! -s /tmp/recipe.yaml ]; then
-    echo "NONRTRIC recipe is not found. Are you sure it's deployed successfully?"
-    exit 0
-fi
-
-COMMON_BLOCK=$(cat /tmp/recipe.yaml | awk '/^common:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
-NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
-NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
-RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-
-echo "Undeploying NONRTRIC components [$COMPONENTS]"
-
-helm delete --purge ${RELEASE_PREFIX}
-
-kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
-
-kubectl delete ns ${NONRTRIC_NAMESPACE:-nonrtric}
+dependencies:
+  - name: nonrtric-common
+    version: ^2.0.0
+    repository: "@local"

@@ -16,7 +16,7 @@
 ################################################################################
 
 
-# first parameter: number of expected running pods
+# first parameter: number of expected running  pods
 # second parameter: namespace (all-namespaces means all namespaces)
 # third parameter: [optional] keyword
 wait_for_pods_running () {
@@ -259,7 +259,7 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: ipvs
 EOF
-  elif [[ ${KUBEV} == 1.15.* ]] || [[ ${KUBEV} == 1.16.* ]]; then
+  elif [[ ${KUBEV} == 1.15.* ]] || [[ ${KUBEV} == 1.16.* ]] || [[ ${KUBEV} == 1.18.* ]]; then
     cat <<EOF >/root/config.yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kubernetesVersion: v${KUBEV}
@@ -333,7 +333,7 @@ EOF
   HELMV=$(cat /opt/config/helm_version.txt)
   HELMVERSION=${HELMV}
   if [ ! -e helm-v${HELMVERSION}-linux-amd64.tar.gz ]; then
-    wget https://storage.googleapis.com/kubernetes-helm/helm-v${HELMVERSION}-linux-amd64.tar.gz
+    wget https://get.helm.sh/helm-v${HELMVERSION}-linux-amd64.tar.gz
   fi
   cd /root && rm -rf Helm && mkdir Helm && cd Helm
   tar -xvf ../helm-v${HELMVERSION}-linux-amd64.tar.gz
@@ -341,21 +341,29 @@ EOF
 
   cd /root
   # install RBAC for Helm
-  kubectl create -f rbac-config.yaml
+  if [[ ${HELMVERSION} == 2.* ]]; then
+     kubectl create -f rbac-config.yaml
+  fi
 
   rm -rf /root/.helm
   if [[ ${KUBEV} == 1.16.* ]]; then
     # helm init uses API extensions/v1beta1 which is depreciated by Kubernetes
     # 1.16.0.  Until upstream (helm) provides a fix, this is the work-around.
-    helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml > /tmp/helm-init.yaml
-    sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' /tmp/helm-init.yaml > /tmp/helm-init-patched.yaml
-    kubectl apply -f /tmp/helm-init-patched.yaml
+    if [[ ${HELMVERSION} == 2.* ]]; then
+       helm init --service-account tiller --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml > /tmp/helm-init.yaml
+       sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' /tmp/helm-init.yaml > /tmp/helm-init-patched.yaml
+       kubectl apply -f /tmp/helm-init-patched.yaml
+    fi
   else
-    helm init --service-account tiller
+    if [[ ${HELMVERSION} == 2.* ]]; then
+       helm init --service-account tiller
+    fi
   fi
-  helm init -c
-  export HELM_HOME="$(pwd)/.helm"
-  echo "HELM_HOME=${HELM_HOME}" >> /etc/environment
+  if [[ ${HELMVERSION} == 2.* ]]; then
+     helm init -c
+     export HELM_HOME="$(pwd)/.helm"
+     echo "HELM_HOME=${HELM_HOME}" >> /etc/environment
+  fi
 
   # waiting for tiller pod to be in running state
   while ! helm version; do

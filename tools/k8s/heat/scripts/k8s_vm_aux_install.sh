@@ -25,25 +25,31 @@ kubectl create namespace "${LOGGING_NS}"
 while ! helm repo add incubator "https://kubernetes-charts-incubator.storage.googleapis.com/"; do
   sleep 10
 done
+IS_HELM3=$(helm version --short|grep -e "^v3")
+HELM_FLAG='--name'
+if [ -z $IS_HELM3 ]
+   HELM_FLAG=""
+fi
+
 helm repo update
-helm install incubator/elasticsearch \
+helm install ${HELM_FLAG} elasticsearch \
    --namespace "${LOGGING_NS}" \
-   --name elasticsearch \
    --set image.tag=6.7.0 \
    --set data.terminationGracePeriodSeconds=0 \
    --set master.persistence.enabled=false \
-   --set data.persistence.enabled=false
-helm install stable/fluentd-elasticsearch \
-   --name fluentd \
+   --set data.persistence.enabled=false \
+   incubator/elasticsearch 
+helm install ${HELM_FLAG} fluentd \
    --namespace "${LOGGING_NS}" \
    --set elasticsearch.host=elasticsearch-client.${LOGGING_NS}.svc.cluster.local \
-   --set elasticsearch.port=9200
-helm install stable/kibana \
-   --name kibana \
+   --set elasticsearch.port=9200 \
+   stable/fluentd-elasticsearch
+helm install ${HELM_FLAG} kibana \
    --namespace "${LOGGING_NS}" \
    --set env.ELASTICSEARCH_URL=http://elasticsearch-client.${LOGGING_NS}.svc.cluster.local:9200 \
    --set env.ELASTICSEARCH_HOSTS=http://elasticsearch-client.${LOGGING_NS}.svc.cluster.local:9200 \
-   --set env.SERVER_BASEPATH=/api/v1/namespaces/${LOGGING_NS}/services/kibana/proxy
+   --set env.SERVER_BASEPATH=/api/v1/namespaces/${LOGGING_NS}/services/kibana/proxy \
+   stable/kibana
    #--set image.tag=6.4.2 \
 
 KIBANA_POD_NAME=$(kubectl get pods --selector=app=kibana -n  "${LOGGING_NS}" \
@@ -55,7 +61,7 @@ wait_for_pods_running 1 "${LOGGING_NS}" "${KIBANA_POD_NAME}"
 PROMETHEUS_NS="monitoring"
 OPERATOR_POD_NAME="prometheus-prometheus-operator-prometheus-0"
 ALERTMANAGER_POD_NAME="alertmanager-prometheus-operator-alertmanager-0"
-helm install stable/prometheus-operator --name prometheus-operator --namespace "${PROMETHEUS_NS}"
+helm install ${HELM_FLAG} prometheus-operator  --namespace "${PROMETHEUS_NS}" stable/prometheus-operator
 wait_for_pods_running 1 "${PROMETHEUS_NS}" "${OPERATOR_POD_NAME}"
 
 GRAFANA_POD_NAME=$(kubectl get pods --selector=app=grafana -n  "${PROMETHEUS_NS}" \

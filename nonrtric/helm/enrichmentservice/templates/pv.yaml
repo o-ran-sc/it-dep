@@ -13,23 +13,6 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-# {{- if not .Values.enrichmentservice.storageclass }}
-
-# kind: StorageClass
-# apiVersion: storage.k8s.io/v1
-# metadata:
-#   name: manual
-#   namespace: {{ include "common.namespace.nonrtric" . }}
-#   labels:
-#     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.enrichmentservice" . }}
-#     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-#     release: {{ .Release.Name }}
-#     heritage: {{ .Release.Service }}
-#   annotations:
-#     storageclass.kubernetes.io/is-default-class: "true"
-# provisioner: kubernetes.io/no-provisioner
-
-# ---
 
 kind: PersistentVolume
 apiVersion: v1
@@ -44,19 +27,10 @@ metadata:
     name: {{ include "common.name.enrichmentservice" . }}
 spec:
   capacity:
-    storage: {{ .Values.persistence.size}}
+    storage: {{ .Values.enrichmentservice.persistence.size}}
   accessModes:
-    - {{ .Values.persistence.accessMode }}
-  persistentVolumeReclaimPolicy: {{ .Values.persistence.volumeReclaimPolicy }}
+    - {{ .Values.enrichmentservice.persistence.accessMode }}
+  persistentVolumeReclaimPolicy: {{ .Values.enrichmentservice.persistence.volumeReclaimPolicy }}
   hostPath:
-    path: {{ .Values.persistence.mountPath }}/{{ .Values.persistence.mountSubPath }}
-  # nodeAffinity:
-  #   required:
-  #     nodeSelectorTerms:
-  #     - matchExpressions:
-  #       - key: kubernetes.io/hostname
-  #         operator: In
-  #         values:
-  #         - docker-desktop
-  storageClassName: "{{ include "common.name.enrichmentservice" . }}-data"
-# {{- end -}}
+    path: {{ .Values.enrichmentservice.persistence.mountPath }}/{{ .Values.enrichmentservice.persistence.mountSubPath }}
+  storageClassName: "{{ include "common.name.enrichmentservice" . }}"

@@ -68,7 +68,7 @@ spec:
       volumes:
         - name: {{ include "common.name.enrichmentservice" . }}-enrichment-config
           configMap:
-            name: {{ include "common.name.enrichmentservice" . }}-configmap-config
+            name: {{ include "common.name.enrichmentservice" . }}-configmap
         - name: {{ include "common.name.enrichmentservice" . }}-ei-jobs-vol
           persistentVolumeClaim:
             claimName: {{ include "common.name.enrichmentservice" . }}-pvc

@@ -40,13 +40,10 @@ enrichmentservice:
   readiness:
     initialDelaySeconds: 20
     periodSeconds: 10
-
-persistence:
-  enabled: true
-  volumeReclaimPolicy: Retain
-  accessMode: ReadWriteOnce
-  size: 2Gi
-  mountPath: /dockerdata-nfs
-  mountSubPath: nonrtric/enrichmentservice
-  storageClass: ""
+  persistence:
+    volumeReclaimPolicy: Retain
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    mountPath: /dockerdata-nfs
+    mountSubPath: nonrtric/enrichmentservice
 

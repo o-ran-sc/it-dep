@@ -58,10 +58,14 @@ while IFS= read -r -d $'\0'; do
 done < <(find $ROOT_DIR/../ -maxdepth 5 -name Chart.yaml -printf '%h\0')
 
 echo "***************************************"
-
+echo "Remove nonrtric parent chart from linting as its a conceptual visualization of Nonrtric components. This chart doesn't contain any templates & it's primarily
+used for grouping of all Nonrtric components in deployment"
 
 for dir in "${CHART_ARRAY[@]}"
 do
+    if [[ $dir == *"/helm/nonrtric"* ]]; then
+        echo "Skip Nonrtric Parent chart"
+    else
     echo "Update chart dependency for directory $dir"
     helm dep up $dir
     # Lint clearly marks errors; e.g., [ERROR]
@@ -86,4 +90,5 @@ do
    sleep 1
     egrep -n '%!.\(.*=.*\)' /tmp/output && echo "Error: Type mismatch." && exit 1
     echo "***************************************************************************************************************"
+    fi
 done

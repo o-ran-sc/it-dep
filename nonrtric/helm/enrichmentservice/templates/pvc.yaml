@@ -26,8 +26,8 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.enrichmentservice.persistence.accessMode }}
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: "{{ include "common.name.enrichmentservice" . }}-data"
+      storage: {{ .Values.enrichmentservice.persistence.size}}
+  storageClassName: "{{ include "common.name.enrichmentservice" . }}"

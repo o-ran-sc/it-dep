@@ -14,22 +14,27 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: a1controller
-    version: ~2.0.0
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
-    repository: "@local"
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtric-common
-    version: ^2.0.0
-    repository: "@local"
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.name.rappcatalogueservice" . }}-configmap-config
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.name.rappcatalogueservice" . }}-configmap-data
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}

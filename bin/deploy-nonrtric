@@ -58,7 +58,7 @@ fi
 
 $ROOT_DIR/prepare-common-templates
 
-COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice"}
+COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice rappcatalogueservice"}
 echo "Packaging NONRTRIC components [$COMPONENTS]"
 
 for component in $COMPONENTS; do

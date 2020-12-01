@@ -14,26 +14,29 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: a1controller
-    version: ~2.0.1
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
-    repository: "@local"
-  - name: enrichmentservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtric-common
-    version: ^2.0.0
-    repository: "@local"
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
+# Default values for rAPP Catalogue Service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
+rappcatalogueservice:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    name: nonrtric-r-app-catalogue
+    tag: 2.0.0
+  service:
+    allowHttp: true
+    httpName: http
+    internalPort1: 9080
+    targetPort1: 8080
+    externalPort1: 30093
+    httpsName: https
+    internalPort2: 9081
+    targetPort2: 8433
+    externalPort2: 30094
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10

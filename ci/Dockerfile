@@ -22,7 +22,7 @@ ARG GH=get_helm.sh
 # often times out during LF jenkins build
 RUN curl --silent --show-error --connect-timeout 10 --retry 6 -L https://raw.githubusercontent.com/helm/helm/master/scripts/get -o ${GH}
 RUN bash ${GH}
-RUN helm init -c
+RUN helm init -c --skip-repos
 ARG TGT=/tmp/it-dep
 COPY . $TGT
 RUN $TGT/bin/verify-ric-charts

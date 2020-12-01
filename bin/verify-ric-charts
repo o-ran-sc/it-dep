@@ -49,6 +49,7 @@ helm repo index $HELM_HOME/repository/local/
 
 echo "Make sure that helm local repo is added"
 helm repo remove local
+helm repo remove stable
 helm repo add local http://127.0.0.1:8879/charts
 
 echo "Create array of helm charts"

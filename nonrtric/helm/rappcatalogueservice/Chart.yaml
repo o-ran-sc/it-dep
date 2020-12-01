@@ -14,22 +14,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: a1controller
-    version: ~2.0.0
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
-    repository: "@local"
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtric-common
-    version: ^2.0.0
-    repository: "@local"
+apiVersion: v1
+appVersion: "2.0.0"
+description: A Helm chart for rAPP Catalogue Service
+name: rappcatalogueservice
+version: 1.0.0

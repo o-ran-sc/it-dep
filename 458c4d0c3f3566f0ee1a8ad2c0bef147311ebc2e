@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba789129_1284a28f",
+        "filename": "bin/1",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-01T23:53:41Z",
+      "side": 1,
+      "message": "What is this file for?",
+      "revId": "458c4d0c3f3566f0ee1a8ad2c0bef147311ebc2e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

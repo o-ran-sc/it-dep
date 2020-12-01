@@ -33,7 +33,7 @@ a1controller:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-a1-controller
-      tag: 2.0.1
+      tag: 2.1.0
     replicaCount: 1
     service:
       allowHttp: true
@@ -57,7 +57,7 @@ a1simulator:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
-      tag: 2.0.0
+      tag: 2.1.0
     service:
       allowHttp: true
       httpName: http
@@ -113,7 +113,7 @@ policymanagementservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-policy-agent
-      tag: 2.0.1
+      tag: 2.1.0
     service:
       allowHttp: true
       httpName: http

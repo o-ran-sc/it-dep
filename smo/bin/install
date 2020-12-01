@@ -223,10 +223,11 @@ do
   NUM_CP_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "controlpanel[\/0-9a-z \-]*Running" | wc -l)
   NUM_DB_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "db[\/0-9a-z \-]*Running" | wc -l)
   NUM_PMS_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "policymanagementservice[\/0-9a-z \-]*Running" | wc -l)
+  NUM_RAC_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "rappcatalogueservice[\/0-9a-z \-]*Running" | wc -l)
 
   echo "${NUM_A1C_RUNNING_PODS}/1 A1Controller pods, ${NUM_CP_RUNNING_PODS}/1 ControlPanel pods, "
   echo "${NUM_DB_RUNNING_PODS}/1 DB pods, ${NUM_PMS_RUNNING_PODS}/1 PolicyManagementService pods, "
-  echo "and ${NUM_A1SIM_RUNNING_PODS}/4 A1Sim pods  running"
+  echo "${NUM_RAC_RUNNING_PODS}/1 rAPPCatalogue pods, and ${NUM_A1SIM_RUNNING_PODS}/4 A1Sim pods  running"
 done
 
 

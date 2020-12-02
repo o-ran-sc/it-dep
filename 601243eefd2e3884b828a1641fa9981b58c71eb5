@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bb957e5_786f46ea",
+        "filename": "nonrtric/helm/policymanagementservice/resources/config/application.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-12-02T11:27:49Z",
+      "side": 1,
+      "message": "Please remove this file. Its covered in https://gerrit.o-ran-sc.org/r/c/it/dep/+/5211",
+      "revId": "601243eefd2e3884b828a1641fa9981b58c71eb5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d79ba64d_ea5b1bae",
+        "filename": "nonrtric/helm/rappcatalogueservice/templates/configmap.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-12-02T11:27:49Z",
+      "side": 1,
+      "message": "I dont think you need config map at this stage.",
+      "revId": "601243eefd2e3884b828a1641fa9981b58c71eb5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

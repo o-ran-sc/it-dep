@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5fcd34e3_9bc5ccc6",
+        "filename": "nonrtric/helm/policymanagementservice/resources/config/application.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000201
+      },
+      "writtenOn": "2020-12-02T15:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bb957e5_786f46ea",
+      "revId": "601243eefd2e3884b828a1641fa9981b58c71eb5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d79ba64d_ea5b1bae",
         "filename": "nonrtric/helm/rappcatalogueservice/templates/configmap.yaml",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "601243eefd2e3884b828a1641fa9981b58c71eb5",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8671d9f_1b9a8883",
+        "filename": "nonrtric/helm/rappcatalogueservice/templates/configmap.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000201
+      },
+      "writtenOn": "2020-12-02T15:25:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d79ba64d_ea5b1bae",
+      "revId": "601243eefd2e3884b828a1641fa9981b58c71eb5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

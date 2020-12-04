@@ -45,8 +45,16 @@ if [ -z "$OVERRIDEYAML" ];then
     exit 1
 fi
 
+#Check for helm3
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
+HELM_SEARCH_FLAG=""
+if [ $IS_HELM3 ]
+then  
+    HELM_SEARCH_FLAG="repo"
+fi
 
-HAS_RIC_COMMON_PACKAGE=$(helm search local/ric-common | grep ric-common)
+
+HAS_RIC_COMMON_PACKAGE=$(helm search ${HELM_SEARCH_FLAG} local/ric-common | grep ric-common)
 
 if [ -z "$HAS_RIC_COMMON_PACKAGE" ];then
     echo "****************************************************************************************************************"
@@ -57,7 +65,7 @@ if [ -z "$HAS_RIC_COMMON_PACKAGE" ];then
     exit 1
 fi
 
-HAS_AUX_COMMON_PACKAGE=$(helm search local/aux-common | grep aux-common)
+HAS_AUX_COMMON_PACKAGE=$(helm search ${HELM_SEARCH_FLAG} local/aux-common | grep aux-common)
 
 if [ -z "$HAS_AUX_COMMON_PACKAGE" ];then
     echo "****************************************************************************************************************"
@@ -315,6 +323,13 @@ echo "Deploying AUX components [$COMPONENTS]"
 
 for component in $COMPONENTS; do
     helm dep up $DIR/../helm/$component
+
+    # Handle helm2/helm3 arg
+    NAME_ARG=""
+    if [ -z $IS_HELM3 ]; then
+      NAME_ARG=" --name "
+    fi
+
     case "$component" in
             aaf)
                 NODENAME=$(kubectl get node | awk 'NR>1{print $1}')
@@ -336,11 +351,11 @@ for component in $COMPONENTS; do
                     echo "* kubectl label --overwrite nodes <YOUR_NODE_NAME> aaf-storage=enable                       *"
                     echo "***********************************************************************************************"
                 else
-		    helm install -f $OVERRIDEYAML --namespace "onap" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
+		    helm install -f $OVERRIDEYAML --namespace "onap" ${NAME_ARG} "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
                 fi
             ;;
             *)
-                helm install -f $OVERRIDEYAML --namespace "${AUXNAMESPACE:-ricaux}" --name "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
+                helm install -f $OVERRIDEYAML --namespace "${AUXNAMESPACE:-ricaux}" ${NAME_ARG} "${RELEASE_PREFIX}-$component" $DIR/../helm/$component
 		sleep 8 
     esac
 

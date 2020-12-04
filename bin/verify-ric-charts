@@ -23,7 +23,7 @@ OVERRIDEYAML=$1
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 #Check for helm3
-IS_HELM3=$(helm version --short|grep -e "^v3")
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
 
 # Start Helm local repo if there isn't one
 HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')

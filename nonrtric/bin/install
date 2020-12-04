@@ -15,7 +15,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
 while [ -n "$1" ]; do # while loop starts
 
     case "$1" in
@@ -69,5 +69,10 @@ echo "Deploying NONRTRIC components [$COMPONENTS]"
 echo "Updating the Parent Chart [$PARENT_CHART]"
 helm dep up $DIR/../helm/$PARENT_CHART
 
-helm install $DIR/../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" --name "${RELEASE_PREFIX}"
+HELM_NAME_OPT=""
+if [ -z $IS_HELM3 ];then
+   HELM_NAME_OPT="--name"
+fi	
+
+helm install $DIR/../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}"
 

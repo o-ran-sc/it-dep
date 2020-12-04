@@ -51,11 +51,36 @@ fi
 
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+#Check for helm3
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
+
+if [ $IS_HELM3 ]
+then
+  # Check for servcm plugin
+  helm plugin list | grep -q "^servecm"
+  if [ $? -eq "1" ]
+  then
+    helm plugin install https://github.com/jdolitsky/helm-servecm
+  fi
+fi
 
 # Start Helm local repo if there isn't one
 HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')
 if [ -z "$HELM_REPO_PID" ]; then
-    nohup helm serve >& /dev/null &
+    if [ -z $IS_HELM3 ]
+    then
+      nohup helm serve >& /dev/null &
+    else
+      echo EUID:$EUID
+      if [ $EUID -ne "0" ]
+         then 
+           echo "Error: Please run the command with sudo as helm servecm needs to copy a file in location needing privilege"
+           exit;
+         fi
+      eval $(helm env |grep HELM_REPOSITORY_CACHE)
+      echo yes > /tmp/ric-yes
+      nohup sudo sh -c "helm servecm --port=8879 --context-path=/charts  --storage local --storage-local-rootdir $HELM_REPOSITORY_CACHE/local/  < /tmp/ric-yes " &
+    fi
 fi
 
 $ROOT_DIR/prepare-common-templates

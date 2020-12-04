@@ -69,6 +69,24 @@
       "revId": "458c4d0c3f3566f0ee1a8ad2c0bef147311ebc2e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "347e1a9d_6fba7583",
+        "filename": "nonrtric/helm/enrichmentservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2020-12-04T10:17:53Z",
+      "side": 1,
+      "message": "Now its released Felix. Here is the gerrit link,\nhttps://gerrit.o-ran-sc.org/r/c/nonrtric/+/5215 \nDocker pull command:\ndocker pull nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-enrichment-coordinator-service:1.0.0",
+      "parentUuid": "73b97300_5e8b5e55",
+      "revId": "458c4d0c3f3566f0ee1a8ad2c0bef147311ebc2e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

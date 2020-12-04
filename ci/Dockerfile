@@ -17,7 +17,7 @@
 ##############################################################################
 
 FROM ubuntu:18.04
-RUN apt-get update && apt-get -y install curl
+RUN apt-get update && apt-get -y install curl ca-certificates
 ARG GH=get_helm.sh
 # often times out during LF jenkins build
 RUN curl --silent --show-error --connect-timeout 10 --retry 6 -L https://raw.githubusercontent.com/helm/helm/master/scripts/get -o ${GH}

@@ -32,7 +32,16 @@ RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 
 echo "Undeploying NONRTRIC components [$COMPONENTS]"
 
-helm delete --purge ${RELEASE_PREFIX}
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
+HELM_FLAG=''
+if [ $IS_HELM3 ]
+then
+  HELM_FLAG=' -n '${NONRTRIC_NAMESPACE:-nonrtric}
+else
+  HELM_FLAG='--purge'
+fi
+
+helm delete ${HELM_FLAG} ${RELEASE_PREFIX}
 
 kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
 

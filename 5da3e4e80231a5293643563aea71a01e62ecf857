@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5337c10_c8f300c1",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-08T17:20:40Z",
+      "side": 1,
+      "message": "Please update the image version according to the values.yaml change.",
+      "revId": "5da3e4e80231a5293643563aea71a01e62ecf857",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c180d0d_38949def",
+        "filename": "nonrtric/helm/rappcatalogueservice/values.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-08T17:20:40Z",
+      "side": 1,
+      "message": "Please release the image, and only use release registry nexus3.o-ran-sc.org:10002/o-ran-sc in the values.yaml",
+      "revId": "5da3e4e80231a5293643563aea71a01e62ecf857",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ddb45f9_00417208",
+        "filename": "nonrtric/helm/rappcatalogueservice/values.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-08T17:20:40Z",
+      "side": 1,
+      "message": "There is no tag 2.0.0 in either staging or release repo.Please fix this.",
+      "revId": "5da3e4e80231a5293643563aea71a01e62ecf857",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

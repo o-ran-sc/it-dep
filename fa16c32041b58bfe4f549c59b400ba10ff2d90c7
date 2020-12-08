@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0038cca8_b3daaf99",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-08T17:09:54Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this also be implemented for AUX?\nAlso there is a concern that in an environment without Internet access this may fail.",
+      "revId": "fa16c32041b58bfe4f549c59b400ba10ff2d90c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58911432_fbbc614c",
+        "filename": "tools/k8s/heat/parts/part-1.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-08T17:09:54Z",
+      "side": 1,
+      "message": "Should this be 1.16.0?",
+      "revId": "fa16c32041b58bfe4f549c59b400ba10ff2d90c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

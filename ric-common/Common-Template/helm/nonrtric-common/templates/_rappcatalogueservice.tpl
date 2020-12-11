@@ -14,26 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: a1controller
-    version: ~2.0.1
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
-    repository: "@local"
-  - name: enrichmentservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtric-common
-    version: ^2.0.0
-    repository: "@local"
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
+{{- define "common.name.rappcatalogueservice" -}}
+  {{- printf "rappcatalogueservice" -}}
+{{- end -}}
 
+{{- define "common.container.rappcatalogueservice" -}}
+  {{- $name := ( include "common.name.rappcatalogueservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

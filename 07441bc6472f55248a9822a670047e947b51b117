@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "676e139a_8834d063",
+        "filename": "o-du-high/bin/install",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-11T19:49:15Z",
+      "side": 1,
+      "message": "If this is just to install o-du-high, we can ignore the git hooks and commit-msg installation.",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8679473a_1e88ae4d",
+        "filename": "o-du-high/bin/install",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-11T19:49:15Z",
+      "side": 1,
+      "message": "So the installation will also try to start the stubs?\nAlso the OS may not come with xterm.\n\nMaybe we should remove these lines?",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ca98eff_92bfa5a0",
+        "filename": "o-du-high/bin/uinstall",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-11T19:49:15Z",
+      "side": 1,
+      "message": "this script seems like cleaning up the environment.\nI will suggest that the uninstall script should just performs the pkill.\n\nThe resets of the uninstallation of packages can be put in a cleanup.sh script.",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee43f2c_54d15f10",
+        "filename": "o-du-high/bin/uinstall",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-11T19:49:15Z",
+      "side": 1,
+      "message": "may want to also delete the git directory.",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f59a533_dcc544ea",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2020-12-11T01:40:55Z",
+      "side": 1,
+      "message": "I confirmed that the released image version is 2.0.1. Please change it.",
+      "parentUuid": "b1793bf1_10912bb0",
+      "range": {
+        "startLine": 36,
+        "startChar": 11,
+        "endLine": 36,
+        "endChar": 16
+      },
+      "revId": "f4511fa8667b5acb7294b6be8f6a3cdd81a7d64a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb79c333_4d94ace1",
         "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
         "patchSetId": 2

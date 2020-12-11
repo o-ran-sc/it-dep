@@ -34,9 +34,17 @@ RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 
 echo "Undeploying AUX components [$COMPONENTS]"
 
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
+HELM_FLAG=''
+if [ $IS_HELM3 ]
+then
+  HELM_FLAG=' -n '${AUXNAMESPACE:-ricaux}
+else
+  HELM_FLAG='--purge'
+fi
 
 for component in $COMPONENTS; do
-    helm delete --purge ${RELEASE_PREFIX}-$component
+    helm delete ${HELM_FLAG}  ${RELEASE_PREFIX}-$component
 done
 
 kubectl delete cm -n ${AUXNAMESPACE:-ricaux} ricaux-recipe

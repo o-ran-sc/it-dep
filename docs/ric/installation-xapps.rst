@@ -15,8 +15,7 @@
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
 
-Loading xApp Helm Charts
-------------------------
+**Loading xApp Helm Charts**
 
 The RIC Platform App Manager deploys RIC applications (a.k.a. xApps) using Helm charts stored in a private local Helm repo.
 The Helm local repo is deployed as a sidecar of the App Manager pod, and its APIs are exposed using an ingress controller with TLS enabled.

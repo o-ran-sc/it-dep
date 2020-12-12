@@ -32,7 +32,7 @@ kubectl delete ns ricaux
 kubectl delete ns ricinfra
 rm -rf /opt/data/dashboard-data
 
-echo "======> Clearing out all NONRTRIC deployment resources"
-kubectl delete ns nonrtric
+#echo "======> Clearing out all NONRTRIC deployment resources"
+#kubectl delete ns nonrtric
 
 echo "===> Completing at $(date)"

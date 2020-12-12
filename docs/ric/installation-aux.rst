@@ -15,15 +15,13 @@
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
 
-Resource Requirements
----------------------
+**Resource Requirements**
 
 To run the RIC-AUX cluster in a dev testing setting, the minimum requirement
 for resources is a VM with 4 vCPUs, 16G RAM and at least 40G of disk space.
 
 
-Getting and Preparing Deployment Scripts
-----------------------------------------
+**Getting and Preparing Deployment Scripts**
 
 Run the following commands in a root shell:
 
@@ -34,8 +32,7 @@ Run the following commands in a root shell:
   git submodule update --init --recursive --remote
 
 
-Modify the deployment recipe
-----------------------------
+**Modify the deployment recipe**
 
 Edit the recipe file ./RECIPE_EXAMPLE/AUX/example_recipe.yaml.
 
@@ -67,8 +64,7 @@ Edit the recipe file ./RECIPE_EXAMPLE/AUX/example_recipe.yaml.
 For more advanced recipe configuration options, refer to the recipe configuration guideline.
 
 
-Deploying the Aux Group
------------------------
+**Deploying the Aux Group**
 
 After the recipes are edited, the AUX group is ready to be deployed.
 
@@ -78,8 +74,7 @@ After the recipes are edited, the AUX group is ready to be deployed.
   ./deploy-ric-aux ../RECIPE_EXAMPLE/AUX/example_recipe.yaml
 
 
-Checking the Deployment Status
-------------------------------
+**Checking the Deployment Status**
 
 Now check the deployment status and results similar to the below indicate a complete and successful deployment.
 

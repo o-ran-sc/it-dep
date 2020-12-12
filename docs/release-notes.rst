@@ -33,6 +33,9 @@ Version history
 | **Date**           | **Ver.**           | **Author**         | **Comment**        |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
+| 2020-12-14         | 0.3.0              | Zhe Huang          |                    |
+|                    |                    |                    |                    |
++--------------------+--------------------+--------------------+--------------------+
 | 2020-08-01         | 0.2.1              | Lusheng Ji         |                    |
 |                    |                    |                    |                    |
 +--------------------+--------------------+--------------------+--------------------+
@@ -46,6 +49,21 @@ Version history
 
 Releases
 --------
+
+0.3.0
+^^^^^
+
+**Release designation**: Cherry
+
+**Release Date**: 2020-12-14
+
+The 0.3.0 version of the it/dep repository hosts deployment and integration artifacts such as scripts, Helm charts, and other files used for deploying the Cherry Release of O-RAN SC software.
+
+- Provide Helm 3 support for near-realtime RIC and AUX.
+- Deployment scripts for O-DU high project.
+- Deployment scripts for smo project.
+- Add rApp Catalogue and enrichmentservice helm charts for non-realtime RIC.
+- Update the deployment recipes for all the O-RAN SC software to use the Cherry release images.
 
 0.2.1
 ^^^^^
@@ -136,7 +154,7 @@ Software deliverables
 
 The deployment artifacts can be accessed by cloning Git repository:
 
-  git clone https://gerrit.o-ran-sc.org/r/it/dep -b bronze
+  git clone https://gerrit.o-ran-sc.org/r/it/dep -b cherry
 
 
 Documentation deliverables

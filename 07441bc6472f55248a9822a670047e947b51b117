@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "33a063f0_634b9ffd",
+        "filename": "o-du-high/bin/install",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000087
+      },
+      "writtenOn": "2020-12-14T13:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "676e139a_8834d063",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8679473a_1e88ae4d",
         "filename": "o-du-high/bin/install",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-12-11T19:49:15Z",
       "side": 1,
       "message": "So the installation will also try to start the stubs?\nAlso the OS may not come with xterm.\n\nMaybe we should remove these lines?",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eda4cdb_b4a04565",
+        "filename": "o-du-high/bin/install",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000087
+      },
+      "writtenOn": "2020-12-14T13:49:37Z",
+      "side": 1,
+      "message": "Under discussion",
+      "parentUuid": "8679473a_1e88ae4d",
       "revId": "07441bc6472f55248a9822a670047e947b51b117",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c07a6b34_8de1062d",
+        "filename": "o-du-high/bin/uinstall",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000087
+      },
+      "writtenOn": "2020-12-14T13:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ca98eff_92bfa5a0",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dee43f2c_54d15f10",
         "filename": "o-du-high/bin/uinstall",
         "patchSetId": 6
@@ -67,6 +121,24 @@
       "revId": "07441bc6472f55248a9822a670047e947b51b117",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4d7450_535b2bc3",
+        "filename": "o-du-high/bin/uinstall",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000087
+      },
+      "writtenOn": "2020-12-14T13:49:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dee43f2c_54d15f10",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

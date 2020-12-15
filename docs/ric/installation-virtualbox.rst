@@ -17,8 +17,8 @@
 
 
 
-Networking
-^^^^^^^^^^
+**Networking**
+
 The set up requires two VMs connected by a private network.  With VirtualBox, this can be
 done by going under its "Preferences" menu and setting up a private NAT network.
 
@@ -36,8 +36,7 @@ done by going under its "Preferences" menu and setting up a private NAT network.
 #. Click "Ok" all the way back to create the network.
 
 
-Creating VMs
-^^^^^^^^^^^^
+**Creating VMs**
 
 Create a VirtualBox VM:
 
@@ -56,15 +55,13 @@ Create a VirtualBox VM:
 Repeat the process and create the second VM named **myaux**.
 
 
-Booting VM and OS Installation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Booting VM and OS Installation**
 
 Follow the OS installation steps to install OS to the VM virtual disk media.  During the setup you must
 configure static IP addresses as discussed next.  And make sure to install openssh server.
 
 
-VM Network Configuration
-^^^^^^^^^^^^^^^^^^^^^^^^
+**VM Network Configuration**
 
 Depending on the version of the OS, the networking may be configured during the OS installation or after.
 The network interface is configured with a static IP address:
@@ -75,8 +72,7 @@ The network interface is configured with a static IP address:
 - Name server: 8.8.8.8; if access to that is is blocked, configure a local DNS server
 
 
-Accessing the VMs
-^^^^^^^^^^^^^^^^^
+**Accessing the VMs**
 
 Because of the port forwarding configurations, the VMs are accessible from the VirtualBox host via ssh.
 

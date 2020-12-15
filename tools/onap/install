@@ -199,58 +199,58 @@ do
 done
 
 
-echo && echo "===> Deploy NONRTRIIC"
-git clone http://gerrit.o-ran-sc.org/r/it/dep smo-dep
-cd smo-dep
-REPOROOTDIR=$(git rev-parse --show-toplevel)
-
-cd bin
-./deploy-nonrtric -f ${REPOROOTDIR}/RECIPE_EXAMPLE/NONRTRIC/example_recipe.yaml 
-echo "======> Waiting for NONRTRIC to reach operatoinal state"
-NUM_A1C_RUNNING_PODS="0"
-NUM_A1SIM_RUNNING_PODS="0"
-NUM_CP_RUNNING_PODS="0"
-NUM_DB_RUNNING_PODS="0"
-NUM_PMS_RUNNING_PODS="0"
-
-while [ "$NUM_A1C_RUNNING_PODS" -lt "1" ] || [ "$NUM_CP_RUNNING_PODS" -lt "1" ] || \
-      [ "$NUM_DB_RUNNING_PODS" -lt "1" ]|| [ "$NUM_PMS_RUNNING_PODS" -lt "1" ] || \
-      [ "$NUM_A1SIM_RUNNING_PODS" -lt "4" ]
-do
-  sleep 5
-  NUM_A1C_RUNNING_PODS=$(kubectl get pods -n nonrtric | grep "a1controller[\/0-9a-z \-]*Running" | wc -l)
-  NUM_A1SIM_RUNNING_PODS=$(kubectl get pods -n nonrtric | grep "a1-sim[\/0-9a-z \-]*Running" | wc -l)
-  NUM_CP_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "controlpanel[\/0-9a-z \-]*Running" | wc -l)
-  NUM_DB_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "db[\/0-9a-z \-]*Running" | wc -l)
-  NUM_PMS_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "policymanagementservice[\/0-9a-z \-]*Running" | wc -l)
-
-  echo "${NUM_A1C_RUNNING_PODS}/1 A1Controller pods, ${NUM_CP_RUNNING_PODS}/1 ControlPanel pods, "
-  echo "${NUM_DB_RUNNING_PODS}/1 DB pods, ${NUM_PMS_RUNNING_PODS}/1 PolicyManagementService pods, "
-  echo "and ${NUM_A1SIM_RUNNING_PODS}/4 A1Sim pods  running"
-done
-
-
-
-echo && echo "===> Deploying VES collector and its ingress"
-kubectl create ns ricinfra
-
-cd ${REPOROOTDIR}/ric-aux/helm/infrastructure
-helm dep update
-cd ..
-helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-infra --namespace ricaux ./infrastructure
-
-cd ${REPOROOTDIR}/ric-aux/helm/ves
-helm dep update
-cd ..
-helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-ves --namespace ricaux ./ves
-
-
-# edit RECIPE_EXAMPLE/AUX/example_recipe.yaml file
-#./bin/prepare-common-templates
-#cd ric-aux/bin
-#./install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml -c "ves"
-
-cd $STARTDIR
-kubectl get pods --all-namespaces
-
-echo "===> Completing at $(date)"
+#echo && echo "===> Deploy NONRTRIIC"
+#git clone http://gerrit.o-ran-sc.org/r/it/dep smo-dep
+#cd smo-dep
+#REPOROOTDIR=$(git rev-parse --show-toplevel)
+#
+#cd bin
+#./deploy-nonrtric -f ${REPOROOTDIR}/RECIPE_EXAMPLE/NONRTRIC/example_recipe.yaml 
+#echo "======> Waiting for NONRTRIC to reach operatoinal state"
+#NUM_A1C_RUNNING_PODS="0"
+#NUM_A1SIM_RUNNING_PODS="0"
+#NUM_CP_RUNNING_PODS="0"
+#NUM_DB_RUNNING_PODS="0"
+#NUM_PMS_RUNNING_PODS="0"
+#
+#while [ "$NUM_A1C_RUNNING_PODS" -lt "1" ] || [ "$NUM_CP_RUNNING_PODS" -lt "1" ] || \
+#      [ "$NUM_DB_RUNNING_PODS" -lt "1" ]|| [ "$NUM_PMS_RUNNING_PODS" -lt "1" ] || \
+#      [ "$NUM_A1SIM_RUNNING_PODS" -lt "4" ]
+#do
+#  sleep 5
+#  NUM_A1C_RUNNING_PODS=$(kubectl get pods -n nonrtric | grep "a1controller[\/0-9a-z \-]*Running" | wc -l)
+#  NUM_A1SIM_RUNNING_PODS=$(kubectl get pods -n nonrtric | grep "a1-sim[\/0-9a-z \-]*Running" | wc -l)
+#  NUM_CP_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "controlpanel[\/0-9a-z \-]*Running" | wc -l)
+#  NUM_DB_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "db[\/0-9a-z \-]*Running" | wc -l)
+#  NUM_PMS_RUNNING_PODS=$(kubectl get pods -n nonrtric  | grep "policymanagementservice[\/0-9a-z \-]*Running" | wc -l)
+#
+#  echo "${NUM_A1C_RUNNING_PODS}/1 A1Controller pods, ${NUM_CP_RUNNING_PODS}/1 ControlPanel pods, "
+#  echo "${NUM_DB_RUNNING_PODS}/1 DB pods, ${NUM_PMS_RUNNING_PODS}/1 PolicyManagementService pods, "
+#  echo "and ${NUM_A1SIM_RUNNING_PODS}/4 A1Sim pods  running"
+#done
+#
+#
+#
+#echo && echo "===> Deploying VES collector and its ingress"
+#kubectl create ns ricinfra
+#
+#cd ${REPOROOTDIR}/ric-aux/helm/infrastructure
+#helm dep update
+#cd ..
+#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-infra --namespace ricaux ./infrastructure
+#
+#cd ${REPOROOTDIR}/ric-aux/helm/ves
+#helm dep update
+#cd ..
+#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-ves --namespace ricaux ./ves
+#
+#
+## edit RECIPE_EXAMPLE/AUX/example_recipe.yaml file
+##./bin/prepare-common-templates
+##cd ric-aux/bin
+##./install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml -c "ves"
+#
+#cd $STARTDIR
+#kubectl get pods --all-namespaces
+#
+#echo "===> Completing at $(date)"

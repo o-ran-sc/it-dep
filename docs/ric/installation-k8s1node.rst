@@ -16,8 +16,7 @@
 .. ===============LICENSE_END=========================================================
 
 
-Script for Setting Up 1-node Kubernetes Cluster
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Script for Setting Up 1-node Kubernetes Cluster**
 
 The it/dep repo can be used for generating a simple script that can help setting up a
 one-node Kubernetes cluster for dev and testing purposes.  Related files are under the
@@ -28,8 +27,7 @@ one-node Kubernetes cluster for dev and testing purposes.  Related files are und
   % git clone https://gerrit.o-ran-sc.org/r/it/dep
 
 
-Configurations
-^^^^^^^^^^^^^^
+**Configurations**
 
 The generation of the script reads in the parameters from the following files:
 
@@ -45,8 +43,7 @@ The generation of the script reads in the parameters from the following files:
   release yet.
 
 
-Generating Set-up Script
-^^^^^^^^^^^^^^^^^^^^^^^^
+**Generating Set-up Script**
 
 After the configurations are updated, the following steps will create a script file that can be
 used for setting up a one-node Kubernetes cluster.  You must run this command on a Linux machine
@@ -60,8 +57,7 @@ with the 'envsubst' command installed.
 A file named **k8s-1node-cloud-init.sh** would now appear under the bin directory.
 
 
-Setting up Kubernetes Cluster
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Setting up Kubernetes Cluster**
 
 The new **k8s-1node-cloud-init.sh** file is now ready for setting up the Kubernetes cluster.
 

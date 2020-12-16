@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "56eed48b_469401e7",
+        "filename": "o-du-high/bin/install",
+        "patchSetId": 6
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000087
+      },
+      "writtenOn": "2020-12-16T07:49:38Z",
+      "side": 1,
+      "message": "Added steps to install/uninstall xterm in corresponding scripts",
+      "parentUuid": "7d93f0ce_6f2a99f8",
+      "revId": "07441bc6472f55248a9822a670047e947b51b117",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ca98eff_92bfa5a0",
         "filename": "o-du-high/bin/uinstall",
         "patchSetId": 6

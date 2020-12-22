@@ -78,6 +78,9 @@ a1simulator:
     stdVersion:
       name: a1-sim-std
       replicaCount: 2
+    stdVersion2:
+      name: a1-sim-std2
+      replicaCount: 2
 
 # image registry and tag to be changed after first release of controlpanel
 # Need to check the external port Availability
@@ -162,6 +165,24 @@ policymanagementservice:
           {
             "name":"ric4",
             "baseUrl":"https://a1-sim-std-1.a1-sim:8185",
+            "controller": "controller1",
+            "managedElementIds":[
+               "kista_1",
+               "kista_2"
+            ]
+          },
+          {
+            "name":"ric5",
+            "baseUrl":"https://a1-sim-std2-0.a1-sim:8185",
+            "controller": "controller1",
+            "managedElementIds":[
+               "kista_1",
+               "kista_2"
+            ]
+          },
+          {
+            "name":"ric6",
+            "baseUrl":"https://a1-sim-std2-1.a1-sim:8185",
             "controller": "controller1",
             "managedElementIds":[
                "kista_1",

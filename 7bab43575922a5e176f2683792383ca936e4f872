@@ -16,6 +16,24 @@
       "revId": "7bab43575922a5e176f2683792383ca936e4f872",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c4b5d21_0e7cee8f",
+        "filename": "nonrtric/data/run_in_k8s/populate_data.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000247
+      },
+      "writtenOn": "2020-12-23T14:10:56Z",
+      "side": 1,
+      "message": "fixed, seems the definition of type was not correct.",
+      "parentUuid": "9643cf9a_591a6201",
+      "revId": "7bab43575922a5e176f2683792383ca936e4f872",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
     }
   ]
 }

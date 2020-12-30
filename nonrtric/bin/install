@@ -74,5 +74,5 @@ if [ -z $IS_HELM3 ];then
    HELM_NAME_OPT="--name"
 fi	
 
-helm install $DIR/../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}"
+helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" $DIR/../helm/"${PARENT_CHART}"
 

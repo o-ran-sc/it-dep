@@ -122,11 +122,9 @@ policymanagementservice:
       httpName: http
       internalPort1: 9080
       targetPort1: 8081
-      externalPort1: 30093
       httpsName: https
       internalPort2: 9081
       targetPort2: 8433
-      externalPort2: 30094
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -220,11 +218,9 @@ enrichmentservice:
       httpName: http
       internalPort1: 9082
       targetPort1: 8083
-      externalPort1: 30095
       httpsName: https
       internalPort2: 9083
       targetPort2: 8434
-      externalPort2: 30096
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -250,11 +246,9 @@ rappcatalogueservice:
       httpName: http
       internalPort1: 9085
       targetPort1: 8080
-      externalPort1: 30097
       httpsName: https
       internalPort2: 9086
       targetPort2: 8433
-      externalPort2: 30098
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10

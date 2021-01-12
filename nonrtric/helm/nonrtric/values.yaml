@@ -14,5 +14,15 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
+nonrtricgateway:
+  imagePullPolicy: Always
+  image:
+    registry: 'registry.nordix.org/library'
+    name: nonrtric-gateway
+    tag: v1
+  service:
+    httpName: http
+    internalPort1: 9090
+    targetPort1: 9090
+    externalPort1: 30099
     

@@ -14,29 +14,16 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
+
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: {{ include "common.name.enrichmentservice" . }}
+  name: {{ include "common.name.nonrtricgateway" . }}-configmap-config
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.enrichmentservice" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.enrichmentservice.service.allowHttp true -}}
-    - name: {{ index .Values.enrichmentservice.service.httpName }}
-      port: {{ .Values.enrichmentservice.service.internalPort1 }}
-      targetPort: {{ .Values.enrichmentservice.service.targetPort1 }}
-      protocol: TCP
-    {{- end }}
-    - name: {{ index .Values.enrichmentservice.service.httpsName }}
-      port: {{ .Values.enrichmentservice.service.internalPort2 }}
-      targetPort: {{ .Values.enrichmentservice.service.targetPort2 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.enrichmentservice" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+data:
+{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}

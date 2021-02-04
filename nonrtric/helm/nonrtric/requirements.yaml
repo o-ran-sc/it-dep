@@ -36,4 +36,7 @@ dependencies:
   - name: rappcatalogueservice
     version: ~1.0.0
     repository: "@local"
+  - name: gatewayapp
+    version: ~1.0.0
+    repository: "@local"
 

@@ -16,7 +16,7 @@
 ################################################################################
 
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice"
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice gatewayapp"
 RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
 kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
 

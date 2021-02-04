@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,27 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for rAPP Catalogue Service.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+{{- define "common.name.gatewayapp" -}}
+  {{- printf "gatewayapp" -}}
+{{- end -}}
 
-rappcatalogueservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    name: nonrtric-r-app-catalogue
-    tag: 1.0.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9080
-    targetPort1: 8080
-    httpsName: https
-    internalPort2: 9081
-    targetPort2: 8433
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+{{- define "common.container.gatewayapp" -}}
+  {{- $name := ( include "common.name.gatewayapp" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

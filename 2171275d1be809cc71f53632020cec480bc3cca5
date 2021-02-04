@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3da93d40_9055c192",
+        "filename": "ric-common/Common-Template/helm/nonrtric-common/templates/_gatewayapp.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-02-04T18:08:56Z",
+      "side": 1,
+      "message": "Please Name this as nonrtric-gateway or controlpanel-gateway.",
+      "revId": "2171275d1be809cc71f53632020cec480bc3cca5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35547e98_47e7ab56",
+        "filename": "nonrtric/helm/controlpanel/resources/nginx.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-02-04T18:07:34Z",
+      "side": 1,
+      "message": "Please add EI path as well",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307fdf95_91802421",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-02-04T18:07:34Z",
+      "side": 1,
+      "message": "We dont need the application.properties",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc7ab84e_53279760",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-02-04T18:07:34Z",
+      "side": 1,
+      "message": "Where is the nginx.conf CM file?",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f7deb7_1e74cddb",
+        "filename": "nonrtric/helm/controlpanel/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-02-04T18:07:34Z",
+      "side": 1,
+      "message": "Are these ports valid now?",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

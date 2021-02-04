@@ -30,15 +30,13 @@ spec:
     - name: {{ index .Values.rappcatalogueservice.service.httpName }}
       port: {{ .Values.rappcatalogueservice.service.internalPort1 }}
       targetPort: {{ .Values.rappcatalogueservice.service.targetPort1 }}
-      nodePort: {{ .Values.rappcatalogueservice.service.externalPort1 }}
       protocol: TCP
     {{- end }}
     - name: {{ index .Values.rappcatalogueservice.service.httpsName }}
       port: {{ .Values.rappcatalogueservice.service.internalPort2 }}
       targetPort: {{ .Values.rappcatalogueservice.service.targetPort2 }}
-      nodePort: {{ .Values.rappcatalogueservice.service.externalPort2 }}
       protocol: TCP
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueservice" . }}
     release: {{ .Release.Name }}
-  type: NodePort
+  type: ClusterIP

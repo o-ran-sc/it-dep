@@ -114,19 +114,17 @@ policymanagementservice:
   policymanagementservice:
     imagePullPolicy: IfNotPresent
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-policy-agent
-      tag: 2.1.0
+      tag: 2.2.0
     service:
       allowHttp: true
       httpName: http
       internalPort1: 9080
       targetPort1: 8081
-      externalPort1: 30093
       httpsName: https
       internalPort2: 9081
       targetPort2: 8433
-      externalPort2: 30094
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -208,6 +206,7 @@ policymanagementservice:
           }
         }
       }
+
 enrichmentservice:
   enrichmentservice:
     imagePullPolicy: IfNotPresent
@@ -220,11 +219,9 @@ enrichmentservice:
       httpName: http
       internalPort1: 9082
       targetPort1: 8083
-      externalPort1: 30095
       httpsName: https
       internalPort2: 9083
       targetPort2: 8434
-      externalPort2: 30096
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -238,6 +235,7 @@ enrichmentservice:
       size: 2Gi
       mountPath: /dockerdata-nfs
       mountSubPath: nonrtric/enrichmentservice
+
 rappcatalogueservice:
   rappcatalogueservice:
     imagePullPolicy: IfNotPresent
@@ -250,11 +248,28 @@ rappcatalogueservice:
       httpName: http
       internalPort1: 9085
       targetPort1: 8080
-      externalPort1: 30097
       httpsName: https
       internalPort2: 9086
       targetPort2: 8433
-      externalPort2: 30098
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+
+nonrtricgateway:
+  nonrtricgateway:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      name: nonrtric-gateway
+      tag: 0.0.1
+    service:
+      httpName: http
+      internalPort1: 9090
+      targetPort1: 9090
+      externalPort1: 30093
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10

@@ -82,15 +82,13 @@ a1simulator:
       name: a1-sim-std2
       replicaCount: 2
 
-# image registry and tag to be changed after first release of controlpanel
-# Need to check the external port Availability
 controlpanel:
   controlpanel:
     imagePullPolicy: IfNotPresent
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-controlpanel
-      tag: 2.1.0
+      tag: 2.2.0
     replicaCount: 1
     service:
       allowHttp: true

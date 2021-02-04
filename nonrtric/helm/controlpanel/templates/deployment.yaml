@@ -54,6 +54,10 @@ spec:
               mountPath: /maven/application.properties
               subPath: application.properties
               readOnly: true
+            - name: configmap
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
           readinessProbe:
             tcpSocket:
               port: {{ .Values.controlpanel.service.targetPort1 }}

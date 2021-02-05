@@ -16,6 +16,24 @@
       "revId": "2171275d1be809cc71f53632020cec480bc3cca5",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a99e2d_4d840ba6",
+        "filename": "ric-common/Common-Template/helm/nonrtric-common/templates/_gatewayapp.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-05T15:18:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da93d40_9055c192",
+      "revId": "2171275d1be809cc71f53632020cec480bc3cca5",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

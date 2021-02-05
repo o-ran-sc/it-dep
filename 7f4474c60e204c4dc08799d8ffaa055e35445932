@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8c6315ca_caa47092",
+        "filename": "nonrtric/helm/controlpanel/resources/nginx.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-05T16:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35547e98_47e7ab56",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "307fdf95_91802421",
         "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f583828_02a998ba",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-05T16:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "307fdf95_91802421",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "0e3396c2_0414f447",
+        "filename": "nonrtric/helm/controlpanel/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-05T16:57:28Z",
+      "side": 1,
+      "message": "The configmap already includes all files located under /resources directory, hence no need to update configmap.",
+      "parentUuid": "fc7ab84e_53279760",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26f7deb7_1e74cddb",
         "filename": "nonrtric/helm/controlpanel/values.yaml",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2021-02-04T18:07:34Z",
       "side": 1,
       "message": "Are these ports valid now?",
+      "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18b6495d_ab87e84c",
+        "filename": "nonrtric/helm/controlpanel/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-05T16:57:28Z",
+      "side": 1,
+      "message": "http port 8080 is valid since that is also used in the nginx.conf file. https support (using the same port 8082) is planned to be added soon in the new frontend of controlpanel.",
+      "parentUuid": "26f7deb7_1e74cddb",
       "revId": "7f4474c60e204c4dc08799d8ffaa055e35445932",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true

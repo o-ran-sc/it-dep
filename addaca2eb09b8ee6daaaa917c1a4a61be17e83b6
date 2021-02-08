@@ -16,6 +16,24 @@
       "revId": "addaca2eb09b8ee6daaaa917c1a4a61be17e83b6",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4866676a_37265d8e",
+        "filename": "nonrtric/helm/nonrtricgateway/resources/config/application.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-08T14:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af50c49_a88b4537",
+      "revId": "addaca2eb09b8ee6daaaa917c1a4a61be17e83b6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

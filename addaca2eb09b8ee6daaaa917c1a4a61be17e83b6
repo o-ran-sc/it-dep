@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2af50c49_a88b4537",
+        "filename": "nonrtric/helm/nonrtricgateway/resources/config/application.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-02-08T08:43:51Z",
+      "side": 1,
+      "message": "I think predicates is a list of predicates (so the same uri does not have to repeated). \n+ I think maybe all this can be simplified to this: \n\n      - id: a1-policy\n        uri: https://policymanagementservice:9081\n        predicates:\n        - Path\u003d/a1-policy/**\n     \n      - id: ei-producer\n        uri: https://enrichmentservice:9083\n        predicates:\n        - Path\u003d/ei-producer/**",
+      "revId": "addaca2eb09b8ee6daaaa917c1a4a61be17e83b6",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

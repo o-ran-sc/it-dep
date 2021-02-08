@@ -22,6 +22,30 @@
       "revId": "fb3baf97f86f9306a34e920a8d0f26d68a9145c7",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7c4651_3950bb29",
+        "filename": "nonrtric/helm/controlpanel/resources/nginx.conf",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-02-08T15:20:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f38fc20c_07fbff06",
+      "range": {
+        "startLine": 15,
+        "startChar": 27,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "fb3baf97f86f9306a34e920a8d0f26d68a9145c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": false
     }
   ]
 }

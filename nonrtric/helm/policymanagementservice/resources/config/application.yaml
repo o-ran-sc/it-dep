@@ -35,7 +35,7 @@ logging:
     org.springframework: ERROR
     org.springframework.data: ERROR
     org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
-    org.oransc.policyagent: INFO
+    org.onap.ccsdk.oran.a1policymanagementservice: INFO    
   file: /var/log/policy-agent/application.log
 
 server:

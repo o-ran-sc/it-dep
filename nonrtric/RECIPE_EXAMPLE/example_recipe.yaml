@@ -78,16 +78,17 @@ a1simulator:
     stdVersion:
       name: a1-sim-std
       replicaCount: 2
+    stdVersion2:
+      name: a1-sim-std2
+      replicaCount: 2
 
-# image registry and tag to be changed after first release of controlpanel
-# Need to check the external port Availability
 controlpanel:
   controlpanel:
     imagePullPolicy: IfNotPresent
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-controlpanel
-      tag: 2.1.0
+      tag: 2.2.0
     replicaCount: 1
     service:
       allowHttp: true
@@ -111,82 +112,24 @@ policymanagementservice:
   policymanagementservice:
     imagePullPolicy: IfNotPresent
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-policy-agent
-      tag: 2.1.0
+      tag: 2.2.0
     service:
       allowHttp: true
       httpName: http
       internalPort1: 9080
       targetPort1: 8081
-      externalPort1: 30093
       httpsName: https
       internalPort2: 9081
       targetPort2: 8433
-      externalPort2: 30094
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
     readiness:
       initialDelaySeconds: 20
       periodSeconds: 10
-    ric: |
-      [
-        {
-             "name":"ric1",
-             "baseUrl":"https://a1-sim-osc-0.a1-sim:8185",
-             "controller": "controller1",
-             "managedElementIds":[
-                "kista_1",
-                "kista_2"
-             ]
-          },
-          {
-            "name":"ric2",
-            "baseUrl":"https://a1-sim-osc-1.a1-sim:8185",
-            "controller": "controller1",
-            "managedElementIds":[
-               "kista_1",
-               "kista_2"
-            ]
-          },
-          {
-            "name":"ric3",
-            "baseUrl":"https://a1-sim-std-0.a1-sim:8185",
-            "controller": "controller1",
-            "managedElementIds":[
-               "kista_1",
-               "kista_2"
-            ]
-          },
-          {
-            "name":"ric4",
-            "baseUrl":"https://a1-sim-std-1.a1-sim:8185",
-            "controller": "controller1",
-            "managedElementIds":[
-               "kista_1",
-               "kista_2"
-            ]
-          }
-      ]
-    streams_publishes: |
-      {
-        "dmaap_publisher": {
-          "type":"message_router",
-          "dmaap_info":{
-            "topic_url":"http://message-router.onap:3904/events/A1-POLICY-AGENT-WRITE"
-          }
-        }
-      }
-    streams_subscribes: |
-      {
-        "dmaap_subscriber":{
-          "type":"message_router",
-          "dmaap_info":{
-            "topic_url":"http://message-router.onap:3904/events/A1-POLICY-AGENT-READ/users/policy-agent?timeout=15000&limit=100"
-          }
-        }
-      }
+
 enrichmentservice:
   enrichmentservice:
     imagePullPolicy: IfNotPresent
@@ -199,11 +142,9 @@ enrichmentservice:
       httpName: http
       internalPort1: 9082
       targetPort1: 8083
-      externalPort1: 30095
       httpsName: https
       internalPort2: 9083
       targetPort2: 8434
-      externalPort2: 30096
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -217,6 +158,7 @@ enrichmentservice:
       size: 2Gi
       mountPath: /dockerdata-nfs
       mountSubPath: nonrtric/enrichmentservice
+
 rappcatalogueservice:
   rappcatalogueservice:
     imagePullPolicy: IfNotPresent
@@ -229,11 +171,28 @@ rappcatalogueservice:
       httpName: http
       internalPort1: 9085
       targetPort1: 8080
-      externalPort1: 30097
       httpsName: https
       internalPort2: 9086
       targetPort2: 8433
-      externalPort2: 30098
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+
+nonrtricgateway:
+  nonrtricgateway:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      name: nonrtric-gateway
+      tag: 0.0.1
+    service:
+      httpName: http
+      internalPort1: 9090
+      targetPort1: 9090
+      externalPort1: 30093
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10

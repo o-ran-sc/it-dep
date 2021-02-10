@@ -85,7 +85,7 @@ fi
 
 $ROOT_DIR/prepare-common-templates
 
-COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway"}
+COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice"}
 echo "Packaging NONRTRIC components [$COMPONENTS]"
 # Package common templates and serve it using Helm local repo
 HELM_LOCAL_REPO=""

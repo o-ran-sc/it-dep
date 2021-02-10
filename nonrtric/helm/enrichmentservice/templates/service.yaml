@@ -30,13 +30,15 @@ spec:
     - name: {{ index .Values.enrichmentservice.service.httpName }}
       port: {{ .Values.enrichmentservice.service.internalPort1 }}
       targetPort: {{ .Values.enrichmentservice.service.targetPort1 }}
+      nodePort: {{ .Values.enrichmentservice.service.externalPort1 }}
       protocol: TCP
     {{- end }}
     - name: {{ index .Values.enrichmentservice.service.httpsName }}
       port: {{ .Values.enrichmentservice.service.internalPort2 }}
       targetPort: {{ .Values.enrichmentservice.service.targetPort2 }}
+      nodePort: {{ .Values.enrichmentservice.service.externalPort2 }}
       protocol: TCP
   selector:
     app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.enrichmentservice" . }}
     release: {{ .Release.Name }}
-  type: ClusterIP
+  type: NodePort

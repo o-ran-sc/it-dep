@@ -29,9 +29,11 @@ rappcatalogueservice:
     httpName: http
     internalPort1: 9080
     targetPort1: 8080
+    externalPort1: 30093
     httpsName: https
     internalPort2: 9081
     targetPort2: 8433
+    externalPort2: 30094
   liveness:
     initialDelaySeconds: 20
     periodSeconds: 10

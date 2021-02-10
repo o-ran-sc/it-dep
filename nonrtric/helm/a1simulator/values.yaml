@@ -45,7 +45,3 @@ a1simulator:
   stdVersion:
     name: a1-sim-std
     replicaCount: 2
-  stdVersion2:
-    name: a1-sim-std2
-    replicaCount: 2
-

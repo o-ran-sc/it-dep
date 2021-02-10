@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,29 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-dependencies:
-  - name: a1controller
-    version: ~2.0.0
-    repository: "@local"
-  - name: a1simulator
-    version: ~2.0.0
-    repository: "@local"
-  - name: controlpanel
-    version: ~2.0.0
-    repository: "@local"
-  - name: policymanagementservice
-    version: ~2.0.0
-    repository: "@local"
-  - name: enrichmentservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtric-common
-    version: ^2.0.0
-    repository: "@local"
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
-  - name: nonrtricgateway
-    version: ~1.0.0
-    repository: "@local"
+{{- define "common.name.nonrtricgateway" -}}
+  {{- printf "nonrtricgateway" -}}
+{{- end -}}
 
+{{- define "common.container.nonrtricgateway" -}}
+  {{- $name := ( include "common.name.nonrtricgateway" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

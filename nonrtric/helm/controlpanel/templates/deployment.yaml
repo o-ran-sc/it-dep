@@ -51,8 +51,8 @@ spec:
             protocol: TCP
           volumeMounts:
             - name: configmap
-              mountPath: /maven/application.properties
-              subPath: application.properties
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
               readOnly: true
           readinessProbe:
             tcpSocket:

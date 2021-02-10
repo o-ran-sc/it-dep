@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,27 +13,25 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-server.port = 8082
-server.ssl.key-store-type = PKCS12
-server.ssl.key-store-password = ericsson_kwdjfhw
-server.ssl.key-store =  classpath:keystore.jks
-server.ssl.key-password = ericsson_kwdjfhw
-server.http.port = 8080
-# https api
-policycontroller.url.prefix = https://policymanagementservice:9081
-# http api
-#policycontroller.url.prefix = http://policymanagementservice:9080
-userfile = users.json
-portalapi.decryptor = org.oransc.portal.nonrtric.controlpanel.portalapi.PortalSdkDecryptorAes
-portalapi.usercookie = UserId
-portalapi.security = false
-portalapi.appname = Non-RT RIC Control Panel
-portalapi.username = Default
-portalapi.password = password
 
-# URL for enrichment coordinator service
-# enrichmentcontroller.url.prefix = https://enrichment-service-container:8434
-enrichmentcontroller.url.prefix = http://enrichment-service-container:8083/ei-producer/v1
+# Default values for Gateway application.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-# Mimic slow endpoints by defining sleep period, in milliseconds
-mock.config.delay = 0
+nonrtricgateway:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    name: nonrtric-gateway
+    tag: 0.0.1
+  service:
+    httpName: http
+    internalPort1: 9090
+    targetPort1: 9090
+    externalPort1: 30093
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10

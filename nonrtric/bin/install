@@ -52,7 +52,7 @@ NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ 
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 PARENT_CHART=$(cat $OVERRIDEYAML | awk '/^ *component:/{print $2}')
-COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice enrichmentservice nonrtric rappcatalogueservice"}
+COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice enrichmentservice nonrtric rappcatalogueservice nonrtricgateway"}
 echo "Chart name- $PARENT_CHART"
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
@@ -72,7 +72,7 @@ helm dep up $DIR/../helm/$PARENT_CHART
 HELM_NAME_OPT=""
 if [ -z $IS_HELM3 ];then
    HELM_NAME_OPT="--name"
-fi	
+fi
 
-helm install $DIR/../helm/"${PARENT_CHART}" -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}"
+helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" $DIR/../helm/"${PARENT_CHART}"
 

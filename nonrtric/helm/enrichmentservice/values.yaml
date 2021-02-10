@@ -29,11 +29,9 @@ enrichmentservice:
     httpName: http
     internalPort1: 9082
     targetPort1: 8083
-    externalPort1: 30095
     httpsName: https
     internalPort2: 9083
     targetPort2: 8434
-    externalPort2: 30096
   liveness:
     initialDelaySeconds: 20
     periodSeconds: 10

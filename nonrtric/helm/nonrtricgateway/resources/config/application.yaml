@@ -26,11 +26,11 @@ spring:
       httpserver:
         wiretap: true
       routes:
-      - id: a1-policy
+      - id: A1-Policy
         uri: https://policymanagementservice:9081
         predicates:
         - Path=/a1-policy/**
-      - id: ei-producer
+      - id: A1-EI
         uri: https://enrichmentservice:9083
         predicates:
         - Path=/ei-producer/**

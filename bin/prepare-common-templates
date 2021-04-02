@@ -35,6 +35,18 @@ then
     fi
 fi
 
+# Check if servecm plugin is ready to serve request
+command='curl --silent --output /dev/null  http://127.0.0.1:8879/charts'
+for i in $(seq 1 5)
+do $command && s=0 && break || s=$? && echo "Error connecting chartmuseum server. Retrying after 5s" && sleep 5;
+done
+
+if [ $s -gt 0 ]
+then
+        echo "Cmd to test chartmuseum failed with ($s): $command"
+        exit $s
+fi
+
 # Package common templates and serve it using Helm local repo
 if [ $IS_HELM3 ]
 then 

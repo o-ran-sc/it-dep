@@ -17,6 +17,8 @@
 
 # This script deploys NonRtRic components automatically
 
+
+
 if [ "$#" -eq 1 ]; then
     OVERRIDEYAML=$1
 else
@@ -27,7 +29,7 @@ else
 
         -f) OVERRIDEYAML=$2
             shift
-            ;;
+            ;; 
         *) echo "Option $1 not recognized" ;; # In case you typed a different option other than a,b,c
 
         esac
@@ -49,6 +51,10 @@ fi
 
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+echo "** $ROOT_DIR"
+rm $ROOT_DIR/../nonrtric/helm/*/charts/*.tgz
+
 
 #Check for helm3
 IS_HELM3=$(helm version -c --short|grep -e "^v3")
@@ -83,10 +89,6 @@ if [ -z "$HELM_REPO_PID" ]; then
 fi
 
 
-$ROOT_DIR/prepare-common-templates
-
-COMPONENTS=${LIST_OF_COMPONENTS:-"controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway"}
-echo "Packaging NONRTRIC components [$COMPONENTS]"
 # Package common templates and serve it using Helm local repo
 HELM_LOCAL_REPO=""
 if [ $IS_HELM3 ]
@@ -98,19 +100,29 @@ else
   HELM_LOCAL_REPO="${HELM_HOME}/repository/local/"
 fi
 
+
+rm $HELM_LOCAL_REPO/*
+
+helm repo remove local
+$ROOT_DIR/prepare-common-templates
+
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway"
 for component in $COMPONENTS; do
+    echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
     VERSION=$(cat $ROOT_DIR/../nonrtric/helm/$component/Chart.yaml | grep version | awk '{print $2}')
     helm package -d /tmp $ROOT_DIR/../nonrtric/helm/$component
     cp /tmp/$component-$VERSION.tgz ${HELM_LOCAL_REPO}
 done
 
+helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric
+
 helm repo index ${HELM_LOCAL_REPO}
 
 # Make sure that helm local repo is added
-helm repo remove local
-helm repo add local http://127.0.0.1:8879/charts
+helm repo add local http://127.0.0.1:8879/charts --force-update
 
 echo "Finished Packaging NONRTRIC components [$COMPONENTS]"
+
 
 $ROOT_DIR/../nonrtric/bin/install -f $OVERRIDEYAML

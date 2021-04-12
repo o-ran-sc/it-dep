@@ -43,7 +43,7 @@ spec:
       containers:
       - name: {{ include "common.container.policymanagementservice" . }}
         image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
-        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
+        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}           
         ports:
         - containerPort: {{ .Values.policymanagementservice.service.targetPort1 }}
           protocol: TCP
@@ -61,10 +61,12 @@ spec:
           initialDelaySeconds: {{ .Values.policymanagementservice.liveness.initialDelaySeconds }}
           periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
         volumeMounts:
+        - name: {{ include "common.name.policymanagementservice" . }}-vardata
+          mountPath: "/var/policy-management-service/database"
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           mountPath: /opt/app/policy-agent/config
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
-          mountPath: /opt/app/policy-agent/data
+          mountPath: /opt/app/policy-agent/data       
       volumes:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           configMap:
@@ -72,3 +74,6 @@ spec:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
           configMap:
             name: {{ include "common.name.policymanagementservice" . }}-configmap-data
+        - name: {{ include "common.name.policymanagementservice" . }}-vardata
+          persistentVolumeClaim:
+            claimName: {{ include "common.name.policymanagementservice" . }}-vardata-pvc

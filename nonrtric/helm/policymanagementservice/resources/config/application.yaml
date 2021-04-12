@@ -64,3 +64,5 @@ app:
     # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
     http.proxy-host:
     http.proxy-port: 0
+  # path where the service can store data
+  vardata-directory: /var/policy-management-service

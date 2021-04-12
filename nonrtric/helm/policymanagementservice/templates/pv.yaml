@@ -14,36 +14,25 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for Policy Management Service.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
-policymanagementservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-    name: nonrtric-policy-agent
-    tag: 2.2.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9080
-    targetPort1: 8081
-    httpsName: https
-    internalPort2: 9081
-    targetPort2: 8433
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  persistence:
-    volumeReclaimPolicy: Retain
-    accessMode: ReadWriteOnce
-    size: 2Gi
-    mountPath: /dockerdata-nfs
-    mountSubPath: nonrtric/policymanagementservice
-    storageClass: "manual"
-    enabled: true
-    #existingClaim:
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "common.name.policymanagementservice" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    name: {{ include "common.name.policymanagementservice" . }}
+spec:
+  capacity:
+    storage: {{ .Values.policymanagementservice.persistence.size}}
+  accessModes:
+    - {{ .Values.policymanagementservice.persistence.accessMode }}
+  persistentVolumeReclaimPolicy: {{ .Values.policymanagementservice.persistence.volumeReclaimPolicy }}
+  hostPath:
+    path: {{ .Values.policymanagementservice.persistence.mountPath }}/{{ .Values.policymanagementservice.persistence.mountSubPath }}
+  storageClassName: "{{ .Values.policymanagementservice.persistence.storageClass }}"
+

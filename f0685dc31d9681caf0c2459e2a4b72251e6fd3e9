@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "051a9efb_3d657ead",
+        "filename": "nonrtric/helm/policymanagementservice/values.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-04-13T14:12:58Z",
+      "side": 1,
+      "message": "We also need to add this here:\n[it/dep.git] / nonrtric / RECIPE_EXAMPLE / example_recipe.yaml\n\nThe script that performs complete nonrtric installation uses this recipe file.",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 50
+      },
+      "revId": "f0685dc31d9681caf0c2459e2a4b72251e6fd3e9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53",
+      "unresolved": true
+    }
+  ]
+}

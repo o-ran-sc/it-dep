@@ -15,13 +15,12 @@
 #   limitations under the License.
 #
 ##############################################################################
-
+i
 FROM ubuntu:18.04
-RUN apt-get update && apt-get -y install curl ca-certificates
-ARG GH=get_helm.sh
+RUN apt-get update && apt-get -y install curl ca-certificates wget
+ARG HELMVERSION=v2.17.0
 # often times out during LF jenkins build
-RUN curl --silent --show-error --connect-timeout 10 --retry 6 -L https://raw.githubusercontent.com/helm/helm/master/scripts/get -o ${GH}
-RUN bash ${GH}
+RUN wget https://get.helm.sh/helm-${HELMVERSION}-linux-amd64.tar.gz && tar -xvf ../helm-${HELMVERSION}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/helm
 RUN helm init -c --skip-repos
 ARG TGT=/tmp/it-dep
 COPY . $TGT

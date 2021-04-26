@@ -22,3 +22,7 @@
   {{- $name := ( include "common.name.nonrtricgateway" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "common.ingressClassName" -}}
+  {{- printf "kong" -}}
+{{- end -}}

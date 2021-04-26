@@ -23,6 +23,7 @@ common:
 # Change the namespaces using the following options
   namespace:
     nonrtric: nonrtric
+  ingressClassName: kong
 
 component: nonrtric
 

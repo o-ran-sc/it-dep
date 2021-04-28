@@ -14,51 +14,69 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.alarmadapter" -}}
-  {{- printf "alarmadapter" -}}
+{{- define "common.name.alarmmanager" -}}
+  {{- printf "alarmmanager" -}}
 {{- end -}}
 
-{{- define "common.fullname.alarmadapter" -}}
-  {{- $name := ( include "common.name.alarmadapter" . ) -}}
+{{- define "common.fullname.alarmmanager" -}}
+  {{- $name := ( include "common.name.alarmmanager" . ) -}}
   {{- $namespace := ( include "common.namespace.platform" . ) -}}
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.configmapname.alarmadapter" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.configmapname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.deploymentname.alarmadapter" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.deploymentname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.containername.alarmadapter" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.containername.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.serviceaccountname.alarmadapter" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.serviceaccountname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.ingressname.alarmadapter" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.ingressname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+{{- define "common.kongpath.ric.alarmmanager" -}}/alarmmanager{{- end -}}
 
-{{- define "common.servicename.alarmadapter.rmr" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.servicename.alarmmanager.rmr" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "service-%s-rmr" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.servicename.alarmadapter.http" -}}
-  {{- $name := ( include "common.fullname.alarmadapter" . ) -}}
+{{- define "common.servicename.alarmmanager.http" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.serviceport.alarmadapter.rmr.data" -}}4560{{- end -}}
-{{- define "common.serviceport.alarmadapter.rmr.route" -}}4561{{- end -}}
-{{- define "common.serviceport.alarmadapter.http" -}}8080{{- end -}}
+{{- define "common.servicename.alarmmanager.rest" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
+  {{- printf "service-%s-rest" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.pvname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
+  {{- printf "pv-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.pvcname.alarmmanager" -}}
+  {{- $name := ( include "common.fullname.alarmmanager" . ) -}}
+  {{- printf "pvc-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.serviceport.alarmmanager.rmr.data" -}}4560{{- end -}}
+{{- define "common.serviceport.alarmmanager.rmr.route" -}}4561{{- end -}}
+{{- define "common.serviceport.alarmmanager.http" -}}8080{{- end -}}
+{{- define "common.serviceport.alarmmanager.rest" -}}8088{{- end -}}
+

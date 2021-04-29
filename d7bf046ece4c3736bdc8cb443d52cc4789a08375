@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8816ae72_89b90888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2021-04-29T18:25:08Z",
+      "side": 1,
+      "message": "I have fixed the helm verification problem.\nThe verification failed because there is no common template definition for the ingress class.\nPlease see the error message.\n14:14:35 [ERROR] templates/: render error in \"enrichmentservice/templates/ingress.yaml\": template: enrichmentservice/templates/ingress.yaml:24:23: executing \"enrichmentservice/templates/ingress.yaml\" at \u003cinclude \"common.ingressClassName\" .\u003e: error calling include: template: no template \"common.ingressClassName\" associated with template \"gotpl\"\n\nPlease kindly fix this and we can further review this commit.",
+      "revId": "d7bf046ece4c3736bdc8cb443d52cc4789a08375",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71f006f_673883f4",
+        "filename": "nonrtric/helm/enrichmentservice/templates/ingress.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2021-04-29T18:25:08Z",
+      "side": 1,
+      "message": "Do we need a common template update to reflect this? So far nobody is consuming the .values.common.ingressClass?",
+      "range": {
+        "startLine": 24,
+        "startChar": 39,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "d7bf046ece4c3736bdc8cb443d52cc4789a08375",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

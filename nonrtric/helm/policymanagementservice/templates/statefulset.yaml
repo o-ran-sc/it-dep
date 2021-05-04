@@ -14,7 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: {{ include "common.name.policymanagementservice" . }}
@@ -28,6 +28,7 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
+  serviceName: {{ include "common.name.policymanagementservice" . }}
   replicas: 1
   selector:
     matchLabels:
@@ -62,11 +63,11 @@ spec:
           periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
-          mountPath: "/var/policy-management-service/database"
+          mountPath: "/var/policy-management-service"
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           mountPath: /opt/app/policy-agent/config
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
-          mountPath: /opt/app/policy-agent/data       
+          mountPath: /opt/app/policy-agent/data
       volumes:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           configMap:

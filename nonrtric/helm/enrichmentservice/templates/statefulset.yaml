@@ -14,7 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Deployment
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
   name: {{ include "common.name.enrichmentservice" . }}
@@ -28,6 +28,7 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
 spec:
+  serviceName: {{ include "common.name.enrichmentservice" . }}
   replicas: 1
   selector:
     matchLabels:
@@ -64,7 +65,7 @@ spec:
         - name: {{ include "common.name.enrichmentservice" . }}-enrichment-config
           mountPath: /opt/app/enrichment-coordinator-service/config
         - name: {{ include "common.name.enrichmentservice" . }}-ei-jobs-vol
-          mountPath: /var/enrichment-coordinator-service/database
+          mountPath: /var/enrichment-coordinator-service
       volumes:
         - name: {{ include "common.name.enrichmentservice" . }}-enrichment-config
           configMap:

@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,24 +14,28 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-kind: PersistentVolume
-apiVersion: v1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: {{ include "common.name.policymanagementservice" . }}
+  name: {{ include "common.name.enrichmentservice" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-    name: {{ include "common.name.policymanagementservice" . }}
+
 spec:
-  capacity:
-    storage: {{ .Values.policymanagementservice.persistence.size}}
-  accessModes:
-    - {{ .Values.policymanagementservice.persistence.accessMode }}
-  persistentVolumeReclaimPolicy: {{ .Values.policymanagementservice.persistence.volumeReclaimPolicy }}
-  hostPath:
-    path: {{ .Values.policymanagementservice.persistence.mountPath }}/{{ .Values.policymanagementservice.persistence.mountSubPath }}
-  storageClassName: "{{ .Values.policymanagementservice.persistence.storageClass }}"
+  ingressClassName: {{ include "common.ingressClassName" . }}
+  rules:
+    - http:
+        paths:
+          - path: "/ei-producer"
+            backend:
+              service:
+                name: {{ include "common.name.enrichmentservice" . }}
+                port: 
+                  number: {{ .Values.enrichmentservice.service.internalPort1 }}
+            pathType: Prefix
+            path: "/data-consumer"
+            backend:
+              service:
+                name: {{ include "common.name.enrichmentservice" . }}
+                port: 
+                  number: {{ .Values.enrichmentservice.service.internalPort1 }}
+            pathType: Prefix

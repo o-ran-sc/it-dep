@@ -25,7 +25,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: "/ei-producer"
+          - path: "/data-producer"
             backend:
               service:
                 name: {{ include "common.name.enrichmentservice" . }}

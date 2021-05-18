@@ -75,6 +75,12 @@ spec:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
           configMap:
             name: {{ include "common.name.policymanagementservice" . }}-configmap-data
-        - name: {{ include "common.name.policymanagementservice" . }}-vardata
-          persistentVolumeClaim:
-            claimName: {{ include "common.name.policymanagementservice" . }}-vardata-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "common.name.policymanagementservice" . }}-vardata
+      spec:
+        accessModes:
+          - {{ .Values.policymanagementservice.persistence.accessMode }}
+        resources:
+          requests:
+            storage: "{{ .Values.policymanagementservice.persistence.size }}"                        

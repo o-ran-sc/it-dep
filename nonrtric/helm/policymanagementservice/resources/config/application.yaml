@@ -35,8 +35,9 @@ logging:
     org.springframework: ERROR
     org.springframework.data: ERROR
     org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
-    org.onap.ccsdk.oran.a1policymanagementservice: INFO    
-  file: /var/log/policy-agent/application.log
+    org.onap.ccsdk.oran.a1policymanagementservice: INFO
+  file:
+    name: /var/log/policy-agent/application.log
 
 server:
    # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.

@@ -63,7 +63,7 @@ spec:
           periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
-          mountPath: "/var/policy-management-service"
+          mountPath: "/var/policy-management-service"      
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           mountPath: /opt/app/policy-agent/config
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
@@ -74,7 +74,14 @@ spec:
             name: {{ include "common.name.policymanagementservice" . }}-configmap-config
         - name: {{ include "common.name.policymanagementservice" . }}-policy-data
           configMap:
-            name: {{ include "common.name.policymanagementservice" . }}-configmap-data
-        - name: {{ include "common.name.policymanagementservice" . }}-vardata
-          persistentVolumeClaim:
-            claimName: {{ include "common.name.policymanagementservice" . }}-vardata-pvc
+            name: {{ include "common.name.policymanagementservice" . }}-configmap-data       
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "common.name.policymanagementservice" . }}-vardata
+      spec:
+        accessModes: 
+          - {{ .Values.policymanagementservice.persistence.accessMode }}    
+        resources:
+          requests:
+            storage: "{{ .Values.policymanagementservice.persistence.size }}"    
+                        

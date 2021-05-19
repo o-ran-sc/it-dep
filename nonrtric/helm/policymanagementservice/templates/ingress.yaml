@@ -1,3 +1,4 @@
+{{/*
 ################################################################################
 #   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
@@ -13,7 +14,9 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+*/}}
 
+{{- if .Values.policymanagementservice.ingress.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -32,3 +35,4 @@ spec:
                   number: {{ .Values.policymanagementservice.service.internalPort1 }}
             path: "/a1-policy"
             pathType: Prefix
+{{- end -}}

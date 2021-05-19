@@ -44,4 +44,5 @@ enrichmentservice:
     size: 2Gi
     mountPath: /dockerdata-nfs
     mountSubPath: nonrtric/enrichmentservice
-
+  ingress:
+    enabled: false

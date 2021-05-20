@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba63c4cd_a03355bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000046
+      },
+      "writtenOn": "2021-05-20T19:31:26Z",
+      "side": 1,
+      "message": "What\u0027s the assumption about the default storageclass here?\nWithout clearly specify one, this may create some confusions in a venilla K8S cluster.\n\nPreviously the PVs are using host storage. Is that something that we want the volumeClaimTemplates to use again here?\n\nDo you think there should be a storageclass definition here?\n",
+      "revId": "386a2c52cf05fa25ac857c2915334087fded41c9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

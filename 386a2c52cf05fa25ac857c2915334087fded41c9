@@ -16,6 +16,24 @@
       "message": "What\u0027s the assumption about the default storageclass here?\nWithout clearly specify one, this may create some confusions in a venilla K8S cluster.\n\nPreviously the PVs are using host storage. Is that something that we want the volumeClaimTemplates to use again here?\n\nDo you think there should be a storageclass definition here?\n",
       "revId": "386a2c52cf05fa25ac857c2915334087fded41c9",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "743f00a4_441bcfcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-05-21T08:21:34Z",
+      "side": 1,
+      "message": "The need for the two components is just a persistent file storage that survives a POD restart. From the component perspective, it does not matter if it is a host mounted volume or something else.\nI figured it would be simpler at this point that the components can share a default volume than each having their own.\nAs I understood it, ONAP is planning to go in that direction in the Jakarta release.\nAs we go along it might be that different components have different requirements on the storage, but then we could perhaps have a set of volumes with \"standardized\" storage classes that components can use.",
+      "parentUuid": "ba63c4cd_a03355bf",
+      "revId": "386a2c52cf05fa25ac857c2915334087fded41c9",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

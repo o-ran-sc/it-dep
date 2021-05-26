@@ -17,5 +17,34 @@
 
 # This script to undeploy the NONRTRIC
 
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-$ROOT_DIR/../nonrtric/bin/uninstall
+
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway"
+RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
+kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
+
+if [ ! -s /tmp/recipe.yaml ]; then
+    echo "NONRTRIC recipe is not found. Are you sure it's deployed successfully?"
+    exit 0
+fi
+
+COMMON_BLOCK=$(cat /tmp/recipe.yaml | awk '/^common:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
+NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
+NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
+RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+
+echo "Undeploying NONRTRIC components [$COMPONENTS]"
+
+IS_HELM3=$(helm version -c --short|grep -e "^v3")
+HELM_FLAG=''
+if [ $IS_HELM3 ]
+then
+  HELM_FLAG=' -n '${NONRTRIC_NAMESPACE:-nonrtric}
+else
+  HELM_FLAG='--purge'
+fi
+
+helm delete ${HELM_FLAG} ${RELEASE_PREFIX}
+
+kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
+
+kubectl delete ns ${NONRTRIC_NAMESPACE:-nonrtric}

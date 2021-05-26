@@ -15,4 +15,12 @@
 ################################################################################
 
 
-    
+
+nonrtric:
+  includePms: true
+  includeA1controller: true
+  includeA1simulator: true
+  includeControlpanel: true
+  includeEnrichmentservice: true
+  includeRappcatalogueservice: true
+  includeNonrtricgateway: true

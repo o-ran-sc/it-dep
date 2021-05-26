@@ -64,12 +64,23 @@ spec:
         volumeMounts:
         - name: {{ include "common.name.enrichmentservice" . }}-enrichment-config
           mountPath: /opt/app/enrichment-coordinator-service/config
-        - name: {{ include "common.name.enrichmentservice" . }}-ei-jobs-vol
+        - name: {{ include "common.name.enrichmentservice" . }}-vardata
           mountPath: /var/enrichment-coordinator-service
       volumes:
         - name: {{ include "common.name.enrichmentservice" . }}-enrichment-config
           configMap:
             name: {{ include "common.name.enrichmentservice" . }}-configmap
-        - name: {{ include "common.name.enrichmentservice" . }}-ei-jobs-vol
-          persistentVolumeClaim:
-            claimName: {{ include "common.name.enrichmentservice" . }}-pvc
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "common.name.enrichmentservice" . }}-vardata
+      spec:
+        accessModes: 
+          - {{ .Values.enrichmentservice.persistence.accessMode }}    
+        resources:
+          requests:
+            storage: "{{ .Values.enrichmentservice.persistence.size }}"    
+                                    
+            
+            
+            

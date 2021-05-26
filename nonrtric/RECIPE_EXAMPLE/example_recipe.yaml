@@ -24,6 +24,7 @@ common:
   namespace:
     nonrtric: nonrtric
   ingressClassName: kong
+  installKong: true
 # any nonrtric chart can be installed: nonrtric (all components), controlpanel, a1controller, a1simulator, policymanagementservice, 
 # enrichmentservice, rappcatalogueservice, nonrtricgateway
 component: nonrtric

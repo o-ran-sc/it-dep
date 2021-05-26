@@ -49,6 +49,17 @@ NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ 
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 PARENT_CHART=$(cat $OVERRIDEYAML | awk '/^ *component:/{print $2}')
+INSTALL_KONG=$(cat $OVERRIDEYAML | awk '/^  installKong:/{print $2}')
+echo "Chart name- $PARENT_CHART"
+echo "Install Kong- $INSTALL_KONG"
+
+if [ "$INSTALL_KONG" = true ];then
+   echo "Installing Kong"
+   helm repo add kong https://charts.konghq.com
+   helm repo update
+   helm install kong-nonrtric --namespace kong kong/kong --set ingressController.installCRDs=false --set admin.enabled=true
+fi
+
 echo "Chart name- $PARENT_CHART"
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then

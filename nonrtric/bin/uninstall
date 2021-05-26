@@ -29,6 +29,12 @@ COMMON_BLOCK=$(cat /tmp/recipe.yaml | awk '/^common:/{getline; while ($0 ~ /^ +.
 NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
+INSTALL_KONG=$(cat /tmp/recipe.yaml | awk '/^  installKong:/{print $2}')
+
+if [ "$INSTALL_KONG" = true ];then
+   echo "Uninstalling Kong"
+   helm delete kong-nonrtric --namespace kong
+fi
 
 echo "Undeploying NONRTRIC components [$COMPONENTS]"
 

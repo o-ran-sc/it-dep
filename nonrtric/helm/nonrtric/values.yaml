@@ -15,4 +15,12 @@
 ################################################################################
 
 
-    
+
+nonrtric:
+  installPms: true
+  installA1controller: true
+  installA1simulator: true
+  installControlpanel: true
+  installEnrichmentservice: true
+  installRappcatalogueservice: true
+  installNonrtricgateway: true

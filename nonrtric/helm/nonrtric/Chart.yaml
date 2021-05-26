@@ -18,3 +18,44 @@ apiVersion: v1
 description: NonRealTime RAN Intelligent Controller
 name: nonrtric
 version: 2.0.0
+
+dependencies:
+  - name: a1controller
+    version: ~2.0.0
+    repository: "@local"
+    condition: nonrtric.includeA1controller
+
+  - name: a1simulator
+    version: ~2.0.0
+    repository: "@local"
+    condition: nonrtric.includeA1simulator
+
+  - name: controlpanel
+    version: ~2.0.0
+    repository: "@local"
+    condition: nonrtric.includeControlpanel
+
+  - name: policymanagementservice
+    version: ~2.0.0
+    repository: "@local"
+    condition: nonrtric.includePms
+
+  - name: enrichmentservice
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.includeEnrichmentservice
+
+  - name: nonrtric-common
+    version: ^2.0.0
+    repository: "@local"
+    condition: true
+
+  - name: rappcatalogueservice
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.includeRappcatalogueservice
+
+  - name: nonrtricgateway
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.includeA1controller

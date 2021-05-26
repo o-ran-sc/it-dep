@@ -18,15 +18,24 @@
 # Global common setting
 #-------------------------------------------------------------------------
 
+
+# Here you can enable inclusion or exclusion of each component. A not included component will not be installed.
+nonrtric:
+  includePms: true
+  includeA1controller: false
+  includeA1simulator: false
+  includeControlpanel: false
+  includeEnrichmentservice: true
+  includeRappcatalogueservice: false
+  includeNonrtricgateway: false
+
 common:
   releasePrefix: r2-dev-nonrtric
 # Change the namespaces using the following options
   namespace:
     nonrtric: nonrtric
   ingressClassName: kong
-# any nonrtric chart can be installed: nonrtric (all components), controlpanel, a1controller, a1simulator, policymanagementservice, 
-# enrichmentservice, rappcatalogueservice, nonrtricgateway
-component: nonrtric
+
 
 # A1 Conttroller may take few more minutes to start. Increase the initialDelaySeconds in liveness to avoid container restart.
 a1controller:

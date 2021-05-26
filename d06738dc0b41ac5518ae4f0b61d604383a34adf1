@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fff5b640_9e78035f",
+        "filename": "nonrtric/helm/nonrtric/requirements.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-05-26T15:14:35Z",
+      "side": 1,
+      "message": "From Helm3 the requirements.yaml is deprecated. The Chart dependency management system moved from requirements.yaml to Chart.yaml",
+      "revId": "d06738dc0b41ac5518ae4f0b61d604383a34adf1",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

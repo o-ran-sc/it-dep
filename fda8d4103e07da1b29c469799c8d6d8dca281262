@@ -22,6 +22,30 @@
       },
       "revId": "fda8d4103e07da1b29c469799c8d6d8dca281262",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64208dc_71686dba",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-05-27T08:50:32Z",
+      "side": 1,
+      "message": "Yes.\nhttps://wiki.o-ran-sc.org/display/RICNR/Release+D\nhttps://github.com/Kong/charts/blob/main/charts/kong/README.md",
+      "parentUuid": "52061609_42ae5cab",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "fda8d4103e07da1b29c469799c8d6d8dca281262",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

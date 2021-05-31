@@ -39,6 +39,30 @@
       },
       "revId": "ad832473daeb2cd1f3ada1f84f28fda5e9c84753",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e804a53a_93de2ad7",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-05-31T11:15:30Z",
+      "side": 1,
+      "message": "Ideally this should be under global config but we can refactor that in next release",
+      "parentUuid": "2c313636_7dcab55d",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "ad832473daeb2cd1f3ada1f84f28fda5e9c84753",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

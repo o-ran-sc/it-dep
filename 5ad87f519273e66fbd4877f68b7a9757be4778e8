@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b668c4f1_75c24a27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000487
+      },
+      "writtenOn": "2021-06-03T11:04:42Z",
+      "side": 1,
+      "message": "updated _influxdb.tpl into the common templates for it/dep repo",
+      "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

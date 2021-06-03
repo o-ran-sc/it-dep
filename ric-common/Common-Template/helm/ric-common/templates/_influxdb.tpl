@@ -24,39 +24,28 @@
   {{- printf "%s-%s" $namespace $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-
-{{- define "common.deploymentname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "deployment-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- define "common.influxdb.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "common.configmapname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "configmap-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- define "common.influxdb.labels" -}}
+helm.sh/chart: {{ include "common.influxdb.chart" . }}
+{{ include "common.influxdb.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
-{{- define "common.containername.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- define "common.influxdb.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "common.name.influxdb" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
-
-{{- define "common.pvname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "pv-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{- define "common.pvcname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "pvc-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-
-{{- define "common.servicename.influxdb.http" -}}
+{{- define "common.influxdb.serviceAccountName" -}}
   {{- $name := ( include "common.fullname.influxdb" . ) -}}
   {{- printf "service-%s-http" $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-
 
 {{- define "common.serviceport.influxdb.http" -}}8086{{- end -}}
 {{- define "common.serviceport.influxdb.meta.bind_address" -}}8091{{- end -}}
@@ -66,15 +55,3 @@
 {{- define "common.serviceport.influxdb.udp.bind_address" -}}8089{{- end -}}
 {{- define "common.serviceport.influxdb.opentsdb.bind_address" -}}4242{{- end -}}
 {{- define "common.serviceport.influxdb.collectd.bind_address" -}}25826{{- end -}}
-
-
-{{- define "common.serviceaccountname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "svcacct-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-
-{{- define "common.ingressname.influxdb" -}}
-  {{- $name := ( include "common.fullname.influxdb" . ) -}}
-  {{- printf "ingress-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}

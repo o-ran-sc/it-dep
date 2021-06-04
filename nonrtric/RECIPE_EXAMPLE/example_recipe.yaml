@@ -24,17 +24,80 @@ nonrtric:
   installPms: true
   installA1controller: false
   installA1simulator: false
-  installControlpanel: false
+  installControlpanel: true
   installEnrichmentservice: true
   installRappcatalogueservice: false
-  installNonrtricgateway: false
-
+  installNonrtricgateway: true
+  volume1:
+    # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
+    size: 2Gi
+    storageClassName: pms-storage
+  volume2:  
+     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
+    size: 2Gi
+    storageClassName: ecs-storage
+         
 common:
-  releasePrefix: r2-dev-nonrtric
-# Change the namespaces using the following options
+  releasePrefix: r3-dev-nonrtric
+# Do not change the namespace
   namespace:
     nonrtric: nonrtric
-  ingressClassName: kong
+  ingressClassName: kong  
+
+enrichmentservice:
+  enrichmentservice:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      name: 'nonrtric-enrichment-coordinator-service'
+      tag: 1.1.0
+    service:
+      allowHttp: true
+      httpName: http
+      internalPort1: 9082
+      targetPort1: 8083
+      httpsName: https
+      internalPort2: 9083
+      targetPort2: 8434
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    persistence:
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same. 
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      size: 2Gi
+      storageClassName: ecs-storage
+
+# Need to check the external port Availability
+policymanagementservice:
+  policymanagementservice:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      name: nonrtric-policy-agent
+      tag: 2.2.0
+    service:
+      allowHttp: true
+      httpName: http
+      internalPort1: 9080
+      targetPort1: 8081
+      httpsName: https
+      internalPort2: 9081
+      targetPort2: 8433
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    persistence:
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same. 
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      size: 2Gi    
+      storageClassName: pms-storage
 
 
 # A1 Conttroller may take few more minutes to start. Increase the initialDelaySeconds in liveness to avoid container restart.
@@ -117,64 +180,6 @@ controlpanel:
     readiness:
       initialDelaySeconds: 20
       periodSeconds: 10
-
-# Need to check the external port Availability
-policymanagementservice:
-  policymanagementservice:
-    imagePullPolicy: IfNotPresent
-    image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: nonrtric-policy-agent
-      tag: 2.2.0
-    service:
-      allowHttp: true
-      httpName: http
-      internalPort1: 9080
-      targetPort1: 8081
-      httpsName: https
-      internalPort2: 9081
-      targetPort2: 8433
-    liveness:
-      initialDelaySeconds: 20
-      periodSeconds: 10
-    readiness:
-      initialDelaySeconds: 20
-      periodSeconds: 10
-    persistence:
-      volumeReclaimPolicy: Retain
-      accessMode: ReadWriteOnce
-      size: 2Gi
-      mountPath: /dockerdata-nfs
-      mountSubPath: nonrtric/policymanagementservice
-
-enrichmentservice:
-  enrichmentservice:
-    imagePullPolicy: IfNotPresent
-    image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: 'nonrtric-enrichment-coordinator-service'
-      tag: 1.1.0
-    service:
-      allowHttp: true
-      httpName: http
-      internalPort1: 9082
-      targetPort1: 8083
-      httpsName: https
-      internalPort2: 9083
-      targetPort2: 8434
-    liveness:
-      initialDelaySeconds: 20
-      periodSeconds: 10
-    readiness:
-      initialDelaySeconds: 20
-      periodSeconds: 10
-    persistence:
-      enabled: true
-      volumeReclaimPolicy: Retain
-      accessMode: ReadWriteOnce
-      size: 2Gi
-      mountPath: /dockerdata-nfs
-      mountSubPath: nonrtric/enrichmentservice
 
 rappcatalogueservice:
   rappcatalogueservice:

@@ -14,8 +14,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-
 nonrtric:
   installPms: true
   installA1controller: true
@@ -24,3 +22,9 @@ nonrtric:
   installEnrichmentservice: true
   installRappcatalogueservice: true
   installNonrtricgateway: true
+  volume1:
+    size: 1Gi
+    storageClassName: volume1
+  volume2:
+    size: 1Gi
+    storageClassName: volume2

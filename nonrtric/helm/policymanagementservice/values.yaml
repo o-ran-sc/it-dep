@@ -21,7 +21,7 @@
 policymanagementservice:
   imagePullPolicy: IfNotPresent
   image:
-    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
     name: nonrtric-policy-agent
     tag: 2.2.0
   service:
@@ -39,11 +39,5 @@ policymanagementservice:
     initialDelaySeconds: 20
     periodSeconds: 10
   persistence:
-    volumeReclaimPolicy: Retain
-    accessMode: ReadWriteOnce
     size: 2Gi
-    mountPath: /dockerdata-nfs
-    mountSubPath: nonrtric/policymanagementservice
-    storageClass: "manual"
-    enabled: true
-    #existingClaim:
+    storageClassName: standard

@@ -75,12 +75,8 @@ spec:
     - metadata:
         name: {{ include "common.name.enrichmentservice" . }}-vardata
       spec:
-        accessModes: 
-          - {{ .Values.enrichmentservice.persistence.accessMode }}    
+        accessModes: [ ReadWriteOnce ]
+        storageClassName: "{{ .Values.enrichmentservice.persistence.storageClassName }}"
         resources:
           requests:
-            storage: "{{ .Values.enrichmentservice.persistence.size }}"    
-                                    
-            
-            
-            
+            storage: "{{ .Values.enrichmentservice.persistence.size }}"         

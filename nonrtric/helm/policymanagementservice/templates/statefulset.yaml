@@ -80,7 +80,8 @@ spec:
         name: {{ include "common.name.policymanagementservice" . }}-vardata
       spec:
         accessModes:
-          - {{ .Values.policymanagementservice.persistence.accessMode }}
+          - ReadWriteOnce
+        storageClassName: "{{ .Values.policymanagementservice.persistence.storageClassName }}"
         resources:
           requests:
-            storage: "{{ .Values.policymanagementservice.persistence.size }}"                        
+            storage: "{{ .Values.policymanagementservice.persistence.size }}"

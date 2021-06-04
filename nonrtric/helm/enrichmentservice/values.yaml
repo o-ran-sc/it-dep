@@ -21,8 +21,8 @@
 enrichmentservice:
   imagePullPolicy: IfNotPresent
   image:
-    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-    name: 'nonrtric-enrichment-coordinator-service'
+    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+    name: "nonrtric-enrichment-coordinator-service"
     tag: 1.1.0
   service:
     allowHttp: true
@@ -39,10 +39,7 @@ enrichmentservice:
     initialDelaySeconds: 20
     periodSeconds: 10
   persistence:
-    volumeReclaimPolicy: Retain
-    accessMode: ReadWriteOnce
     size: 2Gi
-    mountPath: /dockerdata-nfs
-    mountSubPath: nonrtric/enrichmentservice
+    storageClassName: standard
   ingress:
     enabled: false

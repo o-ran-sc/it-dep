@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de57dc16_cb9af519",
+        "filename": "nonrtric/helm/controlpanel/resources/nginx.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000261
+      },
+      "writtenOn": "2021-06-08T14:31:08Z",
+      "side": 1,
+      "message": "Needed?",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "e0066f06bc42f38d50168f9d744f9c12bf551781",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bded0a01_42ab1f27",
+        "filename": "nonrtric/helm/nonrtricgateway/resources/config/application.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000261
+      },
+      "writtenOn": "2021-06-08T14:31:08Z",
+      "side": 1,
+      "message": "Needed?",
+      "range": {
+        "startLine": 36,
+        "startChar": 33,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "e0066f06bc42f38d50168f9d744f9c12bf551781",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

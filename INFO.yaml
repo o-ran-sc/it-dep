@@ -44,6 +44,11 @@ committers:
       company: 'AT&T Labs-Research'
       id: 'multics'
       timezone: 'America/New_York'
+    - name: 'Thoralf Czichy'
+      email: 'thoralf.czichy@nokia.com'
+      company: 'Nokia'
+      id: 'czichy'
+      timezone: 'Europe/Helsinki'
     - name: 'Chris Lott'
       email: 'clott@research.att.com'
       company: 'AT&T Labs-Research'
@@ -52,3 +57,7 @@ committers:
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/display/TOC#O-RANSCTechnicalOversightCommittee(TOC)-20190821'
+    changes:
+        - type: 'promotion'
+          name: 'Thoralf Czichy'
+          link: 'https://lists.o-ran-sc.org/g/toc/message/427'

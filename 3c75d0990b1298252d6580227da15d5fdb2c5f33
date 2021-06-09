@@ -35,6 +35,23 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d4532b_563188ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-06-09T18:18:51Z",
+      "side": 1,
+      "message": "As suggested by John (and I did not realize giving a comment was onerous on everyone who has already committed), will update the company affiliation separately.",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f62133d_1c0f9d62",

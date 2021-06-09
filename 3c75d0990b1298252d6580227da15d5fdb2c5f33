@@ -16,6 +16,23 @@
       "message": "Added other interested PTLs and committers. \nSee https://lists.o-ran-sc.org/g/toc/topic/ap_from_toc_add_ptls_as/83099800 \n\nNote: I think we need a separate review to remove Lusheng \u0026 Chris - they have both left AT\u0026T \u0026 OSC several months ago.  ",
       "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8481eff6_4c670644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000124
+      },
+      "writtenOn": "2021-06-09T10:20:16Z",
+      "side": 1,
+      "message": "Thanks, John!",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

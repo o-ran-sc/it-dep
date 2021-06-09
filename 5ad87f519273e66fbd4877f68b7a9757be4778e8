@@ -16,6 +16,23 @@
       "message": "updated _influxdb.tpl into the common templates for it/dep repo",
       "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f75f278_109b9397",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000487
+      },
+      "writtenOn": "2021-06-09T13:54:22Z",
+      "side": 1,
+      "message": "Issue-ID: RICAPP-169 - Inclusion of InfluxDB helm chart for KPIMON, AD, TS, QP xApps\n\nupdated _influxdb.tpl into the common templates for it/dep repo\n\nSigned-off-by: Chandru \u003cchandrasekaran-r@hcl.com\u003e\nChange-Id: I396236007a63e783226ec3fe16a179cda934ef43",
+      "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

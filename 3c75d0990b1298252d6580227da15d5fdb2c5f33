@@ -33,6 +33,23 @@
       "message": "Thanks, John!",
       "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f62133d_1c0f9d62",
+        "filename": "INFO.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-06-09T12:39:36Z",
+      "side": 1,
+      "message": "The company name can be updated to Juniper.",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -58,4 +58,4 @@ dependencies:
   - name: nonrtricgateway
     version: ~1.0.0
     repository: "@local"
-    condition: nonrtric.installA1controller
+    condition: nonrtric.installNonrtricgateway

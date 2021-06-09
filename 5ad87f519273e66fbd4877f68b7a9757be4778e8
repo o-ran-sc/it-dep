@@ -33,6 +33,40 @@
       "message": "Issue-ID: RICAPP-169 - Inclusion of InfluxDB helm chart for KPIMON, AD, TS, QP xApps\n\nupdated _influxdb.tpl into the common templates for it/dep repo\n\nSigned-off-by: Chandru \u003cchandrasekaran-r@hcl.com\u003e\nChange-Id: I396236007a63e783226ec3fe16a179cda934ef43",
       "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c3497bb_5a5fd4d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-06-09T14:10:54Z",
+      "side": 1,
+      "message": "See the below question — I don\u0027t object to this merging if somebody more clued than me feels it should, but it seems like this diverges from how names are constructed for other RIC components.  Why?",
+      "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3246e982_e69cc25e",
+        "filename": "ric-common/Common-Template/helm/ric-common/templates/_influxdb.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-06-09T14:10:54Z",
+      "side": 1,
+      "message": "Naive question: shouldn\u0027t this come from the configuration (as it did in the deleted lines)?  Why is it static now?",
+      "revId": "5ad87f519273e66fbd4877f68b7a9757be4778e8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

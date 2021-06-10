@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b37e057d_ce95b72f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000487
+      },
+      "writtenOn": "2021-06-10T12:19:49Z",
+      "side": 1,
+      "message": "Hi Dave,\n\nI have done the changes as per your review comments and tested it locally. \n\nThanks,\nChandrasekaran R.",
+      "revId": "a3634176a69d82a584dc95f511bb06510a1568bb",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

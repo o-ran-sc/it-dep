@@ -52,6 +52,41 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bd3b2f9_c2d94480",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-11T09:28:21Z",
+      "side": 1,
+      "message": "Will update in next commit. Thanks.",
+      "parentUuid": "41d4532b_563188ab",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "883db217_fce45e61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-11T09:28:21Z",
+      "side": 1,
+      "message": "@Felix ... If you are happy please +2 this change. \nThanks. ",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f62133d_1c0f9d62",
@@ -83,6 +118,24 @@
       "side": 1,
       "message": "Can I suggest we progress the commit as it is now initially? \nIf we change it now we will loose the +1s already received and will need to re-canvass with more delays :-( \nPerhaps, once merged, you could propose the change in a separate follow on commit?\nWhichever you prefer ....",
       "parentUuid": "2f62133d_1c0f9d62",
+      "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eec2a457_82aa1dde",
+        "filename": "INFO.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-11T09:28:21Z",
+      "side": 1,
+      "message": "Will update in next commit. Thanks.",
+      "parentUuid": "5cfd199c_e4a48d9c",
       "revId": "3c75d0990b1298252d6580227da15d5fdb2c5f33",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

@@ -16,6 +16,24 @@
       "message": "The recipe works. However, the gateconfig is wrong but fixed in another commit.",
       "revId": "56dedd7ec54486278dc3af5efb31df444edbd3da",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ec6fb58_e622c164",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-06-15T14:01:24Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "32b6a854_342cf187",
+      "revId": "56dedd7ec54486278dc3af5efb31df444edbd3da",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -47,3 +47,5 @@ policymanagementservice:
     storageClass: "manual"
     enabled: true
     #existingClaim:
+  ingress:
+    enabled: false

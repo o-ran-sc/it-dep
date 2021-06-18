@@ -146,6 +146,8 @@ policymanagementservice:
       size: 2Gi
       mountPath: /dockerdata-nfs
       mountSubPath: nonrtric/policymanagementservice
+    ingress:
+      enabled: false
 
 enrichmentservice:
   enrichmentservice:
@@ -175,6 +177,8 @@ enrichmentservice:
       size: 2Gi
       mountPath: /dockerdata-nfs
       mountSubPath: nonrtric/enrichmentservice
+    ingress:
+      enabled: false
 
 rappcatalogueservice:
   rappcatalogueservice:

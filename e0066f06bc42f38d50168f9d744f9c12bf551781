@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda36aae_b280b8c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-18T15:02:34Z",
+      "side": 1,
+      "message": "recheck\n",
+      "revId": "e0066f06bc42f38d50168f9d744f9c12bf551781",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de57dc16_cb9af519",
@@ -14,6 +31,30 @@
       "writtenOn": "2021-06-08T14:31:08Z",
       "side": 1,
       "message": "Needed?",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "e0066f06bc42f38d50168f9d744f9c12bf551781",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb8d3e1_4c66850f",
+        "filename": "nonrtric/helm/controlpanel/resources/nginx.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-18T15:02:34Z",
+      "side": 1,
+      "message": "See comment in application.yaml",
+      "parentUuid": "de57dc16_cb9af519",
       "range": {
         "startLine": 21,
         "startChar": 18,

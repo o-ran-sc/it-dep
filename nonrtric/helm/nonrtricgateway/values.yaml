@@ -23,7 +23,7 @@ nonrtricgateway:
   image:
     registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
     name: nonrtric-gateway
-    tag: 0.0.1
+    tag: 1.0.0
   service:
     httpName: http
     internalPort1: 9090

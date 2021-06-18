@@ -33,7 +33,7 @@ spring:
       - id: A1-EI
         uri: https://enrichmentservice:9083
         predicates:
-        - Path=/ei-producer/**
+        - Path=/data-producer/**,/data-consumer/**
 management:
   endpoint:
     gateway:

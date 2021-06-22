@@ -22,6 +22,30 @@
       },
       "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce681aaf_80d50bdc",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-06-22T08:49:05Z",
+      "side": 1,
+      "message": "Did you get below warning message?\n\"kong\" already exists with the same configuration, skipping\nI think its ok, it just indicates that the repo already added.",
+      "parentUuid": "abe5dfd5_c406cca1",
+      "range": {
+        "startLine": 147,
+        "startChar": 3,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

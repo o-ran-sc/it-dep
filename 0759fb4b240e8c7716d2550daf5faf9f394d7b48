@@ -118,6 +118,30 @@
       },
       "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71d4b4e_92dc09f1",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000112
+      },
+      "writtenOn": "2021-06-22T15:04:55Z",
+      "side": 1,
+      "message": "I think there is a misunderstanding here.\nhelm repo add kong https://charts.konghq.com --\u003e will add the kong chart registry to the local helm repo. (This will not pull the chart)\nhelm repo update --\u003e will fetch the latest chart of all the repo\u0027s of the local helm.\nIf we need to control the kong version then it should be set in image.tag. Current version is 2.4.\n-force-update is forcing our helm repo to add the registry again which is not necessary as it already exist.",
+      "parentUuid": "02cd7336_f4493cc6",
+      "range": {
+        "startLine": 147,
+        "startChar": 3,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

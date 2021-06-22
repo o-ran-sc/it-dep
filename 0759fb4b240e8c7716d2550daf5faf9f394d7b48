@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abe5dfd5_c406cca1",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-06-22T07:33:32Z",
+      "side": 1,
+      "message": "If you add --force-update we do not get a warning (that is not helpful).",
+      "range": {
+        "startLine": 147,
+        "startChar": 3,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

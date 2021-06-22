@@ -142,6 +142,30 @@
       },
       "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a643b07d_9556eb2a",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-06-22T15:33:34Z",
+      "side": 1,
+      "message": "There is no misunderstanding about the initial comment about an unwanted warning, which the flag will solve.",
+      "parentUuid": "f71d4b4e_92dc09f1",
+      "range": {
+        "startLine": 147,
+        "startChar": 3,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

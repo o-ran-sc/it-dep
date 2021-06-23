@@ -166,6 +166,30 @@
       },
       "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d16fb3b0_176cc888",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-06-23T14:36:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a643b07d_9556eb2a",
+      "range": {
+        "startLine": 147,
+        "startChar": 3,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "0759fb4b240e8c7716d2550daf5faf9f394d7b48",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

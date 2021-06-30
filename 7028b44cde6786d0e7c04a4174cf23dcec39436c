@@ -22,6 +22,30 @@
       },
       "revId": "7028b44cde6786d0e7c04a4174cf23dcec39436c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d501e7cc_2fee292e",
+        "filename": "tools/k8s/etc/infra.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000108
+      },
+      "writtenOn": "2021-06-30T06:14:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f270710_b8fad458",
+      "range": {
+        "startLine": 6,
+        "startChar": 13,
+        "endLine": 6,
+        "endChar": 28
+      },
+      "revId": "7028b44cde6786d0e7c04a4174cf23dcec39436c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0345b50f_21301bbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000487
+      },
+      "writtenOn": "2021-07-02T14:01:25Z",
+      "side": 1,
+      "message": "I have added the instructions into it/dep/docs/ric/installation-k8s1node.rst for influxdb. Please review and merge the change.",
+      "revId": "8c7243820f26ac843fee871c41015086d8fb6ba2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

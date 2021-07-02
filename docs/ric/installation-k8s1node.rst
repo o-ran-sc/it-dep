@@ -89,3 +89,15 @@ with the kubectl command the VM should display information similar to below:
   kube-system   kube-proxy-867v5                       1/1     Running      0         103m
   kube-system   kube-scheduler-ljitest                 1/1     Running      0         102m
   kube-system   tiller-deploy-68bf6dff8f-6pwvc         1/1     Running      0         102m
+
+**Onetime setup for Influxdb**
+
+Once Kubernetes setup is done, we have to create PersistentVolume through the storage class for the influxdb database.
+The following one time process should be followed before deploying the influxdb in ricplt namespace.
+
+::
+
+  % kubectl create ns devops
+  % helm install stable/nfs-server-provisioner --namespace devops --name nfs-release-1
+  % kubectl patch storageclass nfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+  % sudo apt install nfs-common

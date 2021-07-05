@@ -16,6 +16,46 @@
       "message": "I have added the instructions into it/dep/docs/ric/installation-k8s1node.rst for influxdb. Please review and merge the change.",
       "revId": "8c7243820f26ac843fee871c41015086d8fb6ba2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4ad3c99_bcd0d346",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000108
+      },
+      "writtenOn": "2021-07-05T05:44:24Z",
+      "side": 1,
+      "message": "feel free to ignore my comment, if you think new namespace is better.",
+      "revId": "8c7243820f26ac843fee871c41015086d8fb6ba2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c9ab07c_f71f64ff",
+        "filename": "docs/ric/installation-k8s1node.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000108
+      },
+      "writtenOn": "2021-07-05T05:44:24Z",
+      "side": 1,
+      "message": "there\u0027s the existing namespace \"ricinfra\" created by ric-dep\u0027s bin/install. Maybe you could use that one here. Also note that in ric-dep it has the \"already exist\" logic:\n\n  if ! kubectl get ns ricinfra \u003e/dev/null 2\u003e\u00261; then kubectl create ns ricinfra; fi\n\nAnother option is to just explain this in teh instructions: I.e., have the user use the command to check if namespace exist, and then create it only if it does not exist.",
+      "range": {
+        "startLine": 100,
+        "startChar": 22,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "8c7243820f26ac843fee871c41015086d8fb6ba2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

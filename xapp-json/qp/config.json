@@ -1,0 +1,41 @@
+{
+    "xapp_name": "qp",
+    "version": "0.0.2",
+    "containers": [
+        {
+            "name": "qp",
+            "image": {
+                "registry": "nexus3.o-ran-sc.org:10002",
+                "name": "o-ran-sc/ric-app-qp",
+                "tag": "0.0.3"
+            }
+        }
+    ],
+    "messaging": {
+        "ports": [
+            {
+                "name": "rmr-data",
+                "container": "qp",
+                "port": 4560,
+                "rxMessages": ["TS_QOE_PRED_REQ"],
+                "txMessages": ["TS_QOE_PREDICTION"],
+                "policies": [],
+                "description": "rmr receive data port for qp"
+            },
+            {
+                "name": "rmr-route",
+                "container": "qp",
+                "port": 4561,
+                "description": "rmr route port for qp"
+            }
+        ]
+    },
+    "rmr": {
+        "protPort": "tcp:4560",
+        "maxSize": 2072,
+        "numWorkers": 1,
+        "rxMessages": ["TS_QOE_PRED_REQ"],
+        "txMessages": ["TS_QOE_PREDICTION"],
+        "policies": []
+    }
+}

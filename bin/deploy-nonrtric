@@ -56,8 +56,16 @@ echo "** $ROOT_DIR"
 rm $ROOT_DIR/../nonrtric/helm/*/charts/*.tgz
 
 
-#Check for helm3
-IS_HELM3=$(helm version -c --short|grep -e "^v3")
+#Check for helm version
+HELM_VERSION=$(helm version -c --short)
+IS_HELM3=$(echo $HELM_VERSION | grep -e "^v3")
+HELM_NUMBER=$(echo $HELM_VERSION | awk '{gsub(/\./,"",$1); print substr($1,2,3)}')
+
+HELM_FORCE=""
+if [[ HELM_NUMBER -ge 332  ]]
+then
+  HELM_FORCE="--force-update"
+fi
 
 if [ $IS_HELM3 ]
 then
@@ -120,7 +128,7 @@ helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric
 helm repo index ${HELM_LOCAL_REPO}
 
 # Make sure that helm local repo is added
-helm repo add local http://127.0.0.1:8879/charts --force-update
+helm repo add local http://127.0.0.1:8879/charts ${HELM_FORCE}
 
 echo "Finished Packaging NONRTRIC components [$COMPONENTS]"
 
@@ -144,7 +152,7 @@ echo "Install Kong- $INSTALL_KONG"
 
 if [ "$INSTALL_KONG" = true ];then
    echo "Installing Kong"
-   helm repo add kong https://charts.konghq.com --force-update
+   helm repo add kong https://charts.konghq.com ${HELM_FORCE}
    helm repo update
    helm install kong-nonrtric --namespace ${NONRTRIC_NAMESPACE:-nonrtric} kong/kong --set ingressController.installCRDs=false --set admin.enabled=true
 fi

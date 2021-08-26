@@ -35,7 +35,7 @@ spec:
                 port:
                   number: {{ .Values.enrichmentservice.service.internalPort1 }}
             pathType: Prefix
-            path: "/data-consumer"
+          - path: "/data-consumer"
             backend:
               service:
                 name: {{ include "common.name.enrichmentservice" . }}

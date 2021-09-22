@@ -19,7 +19,7 @@
 #-------------------------------------------------------------------------
 
 
-# Here you can enable inclusion or exclusion of each component. A not installd component will not be installed.
+# Here you can enable inclusion or exclusion of each component. A not installed component will not be installed.
 nonrtric:
   installPms: true
   installA1controller: false
@@ -29,28 +29,33 @@ nonrtric:
   installRappcatalogueservice: false
   installNonrtricgateway: true
   installKong: false
+  installDmaapAdapterservice: true
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
     storageClassName: pms-storage
-  volume2:  
+  volume2:
      # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
     storageClassName: ecs-storage
-         
+  volume3:
+     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
+    size: 2Gi
+    storageClassName: dmaapadpt-storage
+
 common:
   releasePrefix: r3-dev-nonrtric
 # Do not change the namespace
   namespace:
     nonrtric: nonrtric
-  ingressClassName: kong 
+  ingressClassName: kong
 enrichmentservice:
   enrichmentservice:
     imagePullPolicy: IfNotPresent
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: 'nonrtric-enrichment-coordinator-service'
-      tag: 1.1.0
+      tag: 1.2.0
     service:
       allowHttp: true
       httpName: http
@@ -225,3 +230,30 @@ nonrtricgateway:
     readiness:
       initialDelaySeconds: 20
       periodSeconds: 10
+
+dmaapadapterservice:
+  dmaapadapterservice:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      name: 'nonrtric-dmaap-adaptor'
+      tag: 1.0.0
+    service:
+      allowHttp: true
+      httpName: http
+      internalPort1: 9087
+      targetPort1: 8084
+      httpsName: https
+      internalPort2: 9088
+      targetPort2: 8435
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    persistence:
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      size: 2Gi
+      storageClassName: dmaapadpt-storage

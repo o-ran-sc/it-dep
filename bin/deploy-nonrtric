@@ -106,7 +106,7 @@ rm $HELM_LOCAL_REPO/*
 helm repo remove local
 $ROOT_DIR/prepare-common-templates
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway"
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice enrichmentservice rappcatalogueservice nonrtricgateway dmaapadapterservice"
 for component in $COMPONENTS; do
     echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component

@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,32 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for Enrichment Coordinate Service.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+{{- define "common.name.dmaapadapterservice" -}}
+  {{- printf "dmaapadapterservice" -}}
+{{- end -}}
 
-enrichmentservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-    name: "nonrtric-enrichment-coordinator-service"
-    tag: 1.2.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9082
-    targetPort1: 8083
-    httpsName: https
-    internalPort2: 9083
-    targetPort2: 8434
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  persistence:
-    size: 2Gi
-    storageClassName: standard
-  ingress:
-    enabled: false
+{{- define "common.container.dmaapadapterservice" -}}
+  {{- $name := ( include "common.name.dmaapadapterservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

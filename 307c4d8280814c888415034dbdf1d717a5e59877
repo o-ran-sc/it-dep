@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5368f342_a75ddb1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Since I saw the vardata-directory in application.yaml, so I thought that persistence is needed. But anyways, I have removed it now.",
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d59fabba_6b99e989",
@@ -18,6 +35,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f3ad889_d8cc1853",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d59fabba_6b99e989",
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6492112_4fd16da9",
@@ -31,6 +66,30 @@
       "writtenOn": "2021-09-23T10:26:02Z",
       "side": 1,
       "message": "not needed.",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 259,
+        "endChar": 41
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4188dac_f7407eb8",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6492112_4fd16da9",
       "range": {
         "startLine": 255,
         "startChar": 4,
@@ -64,6 +123,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ff764d6_09ab0cbe",
+        "filename": "nonrtric/helm/dmaapadapterservice/resources/config/application.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ff62adf_d2fe7419",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 47
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84e72411_1f69e36d",
@@ -77,6 +160,30 @@
       "writtenOn": "2021-09-23T10:26:02Z",
       "side": 1,
       "message": "Actually there is no need for any persistent volume. \nMaybe we should insert that first when needed.",
+      "range": {
+        "startLine": 63,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9527d7_86c66f9d",
+        "filename": "nonrtric/helm/dmaapadapterservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84e72411_1f69e36d",
       "range": {
         "startLine": 63,
         "startChar": 1,
@@ -122,6 +229,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a37247_e8060407",
+        "filename": "nonrtric/helm/dmaapadapterservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf35eff_9ee30567",
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "322d5c01_3d9337e3",
@@ -145,6 +270,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd20a9fc_22764591",
+        "filename": "nonrtric/helm/nonrtric/templates/pv3.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "322d5c01_3d9337e3",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2a6943d_5eb41a6a",
@@ -158,6 +307,30 @@
       "writtenOn": "2021-09-23T10:26:02Z",
       "side": 1,
       "message": "Not needed.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53772c8e_68ac3aff",
+        "filename": "nonrtric/helm/nonrtric/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000128
+      },
+      "writtenOn": "2021-09-23T12:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2a6943d_5eb41a6a",
       "range": {
         "startLine": 32,
         "startChar": 2,

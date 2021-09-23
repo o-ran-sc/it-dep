@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d59fabba_6b99e989",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "Not needed.",
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6492112_4fd16da9",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "not needed.",
+      "range": {
+        "startLine": 255,
+        "startChar": 4,
+        "endLine": 259,
+        "endChar": 41
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ff62adf_d2fe7419",
+        "filename": "nonrtric/helm/dmaapadapterservice/resources/config/application.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "This is not needed. I will remove it from the source code repo.",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 47
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e72411_1f69e36d",
+        "filename": "nonrtric/helm/dmaapadapterservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "Actually there is no need for any persistent volume. \nMaybe we should insert that first when needed.",
+      "range": {
+        "startLine": 63,
+        "startChar": 1,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33bfc04f_da2686e8",
+        "filename": "nonrtric/helm/dmaapadapterservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "Not needed, I think.",
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322d5c01_3d9337e3",
+        "filename": "nonrtric/helm/nonrtric/templates/pv3.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2a6943d_5eb41a6a",
+        "filename": "nonrtric/helm/nonrtric/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-09-23T10:26:02Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "307c4d8280814c888415034dbdf1d717a5e59877",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

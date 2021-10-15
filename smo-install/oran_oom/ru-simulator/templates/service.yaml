@@ -1,0 +1,20 @@
+{{ range $i, $ru := .Values.rus }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ $ru.name }}"
+  labels:
+    sim-name: {{ $ru.name }}
+    release: {{ $.Release.Name }}
+    chart: {{ $.Chart.Name }}
+spec:
+  type: {{ $.Values.service.type }}
+  ports:
+    - port: {{ $.Values.service.ports.port }}
+  selector:
+    sim-name: {{ $ru.name }}
+    release: {{ $.Release.Name }}
+    chart: {{ $.Chart.Name }}
+
+{{ end }}

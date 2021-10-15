@@ -1,0 +1,8 @@
+{
+{{ $simsSize := (len .Values.simulators) }}
+{{ range $i, $sim := .Values.simulators }}
+    "{{$sim.simRu}}": "{{$sim.simDu}}"
+    {{ if lt (add1 $i) $simsSize }},{{ end }}
+{{ end }}
+}
+

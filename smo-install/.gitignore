@@ -1,0 +1,24 @@
+requirements.lock
+**/charts/*.tgz
+*.orig
+
+# Eclipse
+.classpath
+.factorypath
+.project
+.pydevproject
+.settings/
+
+# IntelliJ
+.idea/*
+*.iml
+
+# Mac OS
+*DS_Store*
+
+# dist
+dist
+
+# chartmuseum
+**/chartstorage/
+**/chartmuseum/

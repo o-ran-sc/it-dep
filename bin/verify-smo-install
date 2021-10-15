@@ -1,6 +1,8 @@
+#!/bin/bash
+
 ##############################################################################
 #
-#   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (c) 2021 AT&T Intellectual Property.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,14 +17,11 @@
 #   limitations under the License.
 #
 ##############################################################################
-FROM ubuntu:18.04
-RUN apt-get update && apt-get -y install curl ca-certificates wget
-ARG HELMVERSION=v2.17.0
-# often times out during LF jenkins build
-RUN wget https://get.helm.sh/helm-${HELMVERSION}-linux-amd64.tar.gz && tar -xvf ../helm-${HELMVERSION}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/helm
-RUN helm init -c --skip-repos
-ARG TGT=/tmp/it-dep
-COPY . $TGT
-# Remove the smo-install as this one will be verified in another verify job
-RUN rm -rf $TGT/smo-install
-RUN $TGT/bin/verify-ric-charts
+IT_DEP_FOLDER=/tmp/it-dep/smo-install
+
+set -x
+
+$IT_DEP_FOLDER/scripts/layer-0/0-setup-charts-museum.sh
+$IT_DEP_FOLDER/scripts/layer-0/0-setup-helm3.sh
+
+$IT_DEP_FOLDER/scripts/sub-scripts/build-oran.sh

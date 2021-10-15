@@ -1,3 +1,9 @@
 [submodule "ric-dep"]
 	path = ric-dep
 	url = https://gerrit.o-ran-sc.org/r/ric-plt/ric-dep
+[submodule "smo-install/onap_oom"]
+	path = smo-install/onap_oom
+	url = https://gerrit.onap.org/r/oom
+[submodule "smo-install/multicloud-k8s"]
+	path = smo-install/multicloud-k8s
+	url = https://github.com/onap/multicloud-k8s.git

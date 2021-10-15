@@ -1,0 +1,73 @@
+{{- range $i, $ru := .Values.rus }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $ru.name }}
+  labels:
+    sim-name: {{ $ru.name }}
+    release: {{ $.Release.Name }}
+    chart: {{ $.Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sim-name: {{ $ru.name }}
+  template:
+    metadata:
+      labels:
+        sim-name: {{ $ru.name }}
+        release: {{ $.Release.Name }}
+        chart: {{ $.Chart.Name }}
+      annotations:
+        checksum/config: {{ print $ru | sha256sum }}
+    spec:
+      hostname: "{{ $ru.name }}"
+      containers:
+        - name: {{ $.Chart.Name }}
+          image: "{{ $.Values.image.repository }}/{{ $.Values.image.name}}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          tty: true
+          stdin: true
+          envFrom:
+            - configMapRef:
+                name: {{ $ru.name }}-configmapenv
+          volumeMounts:
+            - name: {{ $ru.name }}-config-volume
+              subPath: config.json
+              mountPath: /opt/dev/ntsim-ng/config/config.json
+            - name: {{ $ru.name }}-config-volume
+              subPath: ietf-hardware-operational.json
+              mountPath: /opt/dev/deploy/data/ietf-hardware-operational.json
+            - name: {{ $ru.name }}-config-volume
+              subPath: ietf-hardware-running.json
+              mountPath: /opt/dev/deploy/data/ietf-hardware-running.json
+            - name: {{ $ru.name }}-config-volume
+              subPath: ietf-interfaces-operational.xml
+              mountPath: /opt/dev/deploy/data/ietf-interfaces-operational.xml
+            - name: {{ $ru.name }}-config-volume
+              subPath: ietf-interfaces-running.xml
+              mountPath: /opt/dev/deploy/data/ietf-interfaces-running.xml
+          securityContext:
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - SYS_PTRACE
+      volumes:
+        - name: {{ $ru.name }}-config-volume
+          configMap:
+            name: {{ $ru.name }}-configmap
+            items:
+              - key: config.json
+                path: config.json
+              - key: ietf-hardware-operational.json
+                path: ietf-hardware-operational.json
+              - key: ietf-hardware-running.json
+                path: ietf-hardware-running.json
+              - key: ietf-interfaces-operational.xml
+                path: ietf-interfaces-operational.xml
+              - key: ietf-interfaces-running.xml
+                path: ietf-interfaces-running.xml
+
+
+{{- end }}

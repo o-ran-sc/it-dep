@@ -23,4 +23,6 @@ RUN wget https://get.helm.sh/helm-${HELMVERSION}-linux-amd64.tar.gz && tar -xvf 
 RUN helm init -c --skip-repos
 ARG TGT=/tmp/it-dep
 COPY . $TGT
+# Remove the smo-install as this one will be verified in another verify job
+RUN rm -rf $TGT/smo-install
 RUN $TGT/bin/verify-ric-charts

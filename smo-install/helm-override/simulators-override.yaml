@@ -1,0 +1,61 @@
+###
+# ============LICENSE_START=======================================================
+# ORAN SMO Package
+# ================================================================================
+# Copyright (C) 2021 AT&T Intellectual Property. All rights
+#                             reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END============================================
+# ===================================================================
+# 
+###
+
+##### ORAN Simulators #####
+
+x-onapHost: &onapHost 192.168.1.42
+
+x-ntsimNg: &ntsimConfig
+  sdnControllerIp: *onapHost
+  sdnControllerPort: 30267
+  sdnControllerProtocol: https
+  sdnControllerUsername: admin
+  sdnControllerPassword: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  sdnControllerCallHomePort: 30266
+
+  vesEndpointProtocol: https
+  vesEndpointIp: *onapHost
+  vesEndpointPort: 30417
+  vesEndpointUsername: sample1
+  vesEndpointPassword: sample1
+
+ru-simulator: 
+  ntsimNg:
+    <<: *ntsimConfig
+    sshConnections: 0
+    tlsConnections: 1
+    ipV6Enabled: false
+
+du-simulator:
+  ntsimNg:
+    <<: *ntsimConfig
+    ipV6Enabled: false
+    sshConnections: 1
+    tlsConnections: 0
+
+topology-server:
+  ntsimNg:  
+    <<: *ntsimConfig
+    ipV6Enabled: false
+    sshConnections: 1
+    tlsConnections: 0

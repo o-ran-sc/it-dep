@@ -152,6 +152,23 @@
       "message": "recheck",
       "revId": "c5d4450f19194018b2b9b050e42c82b0f2a50f31",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4931a17_c09b3a52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-10-27T07:10:26Z",
+      "side": 1,
+      "message": "Sorry for the \"recheck\" noise. I have introduced a verify job for the smo-install folder and I have some issues with the LF infra. It fails to get some external packages on the web (like Kong)",
+      "revId": "c5d4450f19194018b2b9b050e42c82b0f2a50f31",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -4,10 +4,10 @@ project_creation_date: '2019-05-21'
 project_category: ''
 lifecycle_state: 'Incubation'
 project_lead: &it-dep_ptl
-    name: 'Lusheng Ji'
-    email: 'lji@research.att.com'
-    id: 'wrider'
-    company: 'AT&T Labs-Research'
+    name: 'James Li''
+    email: 'lijianyj@chinamobile.com'
+    id: 'pceicicd'
+    company: 'China Mobile Technology (USA) Inc.'
     timezone: 'America/New_York'
 primary_contact: *it-dep_ptl
 issue_tracking:
@@ -79,6 +79,11 @@ committers:
       company: 'AT&T Labs-Research'
       id: 'cl778h'
       timezone: 'America/New_York'
+    - name: 'Weisen Pan'
+      email: 'weisenpan@chinamobile.com'
+      company: 'China Mobile Technology (USA) Inc.'
+      id: 'wilson09132'
+      timezone: 'America/Los_Angeles'
 tsc:
     # yamllint disable rule:line-length
     approval: 'https://wiki.o-ran-sc.org/display/TOC#O-RANSCTechnicalOversightCommittee(TOC)-20190821'

@@ -60,6 +60,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb5c5378_2f5999d0",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000047
+      },
+      "writtenOn": "2021-11-09T14:19:26Z",
+      "side": 1,
+      "message": "per chris\u0027s request, delete this section before we merge.",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 34
+      },
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c27c4c72_0313ac30",
         "filename": "INFO.yaml",
         "patchSetId": 3

@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5cbe7700_5d348ffa",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000014
+      },
+      "writtenOn": "2021-11-09T13:12:37Z",
+      "side": 1,
+      "message": "Please remove me from this project. I am no longer associated with the AT\u0026T organization contributing to O-RAN.",
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c27c4c72_0313ac30",
         "filename": "INFO.yaml",
         "patchSetId": 3

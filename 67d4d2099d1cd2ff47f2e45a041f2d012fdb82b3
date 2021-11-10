@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2e8012_584d4be0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-11-10T13:02:01Z",
+      "side": 1,
+      "message": "I tenatively added a verify+1 since this passes the job \nhttps://logs.o-ran-sc.org/production/vex-sjc-oran-jenkins-prod-1/it-dep-info-yaml-verify/9   ... even though other verify jobs fail. \n\n",
+      "revId": "67d4d2099d1cd2ff47f2e45a041f2d012fdb82b3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

@@ -192,6 +192,30 @@
       },
       "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6cad667_b62725e2",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-11-10T13:02:01Z",
+      "side": 1,
+      "message": "Maybe something like: ?? \n\ntype: \u0027promotion\u0027\n          name: \u0027James Li\u0027\n          link: \u0027https://wiki.o-ran-sc.org/display/TOC#ORANSCTechnicalOversightCommittee(TOC)-20211020\u0027\ntype: \u0027Addition\u0027\n          name: \u0027Weisen Pan\u0027\n          link: \u0027??\u0027\ntype: \u0027Removal\u0027\n          name: \u0027Chris Lott\u0027\n          link: \u0027??\u0027",
+      "parentUuid": "efb03843_93830268",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 21
+      },
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

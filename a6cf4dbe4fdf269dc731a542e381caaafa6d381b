@@ -41,6 +41,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51320990_70b94fd2",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "948b04e2_7c5961b7",
+      "range": {
+        "startLine": 7,
+        "startChar": 19,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cbe7700_5d348ffa",
@@ -54,6 +78,24 @@
       "writtenOn": "2021-11-09T13:12:37Z",
       "side": 1,
       "message": "Please remove me from this project. I am no longer associated with the AT\u0026T organization contributing to O-RAN.",
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ac98237_1821edce",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbe7700_5d348ffa",
       "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -81,6 +123,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b463f609_f03c9c92",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb5c5378_2f5999d0",
+      "range": {
+        "startLine": 77,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 34
+      },
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c27c4c72_0313ac30",
@@ -94,6 +160,30 @@
       "writtenOn": "2021-11-09T12:57:01Z",
       "side": 1,
       "message": "It would probably be good to add a new entry below here\n\nA good example can be found at https://github.com/onap/sdc-sdc-pubsub/blob/master/INFO.yaml",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 21
+      },
+      "revId": "a6cf4dbe4fdf269dc731a542e381caaafa6d381b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb03843_93830268",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Not sure what you meant by \"add a new entry below here\" -- what new entry to be added?",
+      "parentUuid": "c27c4c72_0313ac30",
       "range": {
         "startLine": 90,
         "startChar": 9,

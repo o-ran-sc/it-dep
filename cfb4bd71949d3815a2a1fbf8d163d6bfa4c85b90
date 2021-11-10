@@ -58,6 +58,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c95d8ff_c415f609",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "813bc906_5bbec91f",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "cfb4bd71949d3815a2a1fbf8d163d6bfa4c85b90",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "529203d2_b05eaa4f",
@@ -81,6 +105,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b894e1e0_dea00dbd",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "529203d2_b05eaa4f",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 21
+      },
+      "revId": "cfb4bd71949d3815a2a1fbf8d163d6bfa4c85b90",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c7790de_5073c2b9",
@@ -94,6 +142,30 @@
       "writtenOn": "2021-11-08T11:31:11Z",
       "side": 1,
       "message": "perhaps add an entry here for the change update.",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 12
+      },
+      "revId": "cfb4bd71949d3815a2a1fbf8d163d6bfa4c85b90",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc080cce_f81abd98",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001064
+      },
+      "writtenOn": "2021-11-10T05:55:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9c7790de_5073c2b9",
       "range": {
         "startLine": 95,
         "startChar": 6,

@@ -50,6 +50,23 @@
       "message": "Looks good from the simulator point of view.",
       "revId": "a2c2df5014145ee3126146987d9039e397b12407",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c43014_6ab45bd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2021-11-17T08:23:16Z",
+      "side": 1,
+      "message": "It is functional on myside - I hope to get more confirmations for other environments before merging.",
+      "revId": "a2c2df5014145ee3126146987d9039e397b12407",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

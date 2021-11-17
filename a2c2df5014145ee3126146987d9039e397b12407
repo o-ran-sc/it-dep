@@ -67,6 +67,23 @@
       "message": "It is functional on myside - I hope to get more confirmations for other environments before merging.",
       "revId": "a2c2df5014145ee3126146987d9039e397b12407",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf45233_b7864de9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-11-17T17:32:20Z",
+      "side": 1,
+      "message": "Hey Bjorn, did you have the bandwidth to continue the testing of this first draft ?\nIf you are ok with it, could you do +1 or may be you want to do some changes before (or after)?\n\nWe are waiting this to be merged because we have others fixes to bring 😊\n\nThanks",
+      "revId": "a2c2df5014145ee3126146987d9039e397b12407",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -33,6 +33,23 @@
       "message": "I had to kick the Kong dependency for now as this one can\u0027t be downloaded within the LF infra, waiting for an answer.\n\nIf you are now happy with that we can raise the next PR to bring the tests and the CNF package\n",
       "revId": "a2c2df5014145ee3126146987d9039e397b12407",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b7ad45d_babbcf88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000124
+      },
+      "writtenOn": "2021-11-17T08:22:33Z",
+      "side": 1,
+      "message": "Looks good from the simulator point of view.",
+      "revId": "a2c2df5014145ee3126146987d9039e397b12407",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

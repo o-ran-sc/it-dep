@@ -102,6 +102,23 @@
       "parentUuid": "baf45233_b7864de9",
       "revId": "a2c2df5014145ee3126146987d9039e397b12407",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaedd8f2_a65881d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-11-19T09:59:49Z",
+      "side": 1,
+      "message": "As per Bjorns comments, questions above, I think this is good to go for a first commit now. \nChanges will continue, as expected. \n\nGreat job guys! ",
+      "revId": "a2c2df5014145ee3126146987d9039e397b12407",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

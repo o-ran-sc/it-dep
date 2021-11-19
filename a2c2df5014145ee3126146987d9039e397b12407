@@ -119,6 +119,24 @@
       "message": "As per Bjorns comments, questions above, I think this is good to go for a first commit now. \nChanges will continue, as expected. \n\nGreat job guys! ",
       "revId": "a2c2df5014145ee3126146987d9039e397b12407",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a76bb7_da5c6eb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-11-19T17:15:36Z",
+      "side": 1,
+      "message": "Hi Bjorn, \n\nBoth are excellent questions.\nThese are in my opinion key points with helm/k8S and I don\u0027t think there is only one way to achieve this. So here is how it\u0027s implemented here so far. \nI don\u0027t say it\u0027s the ultimate solution 😊 and I don\u0027t say either that the nonrtric charts are all totally ready for that (may be we missed some config, keep in mind that we have copy-pasted the existing charts and slightly modified them). We are opened for future required modifications or/and enhancements.\n\n1.Assume we have Chart A (server), Chart B (client)\n\n- For Chart A the principle is to have configurable ports (cluster(internal) and/or node(external)) defined in the corresponding service template with default values in values.yaml that could therefore be overridden in our \"override files\" \n\n- For Chart B, make the ChartA address/port configurable in the configmap/deployment templates (or whatever is needed) and set them by default in the values.yaml so that they work with our default ChartA config.\n\n- AS everything is configurable in Chart A/chart B because these config are available in both values.yaml, in our override file we can change these values for both if needed. We can even define yaml alias on top of our \"override file\" to define our ChartA config one time and avoid repeating it 10 times.\n\n--\u003e So the config sharing that you are mentioning is therefore done outside of the charts, it\u0027s done in the override file (this is the key). And it\u0027s only if the user wants/needs to change our default configs.\n--\u003e From my Helm/K8S experience, the problem/complexity is not to share the config but instead it\u0027s to give a good amount of configuration to your application charts (deployment/configfiles/env var/secrets ...), so that it can be customized by override files. \nThe user can then change anything before/after the deployments and creates the bridges between the different applications.\n\n2. I don\u0027t think I can cover all cases here but here is my view on it:\nAs we work with the override files here (see point 1), we change whatever we want there and ask for a helm upgrade. This upgrades the config and according to what has been changed there + the desired K8S behavior it may or may not redeploys pods/conf ...etc ..\n\nSo for the config map, normally unless I\u0027m mistaken K8S will not always redeploy the pods for you, unless you ask for it. That can be done with deployment annotation (see the ru-simulator or du-simulator deployment template, i had to explicitly ask for it).\n\nThe case that probably needs to be retested is when your app can at runtime reloads its config without being restarted. I\u0027m not sure that the config files for instance will be re-mounted properly. That may require a pod restart. Or may be the annotation could be used on the config map files as well ??? 😊\nThis needs to be tested. I guess it should be possible\n\nIn conclusion I think we can implement in the charts specific behaviors for each component depending of what is needed and what the application deployed can support.\nFor instance for the DU/RU/topology simulators, they do not support runtime config changes, so they must be restarted.\n\nI hope it helps, we can still discuss that by mail/call\nThanks.",
+      "parentUuid": "287ded2c_848e09f9",
+      "revId": "a2c2df5014145ee3126146987d9039e397b12407",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -64,10 +64,10 @@ dependencies:
     repository: "@local"
     condition: nonrtric.installTopology
 
-#  - name: kong
-#    version: ~2.4.0
-#    repository: https://charts.konghq.com
-#    condition: nonrtric.installKong
+  - name: kong
+    version: ~2.4.0
+    repository: https://nexus3.o-ran-sc.org/repository/helm-konghq/
+    condition: nonrtric.installKong
 
   - name: dmaapadapterservice
     version: ~1.0.0

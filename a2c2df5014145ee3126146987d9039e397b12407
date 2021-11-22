@@ -1,0 +1,13 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Alex Stancu <alexandru.stancu@highstreet-technologies.com>
+Code-Review+1: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
+Code-Review+1: S�bastien Determe <sebastien.determe@intl.att.com>
+Code-Review+1: Christophe Closset <christophe.closset@intl.att.com>
+Code-Review+1: Xue Gao <xue.gao@intl.att.com>
+Code-Review+1: Bj�rn Magnusson <bjorn.magnusson@est.tech>
+Code-Review+2: John  Keeney <john.keeney@est.tech>
+Submitted-by: Alex Stancu <alexandru.stancu@highstreet-technologies.com>
+Submitted-at: Mon, 22 Nov 2021 11:28:45 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/6860
+Project: it/dep
+Branch: refs/heads/master

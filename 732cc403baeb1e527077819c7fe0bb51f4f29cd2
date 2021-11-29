@@ -101,6 +101,23 @@
       "message": "Adding other commiters. \n\nWill Xiaohua Zhang represent the INF project here, or should Jackie be added here instead? \n\nAlso, Does Felix want to remain as a committer?    ",
       "revId": "732cc403baeb1e527077819c7fe0bb51f4f29cd2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f95a0e51_9bc4433a",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2021-11-29T17:22:01Z",
+      "side": 1,
+      "message": "Can this be updated to \"Juniper Networks, Inc.\".",
+      "revId": "732cc403baeb1e527077819c7fe0bb51f4f29cd2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

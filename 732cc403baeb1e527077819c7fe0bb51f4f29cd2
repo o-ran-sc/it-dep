@@ -84,6 +84,23 @@
       "message": "recheck",
       "revId": "732cc403baeb1e527077819c7fe0bb51f4f29cd2",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a344111_a5faf66c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-11-29T17:17:08Z",
+      "side": 1,
+      "message": "Adding other commiters. \n\nWill Xiaohua Zhang represent the INF project here, or should Jackie be added here instead? \n\nAlso, Does Felix want to remain as a committer?    ",
+      "revId": "732cc403baeb1e527077819c7fe0bb51f4f29cd2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

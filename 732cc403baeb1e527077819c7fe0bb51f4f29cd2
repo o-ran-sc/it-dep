@@ -105,6 +105,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cebd9ad7_4b8f6e59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000108
+      },
+      "writtenOn": "2021-11-30T10:15:32Z",
+      "side": 1,
+      "message": "My guess is that Xiaohua Zhang works now with James on the integration project. So, it makes sense if he\u0027s committer here. But at the same time, I understand the new PTL of the Inf project - Jackie - (approved on 2021-July-21) should also be added as replacement for Xiaohua Zhang.\n\nI would suggest to do only these changes together as part of this patch.",
+      "parentUuid": "1a344111_a5faf66c",
+      "revId": "732cc403baeb1e527077819c7fe0bb51f4f29cd2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f95a0e51_9bc4433a",
         "filename": "INFO.yaml",
         "patchSetId": 1

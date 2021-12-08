@@ -1,0 +1,10 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+1: Alex Stancu <alexandru.stancu@highstreet-technologies.com>
+Code-Review+1: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
+Code-Review+1: Jackie Huang <jackie.huang@windriver.com>
+Code-Review+2: Xiaohua Zhang <zhangxiaohua@chinamobile.com>
+Submitted-by: Xiaohua Zhang <zhangxiaohua@chinamobile.com>
+Submitted-at: Wed, 08 Dec 2021 00:50:42 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/7102
+Project: it/dep
+Branch: refs/heads/master

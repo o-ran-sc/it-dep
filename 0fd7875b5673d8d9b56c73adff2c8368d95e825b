@@ -54,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df394651_a25997e2",
+        "filename": "smo-install/helm-override/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2021-12-08T12:16:36Z",
+      "side": 1,
+      "message": "Please set the Clamp functions enabled. \nWe use them for rApps in a some of our NONRTRIC tests. \nThanks",
+      "revId": "0fd7875b5673d8d9b56c73adff2c8368d95e825b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0cb8171_f30569fc",
         "filename": "smo-install/oran_oom/a1simulator/templates/deployment.yaml",
         "patchSetId": 1

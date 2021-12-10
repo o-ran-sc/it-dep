@@ -19,13 +19,18 @@ nonrtric:
   installA1controller: true
   installA1simulator: true
   installControlpanel: true
-  installEnrichmentservice: true
+  installInformationservice: true
   installRappcatalogueservice: true
   installNonrtricgateway: true
   installDmaapadapterservice: true
+  installDmaapmediatorservice: true
+  installHelmmanager: true
   volume1:
     size: 1Gi
     storageClassName: volume1
   volume2:
     size: 1Gi
     storageClassName: volume2
+  volume3:
+    size: 1Gi
+    storageClassName: volume3

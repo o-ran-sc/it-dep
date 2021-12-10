@@ -22,14 +22,16 @@
 # Here you can enable inclusion or exclusion of each component. A not installed component will not be installed.
 nonrtric:
   installPms: true
-  installA1controller: false
-  installA1simulator: false
+  installA1controller: true
+  installA1simulator: true
   installControlpanel: true
-  installEnrichmentservice: true
-  installRappcatalogueservice: false
+  installInformationservice: true
+  installRappcatalogueservice: true
   installNonrtricgateway: true
   installKong: false
-  installDmaapAdapterservice: true
+  installDmaapadapterservice: true
+  installDmaapmediatorservice: true
+  installHelmmanager: true
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
@@ -37,7 +39,10 @@ nonrtric:
   volume2:
      # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
-    storageClassName: ecs-storage
+    storageClassName: ics-storage
+  volume3:
+    size: 1Gi
+    storageClassName: helmmanager-storage
 
 common:
   releasePrefix: r3-dev-nonrtric
@@ -45,12 +50,13 @@ common:
   namespace:
     nonrtric: nonrtric
   ingressClassName: kong
-enrichmentservice:
-  enrichmentservice:
-    imagePullPolicy: IfNotPresent
+
+informationservice:
+  informationservice:
+    imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: 'nonrtric-enrichment-coordinator-service'
+      name: 'nonrtric-information-coordinator-service'
       tag: 1.2.0
     service:
       allowHttp: true
@@ -67,19 +73,21 @@ enrichmentservice:
       initialDelaySeconds: 20
       periodSeconds: 10
     persistence:
-      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same. 
-      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be for instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
       size: 2Gi
-      storageClassName: ecs-storage
+      storageClassName: ics-storage
+    ingress:
+      enabled: true
 
 # Need to check the external port Availability
 policymanagementservice:
   policymanagementservice:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-policy-agent
-      tag: 2.2.1
+      tag: 2.3.0
     service:
       allowHttp: true
       httpName: http
@@ -95,20 +103,21 @@ policymanagementservice:
       initialDelaySeconds: 20
       periodSeconds: 10
     persistence:
-      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same. 
-      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be for instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
       size: 2Gi
       storageClassName: pms-storage
-
+    ingress:
+      enabled: true
 
 # A1 Conttroller may take few more minutes to start. Increase the initialDelaySeconds in liveness to avoid container restart.
 a1controller:
   a1controller:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-      name: nonrtric-a1-controller
-      tag: 2.0.1
+      registry: 'nexus3.onap.org:10002/onap'
+      name: sdnc-image
+      tag: 2.1.6
     replicaCount: 1
     service:
       allowHttp: true
@@ -128,11 +137,11 @@ a1controller:
 a1simulator:
   a1simulator:
     name: a1-sim
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: a1-simulator
-      tag: 2.1.0
+      tag: 2.2.0
     service:
       allowHttp: true
       httpName: http
@@ -159,11 +168,11 @@ a1simulator:
 
 controlpanel:
   controlpanel:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-controlpanel
-      tag: 2.2.0
+      tag: 2.3.0
     replicaCount: 1
     service:
       allowHttp: true
@@ -181,26 +190,24 @@ controlpanel:
     readiness:
       initialDelaySeconds: 20
       periodSeconds: 10
+    ingress:
+      enabled: false
 
-    ingress:
-      enabled: false
-    ingress:
-      enabled: false
 rappcatalogueservice:
   rappcatalogueservice:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-r-app-catalogue
-      tag: 1.0.0
+      tag: 1.1.0
     service:
       allowHttp: true
       httpName: http
       internalPort1: 9085
-      targetPort1: 8080
+      targetPort1: 8680
       httpsName: https
       internalPort2: 9086
-      targetPort2: 8433
+      targetPort2: 8633
     liveness:
       initialDelaySeconds: 20
       periodSeconds: 10
@@ -210,11 +217,11 @@ rappcatalogueservice:
 
 nonrtricgateway:
   nonrtricgateway:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: nonrtric-gateway
-      tag: 1.0.0
+      tag: 1.1.0
     service:
       httpName: http
       internalPort1: 9090
@@ -229,7 +236,7 @@ nonrtricgateway:
 
 dmaapadapterservice:
   dmaapadapterservice:
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
       name: 'nonrtric-dmaap-adaptor'
@@ -248,3 +255,49 @@ dmaapadapterservice:
     readiness:
       initialDelaySeconds: 20
       periodSeconds: 10
+
+dmaapmediatorservice:
+  dmaapmediatorservice:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      name: "nonrtric-dmaap-mediator-producer"
+      tag: 1.0.0
+    service:
+      allowHttp: true
+      httpName: http
+      internalPort1: 8085
+      targetPort1: 8085
+      httpsName: https
+      internalPort2: 8185
+      targetPort2: 8185
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+
+helmmanager:
+  helmmanager:
+    clusterRoleName: cluster-admin
+    imagePullPolicy: Always
+    image:
+      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      name: "nonrtric-helm-manager"
+      tag: 1.1.0
+    service:
+      httpName: http
+      internalPort1: 8112
+      targetPort1: 8083
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    persistence:
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be for instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      size: 1Gi
+      storageClassName: helmmanager-storage

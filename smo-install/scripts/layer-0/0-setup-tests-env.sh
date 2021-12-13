@@ -23,14 +23,10 @@
 # 
 ###
 
-SCRIPT=$(readlink -f "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-cd $SCRIPT_PATH
+#Maven
+sudo apt-get update
+sudo apt-get install maven -y
+sudo apt-get install python3.8 -y
+sudo apt-get install python3-pip -y
 
-#curl https://raw.githubusercontent.com/helm/chartmuseum/main/scripts/get-chartmuseum | bash
-cd /tmp
-wget https://get.helm.sh/chartmuseum-v0.13.1-linux-amd64.tar.gz
-tar xvfz chartmuseum-v0.13.1-linux-amd64.tar.gz
-mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
-
-chartmuseum --port=18080 --storage="local" --storage-local-rootdir=$SCRIPT_PATH"/../../../chartstorage" &
+pip3 install tox

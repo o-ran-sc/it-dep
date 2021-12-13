@@ -19,16 +19,16 @@
 
 # This script is populating some data into nonrtric for demo/test purpose.
 # First this script copies data/ folder into one of the rics, in below case a1-sim-osc-0.
-# Then from the ric, run populate_policy_data.sh and populate_enrichment_data.sh.
+# Then from the ric, run populate_policy_data.sh and populate_information_data.sh.
 # populate_policy_data.sh creates policy-types, service, and policies.
-# populate_enrichment_data.sh creates EiProducer, EiType, and EiJob.
+# populate_information_data.sh creates EiProducer, EiType, and EiJob.
 #
 # Why we run the scripts in the ric, not from the host?
 # Because a1-simulators(ric) are deployed in statefulset,
 # they are not exposed to outside the k8s cluster.
 # And we must create policy type into the ric first.
-# Similarly, the enrichmentservice is not exposed outside the k8s cluster,
-# hence the commands for populating enrichment data need to be run from within the cluster.
+# Similarly, the informationservice is not exposed outside the k8s cluster,
+# hence the commands for populating information data need to be run from within the cluster.
 
 kubectl -n nonrtric cp run_in_k8s a1-sim-osc-0:/usr/src/app/
-kubectl -n nonrtric exec -it a1-sim-osc-0 -- bash -c 'cd run_in_k8s/ && ./populate_policy_data.sh && ./populate_enrichment_data.sh'
+kubectl -n nonrtric exec -it a1-sim-osc-0 -- bash -c 'cd run_in_k8s/ && ./populate_policy_data.sh && ./populate_information_data.sh'

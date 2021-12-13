@@ -23,7 +23,7 @@ policymanagementservice:
   image:
     registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
     name: nonrtric-policy-agent
-    tag: 2.2.1
+    tag: 2.3.0
   service:
     allowHttp: true
     httpName: http

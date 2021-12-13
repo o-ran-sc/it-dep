@@ -14,39 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-server:
-  port: 9090
-spring:
-  cloud:
-    gateway:
-      httpclient:
-        ssl:
-          useInsecureTrustManager: true
-        wiretap: true
-      httpserver:
-        wiretap: true
-      routes:
-      - id: A1-Policy
-        uri: https://policymanagementservice:9081
-        predicates:
-        - Path=/a1-policy/**
-      - id: A1-EI
-        uri: https://informationservice:9083
-        predicates:
-        - Path=/data-producer/**,/data-consumer/**
-management:
-  endpoint:
-    gateway:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: "gateway,loggers,logfile,health,info,metrics,threaddump,heapdump"
-logging:
-  level:
-    ROOT: ERROR
-    org.springframework: ERROR
-    org.springframework.cloud.gateway: INFO
-    reactor.netty: INFO
-  file:
-    name: /var/log/nonrtric-gateway/application.log
+{{- define "common.name.dmaapmediatorservice" -}}
+  {{- printf "dmaapmediatorservice" -}}
+{{- end -}}
+
+{{- define "common.container.dmaapmediatorservice" -}}
+  {{- $name := ( include "common.name.dmaapmediatorservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

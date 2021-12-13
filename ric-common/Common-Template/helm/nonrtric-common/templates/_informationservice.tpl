@@ -14,41 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-spring:
-  profiles:
-    active: prod
-  main:
-    allow-bean-definition-overriding: true
-  aop:
-    auto: false
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+{{- define "common.name.informationservice" -}}
+  {{- printf "informationservice" -}}
+{{- end -}}
 
-logging:
-  level:
-    ROOT: ERROR
-    org.springframework: ERROR
-    org.springframework.data: ERROR
-    org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
-    org.oransc.enrichment: INFO
-  file:
-    name: /var/log/enrichment-coordinator-service/application.log
-server:
-   port : 8434
-   http-port: 8083
-   ssl:
-      key-store-type: JKS
-      key-store-password: policy_agent
-      key-store: /opt/app/enrichment-coordinator-service/etc/cert/keystore.jks
-      key-password: policy_agent
-      key-alias: policy_agent
-app:
-  filepath: /opt/app/enrichment-coordinator-service/data/application_configuration.json
-  webclient:
-    trust-store-used: false
-    trust-store-password: policy_agent
-    trust-store: /opt/app/enrichment-coordinator-service/etc/cert/truststore.jks
-  vardata-directory: /var/enrichment-coordinator-service
+{{- define "common.container.informationservice" -}}
+  {{- $name := ( include "common.name.informationservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

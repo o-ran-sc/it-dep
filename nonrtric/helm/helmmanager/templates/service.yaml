@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,8 +14,23 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+kind: Service
 apiVersion: v1
-appVersion: "1.0.0"
-description: A Helm chart for Enrichment Coordinator Service
-name: enrichmentservice
-version: 1.0.0
+metadata:
+  name: {{ include "common.name.helmmanager" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: {{ index .Values.helmmanager.service.httpName }}
+      port: {{ .Values.helmmanager.service.internalPort1 }}
+      targetPort: {{ .Values.helmmanager.service.targetPort1 }}
+      protocol: TCP
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
+    release: {{ .Release.Name }}
+  type: ClusterIP

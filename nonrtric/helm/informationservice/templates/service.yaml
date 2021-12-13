@@ -14,38 +14,29 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for a1-simulator.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-a1simulator:
-  name: a1-sim
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-    name: a1-simulator
-    tag: 2.2.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 8085
-    targetPort1: 8085
-    httpsName: https
-    internalPort2: 8185
-    targetPort2: 8185
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  oscVersion:
-    name: a1-sim-osc
-    replicaCount: 2
-  stdVersion:
-    name: a1-sim-std
-    replicaCount: 2
-  stdVersion2:
-    name: a1-sim-std2
-    replicaCount: 2
-
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "common.name.informationservice" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.informationservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    {{if eq .Values.informationservice.service.allowHttp true -}}
+    - name: {{ index .Values.informationservice.service.httpName }}
+      port: {{ .Values.informationservice.service.internalPort1 }}
+      targetPort: {{ .Values.informationservice.service.targetPort1 }}
+      protocol: TCP
+    {{- end }}
+    - name: {{ index .Values.informationservice.service.httpsName }}
+      port: {{ .Values.informationservice.service.internalPort2 }}
+      targetPort: {{ .Values.informationservice.service.targetPort2 }}
+      protocol: TCP
+  selector:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.informationservice" . }}
+    release: {{ .Release.Name }}
+  type: ClusterIP

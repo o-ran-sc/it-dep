@@ -33,6 +33,31 @@ It has been created out of the ONAP vfirewall usecase.
 	
 	```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
+## Quick Installation on existing kubernetes
+* Ensure you have at least 20GB Memory, 6VCPU, 60GB of diskspace.
+* Execute the following commands being logged as root:
+
+        ```git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"```
+
+        ```./oran-deployment/scripts/layer-0/0-setup-charts-museum.sh```
+
+        ```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
+
+        ```./oran-deployment/scripts/layer-1/1-build-all-charts.sh```
+
+        ```./oran-deployment/scripts/layer-2/2-install-oran.sh```
+
+        Verify pods:
+
+        ```kubectl get pods -n onap && kubectl get pods -n nonrtric```
+
+        When all pods in "onap" and "nonrtric" namespaces are well up & running:
+
+        ```./oran-deployment/scripts/layer-2/2-install-simulators.sh```
+
+
+
+
 ## Structure
 The user entry point is located in the <strong>scripts</strong> folder
 
@@ -77,6 +102,7 @@ The user entry point is located in the <strong>scripts</strong> folder
 │   │   └── 0-setup-kud-node.sh			<--- Setup K8S node with ONAP Multicloud KUD installation
 │   │   └── 0-setup-microk8s.sh		<--- Setup K8S node with MicroK8S installation
 │   │   └── 0-setup-helm3.sh			<--- Setup HELM3
+│   │   └── 0-setup-tests-env.sh                <--- Setup Python SDK tools
 │   ├── layer-1				<--- Scripts to prepare for the SMO installation
 │   │   └── 1-build-all-charts.sh		<--- Build all HELM charts and upload them to ChartMuseum
 │   ├── layer-2				<--- Scripts to install SMO package
@@ -84,6 +110,7 @@ The user entry point is located in the <strong>scripts</strong> folder
 │   │   ├── 2-install-oran-cnf.sh		<--- Install SMO full with ONAP CNF features
 │   │   ├── 2-install-oran.sh			<--- Install SMO minimal 
 │   │   └── 2-install-simulators.sh		<--- Install Network simulator (RU/DU/Topology Server)
+│   │   └── 2-upgrade-simulators.sh             <--- Upgrade the simulators install at runtime when changes are done on override files
 │   ├── sub-scripts			<--- Sub-Scripts used by the main layer-0, layer-1, layer-2
 │   │   ├── clean-up.sh
 │   │   ├── install-nonrtric.sh
@@ -101,9 +128,18 @@ The user entry point is located in the <strong>scripts</strong> folder
     ├── apex-policy-test		<--- Test apex policy (https://wiki.o-ran-sc.org/pages/viewpage.action?pageId=35881325, it requires simulators to be up)
     │   ├── apex-policy-test.sh
     │   └── data
-    └── enable-sim-fault-report		<--- Enable the fault reporting of the network simulators by SDNC
-        ├── data
-        └── enable-network-sim-fault-reporting.sh
+    ├── enable-sim-fault-report		<--- Enable the fault reporting of the network simulators by SDNC
+    │   ├── data
+    │   └── enable-network-sim-fault-reporting.sh
+    └── pythonsdk                       <--- Test based on ONAP Python SDK to validate O1 and A1
+        ├── oran-tests.xml
+        ├── Pipfile.lock
+        ├── README.md
+        ├── src
+        ├── test.json
+        ├── tox.ini
+        └── unit-tests
+
 
 ```
 ## Download:
@@ -141,9 +177,8 @@ Use git clone to get it on your server:
 	- Install chartmuseum manually on port 18080 (https://chartmuseum.com/#Instructions, https://github.com/helm/chartmuseum)
     
 ## Configuration:
-In the ./helm-override/ folder the helm config that are used by the SMO installation. 
-<p>Different flavors are preconfigured, and should NOT be changed EXCEPT for the simulators (due to current DNS limitations in the simulators)
-in ./helm-override/simulators-override.yaml, the <strong>"sdnControllerIp"</strong> and <strong>"vesEndpointIp"</strong> must be set to the server external IP</p>
+In the ./helm-override/ folder the helm config that are used by the SMO installation.
+<p>Different flavors are preconfigured, and should NOT be changed unless you intentionally want to updates some configurations.
 
 ## Installation:
 * Build ONAP/ORAN charts 
@@ -181,9 +216,9 @@ in ./helm-override/simulators-override.yaml, the <strong>"sdnControllerIp"</stro
 	
 ## Platform access points:
 * SDNR WEB: 
-	https://<K8SServerIP>:30205/odlux/index.html
+	https://K8SServerIP:30205/odlux/index.html
 * NONRTRIC Dashboard: 
-	http://<K8SServerIP>:30091/
+	http://K8SServerIP:30091/
   More to come ...
 
 ## Uninstallation:

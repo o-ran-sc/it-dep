@@ -69,6 +69,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5069752_39375239",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-12-14T07:54:06Z",
+      "side": 1,
+      "message": "New pr will be opened,",
+      "parentUuid": "761c2f47_8565bd75",
+      "revId": "0fd7875b5673d8d9b56c73adff2c8368d95e825b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df394651_a25997e2",
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "The newest versions please. (At least Istanbul, or latest is even better). \nI think it would be best to have policy-clamp-cl-runtime enabled by default at least. \nBut i guess the participants (policy, k8s, http) etc are pretty lightweight, so probably best to have those included by default too.",
       "parentUuid": "0b1f1f7e_6f923ea8",
+      "revId": "0fd7875b5673d8d9b56c73adff2c8368d95e825b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a121c21b_515e5af8",
+        "filename": "smo-install/helm-override/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-12-14T07:54:06Z",
+      "side": 1,
+      "message": "I\u0027ll raise another Pr with that",
+      "parentUuid": "81f93dd2_78dcbb60",
       "revId": "0fd7875b5673d8d9b56c73adff2c8368d95e825b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -183,6 +219,30 @@
       "side": 1,
       "message": "Well, if there are more than one instance of the pod and you address the simulator through the service object, then the call to the service will be directed to one of the simulators - basically a kind of loadbalancing. However, this it not correct since each simulator represents an a1-termination (think eNodeB or Near-Realtime Ric) so the addressing need to be made to a specific pod - not to any of the pods. This is the reason why we declared the simulator as a stateful sets -  as a stateful set, each pod will get their own dns name but as a replicaset then no dns entry is added for the pod so the only way, afaik, to address a pod in a replicaset is to use the IP-address of the pod (this should be avoided since the ip may change if the pod is removed and then added again)\n\nI think you can still declare the object as a stateful set but with only one instance.\n\nThe config (link) for the configmap in thi commit still seem to require a stateful set since the host consists of three parts:\npod: a1-sim-osc-0 \nsts: a1-sim\nsvc: nonrtric\n\nlink: http://a1-sim-osc-0.a1-sim.nonrtric:8085. This will likely not work.\n\nLink to the service in a replicaset should be:\nlink: http://a1-sim-osc.nonrtric:8085 this will loadbalance to one of the simulators if there is more than one - basically individual pods are invisible.\n\nIt is correct, there is no mounted volumes so the data in the simulator data does not survive a restart - this is intended.",
       "parentUuid": "d066194f_eebb9d5a",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "0fd7875b5673d8d9b56c73adff2c8368d95e825b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48b4fb1_0711f06a",
+        "filename": "smo-install/oran_oom/a1simulator/templates/deployment.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001552
+      },
+      "writtenOn": "2021-12-14T07:54:06Z",
+      "side": 1,
+      "message": "Hi Bjorn,\nI know it has been merged already, anyway as it is defined here the replica is always set to 1 and this can\u0027t be changed\nHowever the number of emulators must be defined and configured in the values.yaml and therefore can be customized in the override files.\n\nLike this:\na1Sims:\n  - name: a1-sim-osc\n    a1Version: OSC_2.1.0\n    allowHttp: true\n\n  - name: a1-sim-std-1\n    a1Version: STD_1.1.3\n    allowHttp: true\n\n  - name: a1-sim-std-2\n    a1Version: STD_2.0.0\n    allowHttp: true\n\nSo for instance we could have multiple a1-sim-osc, std-1 or std-2 if needed.\n\nThe service has been defined so that this works:\nhttp://a1-sim-osc.nonrtric:8085\nBut indeed it\u0027s linked to the name we give in the a1Sims definition so it could become http://a1-sim-osc-2.nonrtric:8085\n\nI\u0027m also wondering, do we really need multiple emulators to run here ?\n\nLet me know if you want me to change that.\n\nThanks",
+      "parentUuid": "e2b81222_23556f55",
       "range": {
         "startLine": 4,
         "startChar": 0,

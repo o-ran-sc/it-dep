@@ -1,0 +1,65 @@
+################################################################################
+#   Copyright (c) 2021 Nordix Foundation.                                      #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ include "common.name.odusliceassurance" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  generation: 1
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.odusliceassurance" . }}
+      containers:
+      - name: {{ include "common.container.odusliceassurance" . }}
+        image: {{ .Values.odusliceassurance.image.registry }}/{{ .Values.odusliceassurance.image.name }}:{{ .Values.odusliceassurance.image.tag }}
+        imagePullPolicy: {{ .Values.odusliceassurance.imagePullPolicy }}
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+          - name: MR_HOST
+            value: "{{ .Values.odusliceassurance.env.mr_host }}"
+          - name: MR_PORT
+            value: "{{ .Values.odusliceassurance.env.mr_port }}"
+          - name: SDNR_ADDRESS
+            value: "{{ .Values.odusliceassurance.env.sdnr_address }}"
+          - name: SDNR_USER
+            value: "{{ .Values.odusliceassurance.env.sdnr_user }}"
+          - name: SDNR_PASSWORD
+            value: "{{ .Values.odusliceassurance.env.sdnr_password }}"
+          - name: LOG_LEVEL
+            value: "{{ .Values.odusliceassurance.env.log_level }}"
+          - name: POLLTIME
+            value: "{{ .Values.odusliceassurance.env.polltime }}"
+

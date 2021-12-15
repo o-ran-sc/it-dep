@@ -1,0 +1,77 @@
+################################################################################
+#   Copyright (c) 2021 Nordix Foundation.                                      #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ include "common.name.oruclosedlooprecovery" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  generation: 1
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.oruclosedlooprecovery" . }}
+      containers:
+      - name: {{ include "common.container.oruclosedlooprecovery" . }}
+        image: {{ .Values.oruclosedlooprecovery.image.registry }}/{{ .Values.oruclosedlooprecovery.image.name }}:{{ .Values.oruclosedlooprecovery.image.tag }}
+        imagePullPolicy: {{ .Values.oruclosedlooprecovery.imagePullPolicy }}
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+          - name: CONSUMER_HOST
+            value: "{{ .Values.oruclosedlooprecovery.env.consumer_host }}"
+          - name: CONSUMER_PORT
+            value: "{{ .Values.oruclosedlooprecovery.env.consumer_port }}"
+          - name: CONSUMER_CERT_PATH
+            value: "{{ .Values.oruclosedlooprecovery.env.consumer_cert_path }}"
+          - name: CONSUMER_KEY_PATH
+            value: "{{ .Values.oruclosedlooprecovery.env.consumer_key_path }}"
+          - name: INFO_COORD_ADDR
+            value: "{{ .Values.oruclosedlooprecovery.env.info_coord_addr }}"
+          - name: SDNR_ADDRESS
+            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_address }}"
+          - name: SDNR_USER
+            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_user }}"
+          - name: SDNR_PASSWORD
+            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_password }}"
+          - name: ORU_TO_ODU_MAP_FILE
+            value: "{{ .Values.oruclosedlooprecovery.env.oru_to_odu_map_file }}"
+          - name: LOG_LEVEL
+            value: "{{ .Values.oruclosedlooprecovery.env.log_level }}"
+        volumeMounts:
+        - name: {{ include "common.name.oruclosedlooprecovery" . }}-oru-config
+          mountPath: /app
+      volumes:
+        - name: {{ include "common.name.oruclosedlooprecovery" . }}-oru-config
+          configMap:
+            name: {{ include "common.name.oruclosedlooprecovery" . }}-configmap-config

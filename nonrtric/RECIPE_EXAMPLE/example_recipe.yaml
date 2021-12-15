@@ -32,6 +32,8 @@ nonrtric:
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true
+  installOruclosedlooprecovery: true
+  installOdusliceassurance: true
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
@@ -301,3 +303,38 @@ helmmanager:
       # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be for instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
       size: 1Gi
       storageClassName: helmmanager-storage
+
+odusliceassurance:
+  odusliceassurance:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+      name: "nonrtric-o-du-slice-assurance"
+      tag: 1.0.0
+    env:
+      mr_host: "http://onap-dmaap"
+      mr_port: "3904"
+      sdnr_address: "http://sdnr:8181"
+      sdnr_user: "admin"
+      sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
+      log_level: "Info"
+      polltime: "10"
+
+oruclosedlooprecovery:
+  oruclosedlooprecovery:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+      name: "nonrtric-o-ru-closed-loop-recovery"
+      tag: 1.0.0
+    env:
+      consumer_host: "http://mrproducer"
+      consumer_port: "8095"
+      consumer_cert_path: "security/producer.crt"
+      consumer_key_path: "security/producer.key"
+      info_coord_addr: "http://ics:8083"
+      sdnr_address: "http://sdnr:8282"
+      sdnr_user: "admin"
+      sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
+      oru_to_odu_map_file: "o-ru-to-o-du-map.csv"
+      log_level: "Info"

@@ -14,26 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installNonrtricgateway: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOruclosedlooprecovery: true
-  installOdusliceassurance: true
+{{- define "common.name.oruclosedlooprecovery" -}}
+  {{- printf "oruclosedlooprecovery" -}}
+{{- end -}}
 
-  volume1:
-    size: 1Gi
-    storageClassName: volume1
-  volume2:
-    size: 1Gi
-    storageClassName: volume2
-  volume3:
-    size: 1Gi
-    storageClassName: volume3
+{{- define "common.container.oruclosedlooprecovery" -}}
+  {{- $name := ( include "common.name.oruclosedlooprecovery" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

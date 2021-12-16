@@ -24,4 +24,6 @@ set -x
 $IT_DEP_FOLDER/scripts/layer-0/0-setup-charts-museum.sh
 $IT_DEP_FOLDER/scripts/layer-0/0-setup-helm3.sh
 
+# Some ORAN charts have onap dependencies (for AAF)
+$IT_DEP_FOLDER/scripts/sub-scripts/build-onap.sh
 $IT_DEP_FOLDER/scripts/sub-scripts/build-oran.sh

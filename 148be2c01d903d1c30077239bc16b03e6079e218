@@ -22,6 +22,30 @@
       },
       "revId": "148be2c01d903d1c30077239bc16b03e6079e218",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b15e76_f19c0728",
+        "filename": "nonrtric/helm/oruclosedlooprecovery/templates/deployment.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000262
+      },
+      "writtenOn": "2021-12-16T14:15:46Z",
+      "side": 1,
+      "message": "I think it looks better to put the file in one of the standard places.\nIn this case it should probably be under (example) /etc/app/oruclosedlooprecovery",
+      "parentUuid": "806d259b_b22cf89e",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 25
+      },
+      "revId": "148be2c01d903d1c30077239bc16b03e6079e218",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

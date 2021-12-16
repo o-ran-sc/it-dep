@@ -10,7 +10,7 @@ requirements.lock
 .settings/
 
 # IntelliJ
-.idea/*
+**/.idea/*
 *.iml
 
 # Mac OS

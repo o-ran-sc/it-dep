@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "806d259b_b22cf89e",
+        "filename": "nonrtric/helm/oruclosedlooprecovery/templates/deployment.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000261
+      },
+      "writtenOn": "2021-12-16T12:42:33Z",
+      "side": 1,
+      "message": "From the Dockerfile it looks like that both the binary file and the config file should be on \"/\". In that case you probably cannot mount the the dir, just the file you want to mount.",
+      "range": {
+        "startLine": 73,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 25
+      },
+      "revId": "148be2c01d903d1c30077239bc16b03e6079e218",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

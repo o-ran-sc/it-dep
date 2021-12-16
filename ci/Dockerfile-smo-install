@@ -21,5 +21,6 @@ RUN apt-get update && apt-get -y install curl ca-certificates wget
 
 ARG TGT=/tmp/it-dep
 COPY . $TGT
+RUN ls -latr /tmp/it-dep
 # Remove the smo-install as this one will be verified in another verify job
 RUN $TGT/bin/verify-smo-install

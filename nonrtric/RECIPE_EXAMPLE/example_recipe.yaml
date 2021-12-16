@@ -55,7 +55,7 @@ informationservice:
   informationservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: 'nonrtric-information-coordinator-service'
       tag: 1.2.0
     service:
@@ -85,8 +85,8 @@ policymanagementservice:
   policymanagementservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
-      name: nonrtric-policy-agent
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      name: nonrtric-a1-policy-management-service
       tag: 2.3.0
     service:
       allowHttp: true
@@ -139,7 +139,7 @@ a1simulator:
     name: a1-sim
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
       tag: 2.2.0
     service:
@@ -170,7 +170,7 @@ controlpanel:
   controlpanel:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-controlpanel
       tag: 2.3.0
     replicaCount: 1
@@ -197,9 +197,9 @@ rappcatalogueservice:
   rappcatalogueservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-r-app-catalogue
-      tag: 1.1.0
+      tag: 1.0.1
     service:
       allowHttp: true
       httpName: http
@@ -219,9 +219,9 @@ nonrtricgateway:
   nonrtricgateway:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-gateway
-      tag: 1.1.0
+      tag: 1.0.0
     service:
       httpName: http
       internalPort1: 9090
@@ -238,7 +238,7 @@ dmaapadapterservice:
   dmaapadapterservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: 'nonrtric-dmaap-adaptor'
       tag: 1.0.0
     service:
@@ -260,7 +260,7 @@ dmaapmediatorservice:
   dmaapmediatorservice:
     imagePullPolicy: IfNotPresent
     image:
-      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: "nonrtric-dmaap-mediator-producer"
       tag: 1.0.0
     service:
@@ -283,7 +283,7 @@ helmmanager:
     clusterRoleName: cluster-admin
     imagePullPolicy: Always
     image:
-      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: "nonrtric-helm-manager"
       tag: 1.1.0
     service:

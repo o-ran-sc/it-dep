@@ -50,17 +50,16 @@ spec:
           protocol: TCP
         - containerPort: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
           protocol: TCP
-        # Temporarily disabled probes due to no http available in the container
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: {{ .Values.dmaapmediatorservice.service.targetPort1 }}
-        #   initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
-        #   periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
-        # livenessProbe:
-        #   tcpSocket:
-        #     port: {{ .Values.dmaapmediatorservice.service.targetPort1 }}
-        #   initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
-        #   periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
+          initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
+          initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.dmaapmediatorservice" . }}-dmaapmediator-data
           mountPath: /configs/type_config.json

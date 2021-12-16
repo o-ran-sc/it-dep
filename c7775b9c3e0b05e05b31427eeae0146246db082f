@@ -22,6 +22,30 @@
       },
       "revId": "c7775b9c3e0b05e05b31427eeae0146246db082f",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d336e894_c3400487",
+        "filename": "nonrtric/helm/oruclosedlooprecovery/values.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000247
+      },
+      "writtenOn": "2021-12-16T11:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7033796_97b7f29c",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "c7775b9c3e0b05e05b31427eeae0146246db082f",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

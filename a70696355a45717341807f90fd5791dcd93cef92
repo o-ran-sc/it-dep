@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46b9362a_6aa3ad05",
+        "filename": "smo-install/oran_oom/oru-app/requirements.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-01-10T12:31:25Z",
+      "side": 1,
+      "message": "Should remove Bell Canada. Put it there by mistake.",
+      "revId": "a70696355a45717341807f90fd5791dcd93cef92",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

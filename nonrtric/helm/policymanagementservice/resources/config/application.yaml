@@ -67,3 +67,6 @@ app:
     http.proxy-port: 0
   # path where the service can store data
   vardata-directory: /var/policy-management-service
+  # the config-file-schema-path referres to a location in the jar file. If this property is empty or missing,
+  # no schema validation will be executed.
+  config-file-schema-path: /application_configuration_schema.json

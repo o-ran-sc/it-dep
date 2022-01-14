@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2021 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,28 +14,25 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installNonrtricgateway: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOruclosedlooprecovery: true
-  installOdusliceassurance: true
+# Default values for odu slice assurance.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-  volume1:
-    size: 1Gi
-    storageClassName: volume1
-    hostPath: /dockerdata-nfs/nonrtric/volume1
-  volume2:
-    size: 1Gi
-    storageClassName: volume2
-    hostPath: /dockerdata-nfs/nonrtric/volume2
-  volume3:
-    size: 1Gi
-    storageClassName: volume3
+odusliceassurance:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+    name: nonrtric-o-du-slice-assurance
+    tag: 1.0.0
+  service:
+    httpName: web
+    allowHttp: true
+    port: 80
+  env:
+    mr_host: "http://onap-dmaap"
+    mr_port: "3904"
+    sdnr_address: "http://sdnr:8181"
+    sdnr_user: "admin"
+    sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
+    log_level: "Info"
+    polltime: "10"

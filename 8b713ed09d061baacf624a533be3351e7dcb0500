@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "8b713ed09d061baacf624a533be3351e7dcb0500",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5021f702_cbe75002",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2022-01-20T08:05:39Z",
+      "side": 1,
+      "message": "I\u0027d like to see more +1 before merging :) Thanks!!!",
+      "revId": "8b713ed09d061baacf624a533be3351e7dcb0500",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 ###
 # ============LICENSE_START=======================================================
 # ORAN SMO PACKAGE - PYTHONSDK TESTS
@@ -20,4 +21,5 @@
 # ===================================================================
 #
 ###
-"""ORAN A1 Simulator package."""
+
+"""SMO K8S control package."""

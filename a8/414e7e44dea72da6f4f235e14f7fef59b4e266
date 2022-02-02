@@ -1,0 +1,9 @@
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Verified+1: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
+Code-Review+1: Christophe Closset <christophe.closset@intl.att.com>
+Code-Review+2: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
+Submitted-by: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
+Submitted-at: Wed, 02 Feb 2022 16:32:11 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/7635
+Project: it/dep
+Branch: refs/heads/master

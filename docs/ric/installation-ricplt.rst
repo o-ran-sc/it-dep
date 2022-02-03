@@ -46,6 +46,7 @@ Edit the recipe files ./RECIPE_EXAMPLE/PLATFORM/example_recipe.yaml.
     ricip: ""
     auxip: ""
 
+- Deployment scripts support both helm v2 and v3. The deployment script will determine the helm version installed in cluster during the deployment.
 - To specify which version of the RIC platform components will be deployed, update the RIC platform component container tags in their corresponding section.
 - You can specify which docker registry will be used for each component. If the docker registry requires login credential, you can add the credential in the following section. Please note that the installation suite has already included credentials for O-RAN Linux Foundation docker registries. Please do not create duplicate entries.
 

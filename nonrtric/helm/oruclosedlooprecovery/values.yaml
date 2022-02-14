@@ -22,8 +22,8 @@ oruclosedlooprecovery:
   imagePullPolicy: IfNotPresent
   image:
     registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    name: nonrtric-o-ru-closed-loop-recovery
-    tag: 1.0.0
+    name: nonrtric-o-ru-closed-loop-consumer
+    tag: 1.0.1
   service:
     httpName: web
     allowHttp: true
@@ -31,8 +31,8 @@ oruclosedlooprecovery:
   env:
     consumer_host: "http://mrproducer"
     consumer_port: "8095"
-    consumer_cert_path: "security/producer.crt"
-    consumer_key_path: "security/producer.key"
+    consumer_cert_path: "security/consumer.crt"
+    consumer_key_path: "security/consumer.key"
     info_coord_addr: "http://ics:8083"
     sdnr_address: "http://sdnr:8282"
     sdnr_user: "admin"

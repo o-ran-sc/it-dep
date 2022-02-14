@@ -58,7 +58,7 @@ spec:
             value: "{{ .Values.oruclosedlooprecovery.env.consumer_key_path }}"
           - name: INFO_COORD_ADDR
             value: "{{ .Values.oruclosedlooprecovery.env.info_coord_addr }}"
-          - name: SDNR_ADDRESS
+          - name: SDNR_ADDR
             value: "{{ .Values.oruclosedlooprecovery.env.sdnr_address }}"
           - name: SDNR_USER
             value: "{{ .Values.oruclosedlooprecovery.env.sdnr_user }}"

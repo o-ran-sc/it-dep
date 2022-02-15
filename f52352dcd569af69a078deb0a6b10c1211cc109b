@@ -33,6 +33,23 @@
       "message": "recheck",
       "revId": "f52352dcd569af69a078deb0a6b10c1211cc109b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f8b9e49_54de7962",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000079
+      },
+      "writtenOn": "2022-02-15T20:04:54Z",
+      "side": 1,
+      "message": "Looks like the verification failure was just a temporary issue reaching Github.com.\n\nAs a quick note, the commit message should be in the imperative mood (e.g. \"Add a note...\" rather than \"Adding a note...\").",
+      "revId": "f52352dcd569af69a078deb0a6b10c1211cc109b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

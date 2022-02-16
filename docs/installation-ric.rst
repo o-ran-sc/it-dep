@@ -52,7 +52,7 @@ Prerequisites
 Both RIC and AUX clusters need to fulfill the following prerequisites.
 
 - Kubernetes v.1.16.0 or above
-- helm v2.12.3 or above
+- helm v2.12.3/v3.5.x or above
 - Read-write access to directory /mnt
 
 The following two sections show two example methods to create an environment for installing RIC.

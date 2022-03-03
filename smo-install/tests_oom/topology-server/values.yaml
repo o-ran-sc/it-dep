@@ -1,0 +1,138 @@
+# Copyright © 2021-2022 AT&T Intellectual Property
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Static Defaults
+replicaCount: 1
+image:
+  repository: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+  name: smo-nts-ng-topology-server
+  tag: 1.4.5
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  ports:
+    port: 830
+    nodePort: 30832
+
+# Names
+vnf_name: topology-server
+
+simulatedFaults:
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: MAJOR
+    object: "Slot-0-Port-A"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: false
+    text: "CPRI Port Down"
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: NORMAL
+    object: "Slot-0-Port-A"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: true
+    text: "CPRI Port Down"
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: MAJOR
+    object: "Slot-0-Port-C"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: false
+    text: "CPRI Port Down"
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: NORMAL
+    object: "Slot-0-Port-C"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: true
+    text: "CPRI Port Down"
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: MAJOR
+    object: "Slot-2-Port-B"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: false
+    text: "CPRI Port Down"
+  - name: o-ru-11221
+    condition: "CPRI Port Down"
+    severity: NORMAL
+    object: "Slot-2-Port-B"
+    specificProblem: "CPRI Port Down"
+    faultSeverity: MAJOR
+    cleared: false
+    text: "CPRI Port Down"
+
+nodes:
+  - name: o-du-1122
+    uuid: ac089635-7a85-4197-9310-9b14f476a4a9
+    nodeEdgePointUuid: 539f24cb-a5e9-454f-b05d-6307be419afe
+    interfaceName: "O-DU-interface-1"
+    interfaceDescription: "Simulated interface for O-DU"
+  - name: o-ru-11221
+    uuid: 6b0d3930-100b-466c-9f44-2748ffb6aaa1
+    nodeEdgePointUuid: bb7e5882-6e3a-46a7-a95b-0bb7310ede22
+    interfaceName: "09a95e08-5b53-4734-815f-a9c12300fc62"
+    interfaceDescription: "Simulated interface for O-RU"
+  - name: o-ru-11222
+    uuid: 6b0d3930-100b-466c-9f44-2748ffb6aaa2
+    nodeEdgePointUuid: bb7e5882-6e3a-46a7-a95b-0bb7310ede23
+    interfaceName: "09a95e08-5b53-4734-815f-a9c12300fc63"
+    interfaceDescription: "Simulated interface for O-RU"
+
+
+topologyUuid: 7adfee73-44be-4813-a0dc-89f657f0a436
+links:
+  - duNode: o-du-1122
+    ruNode: o-ru-11221
+    uuid: ac78b69f-22df-46fd-ae76-cc989bc30abc
+  - duNode: o-du-1122
+    ruNode: o-ru-11222
+    uuid: ac78b69f-22df-46fd-ae76-cc989bc30abd
+
+
+# NTS NG settings
+ntsimNg:
+  ipV6Enabled: true
+  sshConnections: 1
+  tlsConnections: 0
+  ntsHostBasePort: 50000
+  ntsHostNetconfSshBasePort: 0
+  ntsHostNetconfTlsBasePort: 1000
+  ntsHostTransferFtpBasePort: 2000
+  ntsHostTransferSftpBasePort: 2000
+  ntsNfMountPointAddressingMethod: docker-mapping
+
+  sdnControllerProtocol: https
+  sdnControllerCallHomeAddress: sdnc-callhome.onap
+  sdnControllerCallHomePort: 6666
+  sdnControllerUsername: admin
+  sdnControllerPassword: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  sdnControllerPort: 8443
+  sdnControllerAddress: sdnc.onap
+
+  vesCommonHeaderVersion: 7.2.1
+  vesEndpointProtocol: https
+  vesEndpointAddress: dcae-ves-collector.onap
+  vesEndpointPort: 8443
+  vesEndpointAuthMethod: basic-auth
+  vesEndpointUsername: sample1
+  vesEndpointPassword: sample1
+
+  ntsNfStandaloneStartFeatures: datastore-populate netconf-call-home web-cut-through

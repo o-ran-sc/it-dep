@@ -27,6 +27,7 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
-../sub-scripts/build-onap.sh
-../sub-scripts/build-oran.sh
-../sub-scripts/build-tests.sh
+apt-get install make -y
+
+echo  '### Building ORAN tests part ###'
+(cd ../../tests_oom && make all)

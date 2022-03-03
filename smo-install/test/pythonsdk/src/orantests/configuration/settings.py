@@ -70,6 +70,7 @@ NBI_API_VERSION = "/nbi/api/v4"
 
 POLICY_BASICAUTH = { 'username': 'policyadmin', 'password': 'zb!XztG34' }
 SDNC_BASICAUTH = { 'username': 'admin', 'password': 'Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U' }
+CLAMP_BASICAUTH = { 'username': 'demo@people.osaaf.org', 'password': 'demo123456!' }
 
 DMAAP_URL = "http://"+subprocess.run("kubectl get services message-router -n onap |grep message-router | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":3904"
 
@@ -93,3 +94,12 @@ DMAAP_TOPIC_PNFREG = "unauthenticated.VES_PNFREG_OUTPUT"
 DMAAP_TOPIC_PNFREG_JSON = '{"topicName": "' + DMAAP_TOPIC_PNFREG + '"}'
 DMAAP_TOPIC_FAULT = "unauthenticated.SEC_FAULT_OUTPUT"
 DMAAP_TOPIC_FAULT_JSON = '{"topicName": "' + DMAAP_TOPIC_FAULT + '"}'
+
+### Number of pods left in completed state for ONAP namespace
+ONAP_PODS_WHEN_READY = 9
+SMO_CHECK_RETRY = 30
+SMO_CHECK_TIMEOUT = 900
+SDNC_CHECK_RETRY = 30
+SDNC_CHECK_TIMEOUT = 900
+POLICY_CHECK_RETRY = 30
+POLICY_CHECK_TIMEOUT = 900

@@ -23,10 +23,5 @@
 # 
 ###
 
-SCRIPT=$(readlink -f "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-cd $SCRIPT_PATH
-
-../sub-scripts/build-onap.sh
-../sub-scripts/build-oran.sh
-../sub-scripts/build-tests.sh
+kubectl delete namespace tests
+kubectl get pv | grep Released | awk '$1 {print$1}' | while read vol; do kubectl delete pv/${vol}; done

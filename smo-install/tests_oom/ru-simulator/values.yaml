@@ -1,0 +1,99 @@
+# Copyright © 2021-2022 AT&T Intellectual Property
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Static Defaults
+image:
+  repository: 'nexus3.o-ran-sc.org:10001/o-ran-sc'
+  name: nts-ng-o-ran-ru-fh 
+  tag: 1.4.3
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  ports:
+    port: 830
+
+rus:
+  - name: o-ru-11221
+    simulatedFaults:
+      - name: fault1 
+        condition: "C/U-plane logical Connection faulty"
+        severity: CRITICAL
+        specificProblem: "C/U-plane logical Connection faulty"
+        faultSeverity: CRITICAL
+        cleared: false
+        text: "O-RU Port Down"
+        faultId: 28
+        object: "09a95e08-5b53-4734-815f-a9c12300fc62"
+      - name: fault1-close
+        condition: "C/U-plane logical Connection faulty"
+        severity: NORMAL
+        specificProblem: "C/U-plane logical Connection faulty"
+        faultSeverity: CRITICAL
+        cleared: true
+        text: "O-RU Port Down"
+        faultId: 28
+        object: "09a95e08-5b53-4734-815f-a9c12300fc62"
+
+  - name: o-ru-11222
+    simulatedFaults:
+      - name: fault1
+        condition: "C/U-plane logical Connection faulty"
+        severity: CRITICAL
+        specificProblem: "C/U-plane logical Connection faulty"
+        faultSeverity: CRITICAL
+        cleared: false
+        text: "O-RU Port Down"
+        faultId: 28
+        object: "09a95e08-5b53-4734-815f-a9c12300fc63"
+      - name: fault1-close
+        condition: "C/U-plane logical Connection faulty"
+        severity: NORMAL  
+        specificProblem: "C/U-plane logical Connection faulty"
+        faultSeverity: CRITICAL
+        cleared: true 
+        text: "O-RU Port Down"
+        faultId: 28
+        object: "09a95e08-5b53-4734-815f-a9c12300fc63"
+
+
+# NTS NG settings
+ntsimNg:
+  ipV6Enabled: true
+  sshConnections: 0
+  tlsConnections: 1
+  ntsHostBasePort: 50000
+  ntsHostNetconfSshBasePort: 0
+  ntsHostNetconfTlsBasePort: 1000
+  ntsHostTransferFtpBasePort: 2000
+  ntsHostTransferSftpBasePort: 2000
+  ntsNfMountPointAddressingMethod: docker-mapping
+
+  sdnControllerProtocol: https
+  sdnControllerCallHomeAddress: sdnc-callhome.onap
+  sdnControllerCallHomePort: 6666
+  sdnControllerUsername: admin
+  sdnControllerPassword: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  sdnControllerPort: 8443
+  sdnControllerAddress: sdnc.onap
+
+  vesCommonHeaderVersion: 7.2.1
+  vesEndpointProtocol: https
+  vesEndpointAddress: dcae-ves-collector.onap
+  vesEndpointPort: 8443
+  vesEndpointAuthMethod: basic-auth
+  vesEndpointUsername: sample1
+  vesEndpointPassword: sample1
+
+  ntsNfStandaloneStartFeatures: datastore-populate netconf-call-home web-cut-through

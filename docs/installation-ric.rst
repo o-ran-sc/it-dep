@@ -81,7 +81,7 @@ RIC Platform
 
 After the Kubernetes cluster is installed, the next step is to install the (Near Realtime) RIC Platform.
 
-.. include:: ./ric/installation-ricplt.rst
+See instructions in ric-plt/ric-dep: https://docs.o-ran-sc.org/projects/o-ran-sc-ric-plt-ric-dep/en/latest/installation-guides.html
 
 
 AUX Functionalities (Optional)
@@ -93,5 +93,4 @@ AUX Functionalities (Optional)
 RIC Applications
 ---------------------------
 
-.. include:: ./ric/installation-xapps.rst
-
+See instructions in ric-plt/ric-dep: https://docs.o-ran-sc.org/projects/o-ran-sc-ric-plt-ric-dep/en/latest/installation-guides.html

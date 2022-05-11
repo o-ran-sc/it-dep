@@ -52,6 +52,12 @@ class NetworkSimulators():
         cmd = f"helm install --debug oran-simulator local/ru-du-simulators --namespace network -f {self.resources_path}/network-simulators-topology/network-simulators-override.yaml -f {self.resources_path}/network-simulators-topology/network-simulators-topology-override.yaml"
         check_output(cmd, shell=True).decode('utf-8')
 
+    def start_and_wait_network_simulators(self):
+        """Start and wait for all simulators defined in resources_path."""
+        logger.info("Start the network simulators")
+        self.start_network_simulators()
+        NetworkSimulators.wait_for_network_simulators_to_be_running()
+
     @staticmethod
     def get_all_simulators():
         """Retrieve all simulators defined in k8s services."""
@@ -114,4 +120,4 @@ class NetworkSimulators():
     @staticmethod
     def wait_for_network_simulators_to_be_running():
         """Check and wait for the network sims to be running."""
-        wait(lambda: NetworkSimulators.is_network_simulators_up(), sleep_seconds=10, timeout_seconds=60, waiting_for="Network simulators to be ready")
+        wait(lambda: NetworkSimulators.is_network_simulators_up(), sleep_seconds=settings.NETWORK_SIMULATOR_CHECK_RETRY, timeout_seconds=settings.NETWORK_SIMULATOR_CHECK_TIMEOUT, waiting_for="Network simulators to be ready")

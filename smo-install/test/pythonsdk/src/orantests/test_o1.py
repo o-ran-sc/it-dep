@@ -29,8 +29,8 @@ import os
 import time
 import pytest
 from onapsdk.configuration import settings
-from waiting import wait
 from smo.network_simulators import NetworkSimulators
+from smo.dmaap import DmaapUtils
 from oransdk.dmaap.dmaap import OranDmaap
 from oransdk.sdnc.sdnc import OranSdnc
 
@@ -44,7 +44,8 @@ logger = logging.getLogger("Test O1")
 
 network_simulators = NetworkSimulators("./resources")
 dmaap = OranDmaap()
-test_session_timestamp = datetime.datetime.now()
+dmaap_utils = DmaapUtils()
+test_session_timestamp = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -55,12 +56,10 @@ def setup_simulators():
     # Do a first get to register the o1test/o1test user in DMAAP
     # all registration messages will then be stored for the registration tests.
     # If it exists already it clears all cached events.
-    dmaap.create_topic(settings.DMAAP_TOPIC_PNFREG_JSON)
-    dmaap.create_topic(settings.DMAAP_TOPIC_FAULT_JSON)
-    wait(lambda: (dmaap.get_message_from_topic(settings.DMAAP_TOPIC_PNFREG, 5000, settings.DMAAP_GROUP, settings.DMAAP_USER).json() == []), sleep_seconds=10, timeout_seconds=60, waiting_for="DMaap topic unauthenticated.VES_PNFREG_OUTPUT to be empty")
-    wait(lambda: (dmaap.get_message_from_topic(settings.DMAAP_TOPIC_FAULT, 5000, settings.DMAAP_GROUP, settings.DMAAP_USER).json() == []), sleep_seconds=10, timeout_seconds=60, waiting_for="DMaap topic unauthenticated.SEC_FAULT_OUTPUT to be empty")
-    network_simulators.start_network_simulators()
-    network_simulators.wait_for_network_simulators_to_be_running()
+
+    dmaap_utils.clean_dmaap(settings.DMAAP_GROUP, settings.DMAAP_USER)
+
+    network_simulators.start_and_wait_network_simulators()
   # ADD DU RESTART just in case
     # Wait enough time to have at least the SDNR notifications sent
     logger.info("Waiting 20s that SDNR sends all registration events to VES...")
@@ -71,13 +70,14 @@ def setup_simulators():
 #    time.sleep(20)
     # Preparing the DMaap to cache all the events for the fault topics.
     # If it exists already it clears all cached events.
-    logger.info("Waiting 120s to have registration and faults events in DMaap")
-    time.sleep(120)
+    logger.info("Waiting 300s to have registration and faults events in DMaap")
+    time.sleep(300)
     logger.info("Test Session setup completed successfully")
 
     ### Cleanup code
     yield
     network_simulators.stop_network_simulators()
+    time.sleep(10)
     logger.info("Test Session cleanup done")
 
 def create_registration_structure(events):
@@ -115,7 +115,10 @@ def validate_faults_timestamp(faults):
     """Extract only the faults returned by SDNC that have been raised during this test."""
     valid_faults = []
     for fault in faults['data-provider:output']['data']:
-        converted_fault_timestamp = datetime.datetime.strptime(fault['timestamp'], "%Y-%m-%dT%H:%M:%S.%fZ")
+        try:
+            converted_fault_timestamp = datetime.datetime.strptime(fault['timestamp'], "%Y-%m-%dT%H:%M:%S.%f%z")
+        except ValueError:
+            converted_fault_timestamp = datetime.datetime.strptime(fault['timestamp'], "%Y-%m-%dT%H:%M:%S%z")
         logger.info("Comparing fault timestamp %s (%s) to session test timestamp %s", converted_fault_timestamp, fault['timestamp'], test_session_timestamp)
         if converted_fault_timestamp > test_session_timestamp:
             valid_faults.append(fault)

@@ -24,6 +24,7 @@
 ###
 
 ## Microk8S part
+sudo apt-get update
 sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 snap remove microk8s
@@ -36,11 +37,11 @@ ufw allow in on cni0 && sudo ufw allow out on cni0
 ufw default allow routed
 
 ## Enable required features for K8S
-microk8s enable dns storage
+microk8s enable dns storage prometheus
 
 ## Setup kubectl
 cd
-mkdir .kube
+mkdir -p .kube
 cd .kube
 sudo microk8s.config > config
 chmod 700 config

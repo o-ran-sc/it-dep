@@ -17,15 +17,15 @@ It has been created out of the ONAP vfirewall usecase.
 
 	```git clone --recursive https://github.com/sebdet/oran-deployment.git```
 
-	```./oran-deployment/scripts/layer-0/0-setup-microk8s.sh```
+	```./dep/smo-install/scripts/layer-0/0-setup-microk8s.sh```
 
-	```./oran-deployment/scripts/layer-0/0-setup-charts-museum.sh```
+	```./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh```
 	
-	```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
+	```./dep/smo-install/scripts/layer-0/0-setup-helm3.sh```
 	
-	```./oran-deployment/scripts/layer-1/1-build-all-charts.sh```
+	```./dep/smo-install/scripts/layer-1/1-build-all-charts.sh```
 
-	```./oran-deployment/scripts/layer-2/2-install-oran.sh```
+	```./dep/smo-install/scripts/layer-2/2-install-oran.sh```
 
 	Verify pods:
 
@@ -33,21 +33,29 @@ It has been created out of the ONAP vfirewall usecase.
 	
 	When all pods in "onap" and "nonrtric" namespaces are well up & running:
 	
-	```./oran-deployment/scripts/layer-2/2-install-simulators.sh```
+	```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
 ## Quick Installation on existing kubernetes
 * Ensure you have at least 20GB Memory, 6VCPU, 60GB of diskspace. 
 * Execute the following commands being logged as root:
 
-	```git clone --recursive git@github.com:gmngueko/oran-deployment.git```
+        ```git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"```
 
-	```./oran-deployment/scripts/layer-0/0-setup-charts-museum.sh```
-	
-	```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
-	
-	```./oran-deployment/scripts/layer-1/1-build-all-charts.sh```
+        ```./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh```
 
-	```./oran-deployment/scripts/layer-2/2-install-oran.sh```
+        ```./dep/smo-install/scripts/layer-0/0-setup-helm3.sh```
+
+        ```./dep/smo-install/scripts/layer-1/1-build-all-charts.sh```
+
+        ```./dep/smo-install/scripts/layer-2/2-install-oran.sh```
+
+        Verify pods:
+
+        ```kubectl get pods -n onap && kubectl get pods -n nonrtric```
+
+        When all pods in "onap" and "nonrtric" namespaces are well up & running:
+
+        ```./smo-install/scripts/layer-2/2-install-simulators.sh```
 
 	Verify pods:
 
@@ -55,7 +63,7 @@ It has been created out of the ONAP vfirewall usecase.
 	
 	When all pods in "onap" and "nonrtric" namespaces are well up & running:
 	
-	```./oran-deployment/scripts/layer-2/2-install-simulators.sh```
+	```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
 
 ## Structure
@@ -153,13 +161,13 @@ Use git clone to get it on your server (github ssh key config is required):
   FOR K8S installation, multiple options are available:
 	- MicroK8S standalone deployment:
 
-		```./oran-deployment/scripts/layer-0/0-setup-microk8s.sh```
+		```./dep/smo-install/scripts/layer-0/0-setup-microk8s.sh```
 
 		OR this wiki can help to setup it (<strong>Section 1, 2 and 3</strong>): https://wiki.onap.org/display/DW/Deploy+OOM+and+SDC+%28or+ONAP%29+on+a+single+VM+with+microk8s+-+Honolulu+Setup
 
 	- KubeSpray using ONAP multicloud KUD (https://git.onap.org/multicloud/k8s/tree/kud) installation by executing(this is required for ONAP CNF deployments): 
             
-	    ```./oran-deployment/scripts/layer-0/0-setup-kud-node.sh```
+	    ```./dep/smo-install/scripts/layer-0/0-setup-kud-node.sh```
     
 
 	- Use an existing K8S installation (Cloud, etc ...).
@@ -168,9 +176,9 @@ Use git clone to get it on your server (github ssh key config is required):
 * ChartMuseum to store the HELM charts on the server, multiple options are available:
 	- Execute the install script:
 
-		```./oran-deployment/scripts/layer-0/0-setup-charts-museum.sh```
+		```./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh```
 		
-		```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
+		```./dep/smo-install/scripts/layer-0/0-setup-helm3.sh```
 
 	- Install chartmuseum manually on port 18080 (https://chartmuseum.com/#Instructions, https://github.com/helm/chartmuseum)
     
@@ -181,19 +189,19 @@ In the ./helm-override/ folder the helm config that are used by the SMO installa
 ## Installation:
 * Build ONAP/ORAN charts 
 
-	```./oran-deployment/scripts/layer-1/1-build-all-charts.sh```
+	```./dep/smo-install/scripts/layer-1/1-build-all-charts.sh```
 
 * Choose the installation:
 	- ONAP + ORAN "nonrtric" <strong>(RECOMMENDED ONE)</strong>:  
 	
-		```./oran-deployment/scripts/layer-2/2-install-oran.sh```
+		```./dep/smo-install/scripts/layer-2/2-install-oran.sh```
 	- ORAN "nonrtric" par only: 
 	
-		```./oran-deployment/scripts/layer-2/2-install-nonrtric-only.sh```
+		```./dep/smo-install/scripts/layer-2/2-install-nonrtric-only.sh```
 
 	- ONAP CNF + ORAN "nonrtric" (This must still be documented properly): 
 
-		```./oran-deployment/scripts/layer-2/2-install-oran-cnf.sh```
+		```./dep/smo-install/scripts/layer-2/2-install-oran-cnf.sh```
 
 
 
@@ -204,14 +212,14 @@ In the ./helm-override/ folder the helm config that are used by the SMO installa
 
 	- Execute the install script:
 		
-		```./oran-deployment/scripts/layer-2/2-install-simulators.sh```
+		```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
 	- Check the simulators status:
 
 		```kubectl get pods -n network```
 
-	Note: The simulators topology can be customized in the file ./oran-deployment/helm-override/network-simulators-topology-override.yaml
-
+	Note: The simulators topology can be customized in the file ./smo-install/helm-override/network-simulators-topology-override.yaml
+	
 ## Platform access points:
 * SDNR WEB: 
 	https://<K8SServerIP>:30205/odlux/index.html
@@ -222,4 +230,4 @@ In the ./helm-override/ folder the helm config that are used by the SMO installa
 ## Uninstallation:
 * Execute 
 	
-	```./oran-deployment/scripts/uninstall-all.sh```
+	```./dep/smo-install/scripts/uninstall-all.sh```

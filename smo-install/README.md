@@ -39,13 +39,13 @@ It has been created out of the ONAP vfirewall usecase.
 
         ```git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"```
 
-        ```./oran-deployment/scripts/layer-0/0-setup-charts-museum.sh```
+        ```./smo-install/scripts/layer-0/0-setup-charts-museum.sh```
 
-        ```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
+        ```./smo-install/scripts/layer-0/0-setup-helm3.sh```
 
-        ```./oran-deployment/scripts/layer-1/1-build-all-charts.sh```
+        ```./smo-install/scripts/layer-1/1-build-all-charts.sh```
 
-        ```./oran-deployment/scripts/layer-2/2-install-oran.sh```
+        ```./smo-install/scripts/layer-2/2-install-oran.sh```
 
         Verify pods:
 
@@ -53,7 +53,7 @@ It has been created out of the ONAP vfirewall usecase.
 
         When all pods in "onap" and "nonrtric" namespaces are well up & running:
 
-        ```./oran-deployment/scripts/layer-2/2-install-simulators.sh```
+        ```./smo-install/scripts/layer-2/2-install-simulators.sh```
 
 
 
@@ -172,7 +172,7 @@ Use git clone to get it on your server:
 
 		```./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh```
 
-		```./oran-deployment/scripts/layer-0/0-setup-helm3.sh```
+		```./smo-install/scripts/layer-0/0-setup-helm3.sh```
 
 	- Install chartmuseum manually on port 18080 (https://chartmuseum.com/#Instructions, https://github.com/helm/chartmuseum)
     
@@ -212,7 +212,7 @@ In the ./helm-override/ folder the helm config that are used by the SMO installa
 
 		```kubectl get pods -n network```
 
-	Note: The simulators topology can be customized in the file ./oran-deployment/helm-override/network-simulators-topology-override.yaml
+	Note: The simulators topology can be customized in the file ./smo-install/helm-override/network-simulators-topology-override.yaml
 	
 ## Platform access points:
 * SDNR WEB: 

@@ -33,6 +33,24 @@
       "message": "THank you, indeed that must be changed. sorry for that.\n\nBut it should be ./dep/smo-install no ?",
       "revId": "0dc12a517f0b971a82f8d246121f80d6eb1bf1ee",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "139a3e0f_b8bc210a",
+        "filename": "smo-install/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000374
+      },
+      "writtenOn": "2022-05-25T10:28:54Z",
+      "side": 1,
+      "message": "Ack, some more cases fixed as well",
+      "parentUuid": "15d615bd_fd46c47d",
+      "revId": "0dc12a517f0b971a82f8d246121f80d6eb1bf1ee",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

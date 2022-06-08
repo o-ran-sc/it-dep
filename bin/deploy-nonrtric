@@ -112,7 +112,7 @@ for component in $COMPONENTS; do
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
     VERSION=$(cat $ROOT_DIR/../nonrtric/helm/$component/Chart.yaml | grep version | awk '{print $2}')
     helm package -d /tmp $ROOT_DIR/../nonrtric/helm/$component
-    cp /tmp/$component-$VERSION.tgz ${HELM_LOCAL_REPO}
+    curl --data-binary @/tmp/$component-$VERSION.tgz http://127.0.0.1:8879/charts/api/charts
 done
 
 helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric

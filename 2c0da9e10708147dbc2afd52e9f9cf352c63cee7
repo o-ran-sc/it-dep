@@ -16,6 +16,23 @@
       "message": "Hi Sebastian, build issue is not related to the change. Any idea how to resolve?",
       "revId": "2c0da9e10708147dbc2afd52e9f9cf352c63cee7",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e57493c_c43d0d2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2022-06-23T21:37:37Z",
+      "side": 1,
+      "message": "The changes are correct - no idea about the issue of the JobBuilder 😞",
+      "revId": "2c0da9e10708147dbc2afd52e9f9cf352c63cee7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

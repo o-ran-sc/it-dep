@@ -343,11 +343,6 @@ sdnc:
     enabled: true
   cds:
     enabled: false
-  sdnc-web:
-    config:
-      topologyserver:
-        enabled: true
-        topologyserverUrl: http://topology.nonrtric:3001
   config:
     sdnr:
       enabled: true

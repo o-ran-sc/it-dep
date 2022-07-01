@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2021 Nordix Foundation.                                      #
+#   Copyright (c) 2020 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,24 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.oruclosedlooprecovery" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.oruclosedlooprecovery.service.allowHttp true -}}
-    - name: {{ index .Values.oruclosedlooprecovery.service.httpName }}
-      port: {{ .Values.oruclosedlooprecovery.service.port }}
-      protocol: TCP
-    {{- end }}
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{- define "common.name.ransliceassurance" -}}
+  {{- printf "ransliceassurance" -}}
+{{- end -}}
+
+{{- define "common.container.ransliceassurance" -}}
+  {{- $name := ( include "common.name.ransliceassurance" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

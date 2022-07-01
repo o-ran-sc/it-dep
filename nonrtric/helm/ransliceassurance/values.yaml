@@ -14,11 +14,25 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.oruclosedlooprecovery" -}}
-  {{- printf "oruclosedlooprecovery" -}}
-{{- end -}}
+# Default values for odu slice assurance.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-{{- define "common.container.oruclosedlooprecovery" -}}
-  {{- $name := ( include "common.name.oruclosedlooprecovery" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+ransliceassurance:
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+    name: nonrtric-rapp-ransliceassurance
+    tag: 1.1.0
+  service:
+    httpName: web
+    allowHttp: true
+    port: 80
+  env:
+    mr_host: "http://onap-dmaap"
+    mr_port: "3904"
+    sdnr_address: "http://sdnr:8181"
+    sdnr_user: "admin"
+    sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
+    log_level: "Info"
+    polltime: "10"

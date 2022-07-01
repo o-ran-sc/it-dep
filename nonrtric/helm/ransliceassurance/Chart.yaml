@@ -14,28 +14,8 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Default values for oru closed loop recovery.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-oruclosedlooprecovery:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    name: nonrtric-o-ru-closed-loop-consumer
-    tag: 1.0.1
-  service:
-    httpName: web
-    allowHttp: true
-    port: 80
-  env:
-    consumer_host: "http://mrproducer"
-    consumer_port: "8095"
-    consumer_cert_path: "security/consumer.crt"
-    consumer_key_path: "security/consumer.key"
-    info_coord_addr: "http://ics:8083"
-    sdnr_address: "http://sdnr:8282"
-    sdnr_user: "admin"
-    sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
-    oru_to_odu_map_file: "o-ru-to-o-du-map.csv"
-    log_level: "Info"
+apiVersion: v1
+appVersion: "2.0.0"
+description: A Helm chart for odu slice assurance
+name: ransliceassurance
+version: 1.0.0

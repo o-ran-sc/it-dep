@@ -17,11 +17,11 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: {{ include "common.name.oruclosedlooprecovery" . }}
+  name: {{ include "common.name.orufhrecovery" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -31,48 +31,48 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ include "common.name.oruclosedlooprecovery" . }}
+      hostname: {{ include "common.name.orufhrecovery" . }}
       containers:
-      - name: {{ include "common.container.oruclosedlooprecovery" . }}
-        image: {{ .Values.oruclosedlooprecovery.image.registry }}/{{ .Values.oruclosedlooprecovery.image.name }}:{{ .Values.oruclosedlooprecovery.image.tag }}
-        imagePullPolicy: {{ .Values.oruclosedlooprecovery.imagePullPolicy }}
+      - name: {{ include "common.container.orufhrecovery" . }}
+        image: {{ .Values.orufhrecovery.image.registry }}/{{ .Values.orufhrecovery.image.name }}:{{ .Values.orufhrecovery.image.tag }}
+        imagePullPolicy: {{ .Values.orufhrecovery.imagePullPolicy }}
         ports:
         - containerPort: 80
           protocol: TCP
         env:
           - name: CONSUMER_HOST
-            value: "{{ .Values.oruclosedlooprecovery.env.consumer_host }}"
+            value: "{{ .Values.orufhrecovery.env.consumer_host }}"
           - name: CONSUMER_PORT
-            value: "{{ .Values.oruclosedlooprecovery.env.consumer_port }}"
+            value: "{{ .Values.orufhrecovery.env.consumer_port }}"
           - name: CONSUMER_CERT_PATH
-            value: "{{ .Values.oruclosedlooprecovery.env.consumer_cert_path }}"
+            value: "{{ .Values.orufhrecovery.env.consumer_cert_path }}"
           - name: CONSUMER_KEY_PATH
-            value: "{{ .Values.oruclosedlooprecovery.env.consumer_key_path }}"
+            value: "{{ .Values.orufhrecovery.env.consumer_key_path }}"
           - name: INFO_COORD_ADDR
-            value: "{{ .Values.oruclosedlooprecovery.env.info_coord_addr }}"
+            value: "{{ .Values.orufhrecovery.env.info_coord_addr }}"
           - name: SDNR_ADDR
-            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_address }}"
+            value: "{{ .Values.orufhrecovery.env.sdnr_address }}"
           - name: SDNR_USER
-            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_user }}"
+            value: "{{ .Values.orufhrecovery.env.sdnr_user }}"
           - name: SDNR_PASSWORD
-            value: "{{ .Values.oruclosedlooprecovery.env.sdnr_password }}"
+            value: "{{ .Values.orufhrecovery.env.sdnr_password }}"
           - name: ORU_TO_ODU_MAP_FILE
-            value: "{{ .Values.oruclosedlooprecovery.env.oru_to_odu_map_file }}"
+            value: "{{ .Values.orufhrecovery.env.oru_to_odu_map_file }}"
           - name: LOG_LEVEL
-            value: "{{ .Values.oruclosedlooprecovery.env.log_level }}"
+            value: "{{ .Values.orufhrecovery.env.log_level }}"
         volumeMounts:
-        - name: {{ include "common.name.oruclosedlooprecovery" . }}-oru-config
+        - name: {{ include "common.name.orufhrecovery" . }}-oru-config
           mountPath: "/app/o-ru-to-o-du-map.csv"
           subPath: "o-ru-to-o-du-map.csv"
       volumes:
-        - name: {{ include "common.name.oruclosedlooprecovery" . }}-oru-config
+        - name: {{ include "common.name.orufhrecovery" . }}-oru-config
           configMap:
-            name: {{ include "common.name.oruclosedlooprecovery" . }}-configmap-config
+            name: {{ include "common.name.orufhrecovery" . }}-configmap-config

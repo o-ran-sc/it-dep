@@ -14,8 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-apiVersion: v1
-appVersion: "2.0.0"
-description: A Helm chart for oru closed loop recovery
-name: oruclosedlooprecovery
-version: 1.0.0
+{{- define "common.name.orufhrecovery" -}}
+  {{- printf "orufhrecovery" -}}
+{{- end -}}
+
+{{- define "common.container.orufhrecovery" -}}
+  {{- $name := ( include "common.name.orufhrecovery" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

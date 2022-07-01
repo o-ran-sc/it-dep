@@ -75,12 +75,12 @@ dependencies:
     repository: "@local"
     condition: nonrtric.installHelmmanager
 
-  - name: odusliceassurance
+  - name: ransliceassurance
     version: ~1.0.0
     repository: "@local"
-    condition: nonrtric.installOdusliceassurance
+    condition: nonrtric.installRansliceassurance
 
-  - name: oruclosedlooprecovery
+  - name: orufhrecovery
     version: ~1.0.0
     repository: "@local"
-    condition: nonrtric.installOruclosedlooprecovery
+    condition: nonrtric.installOrufhrecovery

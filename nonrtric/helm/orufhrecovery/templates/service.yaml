@@ -17,21 +17,21 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ include "common.name.odusliceassurance" . }}
+  name: {{ include "common.name.orufhrecovery" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   ports:
-    {{if eq .Values.odusliceassurance.service.allowHttp true -}}
-    - name: {{ index .Values.odusliceassurance.service.httpName }}
-      port: {{ .Values.odusliceassurance.service.port }}
+    {{if eq .Values.orufhrecovery.service.allowHttp true -}}
+    - name: {{ index .Values.orufhrecovery.service.httpName }}
+      port: {{ .Values.orufhrecovery.service.port }}
       protocol: TCP
     {{- end }}
   selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
     release: {{ .Release.Name }}
   type: ClusterIP

@@ -14,24 +14,16 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
+
 apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: {{ include "common.name.oruclosedlooprecovery" . }}
+  name: {{ include "common.name.orufhrecovery" . }}-configmap-config
   namespace: {{ include "common.namespace.nonrtric" . }}
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.orufhrecovery" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.oruclosedlooprecovery.service.allowHttp true -}}
-    - name: {{ index .Values.oruclosedlooprecovery.service.httpName }}
-      port: {{ .Values.oruclosedlooprecovery.service.port }}
-      protocol: TCP
-    {{- end }}
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.oruclosedlooprecovery" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+data:
+{{ tpl (.Files.Glob "resources/config/*").AsConfig . | indent 2 }}

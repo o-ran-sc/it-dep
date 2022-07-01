@@ -17,11 +17,11 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: {{ include "common.name.odusliceassurance" . }}
+  name: {{ include "common.name.ransliceassurance" . }}
   namespace: {{ include "common.namespace.nonrtric" . }}
   generation: 1
   labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.ransliceassurance" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -31,35 +31,35 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.ransliceassurance" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.odusliceassurance" . }}
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.ransliceassurance" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ include "common.name.odusliceassurance" . }}
+      hostname: {{ include "common.name.ransliceassurance" . }}
       containers:
-      - name: {{ include "common.container.odusliceassurance" . }}
-        image: {{ .Values.odusliceassurance.image.registry }}/{{ .Values.odusliceassurance.image.name }}:{{ .Values.odusliceassurance.image.tag }}
-        imagePullPolicy: {{ .Values.odusliceassurance.imagePullPolicy }}
+      - name: {{ include "common.container.ransliceassurance" . }}
+        image: {{ .Values.ransliceassurance.image.registry }}/{{ .Values.ransliceassurance.image.name }}:{{ .Values.ransliceassurance.image.tag }}
+        imagePullPolicy: {{ .Values.ransliceassurance.imagePullPolicy }}
         ports:
         - containerPort: 80
           protocol: TCP
         env:
           - name: MR_HOST
-            value: "{{ .Values.odusliceassurance.env.mr_host }}"
+            value: "{{ .Values.ransliceassurance.env.mr_host }}"
           - name: MR_PORT
-            value: "{{ .Values.odusliceassurance.env.mr_port }}"
+            value: "{{ .Values.ransliceassurance.env.mr_port }}"
           - name: SDNR_ADDRESS
-            value: "{{ .Values.odusliceassurance.env.sdnr_address }}"
+            value: "{{ .Values.ransliceassurance.env.sdnr_address }}"
           - name: SDNR_USER
-            value: "{{ .Values.odusliceassurance.env.sdnr_user }}"
+            value: "{{ .Values.ransliceassurance.env.sdnr_user }}"
           - name: SDNR_PASSWORD
-            value: "{{ .Values.odusliceassurance.env.sdnr_password }}"
+            value: "{{ .Values.ransliceassurance.env.sdnr_password }}"
           - name: LOG_LEVEL
-            value: "{{ .Values.odusliceassurance.env.log_level }}"
+            value: "{{ .Values.ransliceassurance.env.log_level }}"
           - name: POLLTIME
-            value: "{{ .Values.odusliceassurance.env.polltime }}"
+            value: "{{ .Values.ransliceassurance.env.polltime }}"
 

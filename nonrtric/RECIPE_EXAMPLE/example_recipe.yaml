@@ -32,8 +32,8 @@ nonrtric:
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true
-  installOruclosedlooprecovery: true
-  installOdusliceassurance: true
+  installOrufhrecovery: true
+  installRansliceassurance: true
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
@@ -59,8 +59,8 @@ informationservice:
     imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-      name: 'nonrtric-information-coordinator-service'
-      tag: 1.2.1
+      name: 'nonrtric-plt-informationcoordinatorservice'
+      tag: 1.3.0
     service:
       allowHttp: true
       httpName: http
@@ -89,8 +89,8 @@ policymanagementservice:
     imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-      name: nonrtric-a1-policy-management-service
-      tag: 2.3.1
+      name: nonrtric-plt-a1policymanagementservice
+      tag: 2.4.0
     service:
       allowHttp: true
       httpName: http
@@ -144,7 +144,7 @@ a1simulator:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
-      tag: 2.2.0
+      tag: 2.3.0
     service:
       allowHttp: true
       httpName: http
@@ -201,8 +201,8 @@ rappcatalogueservice:
     imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-      name: nonrtric-r-app-catalogue
-      tag: 1.0.2
+      name: nonrtric-plt-rappcatalogue
+      tag: 1.1.0
     service:
       allowHttp: true
       httpName: http
@@ -242,8 +242,8 @@ dmaapadapterservice:
     imagePullPolicy: Always
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-      name: 'nonrtric-dmaap-adaptor'
-      tag: 1.0.1
+      name: 'nonrtric-plt-dmaapadapter'
+      tag: 1.1.0
     service:
       allowHttp: true
       httpName: http
@@ -264,8 +264,8 @@ dmaapmediatorservice:
     imagePullPolicy: IfNotPresent
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-      name: "nonrtric-dmaap-mediator-producer"
-      tag: 1.0.1
+      name: "nonrtric-plt-dmaapmediatorproducer"
+      tag: 1.1.0
     service:
       allowHttp: true
       httpName: http
@@ -287,8 +287,8 @@ helmmanager:
     imagePullPolicy: Always
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-      name: "nonrtric-helm-manager"
-      tag: 1.1.1
+      name: "nonrtric-plt-helmmanager"
+      tag: 1.2.0
     service:
       httpName: http
       internalPort1: 8112
@@ -305,13 +305,13 @@ helmmanager:
       size: 1Gi
       storageClassName: helmmanager-storage
 
-odusliceassurance:
-  odusliceassurance:
+ransliceassurance:
+  ransliceassurance:
     imagePullPolicy: IfNotPresent
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-      name: "nonrtric-o-du-slice-assurance"
-      tag: 1.0.2
+      name: "nonrtric-rapp-ransliceassurance"
+      tag: 1.1.0
     env:
       mr_host: "http://onap-dmaap"
       mr_port: "3904"
@@ -321,13 +321,13 @@ odusliceassurance:
       log_level: "Info"
       polltime: "10"
 
-oruclosedlooprecovery:
-  oruclosedlooprecovery:
+orufhrecovery:
+  orufhrecovery:
     imagePullPolicy: IfNotPresent
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-      name: "nonrtric-o-ru-closed-loop-consumer"
-      tag: 1.0.1
+      name: "nonrtric-rapp-orufhrecovery"
+      tag: 1.1.0
     env:
       consumer_host: "http://mrproducer"
       consumer_port: "8095"
@@ -339,3 +339,4 @@ oruclosedlooprecovery:
       sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
       oru_to_odu_map_file: "o-ru-to-o-du-map.csv"
       log_level: "Info"
+

@@ -24,17 +24,22 @@
 ###
 
 #Helm package
-wget https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
-mv helm-v3.5.4-linux-amd64.tar.gz /tmp/helm-v3.5.4-linux-amd64.tar.gz
 cd /tmp/
+wget https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
+#mv helm-v3.5.4-linux-amd64.tar.gz /tmp/helm-v3.5.4-linux-amd64.tar.gz
 tar xvfz /tmp/helm-v3.5.4-linux-amd64.tar.gz
-mv linux-amd64/helm /usr/local/bin/helm
-apt-get install git -y
+sudo mv linux-amd64/helm /usr/local/bin/helm
+sudo apt-get install git -y
 
 
 echo "Checking HELM ..."
 helm version 
+helm env
+env
+cat /etc/resolv.conf
 
+#curl -L -o helm-push_0.9.0_linux_amd64.tar.gz https://github.com/chartmuseum/helm-push/releases/download/v0.9.0/helm-push_0.9.0_linux_amd64.tar.gz
 helm plugin install --version v0.9.0 https://github.com/chartmuseum/helm-push.git
+#helm plugin install /tmp/helm-push_0.9.0_linux_amd64.tar.gz
 helm repo remove local
 helm repo add local http://localhost:18080

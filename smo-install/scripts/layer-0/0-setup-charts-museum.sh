@@ -30,6 +30,11 @@ cd $SCRIPT_PATH
 cd /tmp
 wget https://get.helm.sh/chartmuseum-v0.13.1-linux-amd64.tar.gz
 tar xvfz chartmuseum-v0.13.1-linux-amd64.tar.gz
-mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
+echo "User is - $USER"
+if [[ $USER != "root" ]]; then
+   sudo mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
+else 
+   mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
+fi
 
 chartmuseum --port=18080 --storage="local" --storage-local-rootdir=$SCRIPT_PATH"/../../../chartstorage" &

@@ -28,7 +28,11 @@ wget https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
 mv helm-v3.5.4-linux-amd64.tar.gz /tmp/helm-v3.5.4-linux-amd64.tar.gz
 cd /tmp/
 tar xvfz /tmp/helm-v3.5.4-linux-amd64.tar.gz
-mv linux-amd64/helm /usr/local/bin/helm
+if [[ $USER != "root" ]]; then
+   sudo mv linux-amd64/helm /usr/local/bin/helm
+else
+   mv linux-amd64/helm /usr/local/bin/helm
+fi
 apt-get install git -y
 
 

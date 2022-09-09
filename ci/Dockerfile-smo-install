@@ -18,6 +18,9 @@
 FROM ubuntu:18.04
 RUN apt-get update && apt-get -y install curl ca-certificates wget
 # often times out during LF jenkins build
+RUN useradd -ms /bin/bash ubuntu
+USER ubuntu
+WORKDIR /home/ubuntu
 
 ARG TGT=/tmp/it-dep
 COPY . $TGT

@@ -37,7 +37,7 @@ It has been created out of the ONAP vfirewall use case.
 
 ## Quick Installation on existing kubernetes
 * Ensure you have at least 20GB Memory, 6VCPU, 60GB of disk space.
-* Execute the following commands being logged as root:
+* Execute the following commands being logged as root(sudo):
 
         ```git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"```
 

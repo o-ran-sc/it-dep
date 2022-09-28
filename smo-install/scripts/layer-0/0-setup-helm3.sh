@@ -20,7 +20,7 @@
 # limitations under the License.
 # ============LICENSE_END============================================
 # ===================================================================
-# 
+#
 ###
 
 #Helm package
@@ -33,8 +33,17 @@ apt-get install git -y
 
 
 echo "Checking HELM ..."
-helm version 
+helm version
 
-helm plugin install --version v0.9.0 https://github.com/chartmuseum/helm-push.git
+TAR_VERSION=0.9.0
+echo "Downloading and installing helm-push v${TAR_VERSION} ..."
+TAR_FILE=helm-push_${TAR_VERSION}_linux_amd64.tar.gz
+HELM_PLUGINS=$(helm env HELM_PLUGINS)
+mkdir -p $HELM_PLUGINS/helm-push
+cd $HELM_PLUGINS/helm-push
+wget https://nexus.o-ran-sc.org/service/local/repositories/images/content/$TAR_FILE
+tar zxvf $TAR_FILE >/dev/null
+rm $TAR_FILE
+cd /tmp/
 helm repo remove local
 helm repo add local http://localhost:18080

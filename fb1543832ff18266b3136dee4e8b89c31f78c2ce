@@ -16,6 +16,23 @@
       "message": "Fixes a longstanding issue with helm-push install not working correctly. \nUsing wget works much better helm plugin install",
       "revId": "fb1543832ff18266b3136dee4e8b89c31f78c2ce",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67f7d438_9adc789a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2022-09-29T17:46:43Z",
+      "side": 1,
+      "message": "Issue was happening very often in jenkins verify task \nRef https://jira.linuxfoundation.org/plugins/servlet/desk/portal/2/IT-24534 \"Jenkins job https://jenkins.o-ran-sc.org/job/it-dep-smo-install-docker-verify-all fails\"",
+      "revId": "fb1543832ff18266b3136dee4e8b89c31f78c2ce",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

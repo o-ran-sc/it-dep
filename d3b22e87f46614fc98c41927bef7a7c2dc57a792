@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c470b9c4_f5f0c9ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000376
+      },
+      "writtenOn": "2022-09-30T14:28:21Z",
+      "side": 1,
+      "message": "I plan to abandon this as this issue was created for debugging the actual problem of getting an artifact which failed and now that John Keeney resolved the actual issue, I will abandon this. Is that OK?",
+      "revId": "d3b22e87f46614fc98c41927bef7a7c2dc57a792",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

@@ -195,9 +195,13 @@ In the ./helm-override/ folder the helm config that are used by the SMO installa
 	- ONAP + ORAN "nonrtric" <strong>(RECOMMENDED ONE)</strong>:
 
 		```./dep/smo-install/scripts/layer-2/2-install-oran.sh```
-	- ORAN "nonrtric" par only:
+	- ORAN "nonrtric" part only(To work with ONAP):
 
 		```./dep/smo-install/scripts/layer-2/2-install-nonrtric-only.sh```
+
+	- ORAN "nonrtric" standalone:
+
+		```./dep/smo-install/scripts/layer-2/2-install-nonrtric-only.sh standalone-nonrtric```
 
 	- ONAP CNF + ORAN "nonrtric" (This must still be documented properly):
 

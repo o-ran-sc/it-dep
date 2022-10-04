@@ -16,6 +16,23 @@
       "message": "Hi, Please review the change and approve if everything OK.\n\nRegards,\nRavi",
       "revId": "623251a70da40b8e4829f00b138e963caad5d261",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e517c61_a0aa1e67",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000374
+      },
+      "writtenOn": "2022-10-04T12:15:30Z",
+      "side": 1,
+      "message": "Sebastien added. I support this change.",
+      "revId": "623251a70da40b8e4829f00b138e963caad5d261",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

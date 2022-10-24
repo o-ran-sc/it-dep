@@ -58,7 +58,7 @@ global:
 # to customize the ONAP deployment.
 #################################################################
 a1policymanagement:
-  enabled: true
+  enabled: false
   rics:
     - name: ric1
       link: http://a1-sim-osc-0.nonrtric:8085
@@ -96,21 +96,21 @@ a1policymanagement:
       managedElementIds:
         - kista_1
         - kista_2
-aaf: 
-  enabled: true 
+aaf:
+  enabled: true
   aaf-service:
     readiness:
       initialDelaySeconds: 150
 aai:
-  enabled: false
+  enabled: true
   flavorOverride: unlimited
   global:
     flavorOverride: unlimited
     cassandra:
-      replicas: 3
+      replicas: 1
   aai-cassandra:
     flavorOverride: unlimited
-    replicaCount: 3
+    replicaCount: 1
   aai-babel:
     flavorOverride: unlimited
   aai-data-router:
@@ -135,11 +135,11 @@ aai:
       timeoutSeconds: 10
   aai-traversal:
     flavorOverride: unlimited
-appc: 
-  enabled: false 
-cassandra:
+appc:
   enabled: false
-  replicaCount: 3
+cassandra:
+  enabled: true
+  replicaCount: 1
   config:
     cluster_domain: cluster.local
     heap:
@@ -161,23 +161,23 @@ cassandra:
     timeoutSeconds: 10
     successThreshold: 1
     failureThreshold: 3
-cds: 
-  enabled: false 
-cli: 
-  enabled: false 
+cds:
+  enabled: false
+cli:
+  enabled: false
 contrib:
   enabled: true
   awx:
     enabled: false
   netbox:
     enabled: false
-consul: 
+consul:
   enabled: false
   consul-server:
     replicaCount: 1
-cps: 
+cps:
   enabled: false
-dcaegen2: 
+dcaegen2:
   enabled: false
   dcae-bootstrap:
     enabled: false
@@ -199,18 +199,18 @@ dcaegen2:
     enabled: false
   dcae-ves-openapi-manager:
     enabled: false
-dcaegen2-services: 
+dcaegen2-services:
   enabled: true
   dcae-bbs-eventprocessor-ms:
     enabled: false
   dcae-datafile-collector:
-    enabled: false
+    enabled: true
   dcae-datalake-admin-ui:
     enabled: false
   dcae-datalake-des:
-    enabled: false
+    enabled: true
   dcae-datalake-feeder:
-    enabled: false
+    enabled: true
   dcae-heartbeat:
     enabled: false
   dcae-hv-ves-collector:
@@ -220,7 +220,7 @@ dcaegen2-services:
   dcae-ms-healthcheck:
     enabled: false
   dcae-pm-mapper:
-    enabled: false
+    enabled: true
   dcae-pmsh:
     enabled: false
   dcae-prh:
@@ -228,7 +228,7 @@ dcaegen2-services:
   dcae-restconf-collector:
     enabled: false
   dcae-slice-analysis-ms:
-    enabled: false
+    enabled: true
   dcae-snmptrap-collector:
     enabled: false
   dcae-son-handler:
@@ -242,15 +242,15 @@ dcaegen2-services:
   dcae-ves-openapi-manager:
     enabled: false
 
-dcaemod: 
-  enabled: false 
-holmes: 
-  enabled: false 
-dmaap: 
-  enabled: true 
+dcaemod:
+  enabled: false
+holmes:
+  enabled: false
+dmaap:
+  enabled: true
 
-esr: 
-  enabled: false 
+esr:
+  enabled: true
 log:
   enabled: false
   log-logstash:
@@ -260,14 +260,14 @@ mariadb-galera:
   replicaCount: 1
 modeling:
   enabled: false
-msb: 
+msb:
+  enabled: true
+multicloud:
+  enabled: true
+nbi:
   enabled: false
-multicloud: 
-  enabled: false 
-nbi: 
-  enabled: false 
 oof:
-  enabled: false
+  enabled: true
 platform:
   enabled: false
 policy:
@@ -277,7 +277,7 @@ policy:
   policy-pap:
     enabled: true
   policy-xacml-pdp:
-    enabled: false
+    enabled: true
   policy-apex-pdp:
     enabled: true
   policy-drools-pdp:
@@ -290,17 +290,9 @@ policy:
     enabled: true
   policy-clamp-ac-k8s-ppnt:
     enabled: true
-    image: onap/policy-clamp-ac-k8s-ppnt:6.3.0
-    repoList:
-      helm:
-        repos:
-          -
-            repoName: chartmuseum
-            address: http://test-chartmuseum.test:8080
-        protocols:
-          - http
   policy-gui:
     enabled: false
+    image: onap/policy-gui:2.2.1
   policy-nexus:
     enabled: false
   policy-clamp-ac-pf-ppnt:
@@ -310,12 +302,12 @@ policy:
 
 pomba:
   enabled: false
-portal: 
+portal:
   enabled: false
-robot: 
-  enabled: false 
-sdc: 
+robot:
   enabled: false
+sdc:
+  enabled: true
   sdc-be:
     config:
       javaOptions: "-Xmx1g -Xms512m"
@@ -334,8 +326,13 @@ sdc:
         requests:
           cpu: 100m
           memory: 500Mi
+  sdc-wfd:
+    enabled: false
+  global:
+    sdc_cassandra:
+      replicaCount: 1
 
-sdnc: 
+sdnc:
   enabled: true
   replicaCount: 1
   elasticsearch:
@@ -381,22 +378,24 @@ sdnc:
         eventLogMsgDetail: LONG
 sniro-emulator:
   enabled: false
+
 strimzi:
   enabled: true
-so: 
-  enabled: false
+
+so:
+  enabled: true
   so-catalog-db-adapter:
     config:
       openStackUserName: "the username"
       openStackKeyStoneUrl: "http://10.12.25.2:5000/v3"
       openStackEncryptedPasswordHere: "1DD1B3B4477FBAFAFEA617C575639C6F09E95446B5AE1F46C72B8FD960219ABB0DBA997790FCBB12"
       openStackKeystoneVersion: "KEYSTONE_V3"
-uui: 
-  enabled: false 
-vfc: 
-  enabled: false 
-vid: 
-  enabled: false 
-vnfsdk: 
-  enabled: false 
+uui:
+  enabled: true
+vfc:
+  enabled: false
+vid:
+  enabled: true
+vnfsdk:
+  enabled: false
 

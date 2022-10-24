@@ -23,7 +23,7 @@
 ###
 """Closed Loop Apex usecase tests module."""
 # This usecase has limitations due to Clamp issue.
-# 1. make sure using the policy-clamp-be version 6.2.0-snapshot-latest at this the moment
+# 1. make sure using the policy-k8s-participant version is higher than 6.3.0
 import time
 import logging.config
 import subprocess
@@ -41,16 +41,16 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 
+chartmuseum_tls_enabled = True
 logging.config.dictConfig(settings.LOG_CONFIG)
 logger = logging.getLogger("test Control Loops for O-RU Fronthaul Recovery usecase - Clamp K8S usecase")
 clcommissioning_utils = ClCommissioningUtils()
 clamp = ClampToscaTemplate(settings.CLAMP_BASICAUTH)
 
-chartmuseum_port = "8080"
 chart_version = "1.0.0"
 chart_name = "oru-app"
-release_name = "oru-app"
-usecase_name = "script_usecase"
+release_name = "nonrtric"
+usecase_name = "k8s_usecase"
 
 @pytest.fixture(scope="module", autouse=True)
 def setup_simulators():
@@ -63,9 +63,7 @@ def setup_simulators():
     logger.info("Add the remote repo to Clamp k8s pod")
     k8s_pod = subprocess.run("kubectl get pods -n onap | grep k8s | awk '{print $1}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
-    repo_url = subprocess.run("kubectl get services -n test | grep test-chartmuseum | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8080"
-    logger.info("k8s: %s, repo_url:%s", k8s_pod, repo_url)
-    cmd = f"kubectl exec -it -n onap {k8s_pod} -- sh -c \"helm repo add chartmuseum http://{repo_url}\""
+    cmd = f"kubectl exec -it -n onap {k8s_pod} -- sh -c \"helm repo add chartmuseum http://test-chartmuseum.test:8080\""
     check_output(cmd, shell=True).decode('utf-8')
     cmd = f"kubectl exec -it -n onap {k8s_pod} -- sh -c \"helm repo update\""
     check_output(cmd, shell=True).decode('utf-8')
@@ -77,6 +75,7 @@ def setup_simulators():
 
     ### Cleanup code
     yield
+    logger.info("Start to cleanup the use case")
     # Finish and delete the cl instance
     clcommissioning_utils.clean_instance(usecase_name)
     wait(lambda: is_oru_app_down(), sleep_seconds=5, timeout_seconds=60, waiting_for="Oru app is down")
@@ -90,6 +89,16 @@ def setup_simulators():
     time.sleep(10)
     logger.info("Test Session cleanup done")
 
+def is_chartmuseum_up() -> bool:
+    """Check if the chartmuseum is up."""
+    cmd = "kubectl get pods --field-selector status.phase=Running -n test"
+    result = check_output(cmd, shell=True).decode('utf-8')
+    logger.info("Checking if chartmuseum is UP: %s", result)
+    if result == '':
+        logger.info("chartmuseum is Down")
+        return False
+    logger.info("chartmuseum is Up")
+    return True
 
 def deploy_chartmuseum():
     """Start chartmuseum pod and populate with the nedded helm chart."""
@@ -107,18 +116,6 @@ def deploy_chartmuseum():
     chartmuseum_url = subprocess.run("kubectl get services -n test | grep test-chartmuseum | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8080"
     cmd = f"curl -X POST --data-binary @{dname}/resources/cl-test-helm-chart/oru-app-1.0.0.tgz http://{chartmuseum_url}/api/charts"
     check_output(cmd, shell=True).decode('utf-8')
-
-
-def is_chartmuseum_up() -> bool:
-    """Check if the chartmuseum is up."""
-    cmd = "kubectl get pods --field-selector status.phase=Running -n test"
-    result = check_output(cmd, shell=True).decode('utf-8')
-    logger.info("Checking if chartmuseum is UP: %s", result)
-    if result == '':
-        logger.info("chartmuseum is Down")
-        return False
-    logger.info("chartmuseum is Up")
-    return True
 
 
 def is_oru_app_up() -> bool:
@@ -146,10 +143,9 @@ def is_oru_app_down() -> bool:
 def test_cl_oru_app_deploy():
     """The Closed Loop O-RU Fronthaul Recovery usecase Apex version."""
     logger.info("Upload tosca to commissioning")
-    chartmuseum_ip = subprocess.run("kubectl get services -n test | grep test-chartmuseum | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8080"
-    commissioning_payload = jinja_env().get_template("commission_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name)
-    instance_payload = jinja_env().get_template("create_instance_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name, instanceName=usecase_name)
+    commissioning_payload = jinja_env().get_template("commission_k8s.json.j2").render(chartmuseumIp="http://test-chartmuseum.test:8080", chartVersion=chart_version, chartName=chart_name, releaseName=release_name)
+    instance_payload = jinja_env().get_template("create_instance_k8s.json.j2").render(chartmuseumIp="http://test-chartmuseum.test:8080", chartVersion=chart_version, chartName=chart_name, releaseName=release_name, instanceName=usecase_name)
     assert clcommissioning_utils.create_instance(usecase_name, commissioning_payload, instance_payload) is True
 
     logger.info("Check if oru-app is up")
-    wait(lambda: is_oru_app_up(), sleep_seconds=5, timeout_seconds=60, waiting_for="Oru app to be up")
+    wait(lambda: is_oru_app_up(), sleep_seconds=5, timeout_seconds=300, waiting_for="Oru-app to be up")

@@ -1,10 +1,9 @@
-#!/bin/bash
-
+#!/usr/bin/env python3
 ###
 # ============LICENSE_START=======================================================
-# ORAN SMO Package
+# ORAN SMO PACKAGE - PYTHONSDK TESTS
 # ================================================================================
-# Copyright (C) 2021 AT&T Intellectual Property. All rights
+# Copyright (C) 2022 AT&T Intellectual Property. All rights
 #                             reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,26 +21,20 @@
 # ===================================================================
 #
 ###
-#Helm package
-cd /tmp
-wget https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
-tar xvfz /tmp/helm-v3.5.4-linux-amd64.tar.gz
-sudo mv linux-amd64/helm /usr/local/bin/helm
-sudo apt-get install git -y
+"""Onap OOF module."""
+from onapsdk.configuration import settings
+from onapsdk.onap_service import OnapService
 
+class Oof(OnapService):
+    """OOF class."""
 
-echo "Checking HELM ..."
-helm version
+    def get_versions(self) -> dict:
+        """
+        Get OOF HAS API supported versions.
 
-TAR_VERSION=v0.10.3
-echo "Downloading and installing helm-push ${TAR_VERSION} ..."
-TAR_FILE=helm-push-${TAR_VERSION}.tar.gz
-HELM_PLUGINS=$(helm env HELM_PLUGINS)
-mkdir -p $HELM_PLUGINS/helm-push
-cd $HELM_PLUGINS/helm-push
-wget https://nexus.o-ran-sc.org/content/repositories/thirdparty/chartmuseum/helm-push/$TAR_VERSION/$TAR_FILE
-tar zxvf $TAR_FILE >/dev/null
-rm $TAR_FILE
-cd /tmp/
-helm repo remove local
-helm repo add local http://localhost:18080
+        Returns:
+           the list of supported versions
+
+        """
+        response = self.send_message_json('GET', 'Get OOF supported version', settings.OOF_URL)
+        return response

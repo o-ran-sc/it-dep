@@ -33,7 +33,7 @@ sudo apt-get install git -y
 echo "Checking HELM ..."
 helm version
 
-TAR_VERSION=0.9.0
+TAR_VERSION=0.10.3
 echo "Downloading and installing helm-push v${TAR_VERSION} ..."
 TAR_FILE=helm-push_${TAR_VERSION}_linux_amd64.tar.gz
 HELM_PLUGINS=$(helm env HELM_PLUGINS)

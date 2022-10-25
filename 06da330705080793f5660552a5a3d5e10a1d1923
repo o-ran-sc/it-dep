@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1f2825_1bcbdf2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2022-10-25T09:36:34Z",
+      "side": 1,
+      "message": "Can you provide a bit more detail on this change? \nI wasn\u0027t aware we had a slicing use case here in OSC? \nHow much of SDC will be pulled in here? ",
+      "revId": "06da330705080793f5660552a5a3d5e10a1d1923",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

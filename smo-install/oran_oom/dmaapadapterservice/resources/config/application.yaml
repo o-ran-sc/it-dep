@@ -72,3 +72,5 @@ app:
   # KAFKA boostrap server. This is only needed if there are Information Types that uses a kafkaInputTopic
   kafka:
     bootstrap-servers: message-router-kafka.onap:9092
+  # If the file name is empty, no authorization token is used
+  auth-token-file:

@@ -16,6 +16,41 @@
       "message": "Can you provide a bit more detail on this change? \nI wasn\u0027t aware we had a slicing use case here in OSC? \nHow much of SDC will be pulled in here? ",
       "revId": "06da330705080793f5660552a5a3d5e10a1d1923",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56960f0_ec455564",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-10-27T07:03:15Z",
+      "side": 1,
+      "message": "We are trying to use the SMO package to automate the testing of Networking Slicing use case. The use case committed here is the Option2, with details manual testing steps described below. \nhttps://wiki.onap.org/display/DW/E2E+network+slicing+use+case+-+Option2\n\nCurrently, we manage to use SMO package to deploy the needed components and run the scripts to configure all the components under ONAP. I am still working on creating the simulator helm chart and create the testing script for the overall testing. For the details of the use case, you can check the wiki below;\nhttps://wiki.onap.org/display/DW/Automate+Network+Slicing+Use+case+option2+using+SMO+package\n\nWe commit the code here because it uses the SMO package framework. The use case has its own flavor for deployment and its own command to run the test, which is separated from the old use cases, to avoid the influence of the old testing use cases.",
+      "parentUuid": "fd1f2825_1bcbdf2a",
+      "revId": "06da330705080793f5660552a5a3d5e10a1d1923",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a11a2836_2f911818",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-10-27T07:03:15Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "06da330705080793f5660552a5a3d5e10a1d1923",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

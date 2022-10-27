@@ -38,7 +38,7 @@ logging:
     org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
     org.oran.dmaapadapter: DEBUG
   file:
-    name: /var/log/dmaap-adaptor-service/application.log
+    name: /var/log/dmaap-adapter-service/application.log
 server:
    # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.
    # See springboot documentation.
@@ -47,7 +47,7 @@ server:
    ssl:
       key-store-type: JKS
       key-store-password: policy_agent
-      key-store: /opt/app/dmaap-adaptor-service/etc/cert/keystore.jks
+      key-store: /opt/app/dmaap-adapter-service/etc/cert/keystore.jks
       key-password: policy_agent
       key-alias: policy_agent
 app:
@@ -57,7 +57,7 @@ app:
     # Note that the same keystore as for the server is used.
     trust-store-used: false
     trust-store-password: policy_agent
-    trust-store: /opt/app/dmaap-adaptor-service/etc/cert/truststore.jks
+    trust-store: /opt/app/dmaap-adapter-service/etc/cert/truststore.jks
     # Configuration of usage of HTTP Proxy for the southbound accesses.
     # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
     http.proxy-host:
@@ -65,7 +65,7 @@ app:
   ics-base-url: https://informationservice.nonrtric:9083
   # Location of the component configuration file. The file will only be used if the Consul database is not used;
   # configuration from the Consul will override the file.
-  configuration-filepath: /opt/app/dmaap-adaptor-service/data/application_configuration.json
+  configuration-filepath: /opt/app/dmaap-adapter-service/data/application_configuration.json
   dmaap-base-url: http://message-router.onap:3904
   # The url used to adress this component. This is used as a callback url sent to other components.
   dmaap-adapter-base-url: https://dmaapadapterservice.nonrtric:9088

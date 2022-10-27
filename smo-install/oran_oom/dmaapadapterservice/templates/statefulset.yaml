@@ -62,9 +62,9 @@ spec:
           periodSeconds: {{ .Values.dmaapadapterservice.liveness.periodSeconds }}
         volumeMounts:
         - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-config
-          mountPath: /opt/app/dmaap-adaptor-service/config
+          mountPath: /opt/app/dmaap-adapter-service/config
         - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-data
-          mountPath: /opt/app/dmaap-adaptor-service/data
+          mountPath: /opt/app/dmaap-adapter-service/data
       volumes:
         - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-config
           configMap:

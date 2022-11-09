@@ -53,6 +53,16 @@ dependencies:
     repository: "@local"
     condition: nonrtric.installORUApp
 
+  - name: odu-app
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installODUSMOApp
+
+  - name: odu-app-ics-version
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installODUICSApp
+
   - name: topology
     version: ~1.0.0
     repository: "@local"

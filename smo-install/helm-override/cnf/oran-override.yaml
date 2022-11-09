@@ -24,7 +24,7 @@
 
 ######### NONRTRIC #########
 
-nonrtric: 
+nonrtric:
   installPms: false
   installA1controller: false
   installA1simulator: true
@@ -34,6 +34,8 @@ nonrtric:
   installNonrtricgateway: true
   installKong: true
   installORUApp: true
+  installODUSMOApp: true
+  installODUICSApp: true
   installTopology: true
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
@@ -42,21 +44,21 @@ nonrtric:
   # referenced by persistent volumes and log files
   persistence:
     mountPath: /dockerdata-nfs
-  volume1: 
-    # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning) 
-    size: 2Gi 
-    storageClassName: pms-storage 
-  volume2: 
-     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning) 
-    size: 2Gi 
-    storageClassName: ics-storage 
+  volume1:
+    # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
+    size: 2Gi
+    storageClassName: pms-storage
+  volume2:
+     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
+    size: 2Gi
+    storageClassName: ics-storage
   volume3:
     size: 1Gi
-    storageClassName: helmmanager-storage 
+    storageClassName: helmmanager-storage
 
-common: 
-  releasePrefix: r3-dev-nonrtric 
-  ingressClassName: kong 
+common:
+  releasePrefix: r3-dev-nonrtric
+  ingressClassName: kong
 
 informationservice:
   informationservice:
@@ -68,21 +70,21 @@ informationservice:
     ingress:
       enabled: true
 
- 
-# Need to check the external port Availability 
-policymanagementservice: 
-  policymanagementservice: 
-    persistence: 
-      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same. 
-      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available) 
-      size: 2Gi 
-      storageClassName: pms-storage 
+
+# Need to check the external port Availability
+policymanagementservice:
+  policymanagementservice:
+    persistence:
+      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
+      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
+      size: 2Gi
+      storageClassName: pms-storage
   ingress:
     enabled: true
 
 kong:
   ingressController:
-    installCRDs: false 
+    installCRDs: false
   admin:
     enabled: true
 

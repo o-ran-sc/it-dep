@@ -25,6 +25,8 @@ nonrtric:
   installRappcatalogueservice: true
   installNonrtricgateway: true
   installORUApp: true
+  installODUSMOApp: true
+  installODUICSApp: true
   installTopology: true
   installKong: true
   installDmaapadapterservice: true
@@ -43,7 +45,7 @@ nonrtric:
 
 kong:
   ingressController:
-    installCRDs: false 
+    installCRDs: false
   admin:
     enabled: true
 cert-wrapper:

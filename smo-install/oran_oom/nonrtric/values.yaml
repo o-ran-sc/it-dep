@@ -25,6 +25,8 @@ nonrtric:
   installRappcatalogueservice: true
   installNonrtricgateway: true
   installORUApp: true
+  installODUSMOApp: true
+  installODUICSApp: true
   installTopology: true
   installKong: true
   installDmaapadapterservice: true

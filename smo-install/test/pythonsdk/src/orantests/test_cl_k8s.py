@@ -42,20 +42,19 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 logging.config.dictConfig(settings.LOG_CONFIG)
-logger = logging.getLogger("test Control Loops for O-RU Fronthaul Recovery usecase - Clamp K8S usecase")
+logger = logging.getLogger("test Control Loops for Clamp K8S usecase")
 clcommissioning_utils = ClCommissioningUtils()
 clamp = ClampToscaTemplate(settings.CLAMP_BASICAUTH)
 
 chartmuseum_port = "8080"
-chart_version = "1.0.0"
-chart_name = "oru-app"
-release_name = "oru-app"
 usecase_name = "script_usecase"
+chartmuseum_ip = "http://test-chartmuseum.test:8080"
+global app_name
 
-@pytest.fixture(scope="module", autouse=True)
-def setup_simulators():
+@pytest.fixture(autouse=True)
+def setup_simulators(request):
     """Prepare the test environment before the executing the tests."""
-    logger.info("Test class setup for Closed Loop tests")
+    logger.info("Test class setup for Closed Loop tests of %s", request.node.name)
 
     deploy_chartmuseum()
 
@@ -73,13 +72,13 @@ def setup_simulators():
     result = check_output(cmd, shell=True).decode('utf-8')
     if result == '':
         logger.info("Failed to update the K8s pod repo")
-    logger.info("Test Session setup completed successfully")
+    logger.info("Test Session setup completed successfully for %s", request.node.name)
 
     ### Cleanup code
     yield
     # Finish and delete the cl instance
     clcommissioning_utils.clean_instance(usecase_name)
-    wait(lambda: is_oru_app_down(), sleep_seconds=5, timeout_seconds=60, waiting_for="Oru app is down")
+    wait(lambda: is_rapp_down(app_name), sleep_seconds=5, timeout_seconds=60, waiting_for="Rapp is down")
     # Remove the remote repo to Clamp k8s pod
     cmd = f"kubectl exec -it -n onap {k8s_pod} -- sh -c \"helm repo remove chartmuseum\""
     check_output(cmd, shell=True).decode('utf-8')
@@ -88,7 +87,7 @@ def setup_simulators():
     cmd = "helm repo remove test"
     check_output(cmd, shell=True).decode('utf-8')
     time.sleep(10)
-    logger.info("Test Session cleanup done")
+    logger.info("Test Session cleanup done for %s", request.node.name)
 
 
 def deploy_chartmuseum():
@@ -107,6 +106,10 @@ def deploy_chartmuseum():
     chartmuseum_url = subprocess.run("kubectl get services -n test | grep test-chartmuseum | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8080"
     cmd = f"curl -X POST --data-binary @{dname}/resources/cl-test-helm-chart/oru-app-1.0.0.tgz http://{chartmuseum_url}/api/charts"
     check_output(cmd, shell=True).decode('utf-8')
+    cmd = f"curl -X POST --data-binary @{dname}/resources/cl-test-helm-chart/odu-app-1.0.0.tgz http://{chartmuseum_url}/api/charts"
+    check_output(cmd, shell=True).decode('utf-8')
+    cmd = f"curl -X POST --data-binary @{dname}/resources/cl-test-helm-chart/odu-app-ics-version-1.0.0.tgz http://{chartmuseum_url}/api/charts"
+    check_output(cmd, shell=True).decode('utf-8')
 
 
 def is_chartmuseum_up() -> bool:
@@ -121,35 +124,69 @@ def is_chartmuseum_up() -> bool:
     return True
 
 
-def is_oru_app_up() -> bool:
-    """Check if the oru-app is up."""
-    cmd = "kubectl get pods -n nonrtric | grep oru-app | wc -l"
+def is_rapp_up(appname) -> bool:
+    """Check if the rapp is up."""
+    cmd = "kubectl get pods -n nonrtric | grep " + appname + " | wc -l"
     result = check_output(cmd, shell=True).decode('utf-8')
-    logger.info("Checking if oru-app is up :%s", result)
+    logger.info("Checking if %s is up :%s", appname, result)
     if int(result) == 1:
-        logger.info("ORU-APP is Up")
+        logger.info("%s is Up", appname.upper())
         return True
-    logger.info("ORU-APP is Down")
+    logger.info("%s is Down", appname.upper())
     return False
 
-def is_oru_app_down() -> bool:
-    """Check if the oru-app is down."""
-    cmd = "kubectl get pods -n nonrtric | grep oru-app | wc -l"
+def is_rapp_down(appname) -> bool:
+    """Check if the rapp is down."""
+    cmd = "kubectl get pods -n nonrtric | grep " + appname + " | wc -l"
     result = check_output(cmd, shell=True).decode('utf-8')
-    logger.info("Checking if oru-app is down :%s", result)
+    logger.info("Checking if %s is down :%s", appname, result)
     if int(result) == 0:
-        logger.info("ORU-APP is Down")
+        logger.info("%s is Down", appname.upper())
         return True
-    logger.info("ORU-APP is Up")
+    logger.info("%s is Up", appname.upper())
     return False
 
 def test_cl_oru_app_deploy():
+    chart_version = "1.0.0"
+    chart_name = "oru-app"
+    release_name = "oru-app"
+    global app_name
+    app_name = chart_name
     """The Closed Loop O-RU Fronthaul Recovery usecase Apex version."""
     logger.info("Upload tosca to commissioning")
-    chartmuseum_ip = subprocess.run("kubectl get services -n test | grep test-chartmuseum | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8080"
     commissioning_payload = jinja_env().get_template("commission_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name)
     instance_payload = jinja_env().get_template("create_instance_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name, instanceName=usecase_name)
     assert clcommissioning_utils.create_instance(usecase_name, commissioning_payload, instance_payload) is True
 
     logger.info("Check if oru-app is up")
-    wait(lambda: is_oru_app_up(), sleep_seconds=5, timeout_seconds=60, waiting_for="Oru app to be up")
+    wait(lambda: is_rapp_up(chart_name), sleep_seconds=5, timeout_seconds=300, waiting_for="Oru app to be up")
+
+def test_cl_odu_app_smo_deploy():
+    chart_version = "1.0.0"
+    chart_name = "odu-app"
+    release_name = "odu-app"
+    global app_name
+    app_name = chart_name
+    """The O-DU Slice Assurance SMO Version use case."""
+    logger.info("Upload tosca to commissioning")
+    commissioning_payload = jinja_env().get_template("commission_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name)
+    instance_payload = jinja_env().get_template("create_instance_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name, instanceName=usecase_name)
+    assert clcommissioning_utils.create_instance(usecase_name, commissioning_payload, instance_payload) is True
+
+    logger.info("Check if odu-app smo version is up")
+    wait(lambda: is_rapp_up(chart_name), sleep_seconds=5, timeout_seconds=300, waiting_for="Odu app smo version to be up")
+
+def test_cl_odu_app_ics_deploy():
+    chart_version = "1.0.0"
+    chart_name = "odu-app-ics-version"
+    release_name = "odu-app-ics-version"
+    global app_name
+    app_name = chart_name
+    """The O-DU Slice Assurance ICS Version use case."""
+    logger.info("Upload tosca to commissioning")
+    commissioning_payload = jinja_env().get_template("commission_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name)
+    instance_payload = jinja_env().get_template("create_instance_k8s.json.j2").render(chartmuseumIp=chartmuseum_ip, chartmuseumPort=chartmuseum_port, chartVersion=chart_version, chartName=chart_name, releaseName=release_name, instanceName=usecase_name)
+    assert clcommissioning_utils.create_instance(usecase_name, commissioning_payload, instance_payload) is True
+
+    logger.info("Check if odu-app ics version is up")
+    wait(lambda: is_rapp_up(chart_name), sleep_seconds=5, timeout_seconds=300, waiting_for="Odu app ics version to be up")

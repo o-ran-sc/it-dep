@@ -34,6 +34,24 @@
       "parentUuid": "86df546d_f5f49f35",
       "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea6b75da_09338118",
+        "filename": "smo-install/test/pythonsdk/src/orantests/oran_tests/test_cl_k8s.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2022-11-14T08:19:24Z",
+      "side": 1,
+      "message": "Yes, URL of the chartmuseum needs to be whitelisted with the k8s pod for the package to be installed properly.\n\nThere is no need to configure the k8s pod dynamically with chartmuseum details, Instead the service name(it allows service name and IP address) can be used to configure the chartmuseum details. Something like this,\n\n-\n      repoName: chartmuseum\n      address: \u0027http://test-chartmuseum.test:8080\u0027",
+      "parentUuid": "b9d2b135_a6ed20ee",
+      "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

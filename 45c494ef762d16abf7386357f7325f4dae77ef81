@@ -52,6 +52,24 @@
       "parentUuid": "b9d2b135_a6ed20ee",
       "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f19c7f_a28ec569",
+        "filename": "smo-install/test/pythonsdk/src/orantests/oran_tests/test_cl_k8s.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-11-14T10:25:22Z",
+      "side": 1,
+      "message": "I see what you mean, I will have a check.",
+      "parentUuid": "ea6b75da_09338118",
+      "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

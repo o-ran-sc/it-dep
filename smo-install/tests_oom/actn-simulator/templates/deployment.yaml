@@ -1,0 +1,49 @@
+# ============LICENSE_START=======================================================
+# Copyright © 2022 AT&T Intellectual Property
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# Static Defaults
+# ============LICENSE_END=========================================================
+{{- range $nodePort := .Values.service.nodePorts }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ $.Values.config.name }}-{{ $nodePort }}"
+  labels:
+    sim-name: "{{ $.Values.config.name }}-{{ $nodePort }}"
+    release: {{ $.Release.Name }}
+    chart: {{ $.Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      sim-name: "{{ $.Values.config.name }}-{{ $nodePort }}"
+  template:
+    metadata:
+      labels:
+        sim-name: "{{ $.Values.config.name }}-{{ $nodePort }}"
+        release: {{ $.Release.Name }}
+        chart: {{ $.Chart.Name }}
+      annotations:
+        checksum/config: {{ print "$.Values.config.name-$port" | sha256sum }}
+    spec:
+      hostname: "{{ $.Values.config.name }}-{{ $nodePort }}"
+      containers:
+        - name: {{ $.Chart.Name }}
+          image: "{{ $.Values.image.repository }}/{{ $.Values.image.name}}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          tty: true
+          stdin: true
+
+  {{- end }}

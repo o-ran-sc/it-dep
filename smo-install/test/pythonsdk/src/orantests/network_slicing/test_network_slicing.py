@@ -29,6 +29,7 @@ import logging.config
 import pytest
 from onapsdk.configuration import settings
 from preparation.aai_preparation import AaiPreparation
+from preparation.ns_simulators import NsSimulators
 from preparation.oof_preparation import OofPreparation
 from preparation.sdc_preparation import SdcPreparation
 from preparation.so_preparation import SoPreparation
@@ -44,11 +45,15 @@ aaiPreparation = AaiPreparation()
 oofPreparation = OofPreparation()
 msbPreparation = MsbPreparation()
 uuiPreparation = UuiPreparation()
+ns_sims = NsSimulators()
 
 @pytest.fixture(scope="module", autouse=True)
 def pre_config():
     """Set the onap components before executing the tests."""
     logger.info("Test class setup for Network Slicing usecase Option2")
+
+    logger.info("Start needed simulators")
+    ns_sims.start_and_wait_ns_simulators()
 
     logger.info("PreConfig Step1: Create SDC Templates")
     res = sdcPreparation.prepare_sdc()
@@ -83,6 +88,7 @@ def pre_config():
     ### Cleanup code
     yield
     logger.info("Start to cleanup user case specific configurations")
+    ns_sims.stop_and_wait_ns_simulators()
     #aaiPreparation.cleanup_aai()
     #soPreparation.cleanup_so()
     #oofPreparation.cleanup_oof()

@@ -16,6 +16,24 @@
       "message": "Chartmuseum server can be deployed in separate namespace(test) as earlier and the same can be configured/accessed using the service name like \"http://test-chartmuseum.test:8080\". By this way adding more load to k8sparticipant pod can be avoided.",
       "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9d2b135_a6ed20ee",
+        "filename": "smo-install/test/pythonsdk/src/orantests/oran_tests/test_cl_k8s.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-11-14T07:40:36Z",
+      "side": 1,
+      "message": "The problem with the K8s is, you have to add the URL of the chartmuseum into the K8s participant pod white list, otherwise it will not install package from that chartmuseum. The white list has to be provided to the K8s participant pod in the override.yaml file and can not be added at run time. That\u0027s why I installed the chartmusem into the pod and in that case I could put http://localhost:8080 in the white list.",
+      "parentUuid": "86df546d_f5f49f35",
+      "revId": "45c494ef762d16abf7386357f7325f4dae77ef81",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

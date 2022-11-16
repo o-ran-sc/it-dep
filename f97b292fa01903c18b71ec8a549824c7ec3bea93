@@ -22,6 +22,30 @@
       },
       "revId": "f97b292fa01903c18b71ec8a549824c7ec3bea93",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fbeac2e_f7acc3a6",
+        "filename": "smo-install/test/pythonsdk/src/orantests/test_cl_k8s.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-11-16T10:16:06Z",
+      "side": 0,
+      "message": "The old testing scripts has been moved to another folder. File orantests/test_cl_k8s.py is indicated as deleted. The good one is orantests/oran_tests/test_cl_k8s.py, with the external chartmuseum.\n\nhttps://gerrit.o-ran-sc.org/r/c/it/dep/+/9384/6/smo-install/test/pythonsdk/src/orantests/oran_tests/test_cl_k8s.py",
+      "parentUuid": "212b3447_ec6a8caa",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 122
+      },
+      "revId": "f97b292fa01903c18b71ec8a549824c7ec3bea93",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

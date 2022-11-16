@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "212b3447_ec6a8caa",
+        "filename": "smo-install/test/pythonsdk/src/orantests/test_cl_k8s.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2022-11-16T09:36:39Z",
+      "side": 0,
+      "message": "Rebased code is missing the changes from previous commit. It may happened due to the file renaming.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 122
+      },
+      "revId": "f97b292fa01903c18b71ec8a549824c7ec3bea93",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

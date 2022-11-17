@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b55935_fff04eab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2022-11-17T09:45:36Z",
+      "side": 1,
+      "message": "Where can I find a bit more info on the Slicing use case and the NSSMF simulator? \n",
+      "revId": "2209883fe928b5ea82465c98eb2a963fb87b40c8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

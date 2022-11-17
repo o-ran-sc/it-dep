@@ -16,6 +16,24 @@
       "message": "Where can I find a bit more info on the Slicing use case and the NSSMF simulator? \n",
       "revId": "2209883fe928b5ea82465c98eb2a963fb87b40c8",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "769e9fe6_78c776bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2022-11-17T10:30:11Z",
+      "side": 1,
+      "message": "You can find it at the bottom of this wiki page:\nhttps://wiki.onap.org/display/DW/Manual+Configurations+for+Option2\n\nI have created the docker image and helm chart for the simulators, so that they can be deployed easily by testing scripts.",
+      "parentUuid": "61b55935_fff04eab",
+      "revId": "2209883fe928b5ea82465c98eb2a963fb87b40c8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

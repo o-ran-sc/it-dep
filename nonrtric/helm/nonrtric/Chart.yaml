@@ -84,3 +84,8 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installOrufhrecovery
+
+  - name: capifcore
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installCapifcore

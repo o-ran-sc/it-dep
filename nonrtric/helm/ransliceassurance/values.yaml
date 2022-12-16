@@ -23,7 +23,7 @@ ransliceassurance:
   image:
     registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
     name: nonrtric-rapp-ransliceassurance
-    tag: 1.1.0
+    tag: 1.2.0
   service:
     httpName: web
     allowHttp: true
@@ -36,3 +36,4 @@ ransliceassurance:
     sdnr_password: "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U"
     log_level: "Info"
     polltime: "10"
+    node_id: "o-du-1122"

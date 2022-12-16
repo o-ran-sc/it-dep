@@ -218,6 +218,25 @@ rappcatalogueservice:
       initialDelaySeconds: 20
       periodSeconds: 10
 
+rappcatalogueenhancedservice:
+  rappcatalogueenhancedservice:
+    imagePullPolicy: Always
+    image:
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      name: nonrtric-plt-rappcatalogue-enhanced
+      tag: 1.0.0
+    service:
+      allowHttp: true
+      httpName: http
+      internalPort1: 9696
+      targetPort1: 9696
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+
 nonrtricgateway:
   nonrtricgateway:
     imagePullPolicy: Always

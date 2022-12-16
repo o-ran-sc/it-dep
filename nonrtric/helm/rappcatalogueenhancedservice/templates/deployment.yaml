@@ -1,0 +1,59 @@
+################################################################################
+#   Copyright (c) 2022 Nordix Foundation.                                      #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ include "common.name.rappcatalogueenhancedservice" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  generation: 1
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueenhancedservice" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueenhancedservice" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.rappcatalogueenhancedservice" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.rappcatalogueenhancedservice" . }}
+      containers:
+      - name: {{ include "common.container.rappcatalogueenhancedservice" . }}
+        image: {{ .Values.rappcatalogueenhancedservice.image.registry }}/{{ .Values.rappcatalogueenhancedservice.image.name }}:{{ .Values.rappcatalogueenhancedservice.image.tag }}
+        imagePullPolicy: {{ .Values.rappcatalogueenhancedservice.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.rappcatalogueenhancedservice.service.targetPort }}
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.rappcatalogueenhancedservice.service.targetPort }}
+          initialDelaySeconds: {{ .Values.rappcatalogueenhancedservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.rappcatalogueenhancedservice.liveness.periodSeconds }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.rappcatalogueenhancedservice.service.targetPort }}
+          initialDelaySeconds: {{ .Values.rappcatalogueenhancedservice.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.rappcatalogueenhancedservice.liveness.periodSeconds }}

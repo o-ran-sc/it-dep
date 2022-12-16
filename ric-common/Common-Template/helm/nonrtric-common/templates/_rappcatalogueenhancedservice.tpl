@@ -14,29 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installRappcatalogueEnhancedservice: true
-  installNonrtricgateway: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOrufhrecovery: true
-  installRansliceassurance: true
+{{- define "common.name.rappcatalogueenhancedservice" -}}
+  {{- printf "rappcatalogueenhancedservice" -}}
+{{- end -}}
 
-  volume1:
-    size: 1Gi
-    storageClassName: volume1
-    hostPath: /dockerdata-nfs/nonrtric/volume1
-  volume2:
-    size: 1Gi
-    storageClassName: volume2
-    hostPath: /dockerdata-nfs/nonrtric/volume2
-  volume3:
-    size: 1Gi
-    storageClassName: volume3
+{{- define "common.container.rappcatalogueenhancedservice" -}}
+  {{- $name := ( include "common.name.rappcatalogueenhancedservice" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

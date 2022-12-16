@@ -55,6 +55,11 @@ dependencies:
     repository: "@local"
     condition: nonrtric.installRappcatalogueservice
 
+  - name: rappcatalogueenhancedservice
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installRappcatalogueenhancedservice
+
   - name: nonrtricgateway
     version: ~1.0.0
     repository: "@local"

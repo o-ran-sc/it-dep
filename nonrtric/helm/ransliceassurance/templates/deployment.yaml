@@ -62,4 +62,6 @@ spec:
             value: "{{ .Values.ransliceassurance.env.log_level }}"
           - name: POLLTIME
             value: "{{ .Values.ransliceassurance.env.polltime }}"
+          - name: NODE_ID
+            value: "{{ .Values.ransliceassurance.env.node_id }}"
 

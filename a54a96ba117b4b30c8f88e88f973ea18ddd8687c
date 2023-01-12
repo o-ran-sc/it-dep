@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7770536d_2fd91be3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2023-01-12T10:55:24Z",
+      "side": 1,
+      "message": "Hallo all, is there still any concern regarding this PR?",
+      "revId": "a54a96ba117b4b30c8f88e88f973ea18ddd8687c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

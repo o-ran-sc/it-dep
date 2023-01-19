@@ -16,6 +16,23 @@
       "message": "Hallo all, is there still any concern regarding this PR?",
       "revId": "a54a96ba117b4b30c8f88e88f973ea18ddd8687c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12b353d9_3b3a73f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2023-01-19T11:28:28Z",
+      "side": 1,
+      "message": "Xue ... Can you point to some more detail about the use case for the Slicing simulator? \nThanks. ",
+      "revId": "a54a96ba117b4b30c8f88e88f973ea18ddd8687c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

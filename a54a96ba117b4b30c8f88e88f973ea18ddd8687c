@@ -33,6 +33,24 @@
       "message": "Xue ... Can you point to some more detail about the use case for the Slicing simulator? \nThanks. ",
       "revId": "a54a96ba117b4b30c8f88e88f973ea18ddd8687c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da19276_2d5f5ac1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001421
+      },
+      "writtenOn": "2023-01-24T13:08:36Z",
+      "side": 1,
+      "message": "Hello John,\n\nThe simulators are the ones needed by the Network slicing option2 use case. They are core-nssmf-simulator, ran-nssmf-simulator and actn-simulators, under the umbrella helm chart named ns-simulators to ease the installation. \n\nThe detailed using of the the simulators could be found here in the use case description wiki page:\nhttps://wiki.onap.org/display/DW/Manual+Configurations+for+Option2\n\nThe more detailed introduction about the simulators can be found here:\nhttps://wiki.onap.org/display/DW/External+RAN+NSSMF\nhttps://wiki.onap.org/display/DW/External+Core+NSSMF+Simulator+Use+Guide\nhttps://wiki.onap.org/display/DW/ACTN+Simulator+User+Guide",
+      "parentUuid": "12b353d9_3b3a73f0",
+      "revId": "a54a96ba117b4b30c8f88e88f973ea18ddd8687c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

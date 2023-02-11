@@ -27,12 +27,11 @@
             "name": "K8sParticipant0"
           },
           "provider": "ONAP",
+          "uninitializedToPassiveTimeout": 300,
           "chart": {
             "repository": {
               "address": "{{chartmuseumIp}}",
-              "repoName": "chartmuseum",
-              "port": {{chartmuseumPort}},
-              "protocol": "http"
+              "repoName": "chartmuseum"
             },
             "namespace": "nonrtric",
             "chartId": {
@@ -140,7 +139,7 @@
           "metadata": {
             "common": true
           },
-          "default": 60,
+          "default": 300,
           "constraints": [
             {
               "greater_or_equal": 0
@@ -153,7 +152,7 @@
           "metadata": {
             "common": true
           },
-          "default": 60,
+          "default": 300,
           "constraints": [
             {
               "greater_or_equal": 0

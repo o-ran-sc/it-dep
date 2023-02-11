@@ -74,7 +74,8 @@
             "name": "K8sParticipant0"
           },
           "provider": "ONAP",
-          "chart": "{\"chartId\":{\"name\":\"{{chartName}}\",\"version\":\"{{chartVersion}}\"},\"namespace\":\"nonrtric\",\"releaseName\":\"{{releaseName}}\",\"repository\":{\"repoName\":\"chartmuseum\",\"address\":\"{{chartmuseumIp}}\",\"protocol\":\"http\",\"port\":{{chartmuseumPort}}}}"
+          "uninitializedToPassiveTimeout": 300,
+          "chart": "{\"chartId\":{\"name\":\"{{chartName}}\",\"version\":\"{{chartVersion}}\"},\"namespace\":\"nonrtric\",\"releaseName\":\"{{releaseName}}\",\"repository\":{\"repoName\":\"chartmuseum\",\"address\":\"{{chartmuseumIp}}\"}}}"
         },
         "metadata": {},
         "description": "Automation composition element for the K8S microservice for PMSH",
@@ -301,7 +302,7 @@
           "key_schema": null,
           "type": "integer",
           "name": "passiveToUninitializedTimeout",
-          "default_value": 60
+          "default_value": 300
         },
         "uninitializedToPassiveTimeout": {
           "required": false,
@@ -325,7 +326,7 @@
           "key_schema": null,
           "type": "integer",
           "name": "uninitializedToPassiveTimeout",
-          "default_value": 60
+          "default_value": 300
         },
         "participant_id": {
           "required": false,

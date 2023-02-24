@@ -20,7 +20,7 @@
 replicaCount: 1
 
 image:
-  repository: nexus3.o-ran-sc.org:10004/o-ran-sc/nonrtric-rapp-ransliceassurance
+  repository: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-rapp-ransliceassurance
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.2.0"

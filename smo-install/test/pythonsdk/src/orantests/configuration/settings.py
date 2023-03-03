@@ -81,6 +81,7 @@ POLICY_PAP_URL = "https://"+subprocess.run("kubectl get services policy-pap -n o
 POLICY_API_URL = "https://"+subprocess.run("kubectl get services policy-api -n onap |grep policy-api | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":6969"
 SDNC_URL = "http://"+subprocess.run("kubectl get services sdnc-oam -n onap |grep sdnc-oam | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8282"
 CLAMP_URL = "https://"+subprocess.run("kubectl get services policy-clamp-be -n onap |grep policy-clamp-be | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8443"
+OOF_URL = "https://"+subprocess.run("kubectl get services oof-has-api -n onap |grep oof-has-api | awk '{print $3}'", shell=True, check=True, stdout=subprocess.PIPE).stdout.decode('utf-8').strip()+":8091"
 
 ### Network simulators topology
 NETWORK_SIMULATORS_RU_LIST = ["o-ru-11211","o-ru-11221","o-ru-11222","o-ru-11223"]
@@ -109,3 +110,5 @@ CLAMP_CHECK_RETRY = 30
 CLAMP_CHECK_TIMEOUT = 900
 NETWORK_SIMULATOR_CHECK_RETRY = 30
 NETWORK_SIMULATOR_CHECK_TIMEOUT = 900
+DEFAULT_CHECK_RETRY = 30
+DEFAULT_CHECK_TIMEOUT = 900

@@ -1,0 +1,472 @@
+# Copyright 2023 Samsung Electronics Co., Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Check for helm undeploy plugin installation
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.local/share/helm/plugins/undeploy"
+  register: undeploy_inst_check
+
+- name: Check for helm deploy plugin installation
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.local/share/helm/plugins/deploy"
+  register: deploy_inst_check
+
+- name: Check for helm push plugin installation
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.local/share/helm/plugins/helm-push.git"
+  register: push_inst_check
+
+- name: Check for helm cm-push plugin installation
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.local/share/helm/plugins/helm-push.git"
+  register: cm_push_inst_check
+
+- name: Clone OOM repo
+  ansible.builtin.git:
+    repo: "https://gerrit.onap.org/r/oom"
+    dest: "{{ ansible_env.HOME }}/oom"
+    version: "{{ onap_version }}"
+    force: true
+
+- name: Install Helm undeploy plugin
+  kubernetes.core.helm_plugin:
+    plugin_path: "{{ ansible_env.HOME }}/oom/kubernetes/helm/plugins/undeploy/"
+    state: present
+
+- name: Install Helm deploy plugin
+  kubernetes.core.helm_plugin:
+    plugin_path: "{{ ansible_env.HOME }}/oom/kubernetes/helm/plugins/deploy/"
+    state: present
+
+- name: Install Helm push plugin
+  kubernetes.core.helm_plugin:
+    plugin_path: https://github.com/chartmuseum/helm-push.git
+    plugin_version: v0.9.0
+    state: present
+
+- name: Install Helm cm-push plugin
+  kubernetes.core.helm_plugin:
+    plugin_path: https://github.com/chartmuseum/helm-push
+    state: present
+
+- name: Download chartmuseum install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/chartmuseum/main/scripts/get-chartmuseum
+    dest: "{{ ansible_env.HOME }}"
+    mode: "700"
+
+- name: Check if Chartmuseum is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/chartmuseum
+  register: chartmuseum_check
+
+- name: Install chartmuseum
+  ansible.builtin.command: bash "{{ ansible_env.HOME }}/get-chartmuseum"
+  when: not chartmuseum_check.stat.exists
+  changed_when: not chartmuseum_check.stat.exists
+
+- name: Create chart storage directory
+  ansible.builtin.file:
+    name: "{{ ansible_env.HOME }}/chartmuseum"
+    state: directory
+    mode: "0755"
+
+- name: Install chartmuseum service
+  ansible.builtin.template:
+    src: "chartmuseum.service.j2"
+    dest: "/etc/systemd/system/chartmuseum.service"
+    mode: "0444"
+  become: true
+
+- name: Reload systemd units
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: Start chartmuseum
+  ansible.builtin.service:
+    name: "chartmuseum"
+    state: started
+    enabled: true
+  become: true
+
+- name: Check for helm repository config
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.cache/helm/repository"
+  register: repo_conf_check
+
+- name: Add chartmuseum repository
+  ansible.builtin.command: helm repo add local http://localhost:8080
+  changed_when: not repo_conf_check.stat.exists
+
+- name: Copy helm override file
+  ansible.builtin.copy:
+    src: files/servicemesh.yaml
+    dest: "{{ ansible_env.HOME }}/oom/kubernetes"
+    mode: "0660"
+
+- name: Fix pip3 ubuntu bug
+  ansible.builtin.command: apt update --fix-missing
+  become: true
+  register: result_pipfix
+  changed_when: result_pipfix.rc == 0
+
+- name: Install pip
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present
+  become: true
+
+- name: Install kubernetes python module
+  ansible.builtin.pip:
+    name: kubernetes
+  become: true
+
+- name: Install jmespath python module
+  ansible.builtin.pip:
+    name: jmespath
+  become: true
+
+- name: Check if istio-system namespace is present
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Namespace
+    name: istio-system
+  register: istio_namespace_check
+
+- name: Check if Istio is deployed
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    label_selectors:
+      - app = istiod
+    namespace: istio-system
+  register: istio_pod
+
+- name: Check if Istio installer is present
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/istio-{{ istio_version }}"
+  register: istio_installer_check
+  when: "not 'Active' in istio_namespace_check | json_query('resources[*].status.phase')"
+
+- name: Check for Istio downloader
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/downloadIstioCandidate.sh"
+  register: istio_downloader_check
+
+- name: Get Istio downloader
+  ansible.builtin.get_url:
+    url: https://istio.io/downloadIstio
+    dest: "{{ ansible_env.HOME }}"
+    mode: "700"
+  when: not istio_downloader_check.stat.exists
+
+- name: Check for istioctl
+  ansible.builtin.stat:
+    path: "/usr/local/bin/istioctl"
+  register: istioctl_check
+
+- name: Run Istio downloader
+  ansible.builtin.shell: "ISTIO_VERSION={{ istio_version }} {{ ansible_env.HOME }}/downloadIstioCandidate.sh"
+  args:
+    executable: /bin/bash
+  changed_when: not istioctl_check.stat.exists
+
+- name: Install istio binary
+  ansible.builtin.copy:
+    src: "istio-{{ istio_version }}/bin/istioctl"
+    dest: /usr/local/bin/istioctl
+    owner: root
+    mode: "0755"
+    remote_src: true
+  become: true
+  when: not istioctl_check.stat.exists
+
+- name: Download k9s
+  ansible.builtin.get_url:
+    url: https://github.com/derailed/k9s/releases/download/{{ k9s_version }}/k9s_Linux_amd64.tar.gz
+    dest: "{{ ansible_env.HOME }}"
+    mode: "700"
+
+- name: Deploy k9s
+  ansible.builtin.unarchive:
+    src: "{{ ansible_env.HOME }}/k9s_Linux_amd64.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+  become: true
+
+- name: Deploy Istio
+  ansible.builtin.command: /usr/local/bin/istioctl install -y
+  changed_when: "not 'Active' in istio_namespace_check | json_query('resources[*].status.phase')"
+
+- name: Check Istio installation
+  ansible.builtin.shell: |
+    set -o pipefail
+    istioctl verify-install | grep 'Istio is installed and verified successfully' -c
+  args:
+    executable: /bin/bash
+  register: istio_check
+  changed_when: istio_pod.resources|length == 0
+
+- name: Check if Onap namespace is present
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Namespace
+    name: onap
+  register: namespace_check
+
+- name: Create Onap namespace
+  kubernetes.core.k8s:
+    name: onap
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Label Onap namespace to enable Istio sidecar injection
+  kubernetes.core.k8s:
+    state: patched
+    kind: Namespace
+    name: onap
+    definition:
+      metadata:
+        labels:
+          istio-injection: enabled
+
+- name: Build Onap charts - this will take a long time
+  community.general.system.make:
+    chdir: "{{ ansible_env.HOME }}/oom/kubernetes"
+    target: all
+    params:
+      SKIP_LINT: "TRUE"
+  tags:
+    - build_onap
+
+- name: Check if Onap is already deployed
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    label_selectors:
+      - release = onap
+    namespace: onap
+  register: pod_list
+
+- name: Install CertManager
+  ansible.builtin.command:
+    cmd: kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/{{ certmanager_version }}/cert-manager.yaml
+  register: result_certmanager
+  changed_when: "'deployment.apps/cert-manager unchanged' not in result_certmanager.stdout"
+
+- name: Add Strimzi Repo
+  kubernetes.core.helm_repository:
+    name: strimzi
+    repo_url: https://strimzi.io/charts/
+
+- name: Create strimzi-system namespace
+  kubernetes.core.k8s:
+    name: strimzi-system
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Label strimzi-system namespace to enable Istio sidecar injection
+  kubernetes.core.k8s:
+    state: patched
+    kind: Namespace
+    name: strimzi-system
+    definition:
+      metadata:
+        labels:
+          istio-injection: enabled
+
+- name: Deploy Strimzi Operator
+  ansible.builtin.command:
+    cmd: |
+      helm install strimzi-kafka-operator
+      strimzi/strimzi-kafka-operator --namespace strimzi-system
+      --version {{ strimzi_version }} --set watchAnyNamespace=true
+      --wait
+  register: result_strimzi
+  changed_when: "'cannot re-use a name' not in result_strimzi"
+
+- name: Wait for Strimzi Operator to come up
+  kubernetes.core.k8s_info:
+    kind: Pod
+    wait: true
+    label_selectors:
+      - name=strimzi-cluster-operator
+      - strimzi.io/kind=cluster-operator
+    namespace: strimzi-system
+    kubeconfig: "{{ ansible_env.HOME }}/.kube/config"
+    wait_sleep: 20
+    wait_timeout: 500
+
+- name: Deploy Onap
+  ansible.builtin.command:
+    cmd: helm deploy onap local/onap --namespace onap -f servicemesh.yaml
+    chdir: "{{ ansible_env.HOME }}/oom/kubernetes"
+  when: pod_list.resources|length == 0
+  changed_when: pod_list.resources|length == 0
+
+- name: Deploy Kiali
+  ansible.builtin.command:
+    cmd: kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.17/samples/addons/kiali.yaml
+  register: result_kiali
+  changed_when: "'deployment.apps/kiali configured' not in result_kiali.stdout"
+
+- name: Deploy Prometheus
+  ansible.builtin.command:
+    cmd: kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.17/samples/addons/prometheus.yaml
+  register: status_prometheus
+  changed_when: "'deployment.apps/prometheus configured' not in status_prometheus.stdout"
+
+- name: Clone Oran dep repo
+  ansible.builtin.git:
+    repo: "https://gerrit.o-ran-sc.org/r/it/dep"
+    dest: "{{ ansible_env.HOME }}/dep"
+    version: "{{ oran_version }}"
+    force: true
+    recursive: true
+  tags:
+    - oran
+
+- name: Patch to use Onap master version
+  ansible.posix.patch:
+    src: dep.patch
+    basedir: "{{ ansible_env.HOME }}/dep"
+    strip: 1
+  tags:
+    - oran
+
+- name: Build Oran charts - this will take a long time
+  community.general.system.make:
+    chdir: "{{ ansible_env.HOME }}/dep/smo-install/oran_oom"
+    target: all
+    params:
+      SKIP_LINT: "TRUE"
+  tags:
+    - oran
+
+- name: Create O-ran namespace
+  kubernetes.core.k8s:
+    name: nonrtric
+    api_version: v1
+    kind: Namespace
+    state: present
+  tags:
+    - oran
+
+- name: Label O-ran namespace to enable Istio sidecar injection
+  kubernetes.core.k8s:
+    state: patched
+    kind: Namespace
+    name: nonrtric
+    definition:
+      metadata:
+        labels:
+          istio-injection: enabled
+  tags:
+    - oran
+
+- name: Deploy O-ran
+  ansible.builtin.command:
+    cmd: |
+      helm install oran-nonrtric local/nonrtric --namespace nonrtric
+       -f "{{ ansible_env.HOME }}"/dep/smo-install/helm-override/default/oran-override.yaml
+       --timeout 400s
+    chdir: "{{ ansible_env.HOME }}/dep/smo-install/oran_oom"
+  register: result_oran
+  changed_when: "'cannot re-use a name' not in result_oran.stdout"
+  tags:
+    - oran
+    - deploy_oran
+
+- name: Create Network namespace
+  kubernetes.core.k8s:
+    name: network
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Label Network namespace to enable Istio sidecar injection
+  kubernetes.core.k8s:
+    state: patched
+    kind: Namespace
+    name: network
+    definition:
+      metadata:
+        labels:
+          istio-injection: enabled
+
+- name: Create Tests namespace
+  kubernetes.core.k8s:
+    name: tests
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Label Tests namespace to enable Istio sidecar injection
+  kubernetes.core.k8s:
+    state: patched
+    kind: Namespace
+    name: tests
+    definition:
+      metadata:
+        labels:
+          istio-injection: enabled
+
+- name: Build O-ran tests
+  community.general.system.make:
+    chdir: "{{ ansible_env.HOME }}/dep/smo-install/tests_oom"
+    target: all
+  when: ('simulators' in ansible_run_tags) or ('tests' in ansible_run_tags)
+  tags:
+    - tests
+    - simulators
+
+- name: Deploy O-ran tests
+  ansible.builtin.command:
+    cmd: |
+      helm install oran-tests-suite local/oran-tests-suite
+       --namespace tests -f
+       "{{ ansible_env.HOME }}"/dep/smo-install/helm-override/default/tests-override.yaml
+    chdir: "{{ ansible_env.HOME }}/dep/smo-install/oran_oom"
+  when: "'tests' in ansible_run_tags"
+  register: result_otests
+  tags:
+    - tests
+  changed_when: "'cannot re-use a name' not in result_otests.stdout"
+
+- name: Deploy O-ran simulators
+  ansible.builtin.command:
+    cmd: |
+      helm install oran-simulator local/ru-du-simulators
+      --namespace network -f
+      "{{ ansible_env.HOME }}"/dep/smo-install/helm-override/default/network-simulators-override.yaml
+      -f "{{ ansible_env.HOME }}"/dep/smo-install/helm-override/default/network-simulators-topology-override.yaml
+    chdir: "{{ ansible_env.HOME }}/dep/smo-install/oran_oom"
+  when: "'simulators' in ansible_run_tags"
+  register: result_osim
+  tags:
+    - simulators
+  changed_when: "'result_otests' not in result_osim.stdout"
+
+- name: Get a list of all deployments
+  kubernetes.core.k8s_info:
+    kind: Pod
+    namespace: onap
+  register: dep_list
+
+- name: List of deployments (it will be saved in log file)
+  ansible.builtin.debug:
+    var: dep_list

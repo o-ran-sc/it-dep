@@ -1,0 +1,42 @@
+# Copyright 2023 Samsung Electronics Co., Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Run playbook
+  block:
+    - name: "Including vars/defaults.yml variables"
+      ansible.builtin.include_vars: "{{ playbook_dir }}/vars/defaults.yml"
+      any_errors_fatal: true
+
+- name: Validating OS user is defined
+  ansible.builtin.assert:
+    that:
+      - "'os_user' in vars"
+    msg: "os_user is required and is not defined."
+
+- name: Validating OS group is defined
+  ansible.builtin.assert:
+    that:
+      - "'os_group' in vars"
+    msg: "os_group is required and is not defined."
+
+- name: Validating software versions are defined
+  ansible.builtin.assert:
+    that:
+      - "'microk8s_version' in vars"
+      - "'helm_version' in vars"
+      - "'kubectl_version' in vars"
+    msg: "you have to define what versions of microk8s, kubectl and helm you want to install"
+
+- name: Import playbook
+  ansible.builtin.import_tasks: tasks/deploy_mk8s.yml

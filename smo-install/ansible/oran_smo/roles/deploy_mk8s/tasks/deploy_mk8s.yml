@@ -1,0 +1,135 @@
+# Copyright 2023 Samsung Electronics Co., Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Set proxy
+  ansible.builtin.blockinfile:
+    path: /etc/environment
+    block: |
+      "{{ https_proxy }}"
+      "{{ http_proxy }}"
+      "{{ no_proxy }}"
+      "{{ https_proxy | upper }}"
+      "{{ http_proxy | upper }}"
+      "{{ no_proxy | upper }}"
+  when: proxy_enabled
+  become: true
+
+- name: Install microk8s
+  community.general.snap:
+    name: microk8s
+    classic: true
+    channel: "{{ microk8s_version }}"
+  become: true
+
+- name: Download helm release
+  ansible.builtin.get_url:
+    url: https://get.helm.sh/helm-v{{ helm_version }}-linux-amd64.tar.gz
+    dest: "{{ ansible_env.HOME }}"
+    mode: "0664"
+
+- name: Unpack helm release
+  ansible.builtin.unarchive:
+    src: "{{ ansible_env.HOME }}/helm-v{{ helm_version }}-linux-amd64.tar.gz"
+    dest: "{{ ansible_env.HOME }}/"
+    remote_src: true
+
+- name: Install helm
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/linux-amd64/helm"
+    dest: /usr/local/bin/helm
+    mode: "0755"
+    remote_src: true
+  become: true
+
+- name: Install kubectl
+  community.general.snap:
+    name: kubectl
+    classic: true
+    channel: "{{ kubectl_version }}"
+  become: true
+
+- name: Install make
+  ansible.builtin.apt:
+    name: make
+    state: present
+  become: true
+
+- name: Add user to microk8s group
+  ansible.builtin.user:
+    name: "{{ os_user }}"
+    groups: microk8s
+    append: true
+  become: true
+
+- name: Enable DNS addon in microk8s
+  ansible.builtin.command: microk8s enable dns
+  retries: 2
+  delay: 3
+  register: result_dns
+  until: result_dns.rc == 0
+  become: true
+  changed_when: "'Addon dns is already enabled.' not in result_dns.stdout"
+
+- name: Enable Storage addon in microk8s
+  ansible.builtin.command: microk8s enable storage
+  register: result_storage
+  become: true
+  changed_when: "'Addon storage is already enabled.' not in result_storage.stdout"
+
+- name: Increase max-pods value
+  ansible.builtin.lineinfile:
+    path: /var/snap/microk8s/current/args/kubelet
+    line: --max-pods=300
+    insertafter: EOF
+  become: true
+
+- name: Microk8s allow priviledged
+  ansible.builtin.lineinfile:
+    path: /var/snap/microk8s/current/args/kube-apiserver
+    line: --allow-privileged=true
+    insertafter: EOF
+  become: true
+
+- name: Restart microk8s services
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - snap.microk8s.daemon-kubelet
+    - snap.microk8s.daemon-apiserver
+  become: true
+
+- name: Create kubectl config dir
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.kube"
+    state: directory
+    mode: "0755"
+
+- name: Store kube config in variable
+  ansible.builtin.command:
+    cmd: microk8s.config
+  register: result_microk8sconfig
+  changed_when: "'token:' in result_microk8sconfig.stdout"
+  become: true
+
+- name: Copy a new kubectl config backing up the original if it differs
+  ansible.builtin.copy:
+    content: "{{ result_microk8sconfig.stdout }}"
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    owner: "{{ os_user }}"
+    group: "{{ os_group }}"
+    mode: "0600"
+    backup: true
+    remote_src: true
+  become: true

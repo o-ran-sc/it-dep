@@ -1,0 +1,59 @@
+diff --git a/smo-install/oran_oom/nonrtric/Chart.yaml b/smo-install/oran_oom/nonrtric/Chart.yaml
+index 19e8774..240f62f 100644
+--- a/smo-install/oran_oom/nonrtric/Chart.yaml
++++ b/smo-install/oran_oom/nonrtric/Chart.yaml
+@@ -89,6 +89,6 @@ dependencies:
+     condition: nonrtric.installDmaapadapterservice
+ 
+   - name: cert-wrapper
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+     condition: cert-wrapper.enabled
+diff --git a/smo-install/oran_oom/odu-app-ics-version/Chart.yaml b/smo-install/oran_oom/odu-app-ics-version/Chart.yaml
+index 7095fb5..85db97c 100755
+--- a/smo-install/oran_oom/odu-app-ics-version/Chart.yaml
++++ b/smo-install/oran_oom/odu-app-ics-version/Chart.yaml
+@@ -6,5 +6,5 @@ version: 1.0.0
+ 
+ dependencies:
+   - name: common
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+diff --git a/smo-install/oran_oom/odu-app/Chart.yaml b/smo-install/oran_oom/odu-app/Chart.yaml
+index 1af814a..d22cb5e 100755
+--- a/smo-install/oran_oom/odu-app/Chart.yaml
++++ b/smo-install/oran_oom/odu-app/Chart.yaml
+@@ -6,5 +6,5 @@ version: 1.0.0
+ 
+ dependencies:
+   - name: common
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+diff --git a/smo-install/oran_oom/oru-app/Chart.yaml b/smo-install/oran_oom/oru-app/Chart.yaml
+index 4713028..f9227d8 100644
+--- a/smo-install/oran_oom/oru-app/Chart.yaml
++++ b/smo-install/oran_oom/oru-app/Chart.yaml
+@@ -6,14 +6,14 @@ version: 1.0.0
+ 
+ dependencies:
+   - name: common
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+   - name: certInitializer
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+   - name: repositoryGenerator
+-    version: ~10.x-0
++    version: 12.0.0
+     repository: '@local'
+   - name: serviceAccount
+-    version: ~10.x-0
+-    repository: '@local'
+\ No newline at end of file
++    version: 12.0.0
++    repository: '@local'

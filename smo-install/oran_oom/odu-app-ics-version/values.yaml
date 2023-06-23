@@ -23,7 +23,7 @@ image:
   repository: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-rapp-ransliceassurance-icsversion
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.1.0"
+  tag: "1.2.0"
 
 consumer:
   host: http://odu-app-ics-version.nonrtric

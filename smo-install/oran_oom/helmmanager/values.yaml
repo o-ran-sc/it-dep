@@ -24,7 +24,7 @@ helmmanager:
   image:
     registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
     name: "nonrtric-plt-helmmanager"
-    tag: 1.2.0
+    tag: 1.3.0
   service:
     httpName: http
     internalPort1: 8112

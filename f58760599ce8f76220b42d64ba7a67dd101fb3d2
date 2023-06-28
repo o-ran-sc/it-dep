@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35feb4c8_01ed0ef2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2023-06-28T15:39:21Z",
+      "side": 1,
+      "message": "Do you want to add the ranpm charts in this review or another one?",
+      "revId": "f58760599ce8f76220b42d64ba7a67dd101fb3d2",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

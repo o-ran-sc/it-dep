@@ -35,6 +35,8 @@ nonrtric:
   installHelmmanager: true
   installOrufhrecovery: true
   installRansliceassurance: true
+  installCapifcore: true
+
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi

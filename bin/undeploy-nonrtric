@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2023 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -17,7 +17,7 @@
 
 # This script to undeploy the NONRTRIC
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore"
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore ranpm"
 RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
 kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
 
@@ -31,10 +31,21 @@ NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 INSTALL_KONG=$(cat /tmp/recipe.yaml | awk '/^  installKong:/{print $2}')
+INSTALL_RANPM=$(cat /tmp/recipe.yaml | awk '/^  installRanpm:/{print $2}')
 
 if [ "$INSTALL_KONG" = true ];then
    echo "Uninstalling Kong"
    helm delete kong-nonrtric --namespace kong
+fi
+
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+if [ "$INSTALL_RANPM" = true ];then
+   echo "Running uninstall-ranpm.sh"
+   chmod +x ${ROOT_DIR}/../ranpm/install/uninstall-ranpm.sh
+   ${ROOT_DIR}/../ranpm/install/uninstall-ranpm.sh
+   kubectl delete ns ran
+   echo "uninstall-ranpm.sh completed"
 fi
 
 echo "Undeploying NONRTRIC components [$COMPONENTS]"
@@ -53,3 +64,5 @@ helm delete ${HELM_FLAG} ${RELEASE_PREFIX}
 kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
 
 kubectl delete ns ${NONRTRIC_NAMESPACE:-nonrtric}
+
+kubectl delete ns onap

@@ -1,6 +1,6 @@
 <!---
 
-Copyright (c) 2019 AT&T Intellectual Property.
+Copyright (c) 2023 AT&T Intellectual Property.
 
 Licensed under the Creative Commons License, Attribution 4.0 Intl.
 (the"Documentation License"); you may not use this documentation
@@ -86,3 +86,6 @@ Run the following to undeploy:
 ```sh
 $ . ./undeploy-ric-aux 
 ```
+
+### NOTE: To Deploy RANPM
+RANPM helm charts are integrated as a submodule in this repository. To deploy RANPM function set installRanpm: true in the RECEPIE_EXAMPLE file.  

@@ -1,6 +1,6 @@
 #!/bin/bash
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2023 Nordix Foundation.                                      #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -106,7 +106,7 @@ rm $HELM_LOCAL_REPO/*
 helm repo remove local
 $ROOT_DIR/prepare-common-templates
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore"
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore ranpm"
 for component in $COMPONENTS; do
     echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
@@ -131,6 +131,7 @@ NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ 
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 INSTALL_KONG=$(cat $OVERRIDEYAML | awk '/^  installKong:/{print $2}')
+INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
 echo "Chart name- $PARENT_CHART"
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
@@ -153,6 +154,15 @@ kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --fr
 
 echo "Deploying NONRTRIC"
 
+echo "Install Ranpm- $INSTALL_RANPM"
+
+if [ "$INSTALL_RANPM" = true ];then
+   echo "Running install-ranpm.sh"
+   chmod +x ${ROOT_DIR}/../ranpm/install/install-ranpm.sh
+   ${ROOT_DIR}/../ranpm/install/install-ranpm.sh
+   echo "install-ranpm.sh completed"
+fi
+
 HELM_NAME_OPT=""
 if [ -z $IS_HELM3 ];then
    HELM_NAME_OPT="--name"
@@ -160,5 +170,3 @@ fi
 
 echo "helm install -f $OVERRIDEYAML --namespace ${NONRTRIC_NAMESPACE:-nonrtric} ${HELM_NAME_OPT} ${RELEASE_PREFIX} $ROOT_DIR/../nonrtric/helm/nonrtric"
 helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"
-
-

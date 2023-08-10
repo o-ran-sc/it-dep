@@ -1,0 +1,9 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+2: John  Keeney <john.keeney@est.tech>
+Code-Review+1: Kevin Timoney <kevin.timoney@est.tech>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Submitted-by: John  Keeney <john.keeney@est.tech>
+Submitted-at: Thu, 10 Aug 2023 11:54:41 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/11592
+Project: it/dep
+Branch: refs/heads/master

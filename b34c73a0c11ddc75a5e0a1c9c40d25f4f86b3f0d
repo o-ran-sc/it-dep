@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089a1a85_1b06f43d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2023-10-20T15:39:21Z",
+      "side": 1,
+      "message": "Im not sure we\u0027re ready for this yet as the preferred NONRTRIC deployment in it/dep. \nGood to see it passes the verify test though! \nMaybe we could keep this in prototyping ... or maybe a separate branch?",
+      "revId": "b34c73a0c11ddc75a5e0a1c9c40d25f4f86b3f0d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

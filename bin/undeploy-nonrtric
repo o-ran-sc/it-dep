@@ -35,7 +35,7 @@ INSTALL_RANPM=$(cat /tmp/recipe.yaml | awk '/^  installRanpm:/{print $2}')
 
 if [ "$INSTALL_KONG" = true ];then
    echo "Uninstalling Kong"
-   helm delete kong-nonrtric --namespace kong
+   helm delete kong-nonrtric --namespace ${NONRTRIC_NAMESPACE:-nonrtric}
 fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"

@@ -28,8 +28,8 @@ nonrtric:
   installInformationservice: true
   installRappcatalogueservice: true
   installRappcatalogueenhancedservice: true
-  installNonrtricgateway: true
-  installKong: false
+  installNonrtricgateway: false
+  installKong: true
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true

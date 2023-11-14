@@ -1,5 +1,4 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
 #   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
@@ -15,31 +14,36 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installRappcatalogueEnhancedservice: true
-  installNonrtricgateway: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOrufhrecovery: true
-  installRansliceassurance: true
-  installCapifcore: true
-  installrAppmanager: true
+rappmanager:
+  csarlocation: /opt/app/rappmanager/csar
+  acm:
+    baseurl: http://policy-clamp-runtime-acm.default:6969/onap/policy/clamp/acm/v2/
+    maxRetries: 10
+    retryInterval: 2 #seconds
+  sme:
+    baseurl: http://capifcore:8090
+    providerBasePath: /api-provider-management/v1/
+    invokerBasePath: /api-invoker-management/v1/
+    publishApiBasePath: /published-apis/v1/
+    maxRetries: 3
+    retryInterval: 2 #seconds
+  dme:
+    baseurl: http://informationservice:9082
 
-  volume1:
-    size: 1Gi
-    storageClassName: volume1
-    hostPath: /dockerdata-nfs/nonrtric/volume1
-  volume2:
-    size: 1Gi
-    storageClassName: volume2
-    hostPath: /dockerdata-nfs/nonrtric/volume2
-  volume3:
-    size: 1Gi
-    storageClassName: volume3
+spring:
+  jackson:
+    default-property-inclusion: non_null
+
+logging:
+  level:
+    root: INFO
+    com.oransc: DEBUG
+    org.apache.http: DEBUG
+    httpclient.wire: DEBUG
+    org.springframework.web.client.RestTemplate: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

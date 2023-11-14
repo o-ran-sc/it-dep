@@ -1,5 +1,6 @@
 ################################################################################
 #   Copyright (c) 2023 Nordix Foundation.                                      #
+#   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -37,6 +38,7 @@ nonrtric:
   installRansliceassurance: true
   installCapifcore: true
   installRanpm: true
+  installrAppmanager: true
 
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
@@ -375,3 +377,26 @@ capifcore:
     env:
       chart_museum_url: "http://chartmuseum:8080"
       repo_name: "capifcore"
+
+rappmanager:
+  rappmanager:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10003/o-ran-sc"
+      name: nonrtric-plt-rappmanager
+      tag: 0.0.1-SNAPSHOT
+    service:
+      httpName: http
+      internalPort1: 8080
+      targetPort1: 8080
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    ingress:
+      enabled: true
+    acm:
+      username: cnVudGltZVVzZXI=
+      password: emIhWHp0RzM0

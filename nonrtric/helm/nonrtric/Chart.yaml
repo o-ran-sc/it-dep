@@ -94,3 +94,8 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installCapifcore
+
+  - name: rappmanager
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installrAppmanager

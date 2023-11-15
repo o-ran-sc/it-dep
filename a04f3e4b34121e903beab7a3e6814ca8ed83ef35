@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7759f53f_2b188e42",
+        "filename": "nonrtric/helm/rappmanager/Chart.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-11-15T17:58:14Z",
+      "side": 1,
+      "message": "Yes It does.",
+      "parentUuid": "e074c8a6_b9bb459a",
+      "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96e59508_b36732d3",
         "filename": "nonrtric/helm/rappmanager/resources/config/application.yaml",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-11-14T17:45:41Z",
       "side": 1,
       "message": "Should this be stored in a Kubernetes secret?",
+      "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91355305_2c2eefb0",
+        "filename": "nonrtric/helm/rappmanager/resources/config/application.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-11-15T17:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e59508_b36732d3",
       "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -58,6 +94,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea57e410_c2f3193f",
+        "filename": "nonrtric/helm/rappmanager/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-11-15T17:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d326f2e2_1d164c1c",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 12
+      },
+      "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7db0ba51_de9619a7",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-11-14T17:45:41Z",
       "side": 1,
       "message": "Should this be OpenInfra Foundation Europe?",
+      "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "616c5c65_10e03db7",
+        "filename": "nonrtric/helm/rappmanager/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-11-15T17:58:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7db0ba51_de9619a7",
       "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

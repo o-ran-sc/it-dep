@@ -1,5 +1,4 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
 #   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
@@ -15,32 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installRappcatalogueEnhancedservice: true
-  installNonrtricgateway: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOrufhrecovery: true
-  installRansliceassurance: true
-  installCapifcore: true
-  installrAppmanager: true
-  installDmeParticipant: true
+{{- define "common.name.dmeparticipant" -}}
+  {{- printf "dmeparticipant" -}}
+{{- end -}}
 
-  volume1:
-    size: 1Gi
-    storageClassName: volume1
-    hostPath: /dockerdata-nfs/nonrtric/volume1
-  volume2:
-    size: 1Gi
-    storageClassName: volume2
-    hostPath: /dockerdata-nfs/nonrtric/volume2
-  volume3:
-    size: 1Gi
-    storageClassName: volume3
+{{- define "common.container.dmeparticipant" -}}
+  {{- $name := ( include "common.name.dmeparticipant" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

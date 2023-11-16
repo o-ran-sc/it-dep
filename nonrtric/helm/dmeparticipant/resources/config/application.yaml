@@ -1,0 +1,45 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
+security:
+  enable-csrf: false
+
+dme:
+  baseUrl: http://informationservice:9082
+
+participant:
+  intermediaryParameters:
+    reportingTimeIntervalMs: 120000
+    description: Participant Description
+    participantId: 101c62b3-8918-41b9-a747-d21eb79c6c08
+    clampAutomationCompositionTopics:
+      topicSources:
+        - topic: POLICY-ACRUNTIME-PARTICIPANT
+          servers:
+           - ${topicServer:message-router.default}
+          topicCommInfrastructure: dmaap
+          fetchTimeout: 15000
+      topicSinks:
+        - topic: POLICY-ACRUNTIME-PARTICIPANT
+          servers:
+           - ${topicServer:message-router.default}
+          topicCommInfrastructure: dmaap
+    participantSupportedElementTypes:
+      -
+        typeName: org.onap.policy.clamp.acm.DMEAutomationCompositionElement
+        typeVersion: 1.0.1
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, metrics, prometheus
+server:
+  port: 8080
+  servlet:
+    context-path: /nonrtric/dmeparticipant

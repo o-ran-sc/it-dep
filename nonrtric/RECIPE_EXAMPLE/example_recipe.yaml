@@ -39,6 +39,7 @@ nonrtric:
   installCapifcore: true
   installRanpm: true
   installrAppmanager: true
+  installDmeParticipant: true
 
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
@@ -399,4 +400,27 @@ rappmanager:
       enabled: true
     acm:
       username: cnVudGltZVVzZXI=
+      password: emIhWHp0RzM0
+
+dmeparticipant:
+  dmeparticipant:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10003/o-ran-sc"
+      name: nonrtric-plt-participant-impl-dme
+      tag: 0.0.1-SNAPSHOT
+    service:
+      httpName: http
+      internalPort1: 8080
+      targetPort1: 8080
+    liveness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    readiness:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    ingress:
+      enabled: false
+    security:
+      username: cGFydGljaXBhbnRVc2VyCg==
       password: emIhWHp0RzM0

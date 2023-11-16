@@ -100,3 +100,8 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installrAppmanager
+
+  - name: dmeparticipant
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installDmeParticipant

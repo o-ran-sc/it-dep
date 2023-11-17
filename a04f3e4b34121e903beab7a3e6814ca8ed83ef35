@@ -36,6 +36,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c89e7f07_e17823b7",
+        "filename": "nonrtric/helm/rappmanager/Chart.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-11-17T10:02:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7759f53f_2b188e42",
+      "revId": "a04f3e4b34121e903beab7a3e6814ca8ed83ef35",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e59508_b36732d3",

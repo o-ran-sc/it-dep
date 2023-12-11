@@ -87,8 +87,3 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installDmaapadapterservice
-
-  - name: cert-wrapper
-    version: ~10.x-0
-    repository: '@local'
-    condition: cert-wrapper.enabled

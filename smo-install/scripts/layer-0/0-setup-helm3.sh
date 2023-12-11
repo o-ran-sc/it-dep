@@ -24,8 +24,8 @@
 ###
 #Helm package
 cd /tmp
-wget https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz
-tar xvfz /tmp/helm-v3.5.4-linux-amd64.tar.gz
+wget https://get.helm.sh/helm-v3.12.3-linux-amd64.tar.gz
+tar xvfz /tmp/helm-v3.12.3-linux-amd64.tar.gz
 sudo mv linux-amd64/helm /usr/local/bin/helm
 sudo apt-get install git -y
 

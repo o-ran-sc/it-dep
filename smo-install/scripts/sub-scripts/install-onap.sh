@@ -27,9 +27,9 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
-helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.28.0.tgz local
+helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.36.1.tgz local
 helm repo update
-helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.28.0 --set watchAnyNamespace=true --create-namespace
+helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.36.1 --set watchAnyNamespace=true --create-namespace
 
 kubectl create namespace onap
 echo '### Installing ONAP part ###'

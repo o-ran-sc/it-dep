@@ -1,9 +1,13 @@
 {
    "types":
      [
-       {
-         "id": "STD_Fault_Messages",
-         "dmaapTopicUrl": "/events/unauthenticated.dmaapmed.json/dmaapmediatorproducer/STD_Fault_Messages?timeout=15000&limit=100"
-       }
+        {
+          "id": "STD_Fault_Messages",
+          "dmaapTopicUrl": "/events/unauthenticated.dmaapmed.json/dmaapmediatorproducer/STD_Fault_Messages?timeout=15000&limit=100"
+        },
+        {
+          "id": "VES_Fault_Messages",
+          "dmaapTopicUrl": "/events/unauthenticated.SEC_FAULT_OUTPUT/dmaapmediatorproducer/VES_Fault_Messages?timeout=15000&limit=100"
+        }
    ]
  }

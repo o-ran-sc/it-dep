@@ -1,19 +1,19 @@
-################################################################################
-#   Copyright (c) 2023 Nordix Foundation.                                      #
-#   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
-#                                                                              #
-#   Licensed under the Apache License, Version 2.0 (the "License");            #
-#   you may not use this file except in compliance with the License.           #
-#   You may obtain a copy of the License at                                    #
-#                                                                              #
-#       http://www.apache.org/licenses/LICENSE-2.0                             #
-#                                                                              #
-#   Unless required by applicable law or agreed to in writing, software        #
-#   distributed under the License is distributed on an "AS IS" BASIS,          #
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
-#   See the License for the specific language governing permissions and        #
-#   limitations under the License.                                             #
-################################################################################
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
 
 #-------------------------------------------------------------------------
 # Global common setting
@@ -67,7 +67,7 @@ informationservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: 'nonrtric-plt-informationcoordinatorservice'
-      tag: 1.5.0
+      tag: 1.6.0
     service:
       allowHttp: true
       httpName: http
@@ -97,7 +97,7 @@ policymanagementservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-plt-a1policymanagementservice
-      tag: 2.6.0
+      tag: 2.7.0
     service:
       allowHttp: true
       httpName: http
@@ -151,7 +151,7 @@ a1simulator:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
-      tag: 2.5.0
+      tag: 2.6.1
     service:
       allowHttp: true
       httpName: http
@@ -231,7 +231,7 @@ rappcatalogueenhancedservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-plt-rappcatalogue-enhanced
-      tag: 1.0.1
+      tag: 1.1.0
     service:
       allowHttp: true
       httpName: http
@@ -374,7 +374,7 @@ capifcore:
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-capifcore
-      tag: 1.1.0
+      tag: 1.2.0
     env:
       chart_museum_url: "http://chartmuseum:8080"
       repo_name: "capifcore"
@@ -383,9 +383,9 @@ rappmanager:
   rappmanager:
     imagePullPolicy: IfNotPresent
     image:
-      registry: "nexus3.o-ran-sc.org:10003/o-ran-sc"
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-rappmanager
-      tag: 0.0.1-SNAPSHOT
+      tag: 0.0.1
     service:
       httpName: http
       internalPort1: 8080
@@ -406,9 +406,9 @@ dmeparticipant:
   dmeparticipant:
     imagePullPolicy: IfNotPresent
     image:
-      registry: "nexus3.o-ran-sc.org:10003/o-ran-sc"
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-participant-impl-dme
-      tag: 0.0.1-SNAPSHOT
+      tag: 0.0.1
     service:
       httpName: http
       internalPort1: 8080

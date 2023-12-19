@@ -18,23 +18,46 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-dmaapmediatorservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: "nonrtric-plt-dmaapmediatorproducer"
-    tag: 1.2.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 8085
-    targetPort1: 8085
-    httpsName: https
-    internalPort2: 8185
-    targetPort2: 8185
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: "nonrtric-plt-dmaapmediatorproducer"
+  tag: 1.2.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: 8085
+    targetPort: 8085
+    name_tls: https
+    internalPort_tls: 8185
+    targetPort_tls: 8185
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+logLevel: INFO
+dmaapMrAddr: http://message-router.onap:3904
+infoCoordinatorAddr: https://informationservice:9083
+
+types:
+  - id: STD_Fault_Messages
+    dmaapTopicUrl: "/events/unauthenticated.dmaapmed.json/dmaapmediatorproducer/STD_Fault_Messages?timeout=15000&limit=100"
+  - id: VES_Fault_Messages
+    dmaapTopicUrl: "/events/unauthenticated.SEC_FAULT_OUTPUT/dmaapmediatorproducer/VES_Fault_Messages?timeout=15000&limit=100"
+
+dmaapTopicInit:
+  enabled: true
+  dmaapMrAddr: http://message-router.onap:3904
+  topics:
+    - topicName: unauthenticated.dmaapmed.json
+      topicDescription: STD_Fault_Messages
+      partitionCount: 1
+      replicationCount: 1
+    - topicName: unauthenticated.SEC_FAULT_OUTPUT
+      topicDescription: VES_Fault_Messages
+      partitionCount: 1
+      replicationCount: 1

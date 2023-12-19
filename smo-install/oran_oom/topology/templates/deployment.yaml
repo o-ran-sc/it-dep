@@ -14,33 +14,22 @@
 
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: topology
-  labels:
-    name: topology
-    release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      name: topology
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        name: topology
-        release: {{ .Release.Name }}
-        chart: {{ .Chart.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:    
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "common.containername" . }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name}}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           tty: true
           stdin: true
           envFrom:
             - configMapRef:
-                name: topology-configmapenv
+                name: {{ include "common.name" . }}-configmapenv
           securityContext:
             capabilities:
               add:

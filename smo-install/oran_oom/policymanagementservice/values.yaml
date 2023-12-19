@@ -19,31 +19,147 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-policymanagementservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: nonrtric-plt-a1policymanagementservice
-    tag: 2.7.0
-  service:
-    type: NodePort
-    allowHttp: true
-    httpName: http
-    internalPort1: 8081
-    targetPort1: 8081
-    nodePort1: 30094
-    httpsName: https
-    internalPort2: 8433
-    targetPort2: 8433
-    nodePort2: 30095
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  persistence:
-    size: 2Gi
-    storageClassName: standard
-  ingress:
-    enabled: false
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: nonrtric-plt-a1policymanagementservice
+  tag: 2.7.0
+service:
+  type: NodePort
+  ports:
+  - name: http
+    internalPort: "8081"
+    targetPort: "8081"
+    nodePort: "30094"
+    internalPort_tls: "8433"
+    targetPort_tls: "8433"
+    nodePort_tls: "30095"
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+persistence:
+  size: 2Gi
+  storageClassName: standard
+ingress:
+  enabled: false
+
+config:
+  config:
+    controller:
+    - name: controller1
+      baseUrl: https://a1controller:8383
+      userName: admin
+      password: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+    ric:
+    - name: ric1
+      baseUrl: https://a1-sim-osc-0:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    - name: ric2
+      baseUrl: https://a1-sim-osc-1:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    - name: ric3
+      baseUrl: https://a1-sim-std-0:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    - name: ric4
+      baseUrl: https://a1-sim-std-1:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    - name: ric5
+      baseUrl: https://a1-sim-std2-0:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    - name: ric6
+      baseUrl: https://a1-sim-std2-1:8185
+      controller: controller1
+      managedElementIds:
+      - kista_1
+      - kista_2
+    streams_publishes:
+      dmaap_publisher:
+        type: message_router
+        dmaap_info:
+          topic_url: http://message-router.onap:3904/events/A1-POLICY-AGENT-WRITE
+    streams_subscribes:
+      dmaap_subscriber:
+        type: message_router
+        dmaap_info:
+          topic_url: http://message-router.onap:3904/events/A1-POLICY-AGENT-READ/users/policy-agent?timeout=15000&limit=100
+
+
+application:  
+  spring:
+    profiles:
+      active: prod
+    main:
+      allow-bean-definition-overriding: true
+    aop:
+      auto: false
+  management:
+    endpoints:
+      web:
+        exposure:
+          # Enabling of springboot actuator features. See springboot documentation.
+          include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+
+  logging:
+    # Configuration of logging
+    level:
+      ROOT: ERROR
+      org.springframework: ERROR
+      org.springframework.data: ERROR
+      org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
+      org.onap.ccsdk.oran.a1policymanagementservice: INFO
+    file:
+      name: /var/log/policy-agent/application.log
+
+  server:
+    # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.
+    # See springboot documentation.
+    port : 8433
+    http-port: 8081
+    ssl:
+        key-store-type: JKS
+        key-store-password: policy_agent
+        key-store: /opt/app/policy-agent/etc/cert/keystore.jks
+        key-password: policy_agent
+        key-alias: policy_agent
+  app:
+    # Location of the component configuration file. The file will only be used if the Consul database is not used;
+    # configuration from the Consul will override the file.
+    filepath: /var/policy-management-service/application_configuration.json
+    webclient:
+      # Configuration of the trust store used for the HTTP client (outgoing requests)
+      # The file location and the password for the truststore is only relevant if trust-store-used == true
+      # Note that the same keystore as for the server is used.
+      trust-store-used: false
+      trust-store-password: policy_agent
+      trust-store: /opt/app/policy-agent/etc/cert/truststore.jks
+      # Configuration of usage of HTTP Proxy for the southbound accesses.
+      # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
+      http.proxy-host:
+      http.proxy-port: 0
+      http.proxy-type: HTTP
+    # path where the service can store data
+    vardata-directory: /var/policy-management-service
+    # the config-file-schema-path referres to a location in the jar file. If this property is empty or missing,
+    # no schema validation will be executed.
+    config-file-schema-path: /application_configuration_schema.json
+    # A file containing an authorization token, which shall be inserted in each HTTP header (authorization).
+    # If the file name is empty, no authorization token is sent.
+    auth-token-file:

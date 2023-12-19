@@ -1,4 +1,5 @@
-# Copyright © 2021-2022 AT&T Intellectual Property
+{{/*
+# Copyright © 2017 Amdocs, Bell Canada
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,13 +12,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+*/}}
 
-apiVersion: v1
-kind: ConfigMap
-metadata: {{ include "common.resourceMetadata" (dict "suffix" "configmapenv" "dot" . ) | nindent 2 }}
-data:
-  AUTH_ENABLED: {{ .Values.conf.authEnabled | quote }}
-  AUTH_HOST_URL: {{ .Values.conf.authHostUrl | quote }}  
-  PROVIDERS: {{ .Values.conf.providers | quote }}
-  LOAD_PACKAGES: {{ .Values.conf.loadPackages | quote }}
+{{/*
+  Resolve the namespace to apply to a chart. The default namespace suffix
+  is the name of the chart. This can be overridden if necessary (eg. for subcharts)
+  using the following value:
 
+  - .Values.nsPrefix  : override namespace prefix
+*/}}
+{{- define "common.namespace" -}}
+  {{- default .Release.Namespace .Values.nsPrefix -}}
+{{- end -}}

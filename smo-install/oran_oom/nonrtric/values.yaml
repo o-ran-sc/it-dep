@@ -15,6 +15,15 @@
 #  limitations under the License.
 #  ============LICENSE_END=================================================
 
+gloabl:
+    ingress:
+      # generally enable ingress for components
+      enabled: true
+      # enable all component's Ingress interfaces
+      enable_all: false
+      # Ingress class (only for provider "ingress"): e.g. kong, nginx, traefik
+      ingressClass:
+
 nonrtric:
   persistence:
     mountPath: /dockerdata-nfs
@@ -51,5 +60,3 @@ kong:
     installCRDs: false
   admin:
     enabled: true
-cert-wrapper:
-  enabled: true

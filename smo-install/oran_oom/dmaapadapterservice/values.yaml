@@ -18,23 +18,101 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-dmaapadapterservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: "nonrtric-plt-dmaapadapter"
-    tag: 1.3.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9087
-    targetPort1: 8084
-    httpsName: https
-    internalPort2: 9088
-    targetPort2: 8435
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: "nonrtric-plt-dmaapadapter"
+  tag: 1.3.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: 9087
+    targetPort: 8084
+    name_tls: https
+    internalPort_tls: 9088
+    targetPort_tls: 8435
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+
+types:
+  - id: "ExampleInformationType"
+    dmaapTopicUrl: "/events/unauthenticated.dmaapadp.json/dmaapadapterproducer/msgs?timeout=15000&limit=100"
+    useHttpProxy: false
+  - id: "ExampleInformationTypeKafka"
+    kafkaInputTopic: "unauthenticated.dmaapadp_kafka.text"
+    useHttpProxy: false
+
+application:
+  spring:
+    profiles:
+      active: prod
+    main:
+      allow-bean-definition-overriding: true
+    aop:
+      auto: false
+  management:
+    endpoints:
+      web:
+        exposure:
+          # Enabling of springboot actuator features. See springboot documentation.
+          include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+  springdoc:
+    show-actuator: true
+  logging:
+    # Configuration of logging
+    level:
+      ROOT: ERROR
+      org.springframework: ERROR
+      org.springframework.data: ERROR
+      org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
+      org.oran.dmaapadapter: DEBUG
+    file:
+      name: /var/log/dmaap-adapter-service/application.log
+  server:
+    # Configuration of the HTTP/REST server. The parameters are defined and handeled by the springboot framework.
+    # See springboot documentation.
+    port : 8435
+    http-port: 8084
+    ssl:
+        key-store-type: JKS
+        key-store-password: policy_agent
+        key-store: /opt/app/dmaap-adapter-service/etc/cert/keystore.jks
+        key-password: policy_agent
+        key-alias: policy_agent
+  app:
+    webclient:
+      # Configuration of the trust store used for the HTTP client (outgoing requests)
+      # The file location and the password for the truststore is only relevant if trust-store-used == true
+      # Note that the same keystore as for the server is used.
+      trust-store-used: false
+      trust-store-password: policy_agent
+      trust-store: /opt/app/dmaap-adapter-service/etc/cert/truststore.jks
+      # Configuration of usage of HTTP Proxy for the southbound accesses.
+      # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
+      http.proxy-host:
+      http.proxy-port: 0
+    ics-base-url: https://informationservice.nonrtric:9083
+    # Location of the component configuration file. The file will only be used if the Consul database is not used;
+    # configuration from the Consul will override the file.
+    configuration-filepath: /opt/app/dmaap-adapter-service/data/application_configuration.json
+    dmaap-base-url: http://message-router.onap:3904
+    # The url used to adress this component. This is used as a callback url sent to other components.
+    dmaap-adapter-base-url: https://dmaapadapterservice.nonrtric:9088
+    # KAFKA boostrap server. This is only needed if there are Information Types that uses a kafkaInputTopic
+    kafka:
+      bootstrap-servers: message-router-kafka.onap:9092
+    # If the file name is empty, no authorization token is used
+    auth-token-file:
+    pm-files-path: /tmp
+    zip-output: false
+    s3:
+      endpointOverride: http://localhost:9000
+      accessKeyId: minio
+      secretAccessKey: miniostorage
+      locksBucket: ropfilelocks
+      bucket: ropfiles

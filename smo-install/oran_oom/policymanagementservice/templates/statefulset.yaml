@@ -16,31 +16,15 @@
 
 kind: StatefulSet
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    deployment.kubernetes.io/revision: '1'
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
-  serviceName: {{ include "common.name.policymanagementservice" . }}
+  serviceName: {{ include "common.name" . }}
   replicas: 1
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-      release: {{ .Release.Name }}
-  template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-        release: {{ .Release.Name }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
+  template: 
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.policymanagementservice" . }}
+      hostname: {{ include "common.name" . }}
       initContainers:
       - name: copy
         image: busybox:1.28
@@ -52,51 +36,27 @@ spec:
             cp  /etc/app/policy-management-service/initialdata/application_configuration.json $FILE;
           fi
         volumeMounts:
-        - name: {{ include "common.name.policymanagementservice" . }}-vardata
+        - name: {{ include "common.vardataMountName" . }}
           mountPath: "/var/policy-management-service"
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+        - name: {{ include "common.name" . }}-policy-data
           mountPath: /etc/app/policy-management-service/initialdata
       containers:
-      - name: {{ include "common.container.policymanagementservice" . }}
-        image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
-        imagePullPolicy: {{ .Values.policymanagementservice.imagePullPolicy }}
-        ports:
-        - containerPort: {{ .Values.policymanagementservice.service.targetPort1 }}
-          protocol: TCP
-        - containerPort: {{ .Values.policymanagementservice.service.targetPort2 }}
-          protocol: TCP
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.policymanagementservice.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.policymanagementservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
-        livenessProbe:
-          httpGet:
-            path: /status
-            port: {{ .Values.policymanagementservice.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.policymanagementservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.policymanagementservice.liveness.periodSeconds }}
+      - name: {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports: {{- include "common.containerPorts" . | nindent 8 }}
+        {{- include "common.tcpsocketReadinessProbe" . | nindent 8 }}
+        {{- include "common.httpLiveProbe" . | nindent 8 }}
         volumeMounts:
-        - name: {{ include "common.name.policymanagementservice" . }}-vardata
-          mountPath: "/var/policy-management-service"
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-config
+        - name: {{ include "common.applicationConfigMountName" . }}
           mountPath: /opt/app/policy-agent/config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+        - name: {{ include "common.vardataMountName" . }}
+          mountPath: "/var/policy-management-service"
+        - name: {{ include "common.name" . }}-policy-data
           mountPath: /etc/app/policy-management-service/initialdata
       volumes:
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-config
+        {{- include "common.applicationConfigVolume" . | nindent 8 }}
+        - name: {{ include "common.name" . }}-policy-data
           configMap:
-            name: {{ include "common.name.policymanagementservice" . }}-configmap-config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
-          configMap:
-            name: {{ include "common.name.policymanagementservice" . }}-configmap-data
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "common.name.policymanagementservice" . }}-vardata
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        storageClassName: "{{ .Values.policymanagementservice.persistence.storageClassName }}"
-        resources:
-          requests:
-            storage: "{{ .Values.policymanagementservice.persistence.size }}"
+            name: {{ include "common.name" . }}-data-configmap
+  volumeClaimTemplates: {{- include "common.vardataVolumeClaimTemplate" . | nindent 4 }}

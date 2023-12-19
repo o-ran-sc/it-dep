@@ -14,29 +14,4 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.dmaapmediatorservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.dmaapmediatorservice.service.allowHttp true -}}
-    - name: {{ index .Values.dmaapmediatorservice.service.httpName }}
-      port: {{ .Values.dmaapmediatorservice.service.internalPort1 }}
-      targetPort: {{ .Values.dmaapmediatorservice.service.targetPort1 }}
-      protocol: TCP
-    {{- end }}
-    - name: {{ index .Values.dmaapmediatorservice.service.httpsName }}
-      port: {{ .Values.dmaapmediatorservice.service.internalPort2 }}
-      targetPort: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{ include "common.service" . }}

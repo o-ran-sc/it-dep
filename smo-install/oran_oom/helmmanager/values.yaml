@@ -18,23 +18,24 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-helmmanager:
-  clusterRoleName: cluster-admin
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: "nonrtric-plt-helmmanager"
-    tag: 1.3.0
-  service:
-    httpName: http
-    internalPort1: 8112
-    targetPort1: 8083
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  persistence:
-    size: 1Gi
-    storageClassName: standard
+clusterRoleName: cluster-admin
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: "nonrtric-plt-helmmanager"
+  tag: 1.3.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: "8112"
+    targetPort: "8083"
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+persistence:
+  size: 1Gi
+  storageClassName: standard

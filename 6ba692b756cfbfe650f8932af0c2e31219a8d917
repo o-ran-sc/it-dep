@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be25c3c7_28f9e196",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "2023",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5030a5_1ca8b79e",
+        "filename": "nonrtric/helm/a1simulator/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "Alignment can be fixed (For all occurrences in the commit)",
+      "range": {
+        "startLine": 3,
+        "startChar": 145,
+        "endLine": 3,
+        "endChar": 146
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9f68f2a_92b7521e",
+        "filename": "nonrtric/helm/capifcore/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "2022-2023",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a76598b5_fa45ff7b",
+        "filename": "nonrtric/helm/rappcatalogueenhancedservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "2022-2023",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f88025_bc72a469",
+        "filename": "smo-install/helm-override/standalone-nonrtric/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "2022-2023",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e1e32a5_533040da",
+        "filename": "smo-install/helm-override/standalone-nonrtric/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2023-12-19T12:54:03Z",
+      "side": 1,
+      "message": "whitespaces can be trimmed",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 2
+      },
+      "revId": "6ba692b756cfbfe650f8932af0c2e31219a8d917",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

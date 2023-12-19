@@ -16,41 +16,22 @@
 
 kind: Deployment
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.a1controller" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    deployment.kubernetes.io/revision: '1'
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
-  replicas: {{ .Values.a1controller.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
-      release: {{ .Release.Name }}
+  replicas: {{ .Values.replicaCount }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.a1controller" . }}
-        release: {{ .Release.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.a1controller" . }}
+      hostname: {{ include "common.name" . }}
       containers:
-        - name: {{ include "common.containername.a1controller" . }}
-          image: {{ .Values.a1controller.image.registry }}/{{ .Values.a1controller.image.name }}:{{ .Values.a1controller.image.tag }}
-          imagePullPolicy: {{ .Values.a1controller.imagePullPolicy }}
+        - name: {{ include "common.containername" . }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           command:
             - /opt/onap/sdnc/bin/startODL.sh
-          ports:
-            - containerPort: {{ .Values.a1controller.service.targetPort1 }}
-              protocol: TCP
-            - containerPort: {{ .Values.a1controller.service.targetPort2 }}
-              protocol: TCP
+          ports: {{- include "common.containerPorts" . | nindent 10 }}
+          {{- include "common.tcpsocketProbes" . | nindent 10 }}
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: 'itsASecret'
@@ -80,32 +61,16 @@ spec:
               value: 'a1adapter'
             - name: AAI_TRUSTSTORE_PASSWORD
               value: 'changeit'
-          readinessProbe:
-            tcpSocket:
-              port: {{ .Values.a1controller.service.targetPort1 }}
-            initialDelaySeconds: {{ .Values.a1controller.readiness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.a1controller.readiness.periodSeconds }}
-          livenessProbe:
-            tcpSocket:
-              port: {{ .Values.a1controller.service.targetPort1 }}
-            initialDelaySeconds: {{ .Values.a1controller.liveness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.a1controller.liveness.periodSeconds }}
 ---
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: db
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: db
+metadata: {{- include "common.resourceMetadata" (dict "suffix" "db" "dot" .  ) | nindent 2 }}
+{{ $selectorsCtx := dict "matchLabels" (dict "app.kubernetes.io/component" "db") "dot" . }}
+{{ $templateMetadataCtx := dict "labels" (dict "app.kubernetes.io/component" "db") "dot" . }}
 spec:
-  selector:
-    matchLabels:
-      app: db
+  selector: {{- include "common.selectors" $selectorsCtx | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: db
+    metadata: {{- include "common.templateMetadata" $templateMetadataCtx | nindent 6 }}
     spec:
       containers:
         - name: sdnc-db-container

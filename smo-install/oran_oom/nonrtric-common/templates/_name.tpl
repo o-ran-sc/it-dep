@@ -1,5 +1,6 @@
+{{/*
 ################################################################################
-#   Copyright (c) 2021 Nordix Foundation.                                      #
+#   Copyright (c) 2024 NYCU WINLab.                                            #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,12 +14,25 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+*/}}
 
-{{- define "common.name.helmmanager" -}}
-  {{- printf "helmmanager" -}}
+{{/*
+  Expand the name of a chart.
+  The function takes from one to two arguments (inside a dictionary):
+     - .dot : environment (.)
+     - .suffix : add a suffix to the name
+*/}}
+{{- define "common.name" -}}
+  {{- $dot := default . .dot -}}
+  {{- $suffix := .suffix -}}
+  {{- default (default $dot.Chart.Name $dot.Values.nameOverride) .nameOverride | trunc 63 | trimSuffix "-" -}}{{ if $suffix }}{{ print "-" $suffix }}{{ end }}
 {{- end -}}
 
-{{- define "common.container.helmmanager" -}}
-  {{- $name := ( include "common.name.helmmanager" . ) -}}
+{{- define "common.containername" -}}
+  {{- $name := ( include "common.name" . ) -}}
   {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "common.release" -}}
+{{ .Release.Name }}
 {{- end -}}

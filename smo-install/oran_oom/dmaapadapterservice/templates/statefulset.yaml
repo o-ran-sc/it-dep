@@ -16,59 +16,28 @@
 
 kind: StatefulSet
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.dmaapadapterservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapadapterservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    deployment.kubernetes.io/revision: '1'
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
-  serviceName: {{ include "common.name.dmaapadapterservice" . }}
+  serviceName: {{ include "common.name" . }}
   replicas: 1
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapadapterservice" . }}
-      release: {{ .Release.Name }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapadapterservice" . }}
-        release: {{ .Release.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.dmaapadapterservice" . }}
+      hostname: {{ include "common.name" . }}
       containers:
-      - name: {{ include "common.container.dmaapadapterservice" . }}
-        image: {{ .Values.dmaapadapterservice.image.registry }}/{{ .Values.dmaapadapterservice.image.name }}:{{ .Values.dmaapadapterservice.image.tag }}
-        imagePullPolicy: {{ .Values.dmaapadapterservice.imagePullPolicy }}
-        ports:
-        - containerPort: {{ .Values.dmaapadapterservice.service.targetPort1 }}
-          protocol: TCP
-        - containerPort: {{ .Values.dmaapadapterservice.service.targetPort2 }}
-          protocol: TCP
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.dmaapadapterservice.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.dmaapadapterservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.dmaapadapterservice.liveness.periodSeconds }}
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.dmaapadapterservice.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.dmaapadapterservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.dmaapadapterservice.liveness.periodSeconds }}
+      - name: {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports: {{- include "common.containerPorts" . | nindent 8 }}
+        {{- include "common.tcpsocketProbes" . | nindent 8 }}
         volumeMounts:
-        - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-config
+        - name: {{ include "common.applicationConfigMountName" . }}
           mountPath: /opt/app/dmaap-adapter-service/config
-        - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-data
+        - name: {{ include "common.name" . }}-dmaapadapter-data
           mountPath: /opt/app/dmaap-adapter-service/data
       volumes:
-        - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-config
+        {{- include "common.applicationConfigVolume" . | nindent 8 }}
+        - name: {{ include "common.name" . }}-dmaapadapter-data
           configMap:
-            name: {{ include "common.name.dmaapadapterservice" . }}-configmap-config
-        - name: {{ include "common.name.dmaapadapterservice" . }}-dmaapadapter-data
-          configMap:
-            name: {{ include "common.name.dmaapadapterservice" . }}-configmap-data
+            name: {{ include "common.name" . }}-type-configmap

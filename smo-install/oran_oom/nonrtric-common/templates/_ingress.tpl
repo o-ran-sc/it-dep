@@ -1,5 +1,6 @@
+{{/*
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2024 NYCU WINLab.                                            #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,12 +14,23 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
-{{- define "common.name.a1controller" -}}
-  {{- printf "a1controller" -}}
+*/}}
+{{- define "common.ingressClassName" -}}
+  {{- if and .Values.global .Values.global.ingress -}}
+    {{- default "kong" .Values.global.ingress.ingressClass -}}
+  {{- else -}}
+    {{- print "kong" -}}
+  {{- end -}}
 {{- end -}}
 
-{{- define "common.containername.a1controller" -}}
-  {{- $name := ( include "common.name.a1controller" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- define "common.ingressEnabled" -}}
+  {{- if and .Values.global .Values.global.ingress -}}
+    {{- if .Values.global.ingress.enabled -}}
+      {{- if or .Values.global.ingress.enabled_all .Values.ingress.enabled -}}
+  true
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- .Values.ingress.enabled -}}
+  {{- end -}}
 {{- end -}}

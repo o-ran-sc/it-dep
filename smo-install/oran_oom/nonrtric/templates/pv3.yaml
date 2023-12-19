@@ -20,7 +20,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: nonrtric-pv3
-  namespace: {{ include "common.namespace.nonrtric" . }}
+  namespace: {{ include "common.namespace" . }}
 spec:
   capacity:
     storage: {{ .Values.nonrtric.volume3.size }}

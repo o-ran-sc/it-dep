@@ -16,51 +16,21 @@
 
 kind: Deployment
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.nonrtricgateway" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    deployment.kubernetes.io/revision: '1'
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
-      release: {{ .Release.Name }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
-        release: {{ .Release.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.nonrtricgateway" . }}
+      hostname: {{ include "common.name" . }}
       containers:
-      - name: {{ include "common.container.nonrtricgateway" . }}
-        image: {{ .Values.nonrtricgateway.image.registry }}/{{ .Values.nonrtricgateway.image.name }}:{{ .Values.nonrtricgateway.image.tag }}
-        imagePullPolicy: {{ .Values.nonrtricgateway.imagePullPolicy }}
-        ports:
-        - containerPort: {{ .Values.nonrtricgateway.service.targetPort1 }}
-          protocol: TCP
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.nonrtricgateway.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.nonrtricgateway.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.nonrtricgateway.liveness.periodSeconds }}
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.nonrtricgateway.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.nonrtricgateway.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.nonrtricgateway.liveness.periodSeconds }}
-        volumeMounts:
-        - name: {{ include "common.name.nonrtricgateway" . }}-config
-          mountPath: /opt/app/nonrtric-gateway/config
-      volumes:
-        - name: {{ include "common.name.nonrtricgateway" . }}-config
-          configMap:
-            name: {{ include "common.name.nonrtricgateway" . }}-configmap
+        - name: {{ include "common.containername" . }}
+          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports: {{- include "common.containerPorts" . | nindent 10 }}
+          {{- include "common.tcpsocketProbes" . | nindent 10 }}
+          volumeMounts:
+            - name: {{ include "common.applicationConfigMountName" . }}
+              mountPath: /opt/app/nonrtric-gateway/config
+      volumes: {{- include "common.applicationConfigVolume" . | nindent 8 }}

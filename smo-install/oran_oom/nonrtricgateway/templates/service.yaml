@@ -14,24 +14,4 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.nonrtricgateway" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    - name: {{ index .Values.nonrtricgateway.service.httpName }}
-      port: {{ .Values.nonrtricgateway.service.internalPort1 }}
-      targetPort: {{ .Values.nonrtricgateway.service.targetPort1 }}
-      nodePort: {{ .Values.nonrtricgateway.service.externalPort1 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.nonrtricgateway" . }}
-    release: {{ .Release.Name }}
-  type: NodePort
+{{ include "common.service" . }}

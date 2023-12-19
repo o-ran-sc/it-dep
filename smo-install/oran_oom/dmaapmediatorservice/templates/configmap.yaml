@@ -17,13 +17,12 @@
 
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  name: {{ include "common.name.dmaapmediatorservice" . }}-configmap-data
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+metadata: {{ include "common.resourceMetadata" (dict "suffix" "type-configmap" "dot" . ) | nindent 2 }}
 data:
-{{ tpl (.Files.Glob "resources/data/*").AsConfig . | indent 2 }}
+  type_config.json: |
+    {{- (dict "types" .Values.types) | toRawJson | nindent 4 }}
+---
+{{ if .Values.dmaapTopicInit.enabled -}}
+{{ include "dmaapTopic.initConfigMap" . }}
+---
+{{- end -}}

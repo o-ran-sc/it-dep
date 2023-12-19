@@ -1,15 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
-metadata:
-  name: oru-app-configmapenv
-  labels:
-    name: oru-app-env
-    release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}
+metadata: {{ include "common.resourceMetadata" (dict "suffix" "configmapenv" "dot" . ) | nindent 2 }}
 data:
   MR-HOST: {{ .Values.conf.mrHost | quote }}
-  MR-PORT: {{ .Values.conf.mrPort | quote }}  
+  MR-PORT: {{ .Values.conf.mrPort | quote }}
   SDNR-HOST: {{ .Values.conf.sdnrHost | quote }}
   SDNR-PORT: {{ .Values.conf.sdnrPort | quote }}
   VERBOSE: {{ .Values.conf.verbose | quote }}
-

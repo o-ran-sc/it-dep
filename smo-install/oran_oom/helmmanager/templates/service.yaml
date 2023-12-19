@@ -13,23 +13,5 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.helmmanager" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    - name: {{ index .Values.helmmanager.service.httpName }}
-      port: {{ .Values.helmmanager.service.internalPort1 }}
-      targetPort: {{ .Values.helmmanager.service.targetPort1 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+
+{{ include "common.service" . }}

@@ -16,58 +16,22 @@
 
 kind: StatefulSet
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.helmmanager" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
-  serviceName: {{ include "common.name.helmmanager" . }}
+  serviceName: {{ include "common.name" . }}
   replicas: 1
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
-      release: {{ .Release.Name }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.helmmanager" . }}
-        release: {{ .Release.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.helmmanager" . }}
+      hostname: {{ include "common.name" . }}
       containers:
-      - name: {{ include "common.container.helmmanager" . }}
-        image: {{ .Values.helmmanager.image.registry }}/{{ .Values.helmmanager.image.name }}:{{ .Values.helmmanager.image.tag }}
-        imagePullPolicy: {{ .Values.helmmanager.imagePullPolicy }}
-        ports:
-        - containerPort: {{ .Values.helmmanager.service.targetPort1 }}
-          protocol: TCP
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.helmmanager.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.helmmanager.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.helmmanager.liveness.periodSeconds }}
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.helmmanager.service.targetPort1 }}
-          initialDelaySeconds: {{ .Values.helmmanager.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.helmmanager.liveness.periodSeconds }}
+      - name: {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports: {{- include "common.containerPorts" . | nindent 8 }}
+        {{- include "common.tcpsocketProbes" . | nindent 8 }}
         volumeMounts:
-        - name: {{ include "common.name.helmmanager" . }}-vardata
+        - name: {{ include "common.vardataMountName" . }}
           mountPath: "/var/helm-manager-service"
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "common.name.helmmanager" . }}-vardata
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        storageClassName: "{{ .Values.helmmanager.persistence.storageClassName }}"
-        resources:
-          requests:
-            storage: "{{ .Values.helmmanager.persistence.size }}"
+  volumeClaimTemplates: {{- include "common.vardataVolumeClaimTemplate" . | nindent 4 }}

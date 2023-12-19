@@ -1,5 +1,6 @@
+{{/*
 ################################################################################
-#   Copyright (c) 2021 Nordix Foundation.                                      #
+#   Copyright (c) 2024 NYCU WINLab.                                            #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,12 +14,17 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+*/}}
 
-{{- define "common.name.dmaapadapterservice" -}}
-  {{- printf "dmaapadapterservice" -}}
-{{- end -}}
-
-{{- define "common.container.dmaapadapterservice" -}}
-  {{- $name := ( include "common.name.dmaapadapterservice" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- define "common.applicationConfigmap" -}}
+{{- $dot := default . .dot -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.name" $dot }}-application-configmap
+  namespace: {{ include "common.namespace" . }}
+  labels: {{- include "common.labels" . | nindent 4 }}
+data:
+  application.yml: |
+    {{- toYaml .Values.application | nindent 4 }}
+{{ end -}}

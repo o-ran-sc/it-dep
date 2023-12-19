@@ -18,29 +18,31 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-controlpanel:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    name: nonrtric-controlpanel
-    tag: 2.5.0
-  replicaCount: 1
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 8182
-    targetPort1: 8080
-    externalPort1: 30091
-    httpsName: https
-    internalPort2: 8082
-    targetPort2: 8082
-    externalPort2: 30092
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+imagePullPolicy: IfNotPresent
+image:
+  registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+  name: nonrtric-controlpanel
+  tag: 2.5.0
+replicaCount: 1
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
 
-  ingress:
-    enabled: true
+service:
+  type: NodePort
+  ports:
+  - name: http
+    internalPort: "8182"
+    targetPort: "8080"
+    nodePort: "30091"
+    name_tls: https
+    internalPort_tls: "8082"
+    targetPort_tls: "8082"
+    nodePort_tls: "30092"
+
+
+ingress:
+  enabled: true

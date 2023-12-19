@@ -16,67 +16,44 @@
 
 kind: StatefulSet
 apiVersion: apps/v1
-metadata:
-  name: {{ include "common.name.dmaapmediatorservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  generation: 1
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    deployment.kubernetes.io/revision: '1'
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
-  serviceName: {{ include "common.name.dmaapmediatorservice" . }}
+  serviceName: {{ include "common.name" . }}
   replicas: 1
-  selector:
-    matchLabels:
-      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-      release: {{ .Release.Name }}
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapmediatorservice" . }}
-        release: {{ .Release.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
-      hostname: {{ include "common.name.dmaapmediatorservice" . }}
+      hostname: {{ include "common.name" . }}
+      {{- if .Values.dmaapTopicInit.enabled }}
+      initContainers: {{- include "dmaapTopic.initContainer" . | nindent 6 }}
+      {{- end }}
       containers:
-      - name: {{ include "common.container.dmaapmediatorservice" . }}
-        image: {{ .Values.dmaapmediatorservice.image.registry }}/{{ .Values.dmaapmediatorservice.image.name }}:{{ .Values.dmaapmediatorservice.image.tag }}
-        imagePullPolicy: {{ .Values.dmaapmediatorservice.imagePullPolicy }}
-        ports:
-        - containerPort: {{ .Values.dmaapmediatorservice.service.targetPort1 }}
-          protocol: TCP
-        - containerPort: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
-          protocol: TCP
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
-          initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.dmaapmediatorservice.service.targetPort2 }}
-          initialDelaySeconds: {{ .Values.dmaapmediatorservice.liveness.initialDelaySeconds }}
-          periodSeconds: {{ .Values.dmaapmediatorservice.liveness.periodSeconds }}
+      - name: {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports: {{- include "common.containerPorts" . | nindent 8 }}
+        {{- /* Only the info producer port is active */ -}}
+        {{- include "common.tcpsocketProbes" (dict "port" ((first .Values.service.ports).internalPort_tls) "dot" .) | nindent 8 }}
         volumeMounts:
-        - name: {{ include "common.name.dmaapmediatorservice" . }}-dmaapmediator-data
+        - name: {{ include "common.name" . }}-dmaapmediator-data
           mountPath: /configs/type_config.json
           subPath: type_config.json
-
         env:
           - name: INFO_PRODUCER_HOST
-            value: https://{{ include "common.name.dmaapmediatorservice" . }}
+            value: "{{ default (print "https://" ( include "common.name" . )) .Values.infoProducerHost }}"
           - name: INFO_PRODUCER_PORT
-            value: "{{ .Values.dmaapmediatorservice.service.internalPort2 }}"
+            value: "{{ default (first .Values.service.ports).internalPort_tls .Values.infoProducerPort }}"
           - name: INFO_COORD_ADDR
-            value: https://informationservice:9083
+            value: "{{ .Values.infoCoordinatorAddr }}"
           - name: DMAAP_MR_ADDR
-            value: http://message-router.onap:3904
+            value: "{{ .Values.dmaapMrAddr }}"
           - name: LOG_LEVEL
-            value: Info
+            value: "{{ .Values.logLevel }}"
       volumes:
-        - name: {{ include "common.name.dmaapmediatorservice" . }}-dmaapmediator-data
+        - name: {{ include "common.name" . }}-dmaapmediator-data
           configMap:
-            name: {{ include "common.name.dmaapmediatorservice" . }}-configmap-data
+            name: {{ include "common.name" . }}-type-configmap
+        {{- if .Values.dmaapTopicInit.enabled -}}
+        {{- include "dmaapTopic.initVolume" . | nindent 8 }}
+        {{- end }}

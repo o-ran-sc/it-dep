@@ -12,20 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: "topology"
-  labels:
-    name: topology
-    release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}
-spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.ports.port }}
-      nodePort: {{ .Values.service.ports.nodePort }}
-  selector:
-    name: topology
-    release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}
+{{ include "common.service" . }}

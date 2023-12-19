@@ -1,5 +1,6 @@
+#!/bin/sh
 ################################################################################
-#   Copyright (c) 2021 Nordix Foundation.                                      #
+#   Copyright (c) 2024 NYCU WINLab.                                            #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,11 +15,13 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- define "common.name.helmmanager" -}}
-  {{- printf "helmmanager" -}}
-{{- end -}}
+topics='{{ .Values.dmaapTopicInit.topics | toRawJson }}'
 
-{{- define "common.container.helmmanager" -}}
-  {{- $name := ( include "common.name.helmmanager" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+echo $topics | jq -c '.[]' | while read -r obj; do
+    curl -X POST -H "Content-Type: application/json" -d "$obj" {{ .Values.dmaapTopicInit.dmaapMrAddr }}/topics/create
+    response=$?
+    if [ $response -ne 0 ]; then
+        echo "Failed to create topic $obj"
+        exit 1
+    fi
+done

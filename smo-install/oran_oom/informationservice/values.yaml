@@ -19,28 +19,72 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-informationservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-    name: "nonrtric-plt-informationcoordinatorservice"
-    tag: 1.6.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9082
-    targetPort1: 8083
-    httpsName: https
-    internalPort2: 9083
-    targetPort2: 8434
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  persistence:
-    size: 2Gi
-    storageClassName: standard
-  ingress:
-    enabled: false
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: "nonrtric-plt-informationcoordinatorservice"
+  tag: 1.6.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: "9082"
+    targetPort: "8083"
+    name_tls: https
+    internalPort_tls: "9083"
+    targetPort_tls: "8434"
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+persistence:
+  size: 2Gi
+  storageClassName: standard
+ingress:
+  enabled: false
+
+application:
+  spring:
+    profiles:
+      active: prod
+    main:
+      allow-bean-definition-overriding: true
+    aop:
+      auto: false
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "loggers,logfile,health,info,metrics,threaddump,heapdump"
+
+  logging:
+    level:
+      ROOT: ERROR
+      org.springframework: ERROR
+      org.springframework.data: ERROR
+      org.springframework.web.reactive.function.client.ExchangeFunctions: ERROR
+      org.oransc.information: INFO
+    file:
+      name: /var/log/information-coordinator-service/application.log
+  server:
+    port : 8434
+    http-port: 8083
+    ssl:
+        key-store-type: JKS
+        key-store-password: policy_agent
+        key-store: /opt/app/information-coordinator-service/etc/cert/keystore.jks
+        key-password: policy_agent
+        key-alias: policy_agent
+  app:
+    filepath: /opt/app/information-coordinator-service/data/application_configuration.json
+    webclient:
+      trust-store-used: false
+      trust-store-password: policy_agent
+      trust-store: /opt/app/information-coordinator-service/etc/cert/truststore.jks
+      # Configuration of usage of HTTP Proxy for the southbound accesses.
+      # The HTTP proxy (if configured) will only be used for accessing NearRT RIC:s
+      http.proxy-host:
+      http.proxy-port: 0
+    vardata-directory: /var/information-coordinator-service

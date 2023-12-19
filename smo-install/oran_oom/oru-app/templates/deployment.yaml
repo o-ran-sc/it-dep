@@ -1,32 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
-  name: oru-app
-  labels:
-    name: oru-app
-    release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      name: oru-app
+  selector: {{- include "common.selectors" . | nindent 4 }}
   template:
-    metadata:
-      labels:
-        name: oru-app
-        release: {{ .Release.Name }}
-        chart: {{ .Chart.Name }}
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "common.containername" . }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name}}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           tty: true
           stdin: true
           envFrom:
             - configMapRef:
-                name: oru-app-configmapenv
+                name: {{ include "common.name" . }}-configmapenv
           volumeMounts:
           - name: oru-app-config-volume
             subPath: o-ru-to-o-du-map.txt
@@ -39,7 +28,7 @@ spec:
       volumes:
       - name: oru-app-config-volume
         configMap:
-          name: oru-app-configmap
+          name: {{ include "common.name" . }}
           items:
           - key: o-ru-to-o-du-map.txt
             path: o-ru-to-o-du-map.txt

@@ -16,13 +16,10 @@
 ################################################################################
 */}}
 
-{{- if .Values.policymanagementservice.ingress.enabled -}}
+{{- if (include "common.ingressEnabled" .) -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
 spec:
   ingressClassName: {{ include "common.ingressClassName" . }}
   rules:
@@ -30,9 +27,9 @@ spec:
         paths:
           - backend:
               service:
-                name: {{ include "common.name.policymanagementservice" . }}
+                name: {{ include "common.name" . }}
                 port:
-                  number: {{ .Values.policymanagementservice.service.internalPort1 }}
+                  number: {{ (first .Values.service.ports).internalPort }}
             path: "/a1-policy"
             pathType: Prefix
 {{- end -}}

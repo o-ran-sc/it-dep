@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e4f24d7_63ed9f97",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_labels.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "Do we need a copyright notice for 2024 OpenInfra Foundation Europe ?",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b421445_d52359e8",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_name.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14b8330_83bb77e8",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_namespace.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35fffd0c_567c8d16",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_pods.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d8900f_59a6da8a",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_service.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b788956_76b37231",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_statefulset.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81f2261_051b09e5",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_utils.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "290064f6_3218a8a4",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "Should the password be stored in a Kubernetes secret?",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5752fb9d_418272b9",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "\"8433\" for consistency",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "defb6e72_fbce862d",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-15T16:41:57Z",
+      "side": 1,
+      "message": "\"8081\" for consistency",
+      "range": {
+        "startLine": 135,
+        "startChar": 15,
+        "endLine": 135,
+        "endChar": 19
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

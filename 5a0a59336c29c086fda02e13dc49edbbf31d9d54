@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f5a6ae0_a40c3edf",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-16T18:16:05Z",
+      "side": 1,
+      "message": "OK. \nCurrent override will \n\nEnable: \npolicy-api, policy-pap, policy-apex-pdp, policy-clamp-ac-k8s-ppnt, policy-clamp-ac-pf-ppnt, policy-clamp-ac-http-ppnt, policy-clamp-ac-a1pms-ppnt (not listed here), policy-clamp-ac-kserve-ppnt (not listed here), policy-clamp-runtime-acm.\n\nDisable:\npolicy-xacml-pdp, policy-drools-pdp, policy-distribution,\npolicy-nexus, policy-gui\n\npolicy-clamp-be is removed from OOM at OOM-2253\n\nIs this right setup for DME? Or some components can be disabled or need to enabled?",
+      "parentUuid": "7791a737_ff21af27",
+      "range": {
+        "startLine": 285,
+        "startChar": 1,
+        "endLine": 285,
+        "endChar": 16
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d942c5ad_ded163ad",
         "filename": "smo-install/oran_oom/nonrtricgateway/values.yaml",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-15T16:21:44Z",
       "side": 1,
       "message": "Why are we removing TLS?",
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fea21f1_6b8bc7f4",
+        "filename": "smo-install/oran_oom/nonrtricgateway/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-16T18:16:05Z",
+      "side": 1,
+      "message": "ONAP already deprecated AAF since London release. AAF is replaced by Service Mesh (Istio), Ingress and IdAM Authentication Server (e.g., Keycloack). Hence, TLS should be offloaded at the ingress, and communication between pods may be encrypted by the service mesh mTLS (Istio) which is transparent for pods",
+      "parentUuid": "d942c5ad_ded163ad",
       "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

@@ -122,6 +122,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c41cd7f6_064430ac",
+        "filename": "smo-install/oran_oom/nonrtric/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-16T11:04:44Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7875588f_1847bf8b",
         "filename": "smo-install/oran_oom/policymanagementservice/templates/configmap.yaml",
         "patchSetId": 1

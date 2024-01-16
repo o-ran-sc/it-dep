@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b61e8e30_418e1019",
+        "filename": "smo-install/oran_oom/a1controller/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fab332f_f7e8d31a",
+        "filename": "smo-install/oran_oom/aux-common/templates/_namespace.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 4
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4ac7254_26f7e011",
+        "filename": "smo-install/oran_oom/dmaapadapterservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 0
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ed01b65_a1cb18be",
+        "filename": "smo-install/oran_oom/dmaapadapterservice/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02cc52c5_e4b51655",
+        "filename": "smo-install/oran_oom/dmaapmediatorservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30298145_4d286239",
+        "filename": "smo-install/oran_oom/dmaapmediatorservice/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47515176_14a011a8",
+        "filename": "smo-install/oran_oom/helmmanager/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "402df4f2_7e147b98",
+        "filename": "smo-install/oran_oom/informationservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1862aeb_d84ff335",
+        "filename": "smo-install/oran_oom/informationservice/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 79
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10d040d_710d7004",
+        "filename": "smo-install/oran_oom/nonrtricgateway/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "068eb941_4897cd30",
+        "filename": "smo-install/oran_oom/nonrtricgateway/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea018c3_238b50fd",
+        "filename": "smo-install/oran_oom/odu-app-ics-version/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 75
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d24e167_0226de8d",
+        "filename": "smo-install/oran_oom/odu-app/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 75
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3b6c2eb_b52bd548",
+        "filename": "smo-install/oran_oom/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffd66b48_4e0c64b9",
+        "filename": "smo-install/oran_oom/policymanagementservice/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "924ee848_aa492214",
+        "filename": "smo-install/oran_oom/rappcatalogueservice/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 80
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77bc77e4_0801b7af",
+        "filename": "smo-install/oran_oom/topology/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-16T13:53:53Z",
+      "side": 0,
+      "message": "Removal of license information can be avoided.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

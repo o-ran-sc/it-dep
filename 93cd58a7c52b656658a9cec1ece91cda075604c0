@@ -122,6 +122,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7875588f_1847bf8b",
+        "filename": "smo-install/oran_oom/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-16T10:57:52Z",
+      "side": 1,
+      "message": "I think we need to keep the file-backed config map. \nWe have an operation to change the conf at runtime - which changes the file. \nSo that config change will no longer be reflected in this config map - so on restart A1-PMS will use the older configuration (the one in the config-map), not the one in the file.",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ba29ca_bc5665c3",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-16T10:57:52Z",
+      "side": 1,
+      "message": "This information was previously in smo-install/oran_oom/policymanagementservice/resources/data/application_configuration.json (now deleted). \nThis information was then loaded as a config map. \nThis config map was then the backing data store for the A1PMS live configuration. \nBy changing to this approach, that config now become static, requiring an A1-PMS redeployment anything the config is changed. (e.g. a new near-RT-RIC is added). Changing this config at run-time is expected behavior.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 40
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "290064f6_3218a8a4",
         "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
         "patchSetId": 1

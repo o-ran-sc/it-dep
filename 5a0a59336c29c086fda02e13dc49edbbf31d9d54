@@ -81,6 +81,24 @@
       "parentUuid": "d942c5ad_ded163ad",
       "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9c5c66c_e73442c6",
+        "filename": "smo-install/oran_oom/nonrtricgateway/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-01-17T09:42:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3fea21f1_6b8bc7f4",
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

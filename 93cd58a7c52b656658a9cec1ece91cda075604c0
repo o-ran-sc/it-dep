@@ -134,6 +134,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac7be8b0_8edf91eb",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_labels.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "2e4f24d7_63ed9f97",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b421445_d52359e8",
@@ -147,6 +165,24 @@
       "writtenOn": "2024-01-15T16:41:57Z",
       "side": 1,
       "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fadd5c4_513aaa14",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_name.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "5b421445_d52359e8",
       "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -168,6 +204,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fae2eb17_682b3155",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_namespace.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "e14b8330_83bb77e8",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35fffd0c_567c8d16",
@@ -181,6 +235,24 @@
       "writtenOn": "2024-01-15T16:41:57Z",
       "side": 1,
       "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0281458f_189923d1",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_pods.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "35fffd0c_567c8d16",
       "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -202,6 +274,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3eef2c6_1c1524b6",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_service.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "41d8900f_59a6da8a",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b788956_76b37231",
@@ -219,6 +309,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d45b8b9_283f3842",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_statefulset.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "9b788956_76b37231",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d81f2261_051b09e5",
@@ -232,6 +340,24 @@
       "writtenOn": "2024-01-15T16:41:57Z",
       "side": 1,
       "message": "# Copyright 2024, OpenInfra Foundation Europe",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84756f9f_bd6089ef",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_utils.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "You can ignore this one",
+      "parentUuid": "d81f2261_051b09e5",
       "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
@@ -430,6 +556,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "376628d8_0bce4cbd",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "I think quotes are needed    \" .... \"",
+      "parentUuid": "b169ca6e_91379b77",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "defb6e72_fbce862d",
         "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
         "patchSetId": 1
@@ -465,6 +609,30 @@
       "side": 1,
       "message": "Sorry, but I am not sure what you mean",
       "parentUuid": "defb6e72_fbce862d",
+      "range": {
+        "startLine": 135,
+        "startChar": 15,
+        "endLine": 135,
+        "endChar": 19
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a677e8_a7f3056b",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-19T10:31:22Z",
+      "side": 1,
+      "message": "I think quotes are needed    \" .... \"",
+      "parentUuid": "112af08f_53cd3a1f",
       "range": {
         "startLine": 135,
         "startChar": 15,

@@ -48,6 +48,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d22accd_ab9d8a93",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-24T10:12:42Z",
+      "side": 1,
+      "message": "Done\nI just keep the enabled components, as I mentioned above.",
+      "parentUuid": "5f5a6ae0_a40c3edf",
+      "range": {
+        "startLine": 285,
+        "startChar": 1,
+        "endLine": 285,
+        "endChar": 16
+      },
+      "revId": "5a0a59336c29c086fda02e13dc49edbbf31d9d54",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d942c5ad_ded163ad",

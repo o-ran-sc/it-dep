@@ -41,6 +41,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "398e3054_6e641f0b",
+        "filename": "nonrtric/helm/policymanagementservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-25T18:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e87f6167_c4197945",
+      "range": {
+        "startLine": 53,
+        "startChar": 51,
+        "endLine": 53,
+        "endChar": 62
+      },
+      "revId": "0022162b18dcbc1eee56d30020d8f2c819df03c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "53de7596_bbafffbd",
@@ -64,6 +88,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3993dd_e2571ac8",
+        "filename": "nonrtric/helm/policymanagementservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-25T18:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53de7596_bbafffbd",
+      "range": {
+        "startLine": 91,
+        "startChar": 72,
+        "endLine": 91,
+        "endChar": 88
+      },
+      "revId": "0022162b18dcbc1eee56d30020d8f2c819df03c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c42f35c6_5ee487c0",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-01-25T16:37:52Z",
       "side": 1,
       "message": "as above ...",
+      "range": {
+        "startLine": 94,
+        "startChar": 71,
+        "endLine": 94,
+        "endChar": 86
+      },
+      "revId": "0022162b18dcbc1eee56d30020d8f2c819df03c7",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2af154c_faf60d83",
+        "filename": "nonrtric/helm/policymanagementservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-25T18:07:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42f35c6_5ee487c0",
       "range": {
         "startLine": 94,
         "startChar": 71,

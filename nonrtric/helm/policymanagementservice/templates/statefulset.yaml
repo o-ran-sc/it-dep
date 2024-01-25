@@ -1,5 +1,6 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2020-2023 Nordix Foundation.                                 #
+#   Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -50,11 +51,12 @@ spec:
         - FILE=/var/policy-management-service/application_configuration.json;
           if [ ! -f $FILE ]; then
             cp  /etc/app/policy-management-service/initialdata/application_configuration.json $FILE;
-          fi
+            chmod 777 $FILE;
+          fi;
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
           mountPath: "/var/policy-management-service"
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+        - name: {{ include "common.name.policymanagementservice" . }}-application-initial-config
           mountPath: /etc/app/policy-management-service/initialdata
       containers:
       - name: {{ include "common.container.policymanagementservice" . }}
@@ -81,13 +83,13 @@ spec:
           mountPath: "/var/policy-management-service"
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           mountPath: /opt/app/policy-agent/config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+        - name: {{ include "common.name.policymanagementservice" . }}-application-initial-config
           mountPath: /etc/app/policy-management-service/initialdata
       volumes:
         - name: {{ include "common.name.policymanagementservice" . }}-policy-config
           configMap:
             name: {{ include "common.name.policymanagementservice" . }}-configmap-config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+        - name: {{ include "common.name.policymanagementservice" . }}-application-initial-config
           configMap:
             name: {{ include "common.name.policymanagementservice" . }}-configmap-data
   volumeClaimTemplates:

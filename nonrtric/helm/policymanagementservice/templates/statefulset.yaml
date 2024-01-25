@@ -1,5 +1,6 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2020-2023 Nordix Foundation.                                 #
+#   Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -49,13 +50,14 @@ spec:
         - -c
         - FILE=/var/policy-management-service/application_configuration.json;
           if [ ! -f $FILE ]; then
-            cp  /etc/app/policy-management-service/initialdata/application_configuration.json $FILE;
-          fi
+            cp  /etc/app/policy-management-service/application_configuration_json_initial/application_configuration.json $FILE;
+            chmod 777 $FILE;
+          fi;
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
           mountPath: "/var/policy-management-service"
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
-          mountPath: /etc/app/policy-management-service/initialdata
+        - name: {{ include "common.name.policymanagementservice" . }}-application-configuration-json-initial
+          mountPath: /etc/app/policy-management-service/application_configuration_json_initial
       containers:
       - name: {{ include "common.container.policymanagementservice" . }}
         image: {{ .Values.policymanagementservice.image.registry }}/{{ .Values.policymanagementservice.image.name }}:{{ .Values.policymanagementservice.image.tag }}
@@ -79,17 +81,17 @@ spec:
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
           mountPath: "/var/policy-management-service"
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-config
+        - name: {{ include "common.name.policymanagementservice" . }}-application-yaml
           mountPath: /opt/app/policy-agent/config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
-          mountPath: /etc/app/policy-management-service/initialdata
+        - name: {{ include "common.name.policymanagementservice" . }}-application-configuration-json-initial
+          mountPath: /etc/app/policy-management-service/application_configuration_json_initial
       volumes:
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-config
+        - name: {{ include "common.name.policymanagementservice" . }}-application-yaml
           configMap:
-            name: {{ include "common.name.policymanagementservice" . }}-configmap-config
-        - name: {{ include "common.name.policymanagementservice" . }}-policy-data
+            name: {{ include "common.name.policymanagementservice" . }}-configmap-application-yaml
+        - name: {{ include "common.name.policymanagementservice" . }}-application-configuration-json-initial
           configMap:
-            name: {{ include "common.name.policymanagementservice" . }}-configmap-data
+            name: {{ include "common.name.policymanagementservice" . }}-configmap-application-json-configuration
   volumeClaimTemplates:
     - metadata:
         name: {{ include "common.name.policymanagementservice" . }}-vardata

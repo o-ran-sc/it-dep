@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f600a3aa_c31035fb",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-26T16:31:41Z",
+      "side": 1,
+      "message": "Not sure this should be enabled. Another A1-PMS is also enabled in the oran charts.\nWe will look at this in a later commit.",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

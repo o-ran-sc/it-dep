@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a6e4215_91666849",
+        "filename": "smo-install/oran_oom/controlpanel/templates/service.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-26T15:41:26Z",
+      "side": 1,
+      "message": "I think this entire function - A1Controller (CCSDK+A1Adapter) should not be installed at all. ONAP SDNC should be used instead. \nBut we will do this in a follow up commit after this one. \n\nref: NONRTRIC-974",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 32
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8878c452_32633db3",
@@ -518,6 +541,29 @@
       "range": {
         "startLine": 49,
         "startChar": 0,
+        "endLine": 53,
+        "endChar": 40
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2475e873_c6f69a0d",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-26T15:41:26Z",
+      "side": 1,
+      "message": "In a later review we will change this to point to the ONAP SDNC instead. Removes need for an O-RAN A1Controller. \n\nRef NONRTRIC-974",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
         "endLine": 53,
         "endChar": 40
       },

@@ -41,6 +41,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "92349334_630a395b",
+        "filename": "smo-install/helm-override/cnf/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:34:35Z",
+      "side": 1,
+      "message": "Like the A1Controller, A1-PMS has two versions, one located in oran_oom policymanagementservice and the other in onap_oom a1policymanagement. Should we keep both versions or remove this one in follow up commit for A1Controller (Ref NONRTRIC-974)",
+      "parentUuid": "4e1af023_673cecee",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4a6e4215_91666849",

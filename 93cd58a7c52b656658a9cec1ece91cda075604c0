@@ -110,6 +110,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41bcf7bb_061ce20e",
+        "filename": "smo-install/oran_oom/dmaapmediatorservice/templates/_helpers.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "Busybox does not include built-in curl and jq, and it\u0027s also difficult to install packages, so I chose Alpine instead.\n\nChanged \"latest\" to \"3.19.1\"",
+      "parentUuid": "d99e34c3_eda66764",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 22
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dc6d8cc_e240b3cc",
@@ -123,6 +147,30 @@
       "writtenOn": "2024-01-16T13:53:53Z",
       "side": 1,
       "message": "whitespace can be removed",
+      "range": {
+        "startLine": 4,
+        "startChar": 10,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88423706_d80697b6",
+        "filename": "smo-install/oran_oom/dmaapmediatorservice/templates/_helpers.tpl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "All extra whitespace, CRLF, and lack of newline at end of file under oran_oom are fixed",
+      "parentUuid": "4dc6d8cc_e240b3cc",
       "range": {
         "startLine": 4,
         "startChar": 10,
@@ -448,6 +496,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b58feda_1523ff3d",
+        "filename": "smo-install/oran_oom/nonrtric/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c41cd7f6_064430ac",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df6d729b_0cc9ca8e",
@@ -555,6 +627,30 @@
       "writtenOn": "2024-01-26T13:23:07Z",
       "side": 1,
       "message": "Need to add a line here after IF statement: \n\n  chmod 777 $FILE;",
+      "range": {
+        "startLine": 37,
+        "startChar": 10,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b49d11d_bcf81df4",
+        "filename": "smo-install/oran_oom/policymanagementservice/templates/statefulset.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "I think \"666\" is enough\nDone",
+      "parentUuid": "c5e5bca7_118d4d69",
       "range": {
         "startLine": 37,
         "startChar": 10,
@@ -723,6 +819,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76748da7_f023f6bb",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "376628d8_0bce4cbd",
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "defb6e72_fbce862d",
@@ -784,6 +898,30 @@
       "side": 1,
       "message": "I think quotes are needed    \" .... \"",
       "parentUuid": "112af08f_53cd3a1f",
+      "range": {
+        "startLine": 135,
+        "startChar": 15,
+        "endLine": 135,
+        "endChar": 19
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73793c2_e0fbdad9",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-01-29T12:23:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42a677e8_a7f3056b",
       "range": {
         "startLine": 135,
         "startChar": 15,

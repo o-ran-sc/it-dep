@@ -65,6 +65,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ca24d13_a53a3293",
+        "filename": "smo-install/helm-override/cnf/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-01-30T12:48:41Z",
+      "side": 1,
+      "message": "In terms of components, ONAP SDNC(instead of ORAN A1 Controller) and ORAN A1-PMS(instead of ONAP A1-PMS) should be used where ever possible.\n\nThis needs to be updated in all the possible override configurations available in smo_install/helm_override directory (standalone-nonrtric override can use ORAN A1controller).",
+      "parentUuid": "92349334_630a395b",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4a6e4215_91666849",

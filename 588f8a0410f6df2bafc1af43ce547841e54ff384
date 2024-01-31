@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8095274_6381d0df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:43:27Z",
+      "side": 1,
+      "message": "Strimzi 0.36.x doesn\u0027t seem to support kafka 3.1.0. \n(Not sure where this Kafka version is configured ... perhaps somewhere in ONAP OOM?) \nSo it seems this deployment does not start at all. \nCan you confirm if this is correct, or just in our environment?",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f600a3aa_c31035fb",
@@ -14,6 +37,30 @@
       "writtenOn": "2024-01-26T16:31:41Z",
       "side": 1,
       "message": "Not sure this should be enabled. Another A1-PMS is also enabled in the oran charts.\nWe will look at this in a later commit.",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cda62084_d4a5fe6d",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:43:27Z",
+      "side": 1,
+      "message": "We will fix this in a later commit. Ref: \nNONRTRIC-974",
+      "parentUuid": "f600a3aa_c31035fb",
       "range": {
         "startLine": 65,
         "startChar": 11,

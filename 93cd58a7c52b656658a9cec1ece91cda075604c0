@@ -91,6 +91,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5b622de4_07ed55d6",
+        "filename": "smo-install/helm-override/cnf/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:48:24Z",
+      "side": 1,
+      "message": "Lets fix this later. \nNONRTRIC-974",
+      "parentUuid": "9ca24d13_a53a3293",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a6e4215_91666849",
         "filename": "smo-install/oran_oom/controlpanel/templates/service.yaml",
         "patchSetId": 1
@@ -125,6 +149,30 @@
       "writtenOn": "2024-01-16T13:53:53Z",
       "side": 1,
       "message": "This can be used as a file and referred in configmap",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 22
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bb7720e_ab4aa400",
+        "filename": "smo-install/oran_oom/dmaapadapterservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:48:24Z",
+      "side": 1,
+      "message": "This is OK for now.",
+      "parentUuid": "8878c452_32633db3",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -266,6 +314,30 @@
       "side": 1,
       "message": "Yes. But I think putting config in the values file is a better approach? So, users can change the configuration by applying helm overrides to the helm chart without rebuilding the chart.",
       "parentUuid": "6ffd547b_7b16d2b3",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 11
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95a51f50_441f46af",
+        "filename": "smo-install/oran_oom/informationservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:48:24Z",
+      "side": 1,
+      "message": "This is OK for now.",
+      "parentUuid": "af196229_c594a66c",
       "range": {
         "startLine": 48,
         "startChar": 0,
@@ -662,6 +734,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b1f6a0_3c446f75",
+        "filename": "smo-install/oran_oom/policymanagementservice/templates/configmap.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:48:24Z",
+      "side": 1,
+      "message": "This is OK for now. \nIt doesn\u0027t matter where the cofig comes from - direct from file, or via config from file.",
+      "parentUuid": "4592ee63_21801a03",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 48
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5e5bca7_118d4d69",
@@ -772,6 +868,30 @@
       "range": {
         "startLine": 53,
         "startChar": 15,
+        "endLine": 53,
+        "endChar": 40
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b04751c_367877da",
+        "filename": "smo-install/oran_oom/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-01-31T10:48:24Z",
+      "side": 1,
+      "message": "This is Ok for now.",
+      "parentUuid": "c17b16df_a6086e76",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
         "endLine": 53,
         "endChar": 40
       },

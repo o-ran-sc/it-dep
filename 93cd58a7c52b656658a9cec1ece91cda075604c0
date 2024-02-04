@@ -115,6 +115,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d3e628d7_1225a398",
+        "filename": "smo-install/helm-override/cnf/oran-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-02-04T18:32:51Z",
+      "side": 1,
+      "message": "Apologies for the delayed response recently. I\u0027ll handle this part in a follow-up commit after this change merged",
+      "parentUuid": "5b622de4_07ed55d6",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "93cd58a7c52b656658a9cec1ece91cda075604c0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4a6e4215_91666849",
         "filename": "smo-install/oran_oom/controlpanel/templates/service.yaml",
         "patchSetId": 1

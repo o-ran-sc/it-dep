@@ -24,6 +24,47 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "511b3d00_ab968762",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-02-04T16:26:05Z",
+      "side": 1,
+      "message": "The Kafka version is configured in smo-install/onap_oom/kubernetes/strimzi/values.yaml under config.kafkaVersion.\n\nThe current version of ONAP OOM utilizes Kafka 3.4.0. However, support for Kafka 3.1.0 has already been removed in Strimzi 0.32.0.\n\nCould changing the Kafka version disrupt SMO functionality?",
+      "parentUuid": "c8095274_6381d0df",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 32
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "517bba53_704eb149",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-02-04T16:26:05Z",
+      "side": 1,
+      "message": "The response from ONAP indicates that ORAN Montreal was signed off on December 14, 2023.\nhttps://wiki.onap.org/display/DW/Feedback+for+OOM",
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f600a3aa_c31035fb",

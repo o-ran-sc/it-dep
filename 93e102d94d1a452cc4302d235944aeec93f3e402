@@ -16,6 +16,24 @@
       "message": "May I ask if these modifications for copyright are correct?",
       "revId": "93e102d94d1a452cc4302d235944aeec93f3e402",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "217d214e_197f3991",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_service.tpl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-02-06T10:48:52Z",
+      "side": 1,
+      "message": "This is fine. \n\nAnything you change you can mark \"Modifications Copyright (c) 2024 NYCU WINLab\" if you wish.",
+      "parentUuid": "c16a1c44_1bb7bac3",
+      "revId": "93e102d94d1a452cc4302d235944aeec93f3e402",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

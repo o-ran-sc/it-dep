@@ -16,6 +16,29 @@
       "message": "Ready for merge from NONRTRIC point of view. \nMore updates will follow, e.g. \n* NONRTRIC-974 (a1 controller vs sdnc, ONAP A1PMS vs OSC A1PMS, etc) \n* May tidy up config map names to make them more descriptive. \n* etc.",
       "revId": "cf0b0cacff706ca98d773ee215fa7ee28bdd83dc",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b69564_c59f25ea",
+        "filename": "smo-install/oran_oom/nonrtric-common/templates/_name.tpl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-02-06T10:51:23Z",
+      "side": 1,
+      "message": "Suggest you keep existing copyright statements intact.",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 38
+      },
+      "revId": "cf0b0cacff706ca98d773ee215fa7ee28bdd83dc",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

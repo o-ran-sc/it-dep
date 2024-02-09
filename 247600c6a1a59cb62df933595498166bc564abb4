@@ -16,6 +16,29 @@
       "message": "Good now I think.\nIf you are happy we can try find another +1 then I can merge.\n\nWe will come back to the issue with 2 A1-Controllers and and 2 A1-PMSs (ONAP \u0026 OSC) in the next review.",
       "revId": "247600c6a1a59cb62df933595498166bc564abb4",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da2c2800_b7da47c4",
+        "filename": "smo-install/oran_oom/topology/Chart.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000060
+      },
+      "writtenOn": "2024-02-09T13:21:00Z",
+      "side": 1,
+      "message": "I suggest to remove the entire directory \"topology\" - the image behind refers to \"docker.io/hightec/smo-topology-api-v2:2.0.2-SNAPSHOT-20210315T160448Z\" which was used once for demonstration purposes. but is not longer maintained and function.",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "247600c6a1a59cb62df933595498166bc564abb4",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

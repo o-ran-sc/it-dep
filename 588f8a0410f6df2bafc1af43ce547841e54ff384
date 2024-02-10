@@ -178,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "71b19831_e194c089",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-02-10T16:24:21Z",
+      "side": 1,
+      "message": "I found that not only AAF and Consul but also other components are deprecated by ONAP, yet they are still listed in onap-override.yml. \n\nMeanwhile, many ONAP components are not utilized by any SMO use case but are listed in the file with \"enabled: false\" only.\n\nI think I can clean up these two kinds of components.\n\nPerhaps I could address this during another review, as I won\u0027t be available for work next week. Would that be feasible?",
+      "parentUuid": "cef956cb_e4c2d362",
+      "range": {
+        "startLine": 105,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "56f1b373_ad924663",
         "filename": "smo-install/helm-override/default/onap-override.yaml",
         "patchSetId": 2
@@ -212,6 +236,30 @@
       "writtenOn": "2024-02-08T12:41:02Z",
       "side": 1,
       "message": "Which use case requires this exposed port?\nAre there any services outside of kubernetes using this endpoint.\nPlease consider ingress and https in the future.",
+      "range": {
+        "startLine": 251,
+        "startChar": 1,
+        "endLine": 257,
+        "endChar": 22
+      },
+      "revId": "588f8a0410f6df2bafc1af43ce547841e54ff384",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7fe4d39_e186d4b3",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2024-02-10T16:24:21Z",
+      "side": 1,
+      "message": "I manually added this exposed port because it was originally exposed by SMO (ONAP_OOM), and it is helpful for testing functionality. However, after upgrading ONAP_OOM, this port is no longer exposed by default.\n\nI agree that setting up ingress and HTTPS would be better. This exposure is a temporary setup before adjusting the ingress setup between ONAP and nonrtric.\n\nAlternatively, maybe I can remove this default exposure while it is not a use case requirement.",
+      "parentUuid": "fdb57543_d8ea1be0",
       "range": {
         "startLine": 251,
         "startChar": 1,

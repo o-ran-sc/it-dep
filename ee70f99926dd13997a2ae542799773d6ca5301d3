@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fd26be7_7c78e6ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-02-19T12:42:51Z",
+      "side": 1,
+      "message": "This change is probably included in another it/dep review ... will check again once that is merged.",
+      "revId": "ee70f99926dd13997a2ae542799773d6ca5301d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

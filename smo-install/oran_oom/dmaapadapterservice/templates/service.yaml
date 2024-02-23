@@ -14,29 +14,4 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.dmaapadapterservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapadapterservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.dmaapadapterservice.service.allowHttp true -}}
-    - name: {{ index .Values.dmaapadapterservice.service.httpName }}
-      port: {{ .Values.dmaapadapterservice.service.internalPort1 }}
-      targetPort: {{ .Values.dmaapadapterservice.service.targetPort1 }}
-      protocol: TCP
-    {{- end }}
-    - name: {{ index .Values.dmaapadapterservice.service.httpsName }}
-      port: {{ .Values.dmaapadapterservice.service.internalPort2 }}
-      targetPort: {{ .Values.dmaapadapterservice.service.targetPort2 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.dmaapadapterservice" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{ include "common.service" . }}

@@ -27,7 +27,7 @@
     {{- end -}}
   {{- else -}}
     {{- with index $ctx $currentkey }}
-      {{- $newctx := dict "ctx" . "printkeys" $restkeys -}} 
+      {{- $newctx := dict "ctx" . "printkeys" $restkeys -}}
       {{- include "recursiveprinter" $newctx -}}
     {{- end -}}
   {{- end -}}
@@ -39,7 +39,7 @@
     {{- if hasKey $topctx.Values.common "tillers" }}
       {{- $ctx := index $topctx.Values.common.tillers .key -}}
       {{- if not (empty $ctx) -}}
-        {{- $newctx := dict "ctx" $ctx "printkeys" .printkey -}}     
+        {{- $newctx := dict "ctx" $ctx "printkeys" .printkey -}}
         {{- include "recursiveprinter" $newctx -}}
       {{- end -}}
     {{- end -}}

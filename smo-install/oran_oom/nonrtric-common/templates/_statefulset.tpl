@@ -1,5 +1,6 @@
+{{/*
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2024 NYCU WINLab.                                            #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,12 +14,19 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+*/}}
 
-{{- define "common.name.rappcatalogueservice" -}}
-  {{- printf "rappcatalogueservice" -}}
+{{- define "common.vardataVolumeClaimTemplate" -}}
+- metadata:
+    name: {{ include "common.name" . }}-vardata
+  spec:
+    accessModes: [ ReadWriteOnce ]
+    storageClassName: "{{ .Values.persistence.storageClassName }}"
+    resources:
+      requests:
+        storage: "{{ .Values.persistence.size }}"
 {{- end -}}
 
-{{- define "common.container.rappcatalogueservice" -}}
-  {{- $name := ( include "common.name.rappcatalogueservice" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- define "common.vardataMountName" -}}
+{{ include "common.name" . }}-vardata
 {{- end -}}

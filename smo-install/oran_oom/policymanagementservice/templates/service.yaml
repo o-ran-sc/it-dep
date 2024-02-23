@@ -14,29 +14,4 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: Service
-apiVersion: v1
-metadata:
-  name: {{ include "common.name.policymanagementservice" . }}
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  ports:
-    {{if eq .Values.policymanagementservice.service.allowHttp true -}}
-    - name: {{ index .Values.policymanagementservice.service.httpName }}
-      port: {{ .Values.policymanagementservice.service.internalPort1 }}
-      targetPort: {{ .Values.policymanagementservice.service.targetPort1 }}
-      protocol: TCP
-    {{- end }}
-    - name: {{ index .Values.policymanagementservice.service.httpsName }}
-      port: {{ .Values.policymanagementservice.service.internalPort2 }}
-      targetPort: {{ .Values.policymanagementservice.service.targetPort2 }}
-      protocol: TCP
-  selector:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.policymanagementservice" . }}
-    release: {{ .Release.Name }}
-  type: ClusterIP
+{{ include "common.service" . }}

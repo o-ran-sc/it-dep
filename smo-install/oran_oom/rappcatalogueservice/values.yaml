@@ -18,23 +18,23 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-rappcatalogueservice:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    name: nonrtric-plt-rappcatalogue
-    tag: 1.2.0
-  service:
-    allowHttp: true
-    httpName: http
-    internalPort1: 9085
-    targetPort1: 8680
-    httpsName: https
-    internalPort2: 9086
-    targetPort2: 8633
-  liveness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
+imagePullPolicy: IfNotPresent
+image:
+  registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+  name: nonrtric-plt-rappcatalogue
+  tag: 1.2.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: "9085"
+    targetPort: "8680"
+    name_tls: https
+    internalPort_tls: "9086"
+    targetPort_tls: "8633"
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10

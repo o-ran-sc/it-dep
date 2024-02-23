@@ -24,16 +24,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           tty: true
           stdin: true
-          env:
-          - name: REQUESTS_CA_BUNDLE
-            value: "{{ .Values.conf.caCertificate }}"
           envFrom:
             - configMapRef:
                 name: oru-app-configmapenv
           volumeMounts:
-          {{- if .Values.global.aafEnabled }}
-          {{ include "common.certInitializer.volumeMount" . | nindent 10 }}
-          {{- end }}
           - name: oru-app-config-volume
             subPath: o-ru-to-o-du-map.txt
             mountPath: /usr/src/app/o-ru-to-o-du-map.txt
@@ -42,13 +36,7 @@ spec:
               add:
                 - SYS_ADMIN
                 - SYS_PTRACE
-      {{- if .Values.global.aafEnabled }}
-      serviceAccountName: {{ include "common.fullname" (dict "suffix" "read" "dot" . ) }}
-      {{- end }}
       volumes:
-      {{- if .Values.global.aafEnabled }}
-      {{ include "common.certInitializer.volumes" . | nindent 6 }}
-      {{- end }}
       - name: oru-app-config-volume
         configMap:
           name: oru-app-configmap

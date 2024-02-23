@@ -23,7 +23,6 @@
 global:
   # Change to an unused port prefix range to prevent port conflicts
   # with other instances running within the same k8s cluster
-  repository: nexus3.onap.org:10001 #__docker_proxy__
   nodePortPrefix: 302
   nodePortPrefixExt: 304
   masterPassword: secretpassword
@@ -35,7 +34,7 @@ global:
   # repository but ONLY if your repository mirrors all ONAP
   # docker images. This includes all images from dockerhub and
   # any other repository that hosts images for ONAP components.
-  #repository: nexus3.onap.org:10001
+  repository: nexus3.onap.org:10001
 
   # readiness check - temporary repo until images migrated to nexus3
   readinessRepository: oomk8s
@@ -52,6 +51,10 @@ global:
 
   # flag to enable debugging - application support required
   debugEnabled: false
+
+  mariadbGalera:
+    useOperator: false
+    enableServiceAccount: true
 
 #################################################################
 # Enable/disable and configure helm charts (ie. applications)
@@ -96,110 +99,7 @@ a1policymanagement:
       managedElementIds:
         - kista_1
         - kista_2
-aaf: 
-  enabled: true 
-  aaf-service:
-    readiness:
-      initialDelaySeconds: 150
-aai:
-  enabled: false
-  flavorOverride: unlimited
-  global:
-    flavorOverride: unlimited
-    cassandra:
-      replicas: 3
-  aai-cassandra:
-    flavorOverride: unlimited
-    replicaCount: 3
-  aai-babel:
-    flavorOverride: unlimited
-  aai-data-router:
-    flavorOverride: unlimited
-  aai-elasticsearch:
-    flavorOverride: unlimited
-  aai-graphadmin:
-    flavorOverride: unlimited
-  aai-modelloader:
-    flavorOverride: unlimited
-  aai-resources:
-    flavorOverride: unlimited
-  aai-schema-service:
-    flavorOverride: unlimited
-  aai-search-data:
-    flavorOverride: unlimited
-  aai-sparky-be:
-    flavorOverride: unlimited
-    readiness:
-      initialDelaySeconds: 150
-      periodSeconds: 20
-      timeoutSeconds: 10
-  aai-traversal:
-    flavorOverride: unlimited
-appc: 
-  enabled: false 
-cassandra:
-  enabled: false
-  replicaCount: 3
-  config:
-    cluster_domain: cluster.local
-    heap:
-      max: 1G
-      min: 256M
-  liveness:
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 10
-    successThreshold: 1
-    failureThreshold: 3
-    # necessary to disable liveness probe when setting breakpoints
-    # in debugger so K8s doesn't restart unresponsive container
-    enabled: true
-
-  readiness:
-    initialDelaySeconds: 120
-    periodSeconds: 20
-    timeoutSeconds: 10
-    successThreshold: 1
-    failureThreshold: 3
-cds: 
-  enabled: false 
-cli: 
-  enabled: false 
-contrib:
-  enabled: true
-  awx:
-    enabled: false
-  netbox:
-    enabled: false
-consul: 
-  enabled: false
-  consul-server:
-    replicaCount: 1
-cps: 
-  enabled: false
-dcaegen2: 
-  enabled: false
-  dcae-bootstrap:
-    enabled: false
-  dcae-cloudify-manager:
-    enabled: false
-  dcae-config-binding-service:
-    enabled: false
-  dcae-dashboard:
-    enabled: false
-  dcae-deployment-handler:
-    enabled: false
-  dcae-healthcheck:
-    enabled: false
-  dcae-inventory-api:
-    enabled: false
-  dcae-policy-handler:
-    enabled: false
-  dcae-servicechange-handler:
-    enabled: false
-  dcae-ves-openapi-manager:
-    enabled: false
-dcaegen2-services: 
+dcaegen2-services:
   enabled: true
   dcae-bbs-eventprocessor-ms:
     enabled: false
@@ -241,36 +141,18 @@ dcaegen2-services:
     enabled: false
   dcae-ves-openapi-manager:
     enabled: false
-
-dcaemod: 
-  enabled: false 
-holmes: 
-  enabled: false 
-dmaap: 
-  enabled: true 
-
-esr: 
-  enabled: false 
-log:
-  enabled: false
-  log-logstash:
-    replicaCount: 1
+dmaap:
+  enabled: true
+  message-router:
+    enabled: true
+  dmaap-dr-node:
+    enabled: false
+  dmaap-dr-prov:
+    enabled: false
 mariadb-galera:
   enabled: true
   replicaCount: 1
-modeling:
-  enabled: false
-msb: 
-  enabled: false
-multicloud: 
-  enabled: false 
-nbi: 
-  enabled: false 
-oof:
-  enabled: false
-platform:
-  enabled: false
-policy: 
+policy:
   enabled: true
   policy-api:
     enabled: true
@@ -284,50 +166,23 @@ policy:
     enabled: false
   policy-distribution:
     enabled: false
-  policy-clamp-be:
-    enabled: true
   policy-clamp-runtime-acm:
     enabled: true
   policy-clamp-ac-k8s-ppnt:
     enabled: true
   policy-gui:
     enabled: false
-    image: onap/policy-gui:2.2.1
   policy-nexus:
     enabled: false
   policy-clamp-ac-pf-ppnt:
     enabled: true
   policy-clamp-ac-http-ppnt:
     enabled: true
-
-pomba:
-  enabled: false
-portal: 
-  enabled: false
-robot: 
-  enabled: false 
-sdc: 
-  enabled: false
-  sdc-be:
-    config:
-      javaOptions: "-Xmx1g -Xms512m"
-    liveness:
-      periodSeconds: 300
-      timeoutSeconds: 180
-    readiness:
-      periodSeconds: 300
-      timeoutSeconds: 240
-  sdc-fe:
-    resources:
-      small:
-        limits:
-          cpu: 1
-          memory: 2Gi
-        requests:
-          cpu: 100m
-          memory: 500Mi
-
-sdnc: 
+  policy-clamp-ac-a1pms-ppnt:
+    enabled: true
+  policy-clamp-ac-kserve-ppnt:
+    enabled: true
+sdnc:
   enabled: true
   replicaCount: 1
   elasticsearch:
@@ -366,26 +221,6 @@ sdnc:
         address: dcae-ves-collector.onap
         port: 8443
         eventLogMsgDetail: LONG
-sniro-emulator:
-  enabled: false
-
 strimzi:
   enabled: true
-
-so: 
-  enabled: false
-  so-catalog-db-adapter:
-    config:
-      openStackUserName: "the username"
-      openStackKeyStoneUrl: "http://10.12.25.2:5000/v3"
-      openStackEncryptedPasswordHere: "1DD1B3B4477FBAFAFEA617C575639C6F09E95446B5AE1F46C72B8FD960219ABB0DBA997790FCBB12"
-      openStackKeystoneVersion: "KEYSTONE_V3"
-uui: 
-  enabled: false 
-vfc: 
-  enabled: false 
-vid: 
-  enabled: false 
-vnfsdk: 
-  enabled: false 
-
+  replicaCount: 1

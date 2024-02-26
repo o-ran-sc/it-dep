@@ -1,6 +1,7 @@
 # Copyright © 2017 Amdocs, Bell Canada
 # 
 # Modifications Copyright © 2021 AT&T
+# Modifications Copyright © 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,7 +59,7 @@ global:
 # to customize the ONAP deployment.
 #################################################################
 a1policymanagement:
-  enabled: true
+  enabled: false
   rics:
     - name: ric1
       link: http://a1-sim-osc-0.a1-sim.nonrtric:8085

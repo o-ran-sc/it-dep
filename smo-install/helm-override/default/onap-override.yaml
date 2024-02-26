@@ -61,7 +61,7 @@ global:
 # to customize the ONAP deployment.
 #################################################################
 a1policymanagement:
-  enabled: true
+  enabled: false
   rics:
     - name: ric1
       link: http://a1-sim-osc-0.nonrtric:8085
@@ -180,6 +180,9 @@ policy:
     enabled: true
   policy-clamp-ac-a1pms-ppnt:
     enabled: true
+    a1pmsconfig:
+      a1pms:
+        baseUrl: http://policymanagementservice.nonrtric:8081
   policy-clamp-ac-kserve-ppnt:
     enabled: true
 sdnc:

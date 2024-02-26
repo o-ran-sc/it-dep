@@ -38,7 +38,7 @@ readiness:
   initialDelaySeconds: 20
   periodSeconds: 10
 
-a1PolicyLink: &a1PolicyLink http://a1policymanagement.onap:8081
+a1PolicyLink: &a1PolicyLink http://policymanagementservice:8081
 
 application:
   server:

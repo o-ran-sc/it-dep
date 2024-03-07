@@ -1,6 +1,6 @@
 #  ============LICENSE_START===============================================
 #  Copyright (C) 2023 Nordix Foundation. All rights reserved.
-#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -38,8 +38,10 @@ nonrtric:
   installRansliceassurance: true
   installCapifcore: true
   installRanpm: true
+  # rApp Manager functionality relies on ACM for its operation
   installrAppmanager: true
-  installDmeParticipant: true
+  # DME Participant should only be activated when ACM installation is available for this participant to utilize
+  installDmeParticipant: false
 
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)

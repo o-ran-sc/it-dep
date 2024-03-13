@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 #   Copyright (c) 2023 Nordix Foundation.                                      #
-#   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
+#   Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -56,64 +56,67 @@ ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 echo "** $ROOT_DIR"
 rm $ROOT_DIR/../nonrtric/helm/*/charts/*.tgz
 
+#ChartMuseum configuration
+CM_PORT="8879"
+CM_BASE_URL="http://127.0.0.1:$CM_PORT"
+CM_CHART_GET_URL="$CM_BASE_URL/charts"
+CM_CHART_POST_URL="$CM_BASE_URL/charts/api/charts"
 
 #Check for helm3
 IS_HELM3=$(helm version -c --short|grep -e "^v3")
 
-if [ $IS_HELM3 ]
+if ! command -v chartmuseum &> /dev/null
 then
-  # Check for servcm plugin
-  helm plugin list | grep -q "^servecm"
-  if [ $? -eq "1" ]
-  then
-    helm plugin install https://github.com/jdolitsky/helm-servecm
-  fi
+  pushd /tmp
+  echo "Installing ChartMuseum binary..."
+  wget https://get.helm.sh/chartmuseum-v0.13.1-linux-amd64.tar.gz
+  tar xvfz chartmuseum-v0.13.1-linux-amd64.tar.gz
+  sudo mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
+  popd
+else
+  echo "ChartMuseum is already installed."
 fi
-
-# Start Helm local repo if there isn't one
-HELM_REPO_PID=$(ps -x | grep  "helm serve" | grep -v "grep" | awk '{print $1}')
-if [ -z "$HELM_REPO_PID" ]; then
-    if [ -z $IS_HELM3 ]
-    then
-      nohup helm serve >& /dev/null &
-    else
-      echo EUID:$EUID
-      if [ $EUID -ne "0" ]
-         then
-           echo "Error: Please run the command with sudo as helm servecm needs to copy a file in location needing privilege"
-           exit;
-         fi
-      eval $(helm env |grep HELM_REPOSITORY_CACHE)
-      echo yes > /tmp/ric-yes
-      nohup sudo sh -c "helm servecm --port=8879 --context-path=/charts  --storage local --storage-local-rootdir $HELM_REPOSITORY_CACHE/local/  < /tmp/ric-yes " &
-    fi
-fi
-
 
 # Package common templates and serve it using Helm local repo
-HELM_LOCAL_REPO=""
-if [ $IS_HELM3 ]
-then
-  eval $(helm env |grep HELM_REPOSITORY_CACHE)
-  HELM_LOCAL_REPO="${HELM_REPOSITORY_CACHE}/local/"
-else
-  HELM_HOME=$(helm home)
-  HELM_LOCAL_REPO="${HELM_HOME}/repository/local/"
-fi
-
-
+HELM_LOCAL_REPO="./chartstorage"
 rm $HELM_LOCAL_REPO/*
 
-helm repo remove local
-$ROOT_DIR/prepare-common-templates
+#Start Chart Museum server if there isn't one
+CHART_MUSEUM_PID=$(lsof -i :"$CM_PORT" | grep "chartmus" | grep -v "grep" | awk '{print $2}')
+if [ -z "$CHART_MUSEUM_PID" ]; then
+  echo "Starting ChartMuseum  on port $CM_PORT..."
+  nohup chartmuseum --port=$CM_PORT --storage="local" --context-path=/charts --storage-local-rootdir=$HELM_LOCAL_REPO >/dev/null 2>&1 &
+else
+  echo "ChartMuseum is already running..."
+fi
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore ranpm rappmanager dmeparticipant"
+# Check if ChartMuseum  is ready to serve request
+command="curl --silent --output /dev/null  $CM_BASE_URL"
+for i in $(seq 1 5)
+do $command && s=0 && break || s=$? && echo "Failed to establish a connection with the ChartMuseum server. Retrying after 5s" && sleep 5;
+done
+
+if [ $s -gt 0 ]
+then
+        echo "Cmd to test ChartMuseum failed with ($s): $command"
+        exit $s
+fi
+
+helm repo remove local
+helm repo add local $CM_CHART_GET_URL
+
+echo -e "\nPackaging NONRTRIC common [nonrtric-common]"
+NONRTRIC_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common/Chart.yaml | grep version | awk '{print $2}')
+helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
+curl --data-binary @/tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $CM_CHART_POST_URL
+
+COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore rappmanager dmeparticipant"
 for component in $COMPONENTS; do
     echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
     VERSION=$(cat $ROOT_DIR/../nonrtric/helm/$component/Chart.yaml | grep version | awk '{print $2}')
     helm package -d /tmp $ROOT_DIR/../nonrtric/helm/$component
-    curl --data-binary @/tmp/$component-$VERSION.tgz http://127.0.0.1:8879/charts/api/charts
+    curl --data-binary @/tmp/$component-$VERSION.tgz $CM_CHART_POST_URL
 done
 
 helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric
@@ -121,10 +124,9 @@ helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric
 helm repo index ${HELM_LOCAL_REPO}
 
 # Make sure that helm local repo is added
-helm repo add local http://127.0.0.1:8879/charts --force-update
+helm repo add local $CM_CHART_GET_URL --force-update
 
 echo "Finished Packaging NONRTRIC components [$COMPONENTS]"
-
 
 
 COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^ *$/) {print $0; if (getline == 0) {break}}}')
@@ -133,7 +135,6 @@ NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 INSTALL_KONG=$(cat $OVERRIDEYAML | awk '/^  installKong:/{print $2}')
 INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
-echo "Chart name- $PARENT_CHART"
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
     kubectl create ns ${NONRTRIC_NAMESPACE:-nonrtric}

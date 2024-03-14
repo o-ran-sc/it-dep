@@ -57,6 +57,7 @@ echo "** $ROOT_DIR"
 rm $ROOT_DIR/../nonrtric/helm/*/charts/*.tgz
 
 #ChartMuseum configuration
+CM_VERSION="v0.16.1"
 CM_PORT="8879"
 CM_BASE_URL="http://127.0.0.1:$CM_PORT"
 CM_CHART_GET_URL="$CM_BASE_URL/charts"
@@ -69,8 +70,8 @@ if ! command -v chartmuseum &> /dev/null
 then
   pushd /tmp
   echo "Installing ChartMuseum binary..."
-  wget https://get.helm.sh/chartmuseum-v0.13.1-linux-amd64.tar.gz
-  tar xvfz chartmuseum-v0.13.1-linux-amd64.tar.gz
+  wget https://get.helm.sh/chartmuseum-$CM_VERSION-linux-amd64.tar.gz
+  tar xvfz chartmuseum-$CM_VERSION-linux-amd64.tar.gz
   sudo mv /tmp/linux-amd64/chartmuseum /usr/local/bin/chartmuseum
   popd
 else
@@ -84,8 +85,9 @@ rm $HELM_LOCAL_REPO/*
 #Start Chart Museum server if there isn't one
 CHART_MUSEUM_PID=$(lsof -i :"$CM_PORT" | grep "chartmus" | grep -v "grep" | awk '{print $2}')
 if [ -z "$CHART_MUSEUM_PID" ]; then
-  echo "Starting ChartMuseum  on port $CM_PORT..."
+  echo "Starting ChartMuseum on port $CM_PORT..."
   nohup chartmuseum --port=$CM_PORT --storage="local" --context-path=/charts --storage-local-rootdir=$HELM_LOCAL_REPO >/dev/null 2>&1 &
+  echo $! > $ROOT_DIR/CM_PID.txt
 else
   echo "ChartMuseum is already running..."
 fi

@@ -1,6 +1,7 @@
 #!/bin/bash
 ################################################################################
 #   Copyright (c) 2023 Nordix Foundation.                                      #
+#   Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -16,6 +17,8 @@
 ################################################################################
 
 # This script to undeploy the NONRTRIC
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+echo "** $ROOT_DIR"
 
 COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore ranpm"
 RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
@@ -66,3 +69,14 @@ kubectl delete cm -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe
 kubectl delete ns ${NONRTRIC_NAMESPACE:-nonrtric}
 
 kubectl delete ns onap
+
+# Cleanup ChartMuseum
+CM_PID_FILE="$ROOT_DIR/CM_PID.txt"
+if [ -f $CM_PID_FILE ]; then
+  echo "Cleaning up ChartMuseum..."
+  PID=$(cat "$CM_PID_FILE")
+  echo "Killing ChartMuseum with PID $PID"
+  kill $PID
+  rm $CM_PID_FILE
+  echo "ChartMuseum cleanup completed"
+fi

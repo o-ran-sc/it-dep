@@ -112,14 +112,28 @@ NONRTRIC_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
 curl --data-binary @/tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $CM_CHART_POST_URL
 
+charts_already_exists=()
+
 COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore rappmanager dmeparticipant"
 for component in $COMPONENTS; do
     echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
     VERSION=$(cat $ROOT_DIR/../nonrtric/helm/$component/Chart.yaml | grep version | awk '{print $2}')
     helm package -d /tmp $ROOT_DIR/../nonrtric/helm/$component
-    curl --data-binary @/tmp/$component-$VERSION.tgz $CM_CHART_POST_URL
+    resp_code=$(curl -s -o /dev/null -w "%{http_code}" --data-binary @/tmp/$component-$VERSION.tgz $CM_CHART_POST_URL)
+    echo "Chart upload status of $component is $resp_code"
+    if [ "$resp_code" -eq 409 ]; then
+      charts_already_exists+=("$component")
+    fi
 done
+
+if [ ${#charts_already_exists[@]} -gt 0 ]; then
+  echo "----------------------------------- WARNING!!! -------------------------------------------"
+  echo "The following charts already exists in ChartMuseum '${charts_already_exists[@]}'."
+  echo "The current build of the charts hasn't been updated because the charts already exist."
+  echo "It is recommended to delete the charts from ChartMuseum before the build."
+  echo "------------------------------------------------------------------------------------------"
+fi
 
 helm dep up $ROOT_DIR/../nonrtric/helm/nonrtric
 

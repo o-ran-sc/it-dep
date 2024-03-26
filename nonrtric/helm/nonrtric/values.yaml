@@ -30,6 +30,7 @@ nonrtric:
   installOrufhrecovery: true
   installRansliceassurance: true
   installCapifcore: true
+  installServicemanager: false
   installRanpm: true
   installrAppmanager: true
   installDmeParticipant: true

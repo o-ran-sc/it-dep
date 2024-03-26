@@ -37,6 +37,7 @@ nonrtric:
   installOrufhrecovery: true
   installRansliceassurance: true
   installCapifcore: true
+  installServicemanager: false
   installRanpm: false
   # rApp Manager functionality relies on ACM for its operation
   installrAppmanager: true
@@ -380,6 +381,16 @@ capifcore:
     env:
       chart_museum_url: "http://chartmuseum:8080"
       repo_name: "capifcore"
+
+servicemanager:
+  servicemanager:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      name: nonrtric-plt-servicemanager
+      tag: 0.1.0
+    env:
+      SERVICE_MANAGER_ENV: ""
 
 rappmanager:
   rappmanager:

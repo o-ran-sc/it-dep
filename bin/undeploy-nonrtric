@@ -20,7 +20,26 @@
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 echo "** $ROOT_DIR"
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore ranpm"
+COMPONENTS="
+a1controller \
+a1simulator \
+capifcore \
+controlpanel \
+dmaapadapterservice \
+dmaapmediatorservice \
+dmeparticipant \
+helmmanager \
+informationservice \
+nonrtricgateway \
+orufhrecovery \
+policymanagementservice \
+ransliceassurance \
+rappcatalogueenhancedservice \
+rappcatalogueservice \
+rappmanager \
+servicemanager \
+"
+
 RECIPE_NAMESPACE=$(kubectl get cm --all-namespaces | grep nonrtric-recipe | awk '{print $1}')
 kubectl get configmap  -n $RECIPE_NAMESPACE nonrtric-recipe  -o jsonpath='{.data.recipe}' > /tmp/recipe.yaml
 
@@ -37,8 +56,11 @@ INSTALL_KONG=$(cat /tmp/recipe.yaml | awk '/^  installKong:/{print $2}')
 INSTALL_RANPM=$(cat /tmp/recipe.yaml | awk '/^  installRanpm:/{print $2}')
 
 if [ "$INSTALL_KONG" = true ];then
+  echo "Warning - deleting Kong routes and services for ServiceManager"
+   SERVICEMANAGER_POD=$(kubectl get pods -o custom-columns=NAME:.metadata.name -l app=nonrtric-servicemanager --no-headers -n ${NONRTRIC_NAMESPACE:-nonrtric})
+   kubectl exec $SERVICEMANAGER_POD -n ${NONRTRIC_NAMESPACE:-nonrtric} -- ./kongclearup
    echo "Uninstalling Kong"
-   helm delete kong-nonrtric --namespace kong
+   helm delete kong-nonrtric -n ${NONRTRIC_NAMESPACE:-nonrtric}
 fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"

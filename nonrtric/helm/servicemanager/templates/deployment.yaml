@@ -1,0 +1,60 @@
+################################################################################
+#   Copyright (c) 2024 OpenInfra Foundation Europe.                            #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ include "common.name.servicemanager" . }}
+  namespace: {{ include "common.namespace.nonrtric" . }}
+  generation: 1
+  labels:
+    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
+        release: {{ .Release.Name }}
+    spec:
+      hostname: {{ include "common.name.servicemanager" . }}
+      containers:
+      - name: {{ include "common.container.servicemanager" . }}
+        image: {{ .Values.servicemanager.image.registry }}/{{ .Values.servicemanager.image.name }}:{{ .Values.servicemanager.image.tag }}
+        imagePullPolicy: {{ .Values.servicemanager.imagePullPolicy }}
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "250m"
+          requests:
+            memory: 128Mi
+            cpu: "80m"
+        volumeMounts:
+        - name: servicemanager-config-volume
+          mountPath: /app/servicemanager/.env
+          subPath: .env
+      volumes:
+      - name: servicemanager-config-volume
+        configMap:
+          name:  servicemanager-configmap

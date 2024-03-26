@@ -30,13 +30,14 @@ nonrtric:
   installRappcatalogueservice: true
   installRappcatalogueenhancedservice: true
   installNonrtricgateway: true
-  installKong: false
+  installKong: true
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true
   installOrufhrecovery: true
   installRansliceassurance: true
   installCapifcore: true
+  installServicemanager: true
   installRanpm: false
   # rApp Manager functionality relies on ACM for its operation
   installrAppmanager: true
@@ -369,7 +370,6 @@ orufhrecovery:
       oru_to_odu_map_file: "o-ru-to-o-du-map.csv"
       log_level: "Info"
 
-
 capifcore:
   capifcore:
     imagePullPolicy: IfNotPresent
@@ -380,6 +380,14 @@ capifcore:
     env:
       chart_museum_url: "http://chartmuseum:8080"
       repo_name: "capifcore"
+
+servicemanager:
+  servicemanager:
+    imagePullPolicy: IfNotPresent
+    image:
+      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      name: nonrtric-plt-servicemanager
+      tag: 0.1.0
 
 rappmanager:
   rappmanager:

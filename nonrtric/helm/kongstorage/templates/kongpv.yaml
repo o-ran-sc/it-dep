@@ -1,6 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2022-2023 Nordix Foundation. All rights reserved.
-#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -14,25 +13,18 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  ============LICENSE_END=================================================
-
-# Default values for CAPIF core.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-capifcore:
-  imagePullPolicy: IfNotPresent
-  image:
-    registry: denisgnoonan
-    name: capifcore
-    tag: latest
-    # registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    # name: nonrtric-plt-capifcore
-    # tag: 1.2.0
-  service:
-    httpName: http
-    allowHttp: true
-    port: 8090
-    targetPort: 8090
-  env:
-    chart_museum_url: "http://chartmuseum:8080"
-    repo_name: "capifcore"
+#
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kongpv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: "{{ .Values.kongpv.persistence.size }}"
+  accessModes:
+    - "{{ .Values.kongpv.persistence.accessMode }}"
+  hostPath:
+    path: "{{ .Values.kongpv.persistence.path }}"
+  persistentVolumeReclaimPolicy: "{{ .Values.kongpv.persistence.volumeReclaimPolicy }}" 

@@ -114,7 +114,26 @@ curl --data-binary @/tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $CM_
 
 charts_already_exists=()
 
-COMPONENTS="controlpanel a1controller a1simulator policymanagementservice informationservice rappcatalogueservice rappcatalogueenhancedservice nonrtricgateway dmaapadapterservice dmaapmediatorservice helmmanager orufhrecovery ransliceassurance capifcore rappmanager dmeparticipant"
+COMPONENTS="
+a1controller \
+a1simulator \
+capifcore \
+controlpanel \
+dmaapadapterservice \
+dmaapmediatorservice \
+dmeparticipant \
+helmmanager \
+informationservice \
+nonrtricgateway \
+orufhrecovery \
+policymanagementservice \
+ransliceassurance \
+rappcatalogueenhancedservice \
+rappcatalogueservice \
+rappmanager \
+servicemanager \
+"
+
 for component in $COMPONENTS; do
     echo "Packaging NONRTRIC component [$component]"
     helm dep up $ROOT_DIR/../nonrtric/helm/$component
@@ -155,17 +174,26 @@ INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
     kubectl create ns ${NONRTRIC_NAMESPACE:-nonrtric}
 fi
+
 if ! kubectl get ns onap > /dev/null 2>&1; then
     kubectl create ns onap
+fi
+
+HELM_NAME_OPT=""
+if [ -z $IS_HELM3 ];then
+   HELM_NAME_OPT="--name"
 fi
 
 echo "Install Kong- $INSTALL_KONG"
 
 if [ "$INSTALL_KONG" = true ];then
-   echo "Installing Kong"
-   helm repo add kong https://charts.konghq.com --force-update
-   helm repo update
-   helm install kong-nonrtric --namespace ${NONRTRIC_NAMESPACE:-nonrtric} kong/kong --set ingressController.installCRDs=false --set admin.enabled=true
+  echo "Install kongstorage through helm"
+  helm install kongstorage -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT}  "$ROOT_DIR/../nonrtric/helm/kongstorage"
+
+  echo "Installing Kong"
+  helm repo add kong https://charts.konghq.com --force-update
+  helm repo update
+  helm install kong-nonrtric kong/kong -n ${NONRTRIC_NAMESPACE:-nonrtric} -f dep/nonrtric/helm/kongstorage/kongvalues.yaml
 fi
 
 kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --from-file=recipe=$OVERRIDEYAML
@@ -181,10 +209,5 @@ if [ "$INSTALL_RANPM" = true ];then
    echo "install-ranpm.sh completed"
 fi
 
-HELM_NAME_OPT=""
-if [ -z $IS_HELM3 ];then
-   HELM_NAME_OPT="--name"
-fi
-
 echo "helm install -f $OVERRIDEYAML --namespace ${NONRTRIC_NAMESPACE:-nonrtric} ${HELM_NAME_OPT} ${RELEASE_PREFIX} $ROOT_DIR/../nonrtric/helm/nonrtric"
-helm install -f $OVERRIDEYAML --namespace "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"
+helm install -f $OVERRIDEYAML -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"

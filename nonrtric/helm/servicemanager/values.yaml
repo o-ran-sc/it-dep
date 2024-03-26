@@ -1,6 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2022-2023 Nordix Foundation. All rights reserved.
-#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -15,24 +14,38 @@
 #  limitations under the License.
 #  ============LICENSE_END=================================================
 
-# Default values for CAPIF core.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Default values for Servicemanager
 
-capifcore:
+servicemanager:
   imagePullPolicy: IfNotPresent
   image:
     registry: denisgnoonan
-    name: capifcore
+    name: servicemanager
     tag: latest
-    # registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-    # name: nonrtric-plt-capifcore
-    # tag: 1.2.0
+    # registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
+    # name: nonrtric-plt-servicemanager
+    # tag: 0.1.0
+  apiVersion: v1
+  kind: ConfigMap
+  metadataName: servicemanager-configmap
   service:
     httpName: http
     allowHttp: true
-    port: 8090
-    targetPort: 8090
-  env:
-    chart_museum_url: "http://chartmuseum:8080"
-    repo_name: "capifcore"
+    port: 8095
+    targetPort: 8095
+    nodePort: 31575
+    type: NodePort
+    SERVICE_MANAGER_ENV: ""
+
+data:
+  .env: |
+    KONG_DOMAIN: "kong"
+    KONG_PROTOCOL: "http"
+    KONG_IPV4: "kong-nonrtric-kong-admin.nonrtric.svc.cluster.local"
+    KONG_DATA_PLANE_PORT: "80"
+    KONG_CONTROL_PLANE_PORT: "8001"
+    CAPIF_PROTOCOL: "http"
+    CAPIF_IPV4: "capifcore.nonrtric.svc.cluster.local"
+    CAPIF_PORT: "8090"
+    LOG_LEVEL: "Debug"
+    SERVICE_MANAGER_PORT: "8095"

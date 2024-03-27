@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a550c13c_781cde08",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "can be moved out of service manager (May be separate folder to have kong values and pvc)?",
+      "range": {
+        "startLine": 208,
+        "startChar": 77,
+        "endLine": 208,
+        "endChar": 125
+      },
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee2d6e2e_90ad5f4d",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "can set to true by default(along with kong)?",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d8d536_bc78e3ea",
+        "filename": "nonrtric/RECIPE_EXAMPLE/example_recipe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "Can be removed if not used anywhere?",
+      "range": {
+        "startLine": 393,
+        "startChar": 6,
+        "endLine": 393,
+        "endChar": 25
+      },
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0027e04_4148b467",
+        "filename": "nonrtric/helm/servicemanager/kongvalues.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "can be moved out of service manager (May be separate folder to have kong values and pvc)?",
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ab45991_afa1562e",
+        "filename": "nonrtric/helm/servicemanager/templates/kongpv.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "can be moved out of service manager (May be separate folder to have kong values and pvc)?",
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d73899_a13ee1ab",
+        "filename": "nonrtric/helm/servicemanager/templates/kongpvc.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "can be moved out of service manager (May be separate folder to have kong values and pvc)?",
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2562e751_afb0541e",
+        "filename": "nonrtric/helm/servicemanager/values.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-03-27T16:42:41Z",
+      "side": 1,
+      "message": "Can be removed if not used anywhere?",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 23
+      },
+      "revId": "cae848e482a045adcfb9e81b3194796569d371d3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

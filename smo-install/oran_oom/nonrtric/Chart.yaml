@@ -87,3 +87,13 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installDmaapadapterservice
+
+  - name: rappmanager
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installrAppmanager
+
+  - name: capifcore
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installCapifcore

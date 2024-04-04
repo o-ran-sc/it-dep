@@ -43,7 +43,7 @@ nonrtric:
   installDmaapmediatorservice: true
   installHelmmanager: true
   installrAppmanager: true
-  installDmeParticipant: true
+  installCapifcore: true
 
   volume1:
     size: 1Gi

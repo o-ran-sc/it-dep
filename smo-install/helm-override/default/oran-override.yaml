@@ -1,5 +1,6 @@
 # Copyright © 2017 Amdocs, Bell Canada
 # Mofification Copyright © 2021 AT&T
+# Modifcation Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,6 +41,8 @@ nonrtric:
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true
+  installrAppmanager: true
+  installCapifcore: true
   # override default mount path root directory
   # referenced by persistent volumes and log files
   persistence:

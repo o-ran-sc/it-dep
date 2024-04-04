@@ -1,4 +1,5 @@
 # Copyright © 2017 Amdocs, Bell Canada
+# Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,7 +42,7 @@ endif
 
 #SUBMODS := robot
 #EXCLUDES := config oneclick readiness test dist helm $(PARENT_CHART) dcae $(SUBMODS)
-EXCLUDES := config oneclick readiness test dist helm $(PARENT_CHART)
+EXCLUDES := config oneclick readiness test dist helm policy-clamp-ac-dme-ppnt $(PARENT_CHART)
 HELM_CHARTS := $(filter-out $(EXCLUDES), $(sort $(patsubst %/.,%,$(wildcard */.)))) $(PARENT_CHART)
 
 .PHONY: $(EXCLUDES) $(HELM_CHARTS) check-for-staging-images

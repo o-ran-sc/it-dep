@@ -1,10 +1,5 @@
 #!/bin/bash
-
-###
 # ============LICENSE_START=======================================================
-# ORAN SMO Package
-# ================================================================================
-# Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
 # Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,20 +14,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END============================================
-# ===================================================================
-# 
-###
+#
 
-SCRIPT=$(readlink -f "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-cd $SCRIPT_PATH
+echo "Copying ORAN ACM Participants..."
 
-sudo apt-get install make -y
+cp -r ../../oran_oom/policy-clamp-ac-dme-ppnt ../../onap_oom/kubernetes/policy/components
 
-helm plugin install ../../onap_oom/kubernetes/helm/plugins/undeploy/
-helm plugin install ../../onap_oom/kubernetes/helm/plugins/deploy/
+if ! grep -q "policy-clamp-ac-dme-ppnt" ../../onap_oom/kubernetes/policy/values.yaml; then
+    cat <<EOF >> ../../onap_oom/kubernetes/policy/values.yaml
+policy-clamp-ac-dme-ppnt:
+  enabled: true
+EOF
+fi
 
-./add-oran-acm-participants.sh
+if ! grep -q "policy-clamp-ac-dme-ppnt" ../../onap_oom/kubernetes/policy/Chart.yaml; then
+    cat <<EOF >> ../../onap_oom/kubernetes/policy/Chart.yaml
+  - name: policy-clamp-ac-dme-ppnt
+    version: ~1.0.0
+    repository: 'file://components/policy-clamp-ac-dme-ppnt'
+    condition: policy-clamp-ac-dme-ppnt.enabled
+EOF
+fi
 
-echo '### Building ONAP part###'
-(cd ../../onap_oom/kubernetes && make all -e SKIP_LINT=TRUE)
+echo "ORAN ACM Participants copied and configured for build."

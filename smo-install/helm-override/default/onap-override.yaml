@@ -1,6 +1,7 @@
 # Copyright © 2017 Amdocs, Bell Canada
 #
 # Modifications Copyright © 2021 AT&T
+# Modifications Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -184,6 +185,8 @@ policy:
       a1pms:
         baseUrl: http://policymanagementservice.nonrtric:8081
   policy-clamp-ac-kserve-ppnt:
+    enabled: true
+  policy-clamp-ac-dme-ppnt:
     enabled: true
 sdnc:
   enabled: true

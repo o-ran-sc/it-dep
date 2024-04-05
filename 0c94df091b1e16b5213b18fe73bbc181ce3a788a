@@ -16,6 +16,24 @@
       "message": "Is INFO sufficient?",
       "revId": "0c94df091b1e16b5213b18fe73bbc181ce3a788a",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a836af_0792e2e5",
+        "filename": "smo-install/oran_oom/rappmanager/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-04-05T08:22:02Z",
+      "side": 1,
+      "message": "Updated the log level to INFO. It is sufficient to have root level as INFO. Remaining levels are retained for reference, to be modified if necessary.",
+      "parentUuid": "af69e628_34c741a5",
+      "revId": "0c94df091b1e16b5213b18fe73bbc181ce3a788a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

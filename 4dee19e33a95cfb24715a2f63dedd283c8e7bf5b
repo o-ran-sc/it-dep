@@ -35,6 +35,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ed4bfea_d497c7a8",
+        "filename": "smo-install/helm-override/cnf/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-05T10:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fa9422b_26e202a1",
+      "revId": "4dee19e33a95cfb24715a2f63dedd283c8e7bf5b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40edd74b_0ef9293c",
@@ -69,6 +87,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc7b6813_51dd444a",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-05T10:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "38915a58_a3b5253e",
+      "revId": "4dee19e33a95cfb24715a2f63dedd283c8e7bf5b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c53bcc8_009a7b45",
@@ -86,6 +122,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e7f2497_011d801e",
+        "filename": "smo-install/helm-override/network-slicing/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-05T10:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c53bcc8_009a7b45",
+      "revId": "4dee19e33a95cfb24715a2f63dedd283c8e7bf5b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d47cec0_32aa5836",
@@ -99,6 +153,24 @@
       "writtenOn": "2024-04-05T08:50:25Z",
       "side": 1,
       "message": "Do we need \"Modifications\"?",
+      "revId": "4dee19e33a95cfb24715a2f63dedd283c8e7bf5b",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b546ebd_c60d45a8",
+        "filename": "smo-install/helm-override/pythonsdk-tests/onap-override.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-05T10:38:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d47cec0_32aa5836",
       "revId": "4dee19e33a95cfb24715a2f63dedd283c8e7bf5b",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

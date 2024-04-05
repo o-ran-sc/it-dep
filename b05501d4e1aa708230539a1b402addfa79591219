@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12e69d1c_55c26c7a",
+        "filename": "smo-install/helm-override/pythonsdk-tests/onap-override.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-05T13:18:38Z",
+      "side": 1,
+      "message": "extra spaces",
+      "revId": "b05501d4e1aa708230539a1b402addfa79591219",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

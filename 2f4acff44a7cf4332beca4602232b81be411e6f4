@@ -24,6 +24,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84c4c5c4_f75c3e73",
+        "filename": "bin/deploy-nonrtric",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-10T11:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed0828f4_c2d1c269",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "2f4acff44a7cf4332beca4602232b81be411e6f4",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d83b326_2a43ea0f",
@@ -47,6 +71,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28673a27_6c66190a",
+        "filename": "nonrtric/helm/servicemanager/values.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-10T11:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d83b326_2a43ea0f",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 40
+      },
+      "revId": "2f4acff44a7cf4332beca4602232b81be411e6f4",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fea8e882_97c12b20",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-03T12:10:44Z",
       "side": 1,
       "message": "Can be removed from servicemanager?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "2f4acff44a7cf4332beca4602232b81be411e6f4",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86beffc6_404f898b",
+        "filename": "nonrtric/helm/servicemanager/values.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-10T11:21:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fea8e882_97c12b20",
       "range": {
         "startLine": 50,
         "startChar": 0,

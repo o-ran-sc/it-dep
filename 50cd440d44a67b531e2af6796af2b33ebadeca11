@@ -24,6 +24,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c1b4341_3ed30bae",
+        "filename": "nonrtric/helm/capifcore/values.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-11T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "419b967a_514af424",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "50cd440d44a67b531e2af6796af2b33ebadeca11",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "568a9f09_ccebe091",
@@ -47,6 +71,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0da45d73_3f816501",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpv.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-11T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "568a9f09_ccebe091",
+      "range": {
+        "startLine": 30,
+        "startChar": 87,
+        "endLine": 30,
+        "endChar": 88
+      },
+      "revId": "50cd440d44a67b531e2af6796af2b33ebadeca11",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9625e4af_3258fa65",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-04-10T16:19:58Z",
       "side": 1,
       "message": "This can be enabled and private repository reference can be removed",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 16
+      },
+      "revId": "50cd440d44a67b531e2af6796af2b33ebadeca11",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6528113b_ff8be103",
+        "filename": "nonrtric/helm/servicemanager/values.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-04-11T09:25:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9625e4af_3258fa65",
       "range": {
         "startLine": 22,
         "startChar": 0,

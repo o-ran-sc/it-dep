@@ -21,7 +21,7 @@ servicemanager:
   image:
     registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
     name: nonrtric-plt-servicemanager
-    tag: 0.1.0
+    tag: 0.1.1
   apiVersion: v1
   kind: ConfigMap
   metadataName: servicemanager-configmap

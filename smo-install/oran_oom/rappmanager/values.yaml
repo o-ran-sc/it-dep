@@ -65,6 +65,10 @@ application:
     dme:
       baseurl: http://informationservice.nonrtric:9082
 
+    rapps:
+      env:
+        smeDiscoveryEndpoint: http://capifcore.nonrtric:8090/service-apis/v1/allServiceAPIs
+
     spring:
       jackson:
         default-property-inclusion: non_null

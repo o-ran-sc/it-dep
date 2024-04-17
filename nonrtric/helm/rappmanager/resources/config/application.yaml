@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
+#   Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -21,7 +21,7 @@ rappmanager:
     maxRetries: 10
     retryInterval: 2 #seconds
   sme:
-    baseurl: http://capifcore:8090
+    baseurl: http://servicemanager:8095
     providerBasePath: /api-provider-management/v1/
     invokerBasePath: /api-invoker-management/v1/
     publishApiBasePath: /published-apis/v1/

@@ -387,7 +387,7 @@ servicemanager:
     image:
       registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
       name: nonrtric-plt-servicemanager
-      tag: 0.1.1
+      tag: 0.1.2
 
 rappmanager:
   rappmanager:

@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2024 OpenInfra Foundation Europe.                            #
+#   Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,19 +14,11 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{- define "common.name.servicemanager" -}}
+  {{- printf "servicemanager" -}}
+{{- end -}}
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.servicemanager" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{- range $key, $value := .Values.data }}
-  {{ $key }}: |
-{{ $value | indent 4 }}
-{{- end }}
+{{- define "common.container.servicemanager" -}}
+  {{- $name := ( include "common.name.servicemanager" . ) -}}
+  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

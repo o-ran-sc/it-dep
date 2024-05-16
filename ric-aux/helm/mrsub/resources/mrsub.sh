@@ -4,7 +4,7 @@ MR_HOSTPORT="$_MR_HOSTPORT"
 MR_TOPIC="$_MR_TOPIC"
 LOGSTASH_URL="$_LOGSTASH_URL"
 
-if ! jq --version > /dev/null 2&>1 ; then
+if ! jq --version > /dev/null 2>&1 ; then
   apt-get update
   apt-get install -y jq curl
 fi
@@ -30,8 +30,8 @@ while true; do
     DATA=$(echo $DATA |jq -r --arg source "$source"  '.[] | $source+","+((.event.measurementsForVfScalingFields.additionalFields[1].value) | tostring)+ ","+ ((.event.measurementsForVfScalingFields.additionalFields[2].value) | tostring)')
   #EVENTS=$(echo $DATA |jq -r '.event.measurementFields.additionalFields.SgNBRequestRate')
   #for EVENT in $EVENTS; do
-  elif [ "$source" == "AC xAPP" ] 
-  then  
+  elif [ "$source" == "AC xAPP" ]
+  then
     DATA=$(echo $DATA |jq -r --arg source "$source"  '.[] | $source+","+((.event.measurementsForVfScalingFields.additionalFields[0].value) | tostring)')
   else
     DATA="No supportive reporting entity provided"
@@ -40,4 +40,3 @@ while true; do
   curl -i -XPUT "${LOGSTASH_URL}" -d "${DATA}"
   #done
 done
-

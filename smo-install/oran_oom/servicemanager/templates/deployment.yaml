@@ -14,19 +14,26 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.servicemanager" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{- range $key, $value := .Values.data }}
-  {{ $key }}: |
-{{ $value | indent 4 }}
-{{- end }}
+kind: Deployment
+apiVersion: apps/v1
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
+spec:
+  replicas: 1
+  selector: {{- include "common.selectors" . | nindent 4 }}
+  template:
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
+    spec:
+      hostname: {{ include "common.name" . }}
+      containers:
+      - name:  {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{- include "common.tcpsocketProbes" . | nindent 8 }}
+        volumeMounts:
+        - name: servicemanager-config-volume
+          mountPath: /app/servicemanager/.env
+          subPath: .env
+      volumes:
+      - name: servicemanager-config-volume
+        configMap:
+          name:  servicemanager-configmap

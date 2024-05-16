@@ -13,18 +13,10 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "common.name.servicemanager" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  name: servicemanager-configmap
 data:
 {{- range $key, $value := .Values.data }}
   {{ $key }}: |

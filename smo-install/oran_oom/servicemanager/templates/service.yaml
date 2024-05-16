@@ -13,10 +13,5 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
-{{- define "common.name.servicemanager" -}}
-  {{- printf "servicemanager" -}}
-{{- end -}}
-{{- define "common.container.servicemanager" -}}
-  {{- $name := ( include "common.name.servicemanager" . ) -}}
-  {{- printf "container-%s" $name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+
+{{ include "common.service" . }}

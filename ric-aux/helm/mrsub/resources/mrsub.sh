@@ -4,7 +4,7 @@ MR_HOSTPORT="$_MR_HOSTPORT"
 MR_TOPIC="$_MR_TOPIC"
 LOGSTASH_URL="$_LOGSTASH_URL"
 
-if ! jq --version > /dev/null 2&>1 ; then
+if ! jq --version > /dev/null 2>&1 ; then
   apt-get update
   apt-get install -y jq curl
 fi
@@ -40,4 +40,3 @@ while true; do
   curl -i -XPUT "${LOGSTASH_URL}" -d "${DATA}"
   #done
 done
-

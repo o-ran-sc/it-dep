@@ -1,12 +1,12 @@
 #!/bin/bash
 
 ###
-# ============LICENSE_START=======================================================
+# ============LICENSE_START========================================================
 # ORAN SMO Package
-# ================================================================================
-# Copyright (C) 2021 AT&T Intellectual Property. All rights
-#                             reserved.
-# ================================================================================
+# =================================================================================
+# Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+# Modification Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# =================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -18,11 +18,49 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ============LICENSE_END============================================
-# ===================================================================
-# 
+# ============LICENSE_END==========================================================
+# =================================================================================
+#
 ###
 
 kubectl create namespace nonrtric
 echo  '### Installing ORAN NONRTRIC part ###'
+
+if ! command -v yq > /dev/null 2>&1; then
+    echo "yq is not installed. Installing yq..."
+    sudo add-apt-repository ppa:rmescandon/yq -y
+    sudo apt update
+    sudo apt install yq -y
+fi
+
+INSTALL_KONG=$(yq eval '.nonrtric.installKong' ../../helm-override/default/oran-override.yaml)
+if [ $? -ne 0 ] || [ "$INSTALL_KONG" == "null" ]; then
+    echo "Error: failed to parse installKong from YAML with jq.  Aborting install."
+    exit 1
+fi
+
+INSTALL_CAPIF=$(yq eval '.nonrtric.installCapifcore' ../../helm-override/default/oran-override.yaml)
+if [ $? -ne 0 ] || [ "$INSTALL_CAPIF" == "null" ]; then
+    echo "Error: failed to parse installCapifcore from YAML with jq. Aborting install."
+    exit 1
+fi
+
+INSTALL_SERVICEMANAGER=$(yq eval '.nonrtric.installServicemanager' ../../helm-override/default/oran-override.yaml)
+if [ $? -ne 0 ] || [ "$INSTALL_SERVICEMANAGER" == "null" ]; then
+    echo "Error: failed to parse installServicemanager from YAML with jq. Aborting install."
+    exit 1
+fi
+
+if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
+    if [ "$INSTALL_CAPIF" == "false" ]; then
+        echo "Error: INSTALL_CAPIF must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    if [ "$INSTALL_KONG" == "false" ]; then
+        echo "Error: INSTALL_KONG must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    echo "INSTALL_SERVICEMANAGER, INSTALL_CAPIF and INSTALL_KONG are true. Proceeding with installation of Service Manager, Capifcore and Kong."
+fi
+
 helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $1 --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$2"

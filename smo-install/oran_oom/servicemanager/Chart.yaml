@@ -15,18 +15,13 @@
 ################################################################################
 
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "common.name.servicemanager" . }}-configmap
-  namespace: {{ include "common.namespace.nonrtric" . }}
-  labels:
-    app: {{ include "common.namespace.nonrtric" . }}-{{ include "common.name.servicemanager" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-data:
-{{- range $key, $value := .Values.data }}
-  {{ $key }}: |
-{{ $value | indent 4 }}
-{{- end }}
+apiVersion: v2
+appVersion: "2.0.0"
+description: A Helm chart for ServiceManager
+name: servicemanager
+version: 1.0.0
+
+dependencies:
+  - name: nonrtric-common
+    version: ^2.0.0
+    repository: "@local"

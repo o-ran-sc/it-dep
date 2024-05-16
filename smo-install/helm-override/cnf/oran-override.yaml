@@ -43,6 +43,7 @@ nonrtric:
   installHelmmanager: true
   installrAppmanager: true
   installCapifcore: true
+  installServicemanager: true
   # override default mount path root directory
   # referenced by persistent volumes and log files
   persistence:

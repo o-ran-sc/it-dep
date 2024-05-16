@@ -7,3 +7,4 @@
 .tox
 .DS_Store
 docs/_build/
+index-cache.yaml

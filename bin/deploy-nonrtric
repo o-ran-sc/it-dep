@@ -50,6 +50,40 @@ if [ -z "$OVERRIDEYAML" ];then
     exit 1
 fi
 
+if ! command -v yq > /dev/null 2>&1; then
+    echo "yq is not installed. Installing yq..."
+    sudo snap install yq --channel=v3/stable
+fi
+
+INSTALL_KONG=$(yq read "$OVERRIDEYAML" 'nonrtric.installKong')
+if [ $? -ne 0 ] || [ -z "$INSTALL_KONG"  ]; then
+    echo "Error: failed to parse installKong from YAML with yq. Aborting install."
+    exit 1
+fi
+
+INSTALL_CAPIF=$(yq read "$OVERRIDEYAML" 'nonrtric.installCapifcore')
+if [ $? -ne 0 ] || [ -z "$INSTALL_CAPIF"  ]; then
+    echo "Error: failed to parse installCapifcore from YAML with yq. Aborting install."
+    exit 1
+fi
+
+INSTALL_SERVICEMANAGER=$(yq read "$OVERRIDEYAML" 'nonrtric.installServicemanager')
+if [ $? -ne 0 ] || [ -z "$INSTALL_SERVICEMANAGER"  ]; then
+    echo "Error: failed to parse installServicemanager from YAML with yq. Aborting install."
+    exit 1
+fi
+
+if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
+    if [ "$INSTALL_CAPIF" == "false" ]; then
+        echo "Error: INSTALL_CAPIF must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    if [ "$INSTALL_KONG" == "false" ]; then
+        echo "Error: INSTALL_KONG must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    echo "INSTALL_SERVICEMANAGER, INSTALL_CAPIF and INSTALL_KONG are true. Proceeding with installation of Service Manager, Capifcore and Kong."
+fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
@@ -168,7 +202,6 @@ COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^
 NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-INSTALL_KONG=$(cat $OVERRIDEYAML | awk '/^  installKong:/{print $2}')
 INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then

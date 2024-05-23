@@ -51,6 +51,44 @@ if [ -z "$OVERRIDEYAML" ];then
 fi
 
 
+if ! command -v yq > /dev/null 2>&1; then
+    echo "yq is not installed. Installing yq..."
+    sudo add-apt-repository ppa:rmescandon/yq -y
+    sudo apt update
+    sudo apt install yq -y
+fi
+
+INSTALL_KONG=$(yq eval '.nonrtric.installKong' "$OVERRIDEYAML")
+if [ $? -ne 0 ] || [ "$INSTALL_KONG" == "null" ]; then
+    echo "Error: failed to parse installKong from YAML with yq. Aborting install."
+    exit 1
+fi
+
+INSTALL_CAPIF=$(yq eval '.nonrtric.installCapifcore' "$OVERRIDEYAML")
+if [ $? -ne 0 ] || [ "$INSTALL_CAPIF" == "null" ]; then
+    echo "Error: failed to parse installCapifcore from YAML with yq. Aborting install."
+    exit 1
+fi
+
+INSTALL_SERVICEMANAGER=$(yq eval '.nonrtric.installServicemanager' "$OVERRIDEYAML")
+if [ $? -ne 0 ] || [ "$INSTALL_SERVICEMANAGER" == "null" ]; then
+    echo "Error: failed to parse installServicemanager from YAML with yq. Aborting install."
+    exit 1
+fi
+
+if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
+    if [ "$INSTALL_CAPIF" == "false" ]; then
+        echo "Error: INSTALL_CAPIF must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    if [ "$INSTALL_KONG" == "false" ]; then
+        echo "Error: INSTALL_KONG must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
+        exit 1
+    fi
+    echo "INSTALL_SERVICEMANAGER, INSTALL_CAPIF and INSTALL_KONG are true. Proceeding with installation of Service Manager, Capifcore and Kong."
+fi
+
+
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 echo "** $ROOT_DIR"
@@ -168,7 +206,6 @@ COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^
 NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-INSTALL_KONG=$(cat $OVERRIDEYAML | awk '/^  installKong:/{print $2}')
 INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then

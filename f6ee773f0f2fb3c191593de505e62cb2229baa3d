@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b119a557_4a8c1256",
+        "filename": "ric-aux/helm/mrsub/resources/mrsub.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-05-23T16:44:25Z",
+      "side": 1,
+      "message": "i think there\u0027s no need for this license update. \nThe change here is very small tbh.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "f6ee773f0f2fb3c191593de505e62cb2229baa3d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

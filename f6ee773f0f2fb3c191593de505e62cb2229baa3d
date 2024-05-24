@@ -22,6 +22,30 @@
       },
       "revId": "f6ee773f0f2fb3c191593de505e62cb2229baa3d",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea198811_8c0f38d9",
+        "filename": "ric-aux/helm/mrsub/resources/mrsub.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-05-24T08:33:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b119a557_4a8c1256",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 3
+      },
+      "revId": "f6ee773f0f2fb3c191593de505e62cb2229baa3d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

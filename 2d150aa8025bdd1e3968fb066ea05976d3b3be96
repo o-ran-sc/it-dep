@@ -24,6 +24,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a0df1c0_aa63f424",
+        "filename": "smo-install/helm-override/default/oran-override.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-05-27T09:26:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6486fb39_8e378722",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "2d150aa8025bdd1e3968fb066ea05976d3b3be96",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "483d6a5d_d5445fb6",
@@ -47,6 +71,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e73a228_0daa1954",
+        "filename": "smo-install/oran_oom/servicemanager/values.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-05-27T09:26:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "483d6a5d_d5445fb6",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "2d150aa8025bdd1e3968fb066ea05976d3b3be96",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1a8e437_068dce0c",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-05-24T15:30:14Z",
       "side": 1,
       "message": "Use something like this \"../../helm-override/$FLAVOUR/oran-override.yaml\" instead of hard-coding the FLAVOUR. SMO install can be done with different kind of helm overrides. This restricts it with only one kind.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 61
+      },
+      "revId": "2d150aa8025bdd1e3968fb066ea05976d3b3be96",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4d1b25f_b8b13f9d",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002243
+      },
+      "writtenOn": "2024-05-27T09:26:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a8e437_068dce0c",
       "range": {
         "startLine": 29,
         "startChar": 0,

@@ -89,7 +89,7 @@ $ . ./undeploy-ric-aux
 ```
 
 ### NOTE: To Deploy RANPM
-RANPM helm charts are integrated as a submodule in this repository. To deploy RANPM function set installRanpm: true in the RECEPIE_EXAMPLE file as below:
+RANPM helm charts are integrated as a submodule in this repository. To deploy RANPM function set installRanpm: true in the RECIPE_EXAMPLE file as below:
 
 nonrtric:
   installPms: true
@@ -100,13 +100,14 @@ nonrtric:
   installRappcatalogueservice: true
   installRappcatalogueEnhancedservice: true
   installNonrtricgateway: true
-  installKong: false
+  installKong: true
   installDmaapadapterservice: true
   installDmaapmediatorservice: true
   installHelmmanager: true
   installOruclosedlooprecovery: true
   installOdusliceassurance: true
   installCapifcore: true
+  installServicemanager: true
   installRanpm: true
   
    volume1:

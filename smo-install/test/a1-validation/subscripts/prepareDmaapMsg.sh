@@ -31,7 +31,7 @@ dmaap_mr_url=${1:-localhost:3904}
 a1_sim_OSC_url=${2:-localhost:8085}
 a1_sim_STD_url=${3:-localhost:8085}
 a1_sim_STD_v2_url=${4:-localhost:8085}
-policy_agent_url=${5:-localhost:9081}
+policy_agent_url=${5:-localhost:8081}
 httpx=${6:-"http"}
 
 echo "using dmaap-mr url: "$dmaap_mr_url

@@ -4,7 +4,7 @@ enrichment_service_url=${1:-localhost:9082}
 a1_sim_OSC_url=${2:-localhost:8085}
 a1_sim_STD_url=${3:-localhost:8085}
 a1_sim_STD_v2_url=${4:-localhost:8085}
-policy_agent_url=${5:-localhost:9080}
+policy_agent_url=${5:-localhost:8081}
 a1_controller_url=${6:false}
 
 echo -e "NONRTRIC HealthCheck\n"
@@ -47,7 +47,7 @@ checkStatus "curl -vskw %{http_code} http://$a1_sim_STD_v2_url/" "OK200" "SIM3"
 
 # check PMS status
 echo "check Policy Agent status:"
-checkStatus "curl -vskw %{http_code} http://$policy_agent_url/status" "hunky dory200" "PMS"
+checkStatus "curl -vskw %{http_code} http://$policy_agent_url/status" "success200" "PMS"
 
 # check ECS status
 echo "check Enrichment service status:"

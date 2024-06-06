@@ -25,7 +25,7 @@
 # one policy-type and one policy in a1-sim-STD2_0
 
 policy_agent_host="policymanagementservice"
-policy_agent_port="9080"
+policy_agent_port="8081"
 a1_sim_osc_0_host="a1-sim-osc-0.a1-sim"
 a1_sim_osc_0_port="8085"
 a1_sim_osc_1_host="a1-sim-osc-1.a1-sim"

@@ -104,10 +104,10 @@ policymanagementservice:
     service:
       allowHttp: true
       httpName: http
-      internalPort1: 9080
+      internalPort1: 8081
       targetPort1: 8081
       httpsName: https
-      internalPort2: 9081
+      internalPort2: 8433
       targetPort2: 8433
     liveness:
       initialDelaySeconds: 20

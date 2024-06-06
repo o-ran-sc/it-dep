@@ -66,7 +66,7 @@ if [ "$INSTALL_KONG" = true ];then
   echo "Uninstalling kongstorage"
   helm delete kongstorage -n "${NONRTRIC_NAMESPACE:-nonrtric}"
   echo "Uninstalling Kong"
-  helm delete kong-nonrtric -n ${NONRTRIC_NAMESPACE:-nonrtric}
+  helm delete oran-nonrtric -n ${NONRTRIC_NAMESPACE:-nonrtric}
 fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"

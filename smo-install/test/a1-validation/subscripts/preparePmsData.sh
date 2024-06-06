@@ -29,7 +29,7 @@
 
 a1_sim_OSC_url=${1:-localhost:8085}
 a1_sim_STD_v2_url=${2:-localhost:8085}
-policy_agent_url=${3:-localhost:9081}
+policy_agent_url=${3:-localhost:8081}
 httpx=${4:-"http"}
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
 
@@ -52,7 +52,7 @@ echo "policy agent status:"
 curlString="curl -skw %{http_code} $httpx://$policy_agent_url/status"
 res=$($curlString)
 echo "$res"
-expect="hunky dory200"
+expect="success200"
 checkRes
 echo -e "\n"
 

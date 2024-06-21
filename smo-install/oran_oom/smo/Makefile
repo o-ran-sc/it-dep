@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PARENT_CHART := nonrtric
-COMMON_CHARTS_DIR := nonrtric-common aux-common ric-common
+PARENT_CHART := smo
+COMMON_CHARTS_DIR := smo-common
 # FIXME OOM-765
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 OUTPUT_DIR := $(ROOT_DIR)/dist
@@ -42,7 +42,7 @@ endif
 
 #SUBMODS := robot
 #EXCLUDES := config oneclick readiness test dist helm $(PARENT_CHART) dcae $(SUBMODS)
-EXCLUDES := config oneclick readiness test dist helm policy-clamp-ac-dme-ppnt smo $(PARENT_CHART)
+EXCLUDES := $(PARENT_CHART)
 HELM_CHARTS := $(filter-out $(EXCLUDES), $(sort $(patsubst %/.,%,$(wildcard */.)))) $(PARENT_CHART)
 
 .PHONY: $(EXCLUDES) $(HELM_CHARTS) check-for-staging-images

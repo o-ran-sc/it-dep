@@ -1,0 +1,132 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+global:
+  nodePortPrefixExt: 305
+  #Strimzi Kafka properties
+  useStrimziKafka: true
+  kafkaTopics:
+    topologyIngestionTopic:
+      name: &topologyIngestionTopic topology-inventory-ingestion
+
+initsql:
+  configmap:
+    name: &sqlconfigmapname "topology-exposure-inventory-sql-init-config"
+
+postgresql:
+  image:
+    debug: true
+  auth:
+    enablePostgresUser: true
+    usePasswordFiles: true
+    postgresPassword: teiv
+    username: &dbusername topology_exposure_user
+    password: &dbpassword dbpassword
+    database: topology_exposure_db
+  volumePermissions:
+    enabled: true
+  primary:
+    initdb:
+      scriptsConfigMap: *sqlconfigmapname
+      user: postgres
+      password: teiv
+    persistence:
+      size: 1Gi
+      volumeName: pgsql-volume
+      storageClass: pgsql-sc
+
+topology-exposure:
+  name: topology-exposure
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10003"
+    name: o-ran-sc/smo-teiv-exposure
+    tag: 0.1.0-SNAPSHOT
+  service:
+    type: ClusterIP
+    ports:
+    - name: http
+      internalPort: "8080"
+      targetPort: "8080"
+  liveness:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    # necessary to disable liveness probe when setting breakpoints
+    # in debugger so K8s doesn't restart unresponsive container
+    enabled: true
+    port: http-api
+
+  readiness:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    port: http-api
+  persistence:
+    size: 2Gi
+    storageClassName: standard
+  kafkaUser:
+    authenticationType: scram-sha-512
+    acls:
+      - name: topology-inventory-ingestion-consumer
+        type: group
+        operations: [Read]
+      - name: *topologyIngestionTopic
+        type: topic
+        operations: [Create, Read, Write]
+
+
+topology-ingestion:
+  name: topology-ingestion
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10003"
+    name: o-ran-sc/smo-teiv-ingestion
+    tag: 0.1.0-SNAPSHOT
+  service:
+    type: ClusterIP
+    ports:
+    - name: http
+      internalPort: "8080"
+      targetPort: "8080"
+  liveness:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    # necessary to disable liveness probe when setting breakpoints
+    # in debugger so K8s doesn't restart unresponsive container
+    enabled: true
+    port: http-api
+
+  readiness:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    port: http-api
+  persistence:
+    size: 2Gi
+    storageClassName: standard
+  # Strimzi Kafka config
+  kafkaUser:
+    authenticationType: scram-sha-512
+    acls:
+      - name: topology-inventory-ingestion-consumer
+        type: group
+        operations: [Read]
+      - name: *topologyIngestionTopic
+        type: topic
+        operations: [Create, Read, Write]
+
+  kafkaTopic:
+    - name: *topologyIngestionTopic
+

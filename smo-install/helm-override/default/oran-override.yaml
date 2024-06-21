@@ -22,6 +22,10 @@
 #################################################################
 
 ##### ORAN #####
+global:
+  # Change to an unused port prefix range to prevent port conflicts
+  # with other instances running within the same k8s cluster
+  nodePortPrefixExt: 305
 
 ######### NONRTRIC #########
 
@@ -160,3 +164,13 @@ dashboard:
             pltUrlPrefix: http://ric-entry
 
 
+
+######### SMO #########
+smo:
+  installTeiv: true
+
+# Strimzi configurations
+enabled: true
+replicaCount: 1
+strimzi-kafka-bridge:
+  enabled: false

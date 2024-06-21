@@ -1,0 +1,174 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+  name: smo-teiv-exposure
+  tag: 0.0.1
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: "8080"
+    targetPort: "8080"
+# probe configuration parameters
+liveness:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  # necessary to disable liveness probe when setting breakpoints
+  # in debugger so K8s doesn't restart unresponsive container
+  enabled: true
+  port: http-api
+
+readiness:
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  port: http-api
+
+persistence:
+  size: 2Gi
+  storageClassName: standard
+
+application:
+  logging.level.root: ${ROOT_LOG_LEVEL:"INFO"}
+  logging.level.org.apache.kafka: ${KAFKA_LOG_LEVEL:"WARN"}
+
+  #Metrics related configurations
+  management:
+    endpoint:
+      metrics:
+        enabled: "true"
+      prometheus:
+        enabled: "true"
+      health:
+        probes:
+          enabled: "true"
+        show-details: "always"
+        show-components: "always"
+        validate-group-membership: "false"
+        group:
+          readiness:
+            include: "readinessState,${HEALTH_CHECK_INDICATOR:tiesExposure}"
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+    prometheus:
+      metrics:
+        export:
+          enabled: "true"
+    metrics:
+      web:
+        server:
+          request:
+            autotime:
+              enabled: "true"
+
+  spring:
+    datasource:
+      read:
+        jdbc-url: ${SERVICE_DB_REPLICA_URL:jdbc:postgresql://oran-smo-postgresql:5432/topology_exposure_db}
+        username: ${SERVICE_DB_USER:topology_exposure_user}
+        password: ${SERVICE_DB_PASSWORD:dbpassword}
+        driver-class-name: org.postgresql.Driver
+      write:
+        jdbc-url: ${SERVICE_DB_URL:jdbc:postgresql://oran-smo-postgresql:5432/topology_exposure_db}
+        username: ${SERVICE_DB_USER:topology_exposure_user}
+        password: ${SERVICE_DB_PASSWORD:dbpassword}
+        driver-class-name: org.postgresql.Driver
+    main:
+      allow-circular-references: true
+    jooq:
+      sql-dialect: postgres
+    caching:
+      consumer-data-ttl-ms: 60000
+  
+  consumer-data:
+    batch-size: 100
+
+  endpoints.health.sensitive: "false"
+  info.app.name: '@name@'
+  info.app.description: Topology Exposure and Inventory Service
+  info.app.version: '@version@'
+  info.app.legal: 'Copyright (C) 2024 Ericsson
+  Modifications Copyright (C) 2024 OpenInfra Foundation Europe
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0'
+
+  #See more details about pattern layout: https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html
+  #See more details about logging.pattern.level : https://docs.spring.io/spring-boot/docs/2.5.2/reference/html/features.html#features.logging.custom-log-configuration
+  #logging.pattern.level: "%5p [%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}][%X{userName}]"
+  logging:
+    pattern:
+      dateformat: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+    config: ${LOGBACK_CONFIG_FILE:classpath:logback-json.xml}
+    endpoints:
+      exclude: /actuator/health, /actuator/prometheus, /ping, /metrics, /actuator/id-(.*)
+
+  kafka:
+    server:
+      bootstrap-server-host: oran-strimzi-kafka-bootstrap
+      bootstrap-server-port: 9092
+    admin:
+      retry: 2147483647
+      retry-backoff-ms: 5000
+      reconnect-backoff-ms: 50
+      reconnect-backoff-max-ms: 30000
+      request-timeout-ms: 30000
+    security:
+      enabled: true
+      protocol: SASL_PLAINTEXT
+      properties:
+        "sasl.mechanism": SCRAM-SHA-512
+        "sasl.jaas.config": ""
+    availability:
+      retry-attempts: 2147483647
+      retry-interval-ms: 1000
+    topology-ingestion:
+      topic:
+        name: topology-inventory-ingestion
+        partitions: 1
+        replicas: 1
+        retention-ms: 86400000
+        retention-bytes: 104857600
+      consumer:
+        group-id: topology-inventory-ingestion-consumer
+        auto-offset-reset: earliest
+        max-poll-records: 500
+        max-poll-interval-ms: 300000
+        fetch-min-bytes: 1
+        fetch-max-wait-ms: 500
+        retry-attempts: 2147483647
+        retry-backoff-ms: 5000
+        concurrency: 2
+
+  database:
+    retry-policies:
+      deadlock:
+        retry-attempts: 10
+        retry-backoff-ms: 200

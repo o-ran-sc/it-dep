@@ -1,11 +1,6 @@
 #!/bin/bash
-
-###
 # ============LICENSE_START=======================================================
-# ORAN SMO Package
-# ================================================================================
-# Copyright (C) 2021 AT&T Intellectual Property. All rights
-#                             reserved.
+# Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,16 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END============================================
-# ===================================================================
-# 
-###
+#
 
-SCRIPT=$(readlink -f "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-cd $SCRIPT_PATH
+kubectl create namespace smo
+echo  '### Installing ORAN SMO part ###'
 
-sudo apt-get install make -y
+OVERRIDEYAML=$1
 
-echo  '### Building ORAN part ###'
-(cd ../../oran_oom && make all)
-(cd ../../oran_oom/smo && make all)
+helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML

@@ -160,3 +160,11 @@ dashboard:
             pltUrlPrefix: http://ric-entry
 
 
+
+######### SMO #########
+smo:
+  installTeiv: true
+  #List of secrets to be copied from ONAP namespace to SMO
+  secrets:
+    - topology-exposure-ku
+    - topology-ingestion-ku

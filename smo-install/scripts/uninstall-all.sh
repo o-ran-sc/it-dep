@@ -29,6 +29,7 @@ cd $SCRIPT_PATH
 
 ./sub-scripts/uninstall-onap.sh
 ./sub-scripts/uninstall-nonrtric.sh
+./sub-scripts/uninstall-smo.sh
 ./sub-scripts/uninstall-simulators.sh
 ./sub-scripts/uninstall-cicd.sh
 ./sub-scripts/clean-up.sh

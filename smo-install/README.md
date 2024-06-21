@@ -29,9 +29,9 @@ It has been created out of the ONAP vfirewall use case.
 
 	Verify pods:
 
-	```kubectl get pods -n onap && kubectl get pods -n nonrtric```
+	```kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n smo```
 
-	When all pods in "onap" and "nonrtric" namespaces are well up & running:
+	When all pods in "onap" , "smo" and "nonrtric" namespaces are well up & running:
 
 	```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
@@ -50,7 +50,7 @@ It has been created out of the ONAP vfirewall use case.
 
         Verify pods:
 
-        ```kubectl get pods -n onap && kubectl get pods -n nonrtric```
+        ```kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n smo```
 
         When all pods in "onap" and "nonrtric" namespaces are well up & running:
 
@@ -60,7 +60,7 @@ It has been created out of the ONAP vfirewall use case.
 
 	```kubectl get pods -n onap && kubectl get pods -n nonrtric```
 
-	When all pods in "onap" and "nonrtric" namespaces are well up & running:
+	When all pods in "onap" , "smo" and "nonrtric" namespaces are well up & running:
 
 	```./dep/smo-install/scripts/layer-2/2-install-simulators.sh```
 
@@ -100,6 +100,7 @@ The user entry point is located in the <strong>scripts</strong> folder
 │   ├── ric-common
 │   ├── ru-du-simulators
 │   ├── ru-simulator
+│   ├── smo
 │   ├── topology
 │   └── topology-server
 ├── README.md
@@ -121,9 +122,11 @@ The user entry point is located in the <strong>scripts</strong> folder
 │   │   ├── clean-up.sh
 │   │   ├── install-nonrtric.sh
 │   │   ├── install-onap.sh
+│   │   ├── install-smo.sh
 │   │   ├── install-simulators.sh
 │   │   ├── uninstall-nonrtric.sh
 │   │   ├── uninstall-onap.sh
+│   │   ├── uninstall-smo.sh
 │   │   └── uninstall-simulators.sh
 │   └── uninstall-all.sh		<--- Uninstall ALL SMO K8S namespaces and cleanup K8S
 └── test			<-- Scripts to test the SMO installation (Work In Progress, so not yet well documented)

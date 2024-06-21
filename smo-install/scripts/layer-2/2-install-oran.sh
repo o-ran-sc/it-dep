@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Modifcation Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,7 +40,9 @@ timestamp=$(date +%s)
 echo "Starting ONAP & NONRTRIC namespaces ..."
 ../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $timestamp
 ../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
+../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
 
 kubectl get pods -n onap
 kubectl get pods -n nonrtric
+kubectl get pods -n smo
 kubectl get namespaces

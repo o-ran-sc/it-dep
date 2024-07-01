@@ -20,9 +20,9 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+  registry: 'nexus3.o-ran-sc.org:10004/o-ran-sc'
   name: nonrtric-plt-capifcore
-  tag: 1.2.0
+  tag: 1.4.0
 service:
   type: ClusterIP
   ports:

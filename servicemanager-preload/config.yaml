@@ -1,0 +1,177 @@
+---
+servicemanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "servicemanager.nonrtric.svc.cluster.local"
+      port: 8095
+      securityMethods:
+      - PKI-servicemanager-http
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: healthcheck
+          Uri: "/"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: registrations
+          Uri: "/api-provider-management/v1/registrations"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: registrations-DOMAIN_ID
+          Uri: "/api-provider-management/v1/registrations"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: publisher
+          Uri: "/published-apis/v1/APF_id/service-apis"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: publisher-API_ID
+          Uri: "/published-apis/v1/APF_id/service-apis/API_ID"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: invoker
+          Uri: "/api-invoker-management/v1/onboardedInvokers"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: invoker-INVOKER_ID
+          Uri: "/api-invoker-management/v1/onboardedInvokers/INVOKER_ID"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: discovery
+          Uri: "/service-apis/v1/allServiceAPIs"
+  ApiName: servicemanager-http
+
+rappmanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "rappmanager.nonrtric.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI-rapp-http
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          ResourceName: "rapps-RAPP_ID"
+          Uri: "/rapps/RAPP_ID"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "rapps"
+          Uri: "/rapps"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - DELETE
+          ResourceName: "rapps-instance"
+          Uri: "/rapps/RAPP_ID/instance/RAPP_INSTANCE_ID"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: "rapps-all-instances"
+          Uri: "/rapps/RAPP_ID/instance"
+  ApiName: rapp-http
+
+# capifcore:
+#   ports:
+#     - port: 8090
+#       name: http
+
+# dmaapadapterservice:
+#   ports:
+#     - port: 9087
+#       name: http
+#     - port: 9088
+#       name: https
+
+# dmaapmediatorservice:
+#   ports:
+#     - port: 8085
+#       name: http
+#     - port: 8185
+#       name: https
+
+# informationservice:
+#   ports:
+#     - port: 9082
+#       name: http
+#     - port: 9083
+#       name: https
+
+# nonrtricgateway:
+#   ports:
+#     - port: 9090
+#       name: http
+
+# policymanagementservice:
+#   ports:
+#     - port: 8081
+#       name: http
+#     - port: 8433
+#       name: https
+#     - port: 30095
+#       name: nodeip
+
+# rappcatalogueenhancedservice:
+#   ports:
+#     - port: 9696
+#       name: http
+
+# rappmanager:
+#   ports:
+#     - port: 8080
+#       name: http
+
+# policy-apex-pdp:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-api:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-pap:
+#   ports:
+#     - port: 6969
+#       name: http-api
+#     - port: 5005
+#       name: debug-port
+
+# sdnc-oam:
+#   ports:
+#     - port: 8282
+#       name: http-karaf
+#     - port: 8202
+#       name: http-restconf-alt
+
+# sdnc-web:
+#   ports:
+#     - port: 8080
+#       name: http

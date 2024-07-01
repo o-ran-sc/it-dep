@@ -1,0 +1,73 @@
+dmaapadapterservice:
+  ports:
+    - port: 9087
+      name: http
+    - port: 9088
+      name: https
+
+dmaapmediatorservice:
+  ports:
+    - port: 8085
+      name: http
+    - port: 8185
+      name: https
+
+informationservice:
+  ports:
+    - port: 9082
+      name: http
+    - port: 9083
+      name: https
+
+nonrtricgateway:
+  ports:
+    - port: 9090
+      name: http
+
+policymanagementservice:
+  ports:
+    - port: 8081
+      name: http
+    - port: 8433
+      name: https
+    - port: 30095
+      name: NodeIP
+
+rappcatalogueenhancedservice:
+  ports:
+    - port: 9696
+      name: http
+
+rappmanager:
+  ports:
+    - port: 8080
+      name: http
+
+policy-apex-pdp:
+  ports:
+    - port: 6969
+      name: http
+
+policy-api:
+  ports:
+    - port: 6969
+      name: http
+
+policy-pap:
+  ports:
+    - port: 6969
+      name: http-api
+    - port: 5005
+      name: debug-port
+
+sdnc-oam:
+  ports:
+    - port: 8282
+      name: http-karaf
+    - port: 8202
+      name: http-restconf-alt
+
+sdnc-web:
+  ports:
+    - port: 8080
+      name: http

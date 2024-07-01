@@ -1,0 +1,178 @@
+################################################################################
+#   Copyright (c) 2024 OpenInfra Foundation Europe.                            #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+---
+servicemanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "servicemanager.nonrtric.svc.cluster.local"
+      port: 8095
+      securityMethods:
+      - PKI-servicemanager-http
+    Versions:
+      - ApiVersion: "v1"
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: healthcheck
+          Uri: "/"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: registrations
+          Uri: "/api-provider-management/registrations"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: registrations-domain_id
+          Uri: "~/api-provider-management/registrations/(?<registrationId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: publisher
+          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: publisher-api_id
+          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis/(?<serviceApiId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: invoker
+          Uri: "/api-invoker-management/onboardedInvokers"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: invoker-invoker_id
+          Uri: "~/api-invoker-management/onboardedInvokers/(?<onboardingId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: discovery
+          Uri: "/service-apis/allServiceAPIs"
+  ApiName: servicemanager-http
+
+rappmanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "rappmanager.nonrtric.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI-rapp-http
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          ResourceName: "rapps-rappId"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "rapps"
+          Uri: "/rapps"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - DELETE
+          ResourceName: "rapps-instance"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance/(?<rappInstanceId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: "rapps-all-instances"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance"
+  ApiName: rapp-http
+
+# dmaapadapterservice:
+#   ports:
+#     - port: 9087
+#       name: http
+#     - port: 9088
+#       name: https
+
+# dmaapmediatorservice:
+#   ports:
+#     - port: 8085
+#       name: http
+#     - port: 8185
+#       name: https
+
+# informationservice:
+#   ports:
+#     - port: 9082
+#       name: http
+#     - port: 9083
+#       name: https
+
+# nonrtricgateway:
+#   ports:
+#     - port: 9090
+#       name: http
+
+# policymanagementservice:
+#   ports:
+#     - port: 8081
+#       name: http
+#     - port: 8433
+#       name: https
+#     - port: 30095
+#       name: nodeip
+
+# policy-apex-pdp:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-api:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-pap:
+#   ports:
+#     - port: 6969
+#       name: http-api
+#     - port: 5005
+#       name: debug-port
+
+# sdnc-oam:
+#   ports:
+#     - port: 8282
+#       name: http-karaf
+#     - port: 8202
+#       name: http-restconf-alt
+
+# sdnc-web:
+#   ports:
+#     - port: 8080
+#       name: http

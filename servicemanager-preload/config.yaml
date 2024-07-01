@@ -1,0 +1,104 @@
+---
+servicemanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: ${service_name}.nonrtric.svc.cluster.local
+      port: 8095
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: healthcheck
+          Uri: "/"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: registrations
+          Uri: "/api-provider-management/v1/registrations"
+  ApiName: servicemanager-http
+
+# capifcore:
+#   ports:
+#     - port: 8090
+#       name: http
+
+# dmaapadapterservice:
+#   ports:
+#     - port: 9087
+#       name: http
+#     - port: 9088
+#       name: https
+
+# dmaapmediatorservice:
+#   ports:
+#     - port: 8085
+#       name: http
+#     - port: 8185
+#       name: https
+
+# informationservice:
+#   ports:
+#     - port: 9082
+#       name: http
+#     - port: 9083
+#       name: https
+
+# nonrtricgateway:
+#   ports:
+#     - port: 9090
+#       name: http
+
+# policymanagementservice:
+#   ports:
+#     - port: 8081
+#       name: http
+#     - port: 8433
+#       name: https
+#     - port: 30095
+#       name: nodeip
+
+# rappcatalogueenhancedservice:
+#   ports:
+#     - port: 9696
+#       name: http
+
+# rappmanager:
+#   ports:
+#     - port: 8080
+#       name: http
+
+# policy-apex-pdp:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-api:
+#   ports:
+#     - port: 6969
+#       name: http
+
+# policy-pap:
+#   ports:
+#     - port: 6969
+#       name: http-api
+#     - port: 5005
+#       name: debug-port
+
+# sdnc-oam:
+#   ports:
+#     - port: 8282
+#       name: http-karaf
+#     - port: 8202
+#       name: http-restconf-alt
+
+# sdnc-web:
+#   ports:
+#     - port: 8080
+#       name: http

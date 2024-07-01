@@ -1,7 +1,7 @@
-#  ============LICENSE_START===============================================
+#  ============LICENSE_START================================================
 #  Copyright (C) 2023 Nordix Foundation. All rights reserved.
 #  Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.
-#  ========================================================================
+#  =========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
@@ -100,7 +100,7 @@ policymanagementservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-plt-a1policymanagementservice
-      tag: 2.7.0
+      tag: 2.8.0
     service:
       allowHttp: true
       httpName: http
@@ -154,7 +154,7 @@ a1simulator:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
-      tag: 2.6.1
+      tag: 2.7.0
     service:
       allowHttp: true
       httpName: http
@@ -234,7 +234,7 @@ rappcatalogueenhancedservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-plt-rappcatalogue-enhanced
-      tag: 1.1.0
+      tag: 1.2.0
     service:
       allowHttp: true
       httpName: http
@@ -272,7 +272,7 @@ dmaapadapterservice:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: 'nonrtric-plt-dmaapadapter'
-      tag: 1.3.0
+      tag: 1.4.0
     service:
       allowHttp: true
       httpName: http
@@ -376,7 +376,7 @@ capifcore:
     image:
       registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
       name: nonrtric-plt-capifcore
-      tag: 1.3.1
+      tag: 1.4.0
     env:
       chart_museum_url: "http://chartmuseum:8080"
       repo_name: "capifcore"
@@ -387,7 +387,7 @@ servicemanager:
     image:
       registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
       name: nonrtric-plt-servicemanager
-      tag: 0.1.2
+      tag: 0.1.3
 
 rappmanager:
   rappmanager:
@@ -395,7 +395,7 @@ rappmanager:
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-rappmanager
-      tag: 0.0.1
+      tag: 0.1.0
     service:
       httpName: http
       internalPort1: 8080
@@ -418,7 +418,7 @@ dmeparticipant:
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-participant-impl-dme
-      tag: 0.0.1
+      tag: 0.1.0
     service:
       httpName: http
       internalPort1: 8080

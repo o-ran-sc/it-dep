@@ -122,6 +122,10 @@ policymanagementservice:
       storageClassName: pms-storage
     ingress:
       enabled: true
+    #Volumepermissions needs to align with the container build arguments
+    volumepermissions:
+      groupid: 1000
+      userid: 1000
 
 # A1 Controller may take few more minutes to start. Increase the initialDelaySeconds in liveness to avoid container restart.
 a1controller:

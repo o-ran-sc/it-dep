@@ -53,6 +53,7 @@ spec:
             cp  /etc/app/policy-management-service/application_configuration_json_initial/application_configuration.json $FILE;
           fi;
           chmod 666 $FILE;
+          chown {{ .Values.policymanagementservice.volumepermissions.groupid }}:{{ .Values.policymanagementservice.volumepermissions.userid }} -R /var/policy-management-service/;
         volumeMounts:
         - name: {{ include "common.name.policymanagementservice" . }}-vardata
           mountPath: "/var/policy-management-service"

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9012ba23_fd629f7d",
+        "filename": "nonrtric/helm/policymanagementservice/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-08-08T15:12:04Z",
+      "side": 1,
+      "message": "See other comment in prev review. \nSuggest something a bit more \u0027random\u0027 than 1000 (so long as its the same in the dockerfile of course :-) )",
+      "range": {
+        "startLine": 49,
+        "startChar": 13,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "52aa08d8f04be80c5368c917afdfbf571db43622",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

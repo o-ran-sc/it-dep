@@ -1,0 +1,145 @@
+---
+
+# Preload services for smo install
+
+policy-apex-pdp:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "policy-apex-pdp.nonrtric.svc.cluster.local"
+      port: 6969
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: policy-apex-pdp-http
+
+# policy-apex-pdp:
+#   ports:
+#     - port: 6969
+#       name: http
+
+policy-api:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "policy-api.nonrtric.svc.cluster.local"
+      port: 6969
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: policy-api-http
+
+# policy-api:
+#   ports:
+#     - port: 6969
+#       name: http
+
+policy-pap:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "policy-pap.nonrtric.svc.cluster.local"
+      port: 6969
+      securityMethods:
+      - PKI
+    - ipv4Addr: "policy-pap.nonrtric.svc.cluster.local"
+      port: 5005
+      securityMethods:
+      - PSK
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: policy-pap-http
+
+# policy-pap:
+#   ports:
+#     - port: 6969
+#       name: http-api
+#     - port: 5005
+#       name: debug-port
+
+sdnc-oam:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "sdnc-oam.nonrtric.svc.cluster.local"
+      port: 8282
+      securityMethods:
+      - PKI
+    - ipv4Addr: "sdnc-oam.nonrtric.svc.cluster.local"
+      port: 8202
+      securityMethods:
+      - PSK
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: sdnc-oam-http
+
+# sdnc-oam:
+#   ports:
+#     - port: 8282
+#       name: http-karaf
+#     - port: 8202
+#       name: http-restconf-alt
+
+sdnc-web:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "sdnc-web.nonrtric.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: sdnc-web-http
+
+# sdnc-web:
+#   ports:
+#     - port: 8080
+#       name: http

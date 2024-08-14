@@ -1,0 +1,376 @@
+---
+
+# Preload services for nonrtric install
+
+# https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric-plt-sme/en/latest/overview.html#
+
+servicemanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "servicemanager.nonrtric.svc.cluster.local"
+      port: 8095
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: "v1"
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: healthcheck
+          Uri: "/"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: registrations
+          Uri: "/api-provider-management/registrations"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: registrations-domain_id
+          Uri: "~/api-provider-management/registrations/(?<registrationId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: publisher
+          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: publisher-api_id
+          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis/(?<serviceApiId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: invoker
+          Uri: "/api-invoker-management/onboardedInvokers"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          - PATCH
+          - DELETE
+          ResourceName: invoker-invoker_id
+          Uri: "~/api-invoker-management/onboardedInvokers/(?<onboardingId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: discovery
+          Uri: "/service-apis/allServiceAPIs"
+  ApiName: servicemanager-http
+
+# https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric-plt-rappmanager/en/latest/rappmanager-api.html
+
+rappmanager:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "rappmanager.nonrtric.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    - ipv4Addr: "rappmanager.nonrtric.svc.cluster.local"
+      port: 8433
+      securityMethods:
+      - PSK
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          ResourceName: "rapps-rappId"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "rapps"
+          Uri: "/rapps"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          - DELETE
+          ResourceName: "rapps-instance"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance/(?<rappInstanceId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: "rapps-all-instances"
+          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance"
+  ApiName: rapp-http
+
+# https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric-plt-a1policymanagementservice/en/latest/pms-api.html
+
+policymanagementservice:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "policymanagementservice.nonrtric.svc.cluster.local"
+      port: 8081
+      securityMethods:
+      - PKI
+    - ipv4Addr: "policymanagementservice.nonrtric.svc.cluster.local"
+      port: 8433
+      securityMethods:
+      - PSK
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          ResourceName: "putPolicy"
+          Uri: "/a1-policy/v2/policies"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - DELETE
+          ResourceName: "Policy"
+          Uri: "~/a1-policy/v2/policies/(?<policy_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getPolicyIds"
+          Uri: "/a1-policy/v2/policies"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getPolicyInstances"
+          Uri: "/a1-policy/v2/policy-instances"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getPolicyStatus"
+          Uri: "~/a1-policy/v2/policies/(?<policy_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/status"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getPolicyTypeDefinition"
+          Uri: "~/a1-policy/v2/policy-types/(?<policytype_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getPolicyTypes"
+          Uri: "/a1-policy/v2/policy-types"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "health"
+          Uri: "/actuator/health"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "healthPath"
+          Uri: "/actuator/health/**"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "heapdump"
+          Uri: "/actuator/heapdump"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "info"
+          Uri: "/actuator/info"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "ActuatorRootWebEndpoint"
+          Uri: "/actuator"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "logfile"
+          Uri: "/actuator/logfile"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "loggers"
+          Uri: "/actuator/loggers"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: "loggersName"
+          Uri: "~/actuator/loggers/(?<name>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "metrics"
+          Uri: "/actuator/metrics"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "metricsRequiredMetricName"
+          Uri: "~/actuator/metrics/(?<requiredMetricName>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: "shutdown"
+          Uri: "/actuator/shutdown"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "threaddump"
+          Uri: "/actuator/threaddump"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - PUT
+          ResourceName: "Configuration"
+          Uri: "/a1-policy/v2/configuration"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getStatus"
+          Uri: "/a1-policy/v2/status"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getStatusV1"
+          Uri: "/status"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getRic"
+          Uri: "/a1-policy/v2/rics/ric"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "getRics"
+          Uri: "/a1-policy/v2/rics"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          ResourceName: "deleteService"
+          Uri: "~/a1-policy/v2/services/(?<service_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - PUT
+          ResourceName: "keepAliveService"
+          Uri: "~/a1-policy/v2/services/(?<service_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/keepalive"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          ResourceName: "putService"
+          Uri: "/a1-policy/v2/services"
+  ApiName: a1-policy-http
+
+# https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric-plt-informationcoordinatorservice/en/h-release/ics-api.html
+
+informationservice:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "informationservice.nonrtric.svc.cluster.local"
+      port: 9082
+      securityMethods:
+      - PKI
+    - ipv4Addr: "informationservice.nonrtric.svc.cluster.local"
+      port: 9083
+      securityMethods:
+      - PSK
+    Versions:
+      - ApiVersion: "v1"
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "IndividualEIType"
+          Uri: "~/A1-EI/eitypes/(?<eiTypeId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "EIJobStatus"
+          Uri: "~/A1-EI/v1/eijobs/(?<eiJobId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/status"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "EITypeIdentifiers"
+          Uri: "/A1-EI/eitypes"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - DELETE
+          - PUT
+          ResourceName: "IndividualEIJob"
+          Uri: "~/A1-EI/v1/eijobs/(?<eiJobId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "EIJobIdentifiers"
+          Uri: "/A1-EI/v1/eijobs"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "ServiceStatus"
+          Uri: "/status"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "threaddump"
+          Uri: "/actuator/threaddump"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "loggers"
+          Uri: "/actuator/loggers"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "health"
+          Uri: "/actuator/health"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "healthPath"
+          Uri: "/actuator/health/**"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - POST
+          ResourceName: "shutdown"
+          Uri: "/actuator/shutdown"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "metrics"
+          Uri: "/actuator/metrics"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "metricsRequiredMetricName"
+          Uri: "~/actuator/metrics/(?<requiredMetricName>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "ActuatorRootWebEndpoint"
+          Uri: "/actuator"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "info"
+          Uri: "/actuator/info"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "logfile"
+          Uri: "/actuator/logfile"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          - POST
+          ResourceName: "loggersName"
+          Uri: "~/actuator/loggers/(?<name>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - GET
+          ResourceName: "heapdump"
+          Uri: "/actuator/heapdump"
+  ApiName: informationservice-http

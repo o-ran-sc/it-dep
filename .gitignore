@@ -8,3 +8,4 @@
 .DS_Store
 docs/_build/
 index-cache.yaml
+servicemanager-preload/config-nonrtric-smo.yaml

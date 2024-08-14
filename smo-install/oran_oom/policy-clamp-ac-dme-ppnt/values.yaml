@@ -42,7 +42,7 @@ secrets:
 # Application configuration defaults.
 #################################################################
 # application image
-image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-participant-impl-dme:0.0.1
+image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-participant-impl-dme:0.1.0
 pullPolicy: Always
 
 componentName: &componentName policy-clamp-ac-dme-ppnt

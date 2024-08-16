@@ -38,6 +38,7 @@ nonrtric:
   installRansliceassurance: true
   installCapifcore: true
   installServicemanager: true
+  # When enabling Ranpm switch to false installControlpanel, installInformationservice, installNonrtricgateway
   installRanpm: false
   # rApp Manager functionality relies on ACM for its operation
   installrAppmanager: true

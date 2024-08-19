@@ -67,7 +67,7 @@ An example of a dynamic path is
 
 Our dynamic path starts with a ~ character. In this example, we have a path parameter that is described by a regex capture group called rappId. The regex describes a word made of mixed-case alphanumeric characters optionally followed by one or more sets of a dash or underscore together with another word.
 
-When the Service Manager client calls a dynamic API, it must strip the ~ and substitute the path parameter according to the rules specified in the regex. Therefore, we can call the above example by using
+When the Service Manager client calls a dynamic API, we call the URL without the '~'. Kong substitutes the path parameter according to the rules specified in the regex. Therefore, we can call the above example by using
 
 ```http
    /rapps/my-rApp-id
@@ -75,9 +75,9 @@ When the Service Manager client calls a dynamic API, it must strip the ~ and sub
 
 as the URL where my-rApp-id is the rApp id of in the rApp Manager. The name my-rApp-id has to match the regex shown above.
 
-It is required to name the capture group in this YAML config file. The capture group name is used by Service Manager when creating a Kong Request Transformerplugin. We can specify multiple capture groups in a URL if there are multiple path parameters in the API path.
+It is required to name the capture group in this YAML config file. The capture group name is used by Service Manager when creating a Kong Request Transformer plugin. We can specify multiple capture groups in a URL if there are multiple path parameters in the API path.
 
-We create a Kong Request Transformer plugin with the following .data[].config.replace, as in the following example curl and abridged response.
+We create a Kong Request Transformer plugin with .data[].config.replace, as in the following example curl with abridged response.
 
 ```sh
 curl -X GET http://oran-nonrtric-kong-admin.nonrtric.svc.cluster.local:8001/plugins

@@ -46,13 +46,13 @@ servicemanager:
           - PATCH
           - DELETE
           ResourceName: registrations-domain_id
-          Uri: "~/api-provider-management/registrations/(?<registrationId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/api-provider-management/registrations/{registrationId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
           - POST
           ResourceName: publisher
-          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis"
+          Uri: "/published-apis/{apfId}/service-apis"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -60,7 +60,7 @@ servicemanager:
           - PATCH
           - DELETE
           ResourceName: publisher-api_id
-          Uri: "~/published-apis/(?<apfId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/service-apis/(?<serviceApiId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/published-apis/{apfId}/service-apis/{serviceApiId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - POST
@@ -72,7 +72,7 @@ servicemanager:
           - PATCH
           - DELETE
           ResourceName: invoker-invoker_id
-          Uri: "~/api-invoker-management/onboardedInvokers/(?<onboardingId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/api-invoker-management/onboardedInvokers/{onboardingId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -103,7 +103,7 @@ rappmanager:
           - PUT
           - DELETE
           ResourceName: "rapps-rappId"
-          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/rapps/{rappId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -115,13 +115,13 @@ rappmanager:
           - PUT
           - DELETE
           ResourceName: "rapps-instance"
-          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance/(?<rappInstanceId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/rapps/{rappId}/instance/{rappInstanceId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
           - POST
           ResourceName: "rapps-all-instances"
-          Uri: "~/rapps/(?<rappId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/instance"
+          Uri: "/rapps/{rappId}/instance"
   ApiName: rapp-http
 
 # https://docs.o-ran-sc.org/projects/o-ran-sc-nonrtric-plt-a1policymanagementservice/en/latest/pms-api.html
@@ -150,7 +150,7 @@ policymanagementservice:
           - GET
           - DELETE
           ResourceName: "Policy"
-          Uri: "~/a1-policy/v2/policies/(?<policy_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/a1-policy/v2/policies/{policy_id}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -165,12 +165,12 @@ policymanagementservice:
           Operations:
           - GET
           ResourceName: "getPolicyStatus"
-          Uri: "~/a1-policy/v2/policies/(?<policy_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/status"
+          Uri: "/a1-policy/v2/policies/{policy_id}/status"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
           ResourceName: "getPolicyTypeDefinition"
-          Uri: "~/a1-policy/v2/policy-types/(?<policytype_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/a1-policy/v2/policy-types/{policytype_id}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -216,7 +216,7 @@ policymanagementservice:
           - GET
           - POST
           ResourceName: "loggersName"
-          Uri: "~/actuator/loggers/(?<name>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/actuator/loggers/{name}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -226,7 +226,7 @@ policymanagementservice:
           Operations:
           - GET
           ResourceName: "metricsRequiredMetricName"
-          Uri: "~/actuator/metrics/(?<requiredMetricName>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/actuator/metrics/{requiredMetricName}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - POST
@@ -267,12 +267,12 @@ policymanagementservice:
           Operations:
           - DELETE
           ResourceName: "deleteService"
-          Uri: "~/a1-policy/v2/services/(?<service_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/a1-policy/v2/services/{service_id}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - PUT
           ResourceName: "keepAliveService"
-          Uri: "~/a1-policy/v2/services/(?<service_id>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/keepalive"
+          Uri: "/a1-policy/v2/services/{service_id}/keepalive"
         - CommType: REQUEST_RESPONSE
           Operations:
           - DELETE
@@ -300,12 +300,12 @@ informationservice:
           Operations:
           - GET
           ResourceName: "IndividualEIType"
-          Uri: "~/A1-EI/eitypes/(?<eiTypeId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/A1-EI/eitypes/{eiTypeId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
           ResourceName: "EIJobStatus"
-          Uri: "~/A1-EI/v1/eijobs/(?<eiJobId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)/status"
+          Uri: "/A1-EI/v1/eijobs/{eiJobId}/status"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -317,7 +317,7 @@ informationservice:
           - DELETE
           - PUT
           ResourceName: "IndividualEIJob"
-          Uri: "~/A1-EI/v1/eijobs/(?<eiJobId>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/A1-EI/v1/eijobs/{eiJobId}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -362,7 +362,7 @@ informationservice:
           Operations:
           - GET
           ResourceName: "metricsRequiredMetricName"
-          Uri: "~/actuator/metrics/(?<requiredMetricName>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/actuator/metrics/{requiredMetricName}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET
@@ -383,7 +383,7 @@ informationservice:
           - GET
           - POST
           ResourceName: "loggersName"
-          Uri: "~/actuator/loggers/(?<name>[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*)"
+          Uri: "/actuator/loggers/{name}"
         - CommType: REQUEST_RESPONSE
           Operations:
           - GET

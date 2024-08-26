@@ -225,7 +225,7 @@ if [ "$INSTALL_KONG" = true ];then
   echo "Installing Kong"
   helm repo add kong https://charts.konghq.com --force-update
   helm repo update
-  helm install oran-nonrtric kong/kong -n ${NONRTRIC_NAMESPACE:-nonrtric} -f dep/nonrtric/helm/kongstorage/kongvalues.yaml
+  helm install oran-nonrtric kong/kong -n ${NONRTRIC_NAMESPACE:-nonrtric} -f "$ROOT_DIR/../nonrtric/helm/kongstorage/kongvalues.yaml"
 fi
 
 kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --from-file=recipe=$OVERRIDEYAML
@@ -245,7 +245,7 @@ echo "helm install -f $OVERRIDEYAML --namespace ${NONRTRIC_NAMESPACE:-nonrtric} 
 helm install -f $OVERRIDEYAML -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"
 
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    pushd dep/servicemanager-preload
+    pushd "$ROOT_DIR/../servicemanager-preload"
     # Send stderr to null to turn off chatty logging
     ./servicemanager-preload.sh config-nonrtric.yaml 2>/dev/null
     popd

@@ -43,6 +43,19 @@ spec:
     spec:
       hostname: {{ include "common.name.policymanagementservice" . }}
       initContainers:
+      {{ if .Values.policymanagementservice.database.enabled }}
+      - name: check-db-ready
+        image: busybox:1.28
+        command: ['sh', '-c']
+        args:
+          - |
+            until nc -z -v -w20 {{ .Values.postgresql.fullnameOverride }} 5432
+            do
+              echo "waiting for postgres to be running";
+              sleep 2;
+            done;
+            echo "Postgres is up and running";
+      {{ end }}
       - name: copy
         image: busybox:1.28
         command:
@@ -68,6 +81,19 @@ spec:
           protocol: TCP
         - containerPort: {{ .Values.policymanagementservice.service.targetPort2 }}
           protocol: TCP
+        {{ if .Values.policymanagementservice.database.enabled }}
+        env:
+          - name: SPRING_FLYWAY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "common.name.policymanagementservice" . }}-pg-secret
+                key: password
+          - name: SPRING_R2DBC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "common.name.policymanagementservice" . }}-pg-secret
+                key: password
+        {{ end }}
         readinessProbe:
           tcpSocket:
             port: {{ .Values.policymanagementservice.service.targetPort1 }}

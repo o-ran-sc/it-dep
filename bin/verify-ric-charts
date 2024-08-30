@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #   Copyright (c) 2019 AT&T Intellectual Property.
+#   Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -58,13 +59,9 @@ AUX_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/aux-
 helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/aux-common
 cp /tmp/aux-common-$AUX_COMMON_CHART_VERSION.tgz $HELM_LOCAL_REPO
 
-NONRTRIC_COMMON_CHART_VERSION=$(cat $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common/Chart.yaml | grep version | awk '{print $2}')
-helm package -d /tmp $ROOT_DIR/../ric-common/Common-Template/helm/nonrtric-common
-cp /tmp/nonrtric-common-$NONRTRIC_COMMON_CHART_VERSION.tgz $HELM_LOCAL_REPO
 
 
-
-helm repo index $HELM_HOME/repository/local/
+helm repo index $HELM_LOCAL_REPO
 
 echo "Make sure that helm local repo is added"
 helm repo remove local
@@ -75,7 +72,7 @@ echo "Create array of helm charts"
 CHART_ARRAY=()
 while IFS= read -r -d $'\0'; do
     CHART_ARRAY+=("$REPLY")
-done < <(find $ROOT_DIR/../ -maxdepth 5 -name Chart.yaml -printf '%h\0')
+done < <(find $ROOT_DIR/../ -not -path "$ROOT_DIR/../nonrtric/*" -maxdepth 5 -name Chart.yaml -printf '%h\0')
 
 echo "***************************************"
 echo "Remove nonrtric parent chart from linting as its a conceptual visualization of Nonrtric components. This chart doesn't contain any templates & it's primarily

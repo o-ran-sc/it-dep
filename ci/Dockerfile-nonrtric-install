@@ -24,4 +24,5 @@ ARG TGT=/tmp/it-dep
 COPY . $TGT
 # Remove the smo-install as this one will be verified in another verify job
 RUN rm -rf $TGT/smo-install
+RUN ls -l $TGT/bin
 RUN $TGT/bin/verify-nonrtric-charts

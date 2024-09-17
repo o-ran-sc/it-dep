@@ -121,6 +121,10 @@ postgresql:
   primary:
     persistence:
       existingClaim: kongpvc
+      # If the default storage class is not set,
+      # This value should be set to create the PV
+      # storageClass: standard
+
 # -----------------------------------------------------------------------------
 # Miscellaneous parameters
 # -----------------------------------------------------------------------------

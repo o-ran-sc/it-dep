@@ -165,6 +165,17 @@ fi
 echo "Install Kong- $INSTALL_KONG"
 
 if [ "$INSTALL_KONG" = true ];then
+  DEFAULT_SC=$(kubectl get sc -o jsonpath='{.items[?(@.metadata.annotations.storageclass\.kubernetes\.io/is-default-class=="true")].metadata.name}')
+  if [ -z "$DEFAULT_SC" ];then
+    echo "----------------------------------- WARNING!!! -------------------------------------------------------"
+    echo "Default storage class is not set."
+    echo "Kong PV and PVC creation may fail if it unable to create/use a storage class."
+    echo "Storage class for the kong installation can be specified in nonrtric/helm/kongstorage/kongvalues.yaml"
+    echo "------------------------------------------------------------------------------------------------------"
+  else
+    echo "Default storage class is set to $DEFAULT_SC"
+  fi
+
   echo "Install kongstorage through helm"
   helm install kongstorage -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT}  "$ROOT_DIR/../nonrtric/helm/kongstorage"
 

@@ -99,9 +99,9 @@ policymanagementservice:
   policymanagementservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10003/o-ran-sc'
       name: nonrtric-plt-a1policymanagementservice
-      tag: 2.8.0
+      tag: 2.9.0-SNAPSHOT
     service:
       allowHttp: true
       httpName: http
@@ -127,6 +127,24 @@ policymanagementservice:
     volumepermissions:
       groupid: 120957
       userid: 120957
+    database:
+      # By default database is disabled
+      # Enabling this will start postgres and use that as storage
+      enabled: false
+      password: bXlwd2Q=
+  # These are the postgresql installation parameters
+  postgresql:
+    fullnameOverride: policymanagementservice-db
+    auth:
+      username: a1pms
+      existingSecret: policymanagementservice-pg-secret
+      database: a1pms
+    primary:
+      persistence:
+        # Persistence disabled by default.
+        # Restarting postgres container will clear the data.
+        # Persistence can be enabled by providing volume details in the below section (size, volumeName, storageClass).
+        enabled: false
 
 # A1 Controller may take few more minutes to start. Increase the initialDelaySeconds in liveness to avoid container restart.
 a1controller:

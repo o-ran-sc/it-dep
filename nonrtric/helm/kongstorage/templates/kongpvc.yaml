@@ -1,27 +1,35 @@
-#  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
-#  ========================================================================
-#  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
-#  ============LICENSE_END=================================================
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
 #
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  annotations:
+    meta.helm.sh/release-name: kongstorage
+    meta.helm.sh/release-namespace: nonrtric
+    pv.kubernetes.io/bind-completed: "yes"
+  creationTimestamp: "2024-09-13T07:43:18Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    app.kubernetes.io/managed-by: Helm
   name: kongpvc
+  namespace: nonrtric
+  resourceVersion: "507"
+  uid: e864c196-1c3b-4d0d-bf50-c94b59c1e15e
 spec:
   accessModes:
-    - "{{ .Values.kongpvc.persistence.accessMode }}"
+  - ReadWriteOnce
   resources:
     requests:
-      storage: "{{ .Values.kongpvc.persistence.size }}"
+      storage: 2Gi
+  storageClassName: standard
+  volumeMode: Filesystem
   volumeName: kongpv
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  phase: Bound

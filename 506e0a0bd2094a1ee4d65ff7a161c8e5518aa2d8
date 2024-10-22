@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "820bf46a_e0a5122d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2024-10-22T05:40:45Z",
+      "side": 1,
+      "message": "avoid taking yaml from running instance as it has running information from environment.",
+      "revId": "506e0a0bd2094a1ee4d65ff7a161c8e5518aa2d8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

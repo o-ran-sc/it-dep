@@ -18,6 +18,23 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f5e2cb9_d9ff9c99",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-10-22T10:00:46Z",
+      "side": 1,
+      "message": "Couple of additional comments for improvement.",
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cd95377_f2b898b5",
@@ -60,6 +77,23 @@
         "endLine": 20,
         "endChar": 43
       },
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3b50c22_5bc3d2d4",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpvc.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-10-22T10:00:46Z",
+      "side": 1,
+      "message": "This comment https://gerrit.o-ran-sc.org/r/c/it/dep/+/13636/comment/9ad89acd_102ba282/ applies here as well.",
       "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },

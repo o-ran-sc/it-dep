@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50177444_2d5c90bc",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpvc.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-10-22T10:00:46Z",
+      "side": 0,
+      "message": "License information should not be removed.",
+      "revId": "506e0a0bd2094a1ee4d65ff7a161c8e5518aa2d8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

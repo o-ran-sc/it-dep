@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e76c0900_b833872f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2024-10-22T05:40:05Z",
+      "side": 1,
+      "message": "Please avoid taking yaml from running instance.",
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd95377_f2b898b5",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpvc.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2024-10-22T05:40:05Z",
+      "side": 1,
+      "message": "please avoid",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e4bcbd_34495503",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpvc.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2024-10-22T05:40:05Z",
+      "side": 1,
+      "message": "please avoid",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5e80ed_bdcb1b67",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpvc.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2024-10-22T05:40:05Z",
+      "side": 1,
+      "message": "why status is there",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "a94986ba3de190d5850fbf22efbf7df265afc392",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

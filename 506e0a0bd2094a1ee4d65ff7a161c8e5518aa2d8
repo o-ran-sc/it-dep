@@ -68,6 +68,24 @@
       "parentUuid": "9ad89acd_102ba282",
       "revId": "506e0a0bd2094a1ee4d65ff7a161c8e5518aa2d8",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0af51ff_1e1a2e0a",
+        "filename": "nonrtric/helm/kongstorage/templates/kongpv.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2024-10-23T10:23:43Z",
+      "side": 1,
+      "message": "@Subash, Setting a default storage class can be an alternate option (when auto provisioning fails pointing at storage class), so that each PV/PVC doesn\u0027t have to specify the storage class.",
+      "parentUuid": "5f00920f_ef3ee1d5",
+      "revId": "506e0a0bd2094a1ee4d65ff7a161c8e5518aa2d8",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

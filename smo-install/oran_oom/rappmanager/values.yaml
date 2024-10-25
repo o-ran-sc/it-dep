@@ -56,7 +56,7 @@ application:
       maxRetries: 10
       retryInterval: 2 #seconds
     sme:
-      baseurl: http://capifcore.nonrtric:8090
+      baseurl: http://servicemanager.nonrtric:8095
       providerBasePath: /api-provider-management/v1/
       invokerBasePath: /api-invoker-management/v1/
       publishApiBasePath: /published-apis/v1/
@@ -67,7 +67,7 @@ application:
 
     rapps:
       env:
-        smeDiscoveryEndpoint: http://capifcore.nonrtric:8090/service-apis/v1/allServiceAPIs
+        smeDiscoveryEndpoint: http://servicemanager.nonrtric:8095/service-apis/v1/allServiceAPIs
 
     spring:
       jackson:

@@ -23,6 +23,17 @@ OVERRIDEYAML=$1
 
 helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
 
+check_for_secrets() {
+    try=0
+    retries=60
+    until (kubectl get secret -n onap | grep -P "\b$1\b") >/dev/null 2>&1; do
+        try=$(($try + 1))
+        [ $try -gt $retries ] && exit 1
+        echo "$1 not found. Retry $try/$retries"
+        sleep 10
+    done
+    echo "$1 found"
+}
 # Copying kafka secrets from onap namespace
 # SMO installation uses ONAP strimzi kafka
 # All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace
@@ -30,5 +41,6 @@ helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
 # Once the secrets are created, it should be copied to the SMO namespace
 while IFS= read -r secret; do
     echo "Copying $secret from onap namespace..."
+    check_for_secrets $secret
     kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
 done < <(yq r -d0 $OVERRIDEYAML smo.secrets[*])

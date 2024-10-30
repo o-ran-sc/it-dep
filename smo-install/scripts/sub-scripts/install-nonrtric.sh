@@ -65,7 +65,7 @@ fi
 helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$2"
 
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    pushd ../../../servicemanager-preload
+    pushd ../../../nonrtric/servicemanager-preload
     # Send stderr to /dev/null to turn off chatty logging
     ./servicemanager-preload.sh config-nonrtric.yaml 2>/dev/null
     ./servicemanager-preload.sh config-smo.yaml 2>/dev/null

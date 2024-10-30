@@ -19,6 +19,11 @@
 echo  '### Installing ORAN SMO part ###'
 kubectl create namespace smo
 
+if ! command -v yq > /dev/null 2>&1; then
+    echo "yq is not installed. Installing yq..."
+    sudo snap install yq --channel=v4/stable
+fi
+
 OVERRIDEYAML=$1
 
 helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
@@ -43,4 +48,4 @@ while IFS= read -r secret; do
     echo "Copying $secret from onap namespace..."
     check_for_secrets $secret
     kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
-done < <(yq r -d0 $OVERRIDEYAML smo.secrets[*])
+done < <(yq '.smo.secrets[]' $OVERRIDEYAML)

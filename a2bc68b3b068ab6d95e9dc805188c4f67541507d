@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64cc0a56_fd82667c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2024-12-16T09:53:42Z",
+      "side": 1,
+      "message": "Looks good. \nWill merge once the snapshot images start to appear.",
+      "revId": "a2bc68b3b068ab6d95e9dc805188c4f67541507d",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

@@ -408,9 +408,9 @@ servicemanager:
   servicemanager:
     imagePullPolicy: IfNotPresent
     image:
-      registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
+      registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-servicemanager
-      tag: 0.1.3
+      tag: 0.2.0
 
 rappmanager:
   rappmanager:

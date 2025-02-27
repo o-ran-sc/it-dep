@@ -4,11 +4,11 @@ project_creation_date: '2019-05-21'
 project_category: ''
 lifecycle_state: 'Incubation'
 project_lead: &it-dep_ptl
-    name: 'James Li'
-    email: 'lijianyj@chinamobile.com'
-    id: 'pceicicd'
-    company: 'China Mobile Technology (USA) Inc.'
-    timezone: 'America/Los_Angeles'
+    name: 'Bimo Fransiscus Asisi'
+    email: 'd11002806@gapps.ntust.edu.tw'
+    id: 'frbimo2'
+    company: 'National Taiwan University of Science and Technology'
+    timezone: 'Asia/Taipei'
 primary_contact: *it-dep_ptl
 issue_tracking:
     type: 'jira'

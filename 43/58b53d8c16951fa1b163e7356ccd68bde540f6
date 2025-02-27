@@ -1,0 +1,10 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+1: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Submitted-by: James Li <pekwatch746@gmail.com>
+Submitted-at: Thu, 27 Feb 2025 13:57:51 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14208
+Comments-Total: 1
+Project: it/dep
+Branch: refs/heads/master

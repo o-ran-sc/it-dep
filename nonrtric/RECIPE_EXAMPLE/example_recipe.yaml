@@ -1,6 +1,6 @@
 #  ============LICENSE_START===============================================
 #  Copyright (C) 2023 Nordix Foundation. All rights reserved.
-#  Copyright (C) 2023-2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -99,9 +99,9 @@ policymanagementservice:
   policymanagementservice:
     imagePullPolicy: Always
     image:
-      registry: 'nexus3.o-ran-sc.org:10003/o-ran-sc'
+      registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: nonrtric-plt-a1policymanagementservice
-      tag: 2.9.0-SNAPSHOT
+      tag: 2.9.0
     service:
       allowHttp: true
       httpName: http
@@ -177,7 +177,7 @@ a1simulator:
     image:
       registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
       name: a1-simulator
-      tag: 2.7.0
+      tag: 2.8.0
     service:
       allowHttp: true
       httpName: http
@@ -418,7 +418,7 @@ rappmanager:
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-rappmanager
-      tag: 0.1.0
+      tag: 0.2.0
     service:
       httpName: http
       internalPort1: 8080
@@ -441,7 +441,7 @@ dmeparticipant:
     image:
       registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
       name: nonrtric-plt-participant-impl-dme
-      tag: 0.1.0
+      tag: 0.2.0
     service:
       httpName: http
       internalPort1: 8080

@@ -1,6 +1,6 @@
 ################################################################################
 #   Copyright (c) 2020 Nordix Foundation.                                      #
-#   Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.       #
+#   Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -51,16 +51,6 @@ dependencies:
     repository: "@local"
     condition: true
 
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installRappcatalogueservice
-
-  - name: rappcatalogueenhancedservice
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installRappcatalogueenhancedservice
-
   - name: nonrtricgateway
     version: ~1.0.0
     repository: "@local"
@@ -70,26 +60,6 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installDmaapadapterservice
-
-  - name: dmaapmediatorservice
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installDmaapmediatorservice
-
-  - name: helmmanager
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installHelmmanager
-
-  - name: ransliceassurance
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installRansliceassurance
-
-  - name: orufhrecovery
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installOrufhrecovery
 
   - name: capifcore
     version: ~1.0.0

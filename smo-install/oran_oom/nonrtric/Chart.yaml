@@ -1,5 +1,5 @@
 #  ============LICENSE_START========================================================
-#  Modification Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Modification Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  =================================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -54,45 +54,15 @@ dependencies:
     version: ^2.0.0
     repository: "@local"
 
-  - name: rappcatalogueservice
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installRappcatalogueservice
-
   - name: nonrtricgateway
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installNonrtricgateway
 
-  - name: oru-app
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installORUApp
-
-  - name: odu-app
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installODUSMOApp
-
-  - name: odu-app-ics-version
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installODUICSApp
-
   - name: topology
     version: ~1.0.0
     repository: "@local"
     condition: nonrtric.installTopology
-
-  - name: dmaapmediatorservice
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installDmaapmediatorservice
-
-  - name: helmmanager
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installHelmmanager
 
   - name: kong
     version: ~1.0.0

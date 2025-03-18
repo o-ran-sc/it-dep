@@ -1,6 +1,6 @@
 # Copyright © 2017 Amdocs, Bell Canada
 # Mofification Copyright © 2021 AT&T
-# Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,16 +31,10 @@ nonrtric:
   installA1simulator: true
   installControlpanel: true
   installInformationservice: true
-  installRappcatalogueservice: true
   installNonrtricgateway: true
   installKong: true
-  installORUApp: true
-  installODUSMOApp: true
-  installODUICSApp: true
   installTopology: true
   installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
   installrAppmanager: true
   installCapifcore: true
   installServicemanager: true
@@ -90,26 +84,9 @@ kong:
   admin:
     enabled: true
 
-helmmanager:
-  persistence:
-    # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed si>
-    # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be f>
-    storageClassName: helmmanager-storage
-
 controlpanel:
   ingress:
     enabled: false
-
-oru-app:
-  simulators:
-    - simRu: o-ru-11221
-      simDu: o-du-1122
-    - simRu: o-ru-11222
-      simDu: o-du-1122
-    - simRu: o-ru-11223
-      simDu: o-du-1122
-    - simRu: o-ru-11211
-      simDu: o-du-1121
 
 a1simulator:
   a1Sims:

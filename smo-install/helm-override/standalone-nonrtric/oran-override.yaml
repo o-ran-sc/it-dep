@@ -1,6 +1,6 @@
 #  ============LICENSE_START===============================================
 #  Copyright (C) 2022-2023 Nordix Foundation. All rights reserved.
-#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -32,16 +32,10 @@ nonrtric:
   installA1simulator: true
   installControlpanel: true
   installInformationservice: true
-  installRappcatalogueservice: true
   installNonrtricgateway: true
   installKong: false
-  installORUApp: false
-  installODUSMOApp: false
-  installODUICSApp: false
   installTopology: false
   installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
   installrAppmanager: true
   installDmeParticipant: true
   # override default mount path root directory
@@ -91,13 +85,6 @@ kong:
     installCRDs: false
   admin:
     enabled: true
-
-helmmanager:
-  helmmanager:
-    persistence:
-      # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed si>
-      # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be f>
-      storageClassName: helmmanager-storage
 
 controlpanel:
   controlpanel:

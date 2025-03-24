@@ -101,7 +101,7 @@ a1policymanagement:
         - kista_1
         - kista_2
 dcaegen2-services:
-  enabled: true
+  enabled: false
   dcae-bbs-eventprocessor-ms:
     enabled: false
   dcae-datafile-collector:
@@ -143,7 +143,7 @@ dcaegen2-services:
   dcae-ves-openapi-manager:
     enabled: false
 dmaap:
-  enabled: true
+  enabled: false
   message-router:
     enabled: true
   dmaap-dr-node:
@@ -154,11 +154,11 @@ mariadb-galera:
   enabled: true
   replicaCount: 1
 policy:
-  enabled: true
+  enabled: false
   policy-api:
     enabled: true
   policy-pap:
-    enabled: true
+    enabled: false
   policy-xacml-pdp:
     enabled: false
   policy-apex-pdp:
@@ -189,7 +189,7 @@ policy:
   policy-clamp-ac-dme-ppnt:
     enabled: true
 sdnc:
-  enabled: true
+  enabled: false
   replicaCount: 1
   elasticsearch:
     master:

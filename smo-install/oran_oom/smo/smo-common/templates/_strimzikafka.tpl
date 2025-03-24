@@ -54,13 +54,15 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: {{ include "common.name" . }}-ku
+  name: {{ default ( printf "%s-ku" (include "common.name" .)) .Values.kafkaUser.name }}
   namespace: onap
   labels:
     strimzi.io/cluster: onap-strimzi
 spec:
+  {{- if .Values.kafkaUser.authenticationType }}
   authentication:
     type: {{ .Values.kafkaUser.authenticationType | default "scram-sha-512" }}
+  {{- end }}
   authorization:
     type: {{ .Values.kafkaUser.authorizationType | default "simple" }}
     acls:
@@ -68,7 +70,7 @@ spec:
       - resource:
           type: {{ $acl.type }}
           patternType: {{ $acl.patternType | default "literal" }}
-          name: {{ ternary (printf "%s-%s" $acl.name $acl.suffix) $acl.name (hasKey $acl "suffix") }}
+          name: '{{ ternary (printf "%s-%s" $acl.name $acl.suffix) $acl.name (hasKey $acl "suffix") }}'
         operations:
         {{- range $operation := $acl.operations }}
           - {{ . }}

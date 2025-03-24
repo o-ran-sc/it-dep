@@ -1,0 +1,8 @@
+{
+    "types": [
+      {
+        "id": "xml-file-data-to-filestore",
+        "kafkaInputTopic": "collected-file"
+      }
+    ]
+  }

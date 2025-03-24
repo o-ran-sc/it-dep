@@ -1,0 +1,110 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2020-2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dfc
+  labels:
+    app: dfc
+spec:
+  replicas: 1
+  serviceName: dfc
+  selector:
+    matchLabels:
+      app: dfc
+  template:
+    metadata:
+      labels:
+        app: dfc
+    spec:
+      serviceAccountName: keycloak-job-wait-sa
+      volumes:
+        - name: config-truststore
+          configMap:
+            name: dfc-cm-truststore
+        - name: config-cm
+          configMap:
+            name: dfc-cm
+        - name: config-ran-certs
+          configMap:
+            name: ran-certs-config
+        - name: token-cache-volume
+          emptyDir: {}
+      initContainers:
+      - name: wait-for-keycloak-job
+        image: bitnami/kubectl
+        args:
+          - wait
+          - job.batch/keycloak-init
+          - --for
+          - condition=complete
+          - --timeout
+          - 300s          
+      containers:
+      - name: dfc
+        securityContext:
+          runAsUser: 0     # Need to run as root - needed when writing to hostpath
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-datafilecollector:1.1.0
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8100
+        volumeMounts:
+        - name: config-truststore
+          mountPath: /opt/app/datafile/config/truststore.jks
+          subPath: truststore.jks
+        - name: config-cm
+          mountPath: /opt/app/datafile/config/application.yaml
+          subPath: application.yaml
+        - mountPath: /token-cache
+          name: token-cache-volume
+        env:
+        - name: APPID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: APPNS
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: APP_KAFKA_CLIENT-ID
+          value: "datafile-collector.$(APPNS).$(APPID)"
+      - name: auth-token
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-auth-token-fetch:1.1.1
+        imagePullPolicy: Always
+        env:
+        - name: CREDS_GRANT_TYPE
+          value: client_credentials
+        - name: CREDS_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: dfc
+              key: client_secret
+        - name: CREDS_CLIENT_ID
+          value: dfc
+        - name: AUTH_SERVICE_URL
+          value: http://keycloak.smo:8080/realms/nonrtric-realm/protocol/openid-connect/token
+        - name: OUTPUT_FILE
+          value: /token-cache/jwt.txt
+
+        volumeMounts:
+        - mountPath: /token-cache
+          name: token-cache-volume
+
+

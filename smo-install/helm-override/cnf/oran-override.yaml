@@ -1,6 +1,6 @@
 # Copyright © 2017 Amdocs, Bell Canada
 # Mofification Copyright © 2021 AT&T
-# Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
+# Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -50,9 +50,6 @@ nonrtric:
      # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
     storageClassName: ics-storage
-  volume3:
-    size: 1Gi
-    storageClassName: helmmanager-storage
 
 common:
   releasePrefix: r3-dev-nonrtric
@@ -87,6 +84,17 @@ kong:
 controlpanel:
   ingress:
     enabled: false
+
+oru-app:
+  simulators:
+    - simRu: o-ru-11221
+      simDu: o-du-1122
+    - simRu: o-ru-11222
+      simDu: o-du-1122
+    - simRu: o-ru-11223
+      simDu: o-du-1122
+    - simRu: o-ru-11211
+      simDu: o-du-1121
 
 a1simulator:
   a1Sims:

@@ -1,0 +1,50 @@
+################################################################################
+#   Copyright (C) 2024 OpenInfra Foundation Europe                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+apiVersion: v2
+name: common
+description: A Helm chart third party components
+version: 1.0.0
+appVersion: "1.16.0"
+
+dependencies:
+  - name: smo-common
+    version: ^1.0.0
+    repository: "@local"
+  - name: influxdb2
+    version: 0.1.0
+    repository: "file://influxdb2"
+  - name: kafka-client
+    version: 0.1.0
+    repository: "file://kafka-client"
+  - name: keycloak
+    version: 0.1.0
+    repository: "file://keycloak"
+  - name: keycloak-proxy
+    version: 0.1.0
+    repository: "file://keycloak-proxy"
+  - name: minio
+    version: 0.1.0
+    repository: "file://minio"
+  - name: opa
+    version: 0.1.0
+    repository: "file://opa"
+  - name: opa-rule-db
+    version: 0.1.0
+    repository: "file://opa-rule-db"
+  - name: redpanda-console
+    version: 0.1.0
+    repository: "file://redpanda-console"                

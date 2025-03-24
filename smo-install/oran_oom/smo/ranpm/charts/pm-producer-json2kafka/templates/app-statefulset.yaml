@@ -1,0 +1,106 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2020-2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pm-producer-json2kafka
+  labels:
+    app: pm-producer-json2kafka
+spec:
+  replicas: 1
+  serviceName: pm-producer-json2kafka
+  selector:
+    matchLabels:
+      app: pm-producer-json2kafka
+  template:
+    metadata:
+      labels:
+        app: pm-producer-json2kafka
+    spec:
+      serviceAccountName: ranpm-component-sa
+      initContainers:
+      - name: wait-for-keycloak-and-kafka
+        securityContext:
+          runAsUser: 0
+        image: bitnami/kubectl
+        command: ["/usr/bin/bash"]
+        args: ["-c", "cp /opt/app/scripts/init-wait.sh /opt/ && chmod +x /opt/init-wait.sh && /opt/init-wait.sh"]
+        volumeMounts:
+        - name: pm-producer-json2kafka-cm-config
+          mountPath: /opt/app/scripts/init-wait.sh
+          subPath: init-wait.sh       
+      containers:
+      - name: pm-producer-json2kafka
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-pmproducer:1.1.0
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8084
+        env:
+        - name: APPID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: APPNS
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        # Overriding value in application.yaml
+        - name: APP_PM-PRODUCER-BASE-URL
+          value: "http://$(APPID).pm-producer-json2kafka.$(APPNS):8084"
+        volumeMounts:
+        - mountPath: /opt/app/pm-producer-service/data/application_configuration.json
+          subPath: application_configuration.json
+          name: pm-producer-json2kafka-cm-data
+        - mountPath: /opt/app/pm-producer-service/config/application.yaml
+          subPath: application.yaml
+          name: pm-producer-json2kafka-cm-config
+        - mountPath: /token-cache
+          name: token-cache-volume
+      - name: auth-token
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-auth-token-fetch:1.1.1
+        imagePullPolicy: Always
+        env:
+        - name: CREDS_GRANT_TYPE
+          value: client_credentials
+        - name: CREDS_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: pm-producer-json-2-kafka
+              key: client_secret
+        - name: CREDS_CLIENT_ID
+          value: pm-producer-json2kafka
+        - name: AUTH_SERVICE_URL
+          value: http://keycloak.smo:8080/realms/nonrtric-realm/protocol/openid-connect/token
+        - name: OUTPUT_FILE
+          value: /token-cache/jwt.txt
+
+        volumeMounts:
+        - mountPath: /token-cache
+          name: token-cache-volume
+      volumes:
+        - name: pm-producer-json2kafka-cm-data
+          configMap:
+            name: pm-producer-json2kafka-cm-data
+        - name: pm-producer-json2kafka-cm-config
+          configMap:
+            name: pm-producer-json2kafka-cm-config
+        - name: token-cache-volume
+          emptyDir: {}

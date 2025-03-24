@@ -1,0 +1,64 @@
+################################################################################
+#   Copyright (C) 2025 OpenInfra Foundation Europe                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ics-init
+spec:
+  template:
+    spec:
+      serviceAccountName: ranpm-component-sa
+      initContainers:
+      - name: wait-for-keycloak-job
+        image: bitnami/kubectl
+        args:
+          - wait
+          - job.batch/keycloak-init
+          - --for
+          - condition=complete
+          - --timeout
+          - 300s     
+      containers:
+      - name: ics-init-container
+        image: bash:latest
+        command: ["bash","/scripts/configure_ics.sh"]
+        env:
+          - name: ICS_HOST
+            value: "{{ .Values.ics.host }}"
+          - name: ICS_PORT
+            value: "{{ .Values.ics.port }}"
+          - name: ICS_PROTOCOL
+            value: "{{ .Values.ics.protocol }}"
+          - name: KEYCLOAK_HOST
+            value: "{{ .Values.keycloak.host }}"
+          - name: KEYCLOAK_PROXY_PORT
+            value: "{{ .Values.keycloak.port }}"
+          - name: KEYCLOAK_PROTOCOL
+            value: "{{ .Values.keycloak.protocol }}"
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace            
+        volumeMounts:
+          - name: ics-config-volume
+            mountPath: /scripts
+      volumes:
+        - name: ics-config-volume
+          configMap:
+            name: ics-init-config
+            defaultMode: 0755
+      restartPolicy: Never

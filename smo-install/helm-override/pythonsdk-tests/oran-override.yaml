@@ -50,9 +50,6 @@ nonrtric:
      # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
     storageClassName: ics-storage
-  volume3:
-    size: 1Gi
-    storageClassName: helmmanager-storage
 
 common:
   releasePrefix: r3-dev-nonrtric

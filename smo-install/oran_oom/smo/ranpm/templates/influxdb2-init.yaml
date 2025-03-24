@@ -1,0 +1,62 @@
+################################################################################
+#   Copyright (C) 2025 OpenInfra Foundation Europe                             #
+#                                                                              #
+#   Licensed under the Apache License, Version 2.0 (the "License");            #
+#   you may not use this file except in compliance with the License.           #
+#   You may obtain a copy of the License at                                    #
+#                                                                              #
+#       http://www.apache.org/licenses/LICENSE-2.0                             #
+#                                                                              #
+#   Unless required by applicable law or agreed to in writing, software        #
+#   distributed under the License is distributed on an "AS IS" BASIS,          #
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.   #
+#   See the License for the specific language governing permissions and        #
+#   limitations under the License.                                             #
+################################################################################
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: influxdb2-init
+spec:
+  template:
+    spec:
+      containers:
+      - name: influxdb2-init-container
+        image: bash:latest
+        command: ["bash","/scripts/configure_influx.sh"]
+        env:
+          - name: INFLUXDB2_HOST
+            value: "{{ .Values.influxdb2.host }}"
+          - name: INFLUXDB2_PORT
+            value: "{{ .Values.influxdb2.port }}"
+          - name: INFLUXDB2_PROTOCOL
+            value: "{{ .Values.influxdb2.protocol }}"
+          - name: INFLUXDB2_ORGANIZATION
+            value: "{{ .Values.influxdb2.organization }}"
+          - name: INFLUXDB2_BUCKET
+            value: "{{ .Values.influxdb2.bucket }}"
+          - name: INFLUXDB2_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: username
+                name: influxdb2-secret
+          - name: INFLUXDB2_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: influxdb2-secret
+          - name: INFLUXDB2_DEFAULT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: token
+                name: influxdb-api-token
+        volumeMounts:
+          - name: influxdb2-config-volume
+            mountPath: /scripts
+      volumes:
+        - name: influxdb2-config-volume
+          configMap:
+            name: influxdb2-init-config
+            defaultMode: 0755
+      restartPolicy: Never

@@ -1,0 +1,12 @@
+{
+  "types": [
+    {
+      "id": "json-file-data-from-filestore-to-influx",
+      "kafkaInputTopic": "json-file-ready-kp",
+      "inputJobType": "xml-file-data-to-filestore",
+      "inputJobDefinition": {
+        "kafkaOutputTopic": "json-file-ready-kp"
+      }
+    }
+  ]
+}

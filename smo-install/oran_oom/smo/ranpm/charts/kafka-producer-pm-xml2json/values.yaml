@@ -1,0 +1,47 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+global:
+  #Strimzi Kafka properties
+  useStrimziKafka: true
+
+# Strimzi Kafka config
+kafkaUser:
+  # For SCRAM-SHA-512 the name need not to be filled
+  # Name should be populated when a different authentication mechanism being used. e.g. OAUTH
+  # While using OAUTH authetication with keycloak, this name should match the user name of the client in keycloak
+  # This user name comes as OAUTH user to strimzi for the authorization. Hence the matching name authorizes the request.
+  name: service-account-kafka-producer-pm-xml2json
+  acls:
+    - name: kafka-procon-xml-file-data-to-filestore
+      type: group
+      operations: [Read]
+    - name: collected-file
+      type: topic
+      operations: [Read, Write]
+    - name: json-file-ready-kp
+      type: topic
+      operations: [Read, Write]
+    - name: json-file-ready-kpadp
+      type: topic
+      operations: [Read, Write]
+
+# This is a reference to the list of topics used by this component
+kafkaTopic:
+  - collected-file
+  - json-file-ready-kp
+  - json-file-ready-kpadp

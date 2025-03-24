@@ -38,8 +38,8 @@ fi
 timestamp=$(date +%s)
 
 echo "Starting ONAP & NONRTRIC namespaces ..."
-../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $timestamp
-../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
+# ../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $timestamp
+# ../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
 ../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
 
 kubectl get pods -n onap

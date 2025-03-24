@@ -1,0 +1,48 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2023 Nordix Foundation. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+# http proxy for keycloak - only for accessing the keycloak api
+# cannot be used to access the admin console
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-proxy
+spec:
+  selector:
+    matchLabels:
+      app: keycloak-proxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: keycloak-proxy
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: keycloak-proxy
+        image: nginx:alpine
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /etc/nginx
+          readOnly: true
+          name: keycloak-proxy-conf
+      volumes:
+      - name: keycloak-proxy-conf
+        configMap:
+          name: keycloak-proxy-conf

@@ -1,0 +1,96 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+spring:
+  profiles:
+    active: prod
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "loggers,logfile,health,info,metrics"
+server:
+  port: 8433
+  ssl:
+      key-store-type: JKS
+      key-store-password: policy_agent
+      key-store: config/keystore.jks
+      key-password: policy_agent
+      key-alias: policy_agent
+logging:
+  level:
+    ROOT: WARN
+    org.onap: WARN
+    org.springframework: WARN
+    org.springframework.data: WARN
+    org.springframework.web.reactive.function.client.ExchangeFunctions: WARN
+    #org.oran.datafile: WARN
+    org.oran.datafile: TRACE
+
+  file:
+    name: /var/log/ONAP/application.log
+app:
+  collected-files-path: "/tmp/oran_datafile/"
+  # Numer of worker threads. Increased number may increase throughput, but will require more executing resources.
+  number-of-worker-treads: 50
+   # If the file name is empty, no authorization token is used
+  auth-token-file: /token-cache/jwt.txt
+  # This controls the format used for processing the file-ready messages
+  # Example values:
+  #   file-ready-message-class: "" (empty) -> Default format(org.oran.datafile.model.DefaultFileReadyMessage)
+  #   file-ready-message-class: "TS28532" (Not empty) -> org.oran.datafile.model.TS28532FileReadyMessage
+  file-ready-message-class:
+   # KAFKA boostrap servers. This is only needed if there are Information Types that uses a kafkaInputTopic
+  # several redundant boostrap servers can be specified, separated by a comma ','.
+  kafka:
+    bootstrap-servers: "onap-strimzi-kafka-bootstrap.onap:9092"
+
+    # output topic
+    collected-file-topic: collected-file
+    # Override by env var
+    client-id:
+    # input topic
+    file-ready-event-topic: file-ready
+      # Configues if oath2 tokens shall be used. If set to true, auth-token-file must also be configured
+    use-oath-token: true
+    ssl:
+      key-store-type: PEM
+      key-store-location:
+      # key password is needed if the private key is encrypted
+      key-store-password:
+      trust-store-type: PEM
+      trust-store-location:
+  sftp:
+    known-hosts-file-path:
+    strict-host-key-checking: false
+  ssl:
+     key-store-password-file: /opt/app/datafile/config/ftps_keystore.pass
+     key-store: /opt/app/datafile/config/ftps_keystore.p12
+     trust-store-password-file: /opt/app/datafile/config/truststore.pass
+     trust-store: /opt/app/datafile/config/truststore.jks
+  s3:
+    endpointOverride: http://minio:9000
+    accessKeyId: admin
+    secretAccessKey: adminadmin
+    bucket: ropfiles
+
+springdoc:
+  show-actuator: true
+  swagger-ui.disable-swagger-default-url: true
+################
+

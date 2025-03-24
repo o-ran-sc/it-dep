@@ -1,0 +1,14 @@
+{
+  "types": [
+     {
+        "id": "PmData",
+        "kafkaInputTopic": "json-file-ready-kpadp",
+        "useHttpProxy": false,
+        "dataType": "pmData",
+        "inputJobType": "xml-file-data-to-filestore",
+        "inputJobDefinition": {
+           "kafkaOutputTopic": "json-file-ready-kpadp"
+        }
+     }
+  ]
+}

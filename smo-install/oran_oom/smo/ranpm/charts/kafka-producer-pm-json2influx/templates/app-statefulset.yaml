@@ -1,0 +1,104 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2020-2023 Nordix Foundation. All rights reserved.
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-producer-pm-json2influx
+  labels:
+    app: kafka-producer-pm-json2influx
+
+spec:
+  replicas: 1
+  serviceName: kafka-producer-pm-json2influx
+  selector:
+    matchLabels:
+      app: kafka-producer-pm-json2influx
+  template:
+    metadata:
+      labels:
+        app: kafka-producer-pm-json2influx
+
+    spec:
+      serviceAccountName: keycloak-job-wait-sa
+      initContainers:
+      - name: wait-for-keycloak-job
+        image: bitnami/kubectl
+        args:
+          - wait
+          - job.batch/keycloak-init
+          - --for
+          - condition=complete
+          - --timeout
+          - 300s       
+      containers:
+      - name: kafka-producer-pm-json2influx
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-pm-file-converter:1.1.1
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: E1
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: KP
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+
+        - name: KAFKA_SERVER
+          value: "onap-strimzi-kafka-bootstrap.onap:9092"
+        # This property controls the data format used for the conversion
+        # Example values:
+        #   DATA_TYPE_FORMAT = "" -> older 4G/Default Measurement file format
+        #   DATA_TYPE_FORMAT = "TS28532" -> 5G/3GPP-TS-28.532 Measurement file format
+        - name: DATA_TYPE_FORMAT
+          value: ""
+        - name: ICS
+          value: informationservice.nonrtric:9082
+        - name: SELF
+          value: "$(E1).kafka-producer-pm-json2influx:80"
+        - name: FILESTORE_USER
+          value: admin
+        - name: FILESTORE_PWD
+          value: adminadmin
+        - name: FILESTORE_SERVER
+          value: minio:9000
+        - name: CREDS_GRANT_TYPE
+          value: client_credentials
+        - name: CREDS_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: kafka-pm-json-2-influx
+              key: client_secret
+        - name: CREDS_CLIENT_ID
+          value: kafka-producer-pm-json2influx
+        - name: AUTH_SERVICE_URL
+          value: http://keycloak:8080/realms/nonrtric-realm/protocol/openid-connect/token
+        volumeMounts:
+        - mountPath: /application_configuration.json
+          subPath: application_configuration.json
+          name: kafka-producer-pm-json2influx-cm-config
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: kafka-producer-pm-json2influx-cm-config
+        name: kafka-producer-pm-json2influx-cm-config

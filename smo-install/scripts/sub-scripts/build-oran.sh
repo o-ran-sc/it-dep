@@ -31,5 +31,5 @@ cd $SCRIPT_PATH
 sudo apt-get install make -y
 
 echo  '### Building ORAN part ###'
-(cd ../../oran_oom && make all)
+# (cd ../../oran_oom && make all)
 (cd ../../oran_oom/smo && make all)

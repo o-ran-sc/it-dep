@@ -26,7 +26,7 @@ fi
 
 OVERRIDEYAML=$1
 
-helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+helm install oran-smo local/smo --namespace smo -f $OVERRIDEYAML
 
 check_for_secrets() {
     try=0

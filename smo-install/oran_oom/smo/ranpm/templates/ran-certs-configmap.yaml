@@ -1,0 +1,74 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ran-certs-config
+data:
+  ca.key: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCapuVjYlGH0gFP
+    5+XmZX8+duUAKP1Y6iMiYcRxpEhOYreBytSyLc1ed4HGQHG2HCNSYs4iOotdj8Fm
+    iY6ItJjquyKPNUk1F9YSRnXhhO8+pGiGV/rNF30TheneDlSNaCiBFJfzpUiBdgT4
+    zd7Pm2PfsvfLrgyC/KrRy3vS1QcZtW2mTyLMl4KUgwrmzeOFlCXqNK06Rz3s2JbS
+    CKvq4tR3x6KlkmKpX/XuxdrCtCZva0oG+ur/nOSbzwbbl2b4s9zyprhIio0ohWVp
+    g9HDs5BRHGU7L6XGYBGm7Bs/FN6OtgdfhQXqmQSGQX4H2sIf7oAhqjNBTXZ5RPn9
+    x3263d9DAgMBAAECggEAFMVJlbmEvbsk1fiNVg5XsqoBQ649qI15vopm+eRYmb6E
+    avg07OFd7cwbL+dD3nOVAuGmUc6PHTfLf9wFurKWvx/3GkjL1kenRrkT6AAUqdMm
+    /rQeSSFYeSDJMju2e2970SpU5jJStKCHNmtf+34hQdAlm8N6hrUstBSiQsS9uWQB
+    CwW4RBLC34jSD27AMlMg87HnF2TT5Xab1pFixop3DxBiXbOVhmgjsXvzR1jRhsBc
+    Epe5SmBVeMeVWwm+74wlaYp3ys+3ALABzR4zbTxfCkWJ5mr3gXC3BUZ5Xwy/wxjQ
+    TvKKeqTlyDxrfhSLmJaU+0k4l6c4xqwtpdapT0aoAQKBgQC5WimgYtWTrT1O2pWo
+    TRKvhYaflnEx6NTA/ZZ9n2TFwc6JAmNChbhe+vV0AU+W8BLGvmiR9NgAwA3H2uTL
+    iJkjRaHY0c/3RNS3WDeQSi8j+tqQuDESgWQQiPWglHDYCruNs7IfIsbFY+GqAkvI
+    VyXHUAtvC7wboRPy9Y9XayfKAQKBgQDVmSO6FiOv5fGEqfMFf/TU85NF2e9t2Mfx
+    IofllhYuE9Cwhjey5h89U1ZXa1vPUibt4Pq0p5pBxLB9V2UgmzvpYhnzB4ZbAtbT
+    B7Myxj9eeV/ILmRfXwmaN5JaKgbFqXr8rH9Fj5ciil+4QsAyHeEqT0IqYtQPz2Fb
+    M5qnY6oBQwKBgA+tP44QLe5CncfYlwXYFvd/fKZszAAjqDL2f876N0S+oqBV8l1D
+    ABgQc8gvADNM9NmYazHFGqvdkozPx8ArOoCQOCMlg8hvKuqi7Hgovhn18pyA562g
+    Af2gB95gD7dGGRzgEPWvNE6npwOBFDXKoShdbcojnPJdSlmnSUtkhcYBAoGBAMZp
+    C0vXNu00zoVqDKmmM3oAjGQNTiAeh5PRfKTiJtZEZ80hz+lpY8lmeUSZIF5TtH+x
+    RZC8Q0kmeL7liLWiHSPskagz7DTsTTsX4vieOMz8N+HOXkRNFrFfP55rfYDsrqa5
+    YTvvZveZy9JwhvHG2ZqgpxiSVuQcwhWiuN0WchvbAoGAPySYGRIEvX5zY/dUE33W
+    /+xRNUrDqoviioKkLagfrbfLAfJHhKYFLwE/H8jN6ZT1dgYKVSqhYAnyH2jevpku
+    5TSQoTA22VMNLT9/jRlY/ZJHeIid90BySPrTHy7XRl+lb+yBeEThmrH8w7K5Cw3Q
+    GIFZPNsgV57Fnxyiwk/mHoY=
+    -----END PRIVATE KEY-----
+  httpsca.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDnzCCAoegAwIBAgIUFqNZ5ZQ6L2ZtNCkJlOW9rgRO89cwDQYJKoZIhvcNAQEL
+    BQAwXzELMAkGA1UEBhMCU0UxCjAIBgNVBAgMAS4xCjAIBgNVBAcMAS4xDDAKBgNV
+    BAoMA0VTVDEMMAoGA1UECwwDRVNUMRwwGgYJKoZIhvcNAQkBFg1hQGV4YW1wbGUu
+    Y29tMB4XDTI1MDMyNjEyMjAyNVoXDTI1MDQyNTEyMjAyNVowXzELMAkGA1UEBhMC
+    U0UxCjAIBgNVBAgMAS4xCjAIBgNVBAcMAS4xDDAKBgNVBAoMA0VTVDEMMAoGA1UE
+    CwwDRVNUMRwwGgYJKoZIhvcNAQkBFg1hQGV4YW1wbGUuY29tMIIBIjANBgkqhkiG
+    9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmqblY2JRh9IBT+fl5mV/PnblACj9WOojImHE
+    caRITmK3gcrUsi3NXneBxkBxthwjUmLOIjqLXY/BZomOiLSY6rsijzVJNRfWEkZ1
+    4YTvPqRohlf6zRd9E4Xp3g5UjWgogRSX86VIgXYE+M3ez5tj37L3y64Mgvyq0ct7
+    0tUHGbVtpk8izJeClIMK5s3jhZQl6jStOkc97NiW0gir6uLUd8eipZJiqV/17sXa
+    wrQmb2tKBvrq/5zkm88G25dm+LPc8qa4SIqNKIVlaYPRw7OQURxlOy+lxmARpuwb
+    PxTejrYHX4UF6pkEhkF+B9rCH+6AIaozQU12eUT5/cd9ut3fQwIDAQABo1MwUTAd
+    BgNVHQ4EFgQUYIsXwaqvhVB3toXBKUSTFmxHVIUwHwYDVR0jBBgwFoAUYIsXwaqv
+    hVB3toXBKUSTFmxHVIUwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOC
+    AQEAeLktWG9QPVUaxAXW8uySLKHV71pvNzIkmRUu864DZHREP5fjelCi415082xA
+    oWc8j8PwQ6b/WrraC2DG1MFsyd8fq2KMU4tFgeA7310DiXKjaRtZcsCMbXJqfAH3
+    2HT/8fsn2MSJU1hmTx+l29BvzEGbUuyXqJ+iAryMXyJlLzvW253B2YwO+ymtiyRS
+    AxG1g2drJ9e6q9WfajquVaHyX7tXmhLc8r/h/a0nqv3kkQYVnyzuWQh1ZIVQ9eHp
+    N5VU0luS/CNF4McifVyuRMS5uR3SiKoQdbuHeTJ08Ar5GEOpgrDonGHFTpsEUFtG
+    cFMmA7DJDQKQIBcVy7djbd3xlg==
+    -----END CERTIFICATE-----

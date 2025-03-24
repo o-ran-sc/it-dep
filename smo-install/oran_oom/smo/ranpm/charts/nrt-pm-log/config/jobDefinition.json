@@ -1,0 +1,23 @@
+{
+   "info_type_id": "PmData",
+   "job_owner": "console",
+   "job_definition": {
+      "filter": {
+         "sourceNames": [],
+         "measObjInstIds": [],
+         "measTypeSpecs": [
+            {
+               "measuredObjClass": "NRCellDU",
+               "measTypes": [
+                  "pmCounterNumber101"
+               ]
+            }
+         ],
+         "measuredEntityDns": []
+      },
+      "deliveryInfo": {
+         "topic": "pmreports",
+         "bootStrapServers": "onap-strimzi-kafka-bootstrap.onap:9095"
+      }
+   }
+}

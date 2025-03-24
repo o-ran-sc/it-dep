@@ -1,0 +1,76 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2023 Nordix Foundation. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  labels:
+    app: minio
+spec:
+  serviceName: minio
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      initContainers:
+      - name: init
+        image: alpine:latest
+        imagePullPolicy: IfNotPresent
+        command: ["ash","-c"]
+        args: ["IDX=${HOSTNAME##*-} && mkdir -p /data/ && rm -rf /data//*"]
+        volumeMounts:
+        - mountPath: /data
+          name: data-vol
+      containers:
+      - name: minio
+        # Note, in later releases only SSO seem to be possible
+        # so earlier release kept to be able to login with user/pwd
+        image: minio/minio:RELEASE.2022-10-21T22-37-48Z
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: tcpmain
+          containerPort: 9000
+        - name: httpweb
+          containerPort: 9001
+        args:
+        - server
+        - "--console-address"
+        - ":9001"
+        - /data/0/
+        env:
+        - name: MINIO_ROOT_USER
+          value: admin
+        - name: MINIO_ROOT_PASSWORD
+          value: adminadmin
+        - name: MINIO_POLICY_PLUGIN_URL
+          value: http://opa:8181/v1/data/minio/authz/allow
+        - name: MINIO_IDENTITY_OPENID_CONFIG_URL
+          value: http://keycloak:8080/realms/nonrtric-realm/.well-known/openid-configuration
+        volumeMounts:
+        - mountPath: /data
+          name: data-vol
+      volumes:
+        - name: data-vol
+          emptyDir: {}
+
+

@@ -1,7 +1,7 @@
 # Copyright © 2017 Amdocs, Bell Canada
 #
 # Modifications Copyright © 2021 AT&T
-# Modifications Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# Modifications Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -142,14 +142,6 @@ dcaegen2-services:
     enabled: false
   dcae-ves-openapi-manager:
     enabled: false
-dmaap:
-  enabled: true
-  message-router:
-    enabled: true
-  dmaap-dr-node:
-    enabled: false
-  dmaap-dr-prov:
-    enabled: false
 mariadb-galera:
   enabled: true
   replicaCount: 1
@@ -230,3 +222,21 @@ sdnc:
 strimzi:
   enabled: true
   replicaCount: 1
+  # This runs the kafka container with root privileges
+  # This is required because of the permission issues with the volume mount
+  # This should be re-eveluated once the permission issues are resolved
+  kafka:
+    template:
+      kafkaContainer:
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0
+  # This runs the zookeeper container with root privileges
+  # This is required because of the permission issues with the volume mount
+  # This should be re-eveluated once the permission issues are resolved
+  zookeeper:
+    template:
+      zookeeperContainer:
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0

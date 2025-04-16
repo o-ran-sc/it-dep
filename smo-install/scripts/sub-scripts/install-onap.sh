@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Modification Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,9 +28,9 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
-helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.36.1.tgz local
+helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.44.0.tgz local
 helm repo update
-helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.36.1 --set watchAnyNamespace=true --create-namespace
+helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
 
 kubectl create namespace onap
 echo '### Installing ONAP part ###'

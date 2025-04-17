@@ -139,8 +139,12 @@ dashboard:
 ######### SMO #########
 smo:
   installTeiv: true
-  #List of secrets to be copied from ONAP namespace to SMO
+  # List of secrets to be copied from ONAP namespace to SMO
+  # Based on the dependsOn value, the secrets will be copied to the SMO namespace
   secrets:
-    - topology-exposure-ku
-    - topology-ingestion-ku
-    - redpanda-console-ku
+    - name: topology-exposure-ku
+      dependsOn: smo.installTeiv
+    - name: topology-ingestion-ku
+      dependsOn: smo.installTeiv
+    - name: redpanda-console-ku
+      dependsOn: nonrtric.installRanpm

@@ -36,9 +36,6 @@ influxdb2:
   bucket: "pm-bucket"
 
 kafkaTopic:
-  - strimziTopicName: "unauthenticated.ves-notification-output"
-    name: "unauthenticated.VES_NOTIFICATION_OUTPUT"
-    partitions: 10
   - name: collected-file
     partitions: 10
   - name: json-file-ready-kp

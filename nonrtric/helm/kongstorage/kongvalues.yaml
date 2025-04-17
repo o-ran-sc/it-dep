@@ -118,6 +118,9 @@ postgresql:
       postgresql: "5432"
   volumePermissions:
     enabled: true
+    # This provides permission for the initcontainer to set the correct permissions
+    containerSecurityContext:
+      runAsNonRoot: false
   primary:
     persistence:
       existingClaim: kongpvc

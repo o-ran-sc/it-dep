@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-# Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,13 +39,26 @@ check_for_secrets() {
     done
     echo "$1 found"
 }
+
 # Copying kafka secrets from onap namespace
 # SMO installation uses ONAP strimzi kafka
 # All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace
 # This enables the strimzi entity operator to create the secrets as necessary
 # Once the secrets are created, it should be copied to the SMO namespace
-while IFS= read -r secret; do
-    echo "Copying $secret from onap namespace..."
-    check_for_secrets $secret
-    kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
-done < <(yq '.smo.secrets[]' $OVERRIDEYAML)
+SECRETS_SIZE=$(yq '.smo.secrets | length' $OVERRIDEYAML)
+if [ "$SECRETS_SIZE" -eq 0 ]; then
+    echo "No secrets to copy from onap namespace"
+    exit 0
+else
+    for i in $(seq 0 $((SECRETS_SIZE - 1))); do
+        secret=$(yq ".smo.secrets[$i].name" $OVERRIDEYAML)
+        dependsOn=$(yq ".smo.secrets[$i].dependsOn" $OVERRIDEYAML)
+        if [ $(yq ".$dependsOn" $OVERRIDEYAML) != "true" ]; then
+            echo "$dependsOn is not set to true. Skipping $secret copy..."
+            continue
+        fi
+        echo "Copying $secret from onap namespace..."
+        check_for_secrets $secret
+        kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
+    done
+fi

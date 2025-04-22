@@ -1,0 +1,116 @@
+#  ============LICENSE_START================================================
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
+#  =========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END==================================================
+#
+
+# Default values for DME Participant.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+imagePullPolicy: IfNotPresent
+image:
+  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
+  name: nonrtric-plt-participant-impl-dme
+  tag: 0.1.0
+service:
+  type: ClusterIP
+  ports:
+  - name: http
+    internalPort: "8080"
+    targetPort: "8080"
+liveness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+readiness:
+  initialDelaySeconds: 20
+  periodSeconds: 10
+ingress:
+  enabled: false
+security:
+  username: cGFydGljaXBhbnRVc2VyCg==
+  password: emIhWHp0RzM0
+
+componentName: &componentName dmeparticipant
+
+kafkaUser:
+  authenticationType: scram-sha-512
+  acls:
+    - name: *componentName
+      type: group
+      operations: [Read]
+    - name: policy-acruntime-participant
+      type: topic
+      operations: [Read, Write]
+
+application:
+  spring:
+    autoconfigure:
+      exclude:
+        - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+        - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+        - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+        - org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration
+  security:
+    enable-csrf: false
+
+  dme:
+    baseUrl: http://informationservice:9082
+
+  participant:
+    intermediaryParameters:
+      reportingTimeIntervalMs: 120000
+      description: Participant Description
+      participantId: 101c62b3-8918-41b9-a747-d21eb79c6c08
+      clampAutomationCompositionTopics:
+        topicSources:
+          - topic: policy-acruntime-participant
+            servers:
+              - ${topicServer:onap-strimzi-kafka-bootstrap.onap:9092}
+            additionalProps:
+              group.id: *componentName
+              allow.auto.create.topics: false
+              security.protocol: SASL_PLAINTEXT
+              sasl.mechanism: SCRAM-SHA-512
+              sasl.jaas.config: ${SASL_JAAS_CONFIG}
+            topicCommInfrastructure: kafka
+            fetchTimeout: 15000
+        topicSinks:
+          - topic: policy-acruntime-participant
+            servers:
+              - ${topicServer:onap-strimzi-kafka-bootstrap.onap:9092}
+            additionalProps:
+              client.id: *componentName
+              security.protocol: SASL_PLAINTEXT
+              sasl.mechanism: SCRAM-SHA-512
+              sasl.jaas.config: ${SASL_JAAS_CONFIG}
+            topicCommInfrastructure: kafka
+      participantSupportedElementTypes:
+        -
+          typeName: org.onap.policy.clamp.acm.DMEAutomationCompositionElement
+          typeVersion: 1.0.1
+        -
+          typeName: org.onap.policy.clamp.acm.AutomationCompositionElement
+          typeVersion: 1.0.0
+
+  management:
+    endpoints:
+      web:
+        base-path: /
+        exposure:
+          include: health, metrics, prometheus
+  server:
+    port: 8080
+    servlet:
+      context-path: /nonrtric/dmeparticipant

@@ -35,6 +35,11 @@ dependencies:
     repository: "@local"
     condition: nonrtric.installA1simulator
 
+  - name: dmeparticipant
+    version: ~1.0.0
+    repository: "@local"
+    condition: nonrtric.installDmeparticipant
+
   - name: controlpanel
     version: ~2.0.0
     repository: "@local"

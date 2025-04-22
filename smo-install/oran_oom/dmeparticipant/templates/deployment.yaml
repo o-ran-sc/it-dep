@@ -1,0 +1,53 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2023-2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
+spec:
+  replicas: 1
+  selector: {{- include "common.selectors" . | nindent 4 }}
+  template:
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
+    spec:
+      hostname: {{ include "common.name" . }}
+      containers:
+      - name: {{ include "common.containername" . }}
+        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports: {{- include "common.containerPorts" . | nindent 8 }}
+        {{- include "common.tcpsocketProbes" . | nindent 8 }}
+        env:
+        - name: SPRING_SECURITY_USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "common.name" . }}-security-secret
+              key: username
+        - name: SPRING_SECURITY_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "common.name" . }}-security-secret
+              key: password
+        - name: SASL_JAAS_CONFIG
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "common.name" . }}-ku
+              key: sasl.jaas.config
+        volumeMounts:
+        - name: {{ include "common.applicationConfigMountName" . }}
+          mountPath: /opt/app/participant/dme/config/
+      volumes: {{- include "common.applicationConfigVolume" . | nindent 8 }}            

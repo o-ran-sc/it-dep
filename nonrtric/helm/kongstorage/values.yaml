@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -17,7 +17,10 @@
 # Default values for Kong PV and PVC
 
 kongpv:
-  enabled: true # Disabled for Minikube
+  # This enables/disables the PV creation for kong
+  # PV creation is necessary when there is no default storage class
+  # This should be set to false when there is a default storage class, Which lets the PVC provisions the PV dynamically.
+  enabled: true
   persistence:
     volumeReclaimPolicy: Delete
     accessMode: ReadWriteOnce

@@ -81,6 +81,11 @@ kong:
     installCRDs: false
   admin:
     enabled: true
+  kongpv:
+    # This enables/disables the PV creation for kong
+    # PV creation is necessary when there is no default storage class
+    # This should be set to false when there is a default storage class, Which lets the PVC provisions the PV dynamically.
+    enabled: true
 
 controlpanel:
   ingress:

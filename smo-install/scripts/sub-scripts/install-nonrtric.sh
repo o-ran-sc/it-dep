@@ -64,6 +64,30 @@ fi
 
 helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$2"
 
+# Copying kafka secrets from onap namespace
+# SMO installation uses ONAP strimzi kafka
+# All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace
+# This enables the strimzi entity operator to create the secrets as necessary
+# Once the secrets are created, it should be copied to the SMO namespace
+SECRETS_SIZE=$(yq '.nonrtric.secrets | length' $OVERRIDEYAML)
+if [ "$SECRETS_SIZE" -eq 0 ]; then
+    echo "No secrets to copy from onap namespace"
+    exit 0
+else
+    for i in $(seq 0 $((SECRETS_SIZE - 1))); do
+        secret=$(yq ".nonrtric.secrets[$i].name" $OVERRIDEYAML)
+        dependsOn=$(yq ".nonrtric.secrets[$i].dependsOn" $OVERRIDEYAML)
+        if [ $(yq ".$dependsOn" $OVERRIDEYAML) != "true" ]; then
+            echo "$dependsOn is not set to true. Skipping $secret copy..."
+            continue
+        fi
+        echo "Copying $secret from onap namespace..."
+        check_for_secrets $secret
+        kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n nonrtric -f -
+    done
+fi
+
+
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
     pushd ../../../nonrtric/servicemanager-preload
     # Send stderr to /dev/null to turn off chatty logging

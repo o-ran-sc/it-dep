@@ -32,7 +32,5 @@ sudo apt-get install make -y
 helm plugin install ../../onap_oom/kubernetes/helm/plugins/undeploy/
 helm plugin install ../../onap_oom/kubernetes/helm/plugins/deploy/
 
-./add-oran-acm-participants.sh
-
 echo '### Building ONAP part###'
 (cd ../../onap_oom/kubernetes && make all -e SKIP_LINT=TRUE)

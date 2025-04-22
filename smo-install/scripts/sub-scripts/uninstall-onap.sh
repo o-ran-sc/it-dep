@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +24,8 @@
 # 
 ###
 
+# Delete all the kafka topics in the onap namespace
+kubectl delete kafkatopics --all -n onap
 kubectl delete namespace onap
 kubectl delete namespace strimzi-system
 kubectl get pv | grep Released | awk '$1 {print$1}' | while read vol; do kubectl delete pv/${vol}; done

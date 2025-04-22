@@ -6,7 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
-# Modifcation Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# Modifcation Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,18 +29,25 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
 FLAVOUR=$1
+MODE=$2
 if [ -z "$1" ]
   then
     echo "No helm override flavour supplied, going to default"
     FLAVOUR="default"
 fi
 
+if [ -z "$2" ]
+  then
+    echo "No mode supplied, going to release"
+    MODE="release"
+fi
+
 timestamp=$(date +%s)
 
 echo "Starting ONAP & NONRTRIC namespaces ..."
-../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $timestamp
-../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
-../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $timestamp
+../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
+../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
 
 kubectl get pods -n onap
 kubectl get pods -n nonrtric

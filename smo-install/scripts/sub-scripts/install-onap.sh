@@ -28,10 +28,31 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
-helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.44.0.tgz local
-helm repo update
-helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
+MODE=$2
 
-kubectl create namespace onap
-echo '### Installing ONAP part ###'
-helm deploy --debug onap local/onap --namespace onap -f $1 --set global.persistence.mountPath="/dockerdata-nfs/deployment-$2" --set dmaap.message-router.message-router-zookeeper.persistence.mountPath="/dockerdata-nfs/deployment-$2" --set dmaap.message-router.message-router-kafka.persistence.mountPath="/dockerdata-nfs/deployment-$2"
+if [ MODE == "dev" ]; then
+    echo "### Installing Strimzi Kafka Operator (Dev Mode) ###"
+    helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.44.0.tgz local
+    helm repo update
+    helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
+    echo "Waiting for Strimzi Kafka Operator to be ready..."
+    kubectl wait --for=condition=available --timeout=600s deployment/strimzi-cluster-operator -n strimzi-system
+
+    kubectl create namespace onap
+    echo '### Installing ONAP part (Dev Mode) ###'
+    helm deploy --debug onap local/onap --namespace onap -f $1 --set global.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set dmaap.message-router.message-router-zookeeper.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set dmaap.message-router.message-router-kafka.persistence.mountPath="/dockerdata-nfs/deployment-$3"
+else
+    echo "### Installing Strimzi Kafka Operator (Release Mode) ###"
+    helm repo add strimzi https://strimzi.io/charts/
+    helm repo update
+
+    helm install strimzi-kafka-operator strimzi/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
+    echo "Waiting for Strimzi Kafka Operator to be ready..."
+    kubectl wait --for=condition=available --timeout=600s deployment/strimzi-cluster-operator -n strimzi-system
+
+    echo '### Installing ONAP part (Release Mode) ###'
+    helm repo add onap https://nexus3.onap.org/repository/onap-helm-testing/
+    helm repo update
+
+    helm deploy --debug onap onap/onap --namespace onap -f $1 --create-namespace
+fi

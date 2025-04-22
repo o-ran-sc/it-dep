@@ -5,7 +5,7 @@
 # ORAN SMO Package
 # =================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
-# Modification Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+# Modification Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 # =================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -62,7 +62,20 @@ if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
     fi
 fi
 
-helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$2"
+MODE=$2
+
+if [ MODE == "dev" ]; then
+    echo "Installing NONRTRIC in dev mode"
+    helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
+else
+    echo "Installing NONRTRIC in release mode"
+    # This following should be modified once the charts are uploaded and available in the nexus repository
+    # Till then, we are using the local chart
+        # helm repo add nonrtric https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
+        # helm repo update
+        # helm install oran-nonrtric nonrtric/nonrtric --namespace nonrtric -f $OVERRIDEYAML --create-namespace
+    helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
+fi
 
 # Copying kafka secrets from onap namespace
 # SMO installation uses ONAP strimzi kafka

@@ -25,8 +25,20 @@ if ! command -v yq > /dev/null 2>&1; then
 fi
 
 OVERRIDEYAML=$1
+MODE=$2
 
-helm install oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+if [ MODE == "dev" ]; then
+    echo "Installing SMO in dev mode"
+    helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+else
+    echo "Installing SMO in release mode"
+    # This following should be modified once the charts are uploaded and available in the nexus repository
+    # Till then, we are using the local chart
+        # helm repo add smo https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
+        # helm repo update
+        # helm install oran-smo smo/smo --namespace nonrtric -f $OVERRIDEYAML --create-namespace
+    helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+fi
 
 check_for_secrets() {
     try=0

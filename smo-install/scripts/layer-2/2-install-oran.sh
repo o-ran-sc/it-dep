@@ -44,6 +44,10 @@ fi
 
 timestamp=$(date +%s)
 
+echo "Pre configuring SMO ..."
+../sub-scripts/preconfigure-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+echo "SMO pre configuration done."
+
 echo "Starting ONAP & NONRTRIC namespaces ..."
 ../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
 ../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp

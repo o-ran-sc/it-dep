@@ -54,8 +54,8 @@ global:
   debugEnabled: false
 
   mariadbGalera:
-    useOperator: false
-    enableServiceAccount: true
+    useOperator: true
+    enableServiceAccount: false
 
 #################################################################
 # Enable/disable and configure helm charts (ie. applications)
@@ -145,6 +145,11 @@ dcaegen2-services:
 mariadb-galera:
   enabled: true
   replicaCount: 1
+  mariadbOperator:
+    persistence:
+      storageClassName: mariadb-galera-sc
+    galera:
+      enabled: false
 policy:
   enabled: true
   policy-api:

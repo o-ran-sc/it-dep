@@ -1,0 +1,10 @@
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Fri, 25 Apr 2025 13:01:40 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14343
+Comments-Total: 2
+Comments-Unresolved: 1
+Project: it/dep
+Branch: refs/heads/master

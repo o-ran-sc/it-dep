@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a264acd_ae8343da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-04-25T13:00:33Z",
+      "side": 1,
+      "message": "Good. Thanks.",
+      "revId": "3abbac05b472a46959f15b171785224b9a367727",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f940a3ec_254adde3",
+        "filename": "smo-install/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-04-25T13:00:33Z",
+      "side": 1,
+      "message": "Typo - Controls \n... But can easily update in the next review.",
+      "range": {
+        "startLine": 12,
+        "startChar": 89,
+        "endLine": 12,
+        "endChar": 99
+      },
+      "revId": "3abbac05b472a46959f15b171785224b9a367727",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf646ee_99a4060f",
+        "filename": "smo-install/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-04-25T13:00:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 33
+      },
+      "revId": "3abbac05b472a46959f15b171785224b9a367727",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

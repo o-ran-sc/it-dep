@@ -16,10 +16,32 @@
 # ============LICENSE_END============================================
 #
 
+# Check whether k8s is multinode or not and provide warning
+if [ $(kubectl get nodes --no-headers | wc -l) -gt 1 ]; then
+    echo "----------------------------------- WARNING!!! -------------------------------------------"
+    echo "This is a multi-node cluster."
+    echo "----------------------------------- Node Details  -----------------------------------------"
+    kubectl get nodes
+    echo "-------------------------------------------------------------------------------------------"
+    echo "This installation uses /dockerdata-nfs as a volume mount point."
+    echo "Each application creates its own sub-directory under /dockerdata-nfs."
+    echo "The file permission of the sub-directory should be set to 777. "
+    echo "Setting the permission to 777 is required for the application to work properly."
+    echo "Hence, the following command should be run on all nodes in the cluster."
+    echo "-------------------------------------------------------------------------------------------"
+    echo "sudo mkdir -p /dockerdata-nfs/onap"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/mariadb"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data"
+    echo "sudo chmod -R 777 /dockerdata-nfs"
+    echo "-------------------------------------------------------------------------------------------"
+fi
+
 # This needs to be done on all nodes in case of multi-node setup
 sudo mkdir -p /dockerdata-nfs/onap
 sudo mkdir -p /dockerdata-nfs/onap/mariadb
 sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0
+sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data
 sudo chmod -R 777 /dockerdata-nfs
 
 # Mariadb operator installation

@@ -77,6 +77,20 @@ else
     helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
 fi
 
+
+check_for_secrets() {
+    try=0
+    retries=60
+    until (kubectl get secret -n onap | grep -P "\b$1\b") >/dev/null 2>&1; do
+        try=$(($try + 1))
+        [ $try -gt $retries ] && exit 1
+        echo "$1 not found. Retry $try/$retries"
+        sleep 10
+    done
+    echo "$1 found"
+}
+
+
 # Copying kafka secrets from onap namespace
 # SMO installation uses ONAP strimzi kafka
 # All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace

@@ -5,6 +5,22 @@ This project uses different helm charts from different Linux Foundation projects
 <p>It contains also provisioning scripts that can be used to bootstrap the platform and execute test use cases, network simulators, a1 simulators, cnf network simulators, etc ...</p>
 
 # Quick Installation on existing kubernetes
+
+## Installation flavours and configurations
+Directory "smo-install/helm-override" contains different flavours of installations. One of these flavours can be used for the installation.
+
+Each directory inside "smo-install/helm-override" contains a onap-override.yaml file. It controlls the configuration of the ONAP components.
+and oran-override.yaml controlls the configuration of the O-RAN(NONRTIRC/SMO) components.
+
+Any number of flavours can be created each flavour can have its own configuration. It should follow the same structure as the default flavour.
+
+The default flavour is "default".
+
+Flavour name should be used as the directory name. It can be provided as an argument to the script.
+
+```./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR> <MODE>```
+
+
 ## Release Mode Installation
 
 This is the default mode of installation. Building the charts are not required in release mode.
@@ -59,7 +75,7 @@ Charts can be build using the below command,
 
 The below command can be used for the smo deployment.
 
-```./dep/smo-install/scripts/layer-2/2-install-oran.sh dev```
+```./dep/smo-install/scripts/layer-2/2-install-oran.sh default dev```
 
 Verify pods:
 

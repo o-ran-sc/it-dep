@@ -33,6 +33,8 @@ if [ $(kubectl get nodes --no-headers | wc -l) -gt 1 ]; then
     echo "sudo mkdir -p /dockerdata-nfs/onap/mariadb"
     echo "sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0"
     echo "sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/kafka-0"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/zk-0"    
     echo "sudo chmod -R 777 /dockerdata-nfs"
     echo "-------------------------------------------------------------------------------------------"
 fi
@@ -42,6 +44,8 @@ sudo mkdir -p /dockerdata-nfs/onap
 sudo mkdir -p /dockerdata-nfs/onap/mariadb
 sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0
 sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data
+sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/kafka-0
+sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/zk-0
 sudo chmod -R 777 /dockerdata-nfs
 
 # Mariadb operator installation

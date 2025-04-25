@@ -231,21 +231,3 @@ sdnc:
 strimzi:
   enabled: true
   replicaCount: 1
-  # This runs the kafka container with root privileges
-  # This is required because of the permission issues with the volume mount
-  # This should be re-eveluated once the permission issues are resolved
-  kafka:
-    template:
-      kafkaContainer:
-        securityContext:
-          runAsNonRoot: false
-          runAsUser: 0
-  # This runs the zookeeper container with root privileges
-  # This is required because of the permission issues with the volume mount
-  # This should be re-eveluated once the permission issues are resolved
-  zookeeper:
-    template:
-      zookeeperContainer:
-        securityContext:
-          runAsNonRoot: false
-          runAsUser: 0

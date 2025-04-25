@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb7c0707_65b65a5a",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-04-25T09:31:31Z",
+      "side": 1,
+      "message": "If still not found after 600 sec?",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 19
+      },
+      "revId": "edbf45929856659dde6796386307d952c1182cdf",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

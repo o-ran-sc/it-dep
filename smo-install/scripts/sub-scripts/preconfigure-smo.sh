@@ -52,8 +52,8 @@ sudo chmod -R 777 /dockerdata-nfs
 kubectl create ns mariadb-operator
 helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
 helm repo update
-helm install mariadb-operator-crds mariadb-operator/mariadb-operator-crds
-helm install mariadb-operator mariadb-operator/mariadb-operator
+helm install mariadb-operator-crds mariadb-operator/mariadb-operator-crds -n mariadb-operator
+helm install mariadb-operator mariadb-operator/mariadb-operator -n mariadb-operator
 kubectl wait deployment mariadb-operator -n mariadb-operator --for=condition=available --timeout=120s
 
 # K8s Volume creation as required

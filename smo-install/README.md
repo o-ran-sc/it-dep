@@ -9,8 +9,8 @@ This project uses different helm charts from different Linux Foundation projects
 ## Installation flavours and configurations
 Directory "smo-install/helm-override" contains different flavours of installations. One of these flavours can be used for the installation.
 
-Each directory inside "smo-install/helm-override" contains a onap-override.yaml file. It controlls the configuration of the ONAP components.
-and oran-override.yaml controlls the configuration of the O-RAN(NONRTIRC/SMO) components.
+Each directory inside "smo-install/helm-override" contains a onap-override.yaml file. It controls the configuration of the ONAP components.
+and oran-override.yaml controls the configuration of the O-RAN(NONRTIRC/SMO) components.
 
 Any number of flavours can be created each flavour can have its own configuration. It should follow the same structure as the default flavour.
 

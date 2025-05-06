@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.       #
+#   Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -21,7 +21,7 @@
 policy-apex-pdp:
   AefProfiles:
   - interfaceDescriptions:
-    - ipv4Addr: "policy-apex-pdp.nonrtric.svc.cluster.local"
+    - ipv4Addr: "policy-apex-pdp.onap.svc.cluster.local"
       port: 6969
       securityMethods:
       - PKI
@@ -42,7 +42,7 @@ policy-apex-pdp:
 policy-api:
   AefProfiles:
   - interfaceDescriptions:
-    - ipv4Addr: "policy-api.nonrtric.svc.cluster.local"
+    - ipv4Addr: "policy-api.onap.svc.cluster.local"
       port: 6969
       securityMethods:
       - PKI
@@ -63,11 +63,11 @@ policy-api:
 policy-pap:
   AefProfiles:
   - interfaceDescriptions:
-    - ipv4Addr: "policy-pap.nonrtric.svc.cluster.local"
+    - ipv4Addr: "policy-pap.onap.svc.cluster.local"
       port: 6969
       securityMethods:
       - PKI
-    - ipv4Addr: "policy-pap.nonrtric.svc.cluster.local"
+    - ipv4Addr: "policy-pap.onap.svc.cluster.local"
       port: 5005
       securityMethods:
       - PSK
@@ -88,11 +88,11 @@ policy-pap:
 sdnc-oam:
   AefProfiles:
   - interfaceDescriptions:
-    - ipv4Addr: "sdnc-oam.nonrtric.svc.cluster.local"
+    - ipv4Addr: "sdnc-oam.onap.svc.cluster.local"
       port: 8282
       securityMethods:
       - PKI
-    - ipv4Addr: "sdnc-oam.nonrtric.svc.cluster.local"
+    - ipv4Addr: "sdnc-oam.onap.svc.cluster.local"
       port: 8202
       securityMethods:
       - PSK
@@ -113,7 +113,7 @@ sdnc-oam:
 sdnc-web:
   AefProfiles:
   - interfaceDescriptions:
-    - ipv4Addr: "sdnc-web.nonrtric.svc.cluster.local"
+    - ipv4Addr: "sdnc-web.onap.svc.cluster.local"
       port: 8080
       securityMethods:
       - PKI
@@ -130,3 +130,108 @@ sdnc-web:
           ResourceName: root
           Uri: "/"
   ApiName: sdnc-web-http
+
+cps-core:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "cps-core.onap.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: cps-core-http
+
+ncmp-dmi-plugin:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "ncmp-dmi-plugin.onap.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: ncmp-dmi-plugin-http
+
+dcae-ves-collector:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "dcae-ves-collector.onap.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: dcae-ves-collector-http
+
+topology-exposure:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "topology-exposure.smo.svc.cluster.local"
+      port: 8080
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: topology-exposure-http
+
+influxdb2:
+  AefProfiles:
+  - interfaceDescriptions:
+    - ipv4Addr: "influxdb2.smo.svc.cluster.local"
+      port: 8086
+      securityMethods:
+      - PKI
+    Versions:
+      - ApiVersion: ""
+        Resources:
+        - CommType: REQUEST_RESPONSE
+          Operations:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          - PUT
+          ResourceName: root
+          Uri: "/"
+  ApiName: influxdb2-http

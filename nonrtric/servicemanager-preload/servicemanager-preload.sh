@@ -314,6 +314,13 @@ function find_running_services_from_config() {
                 result+="$service "
             else
                 >&2 echo "Service $service is not found in onap"
+                SERVICE_STATUS=$(kubectl get service "$service" -n smo)
+                if [ $? = 0 ]; then
+                    >&2 echo "Service $service is found in smo"
+                    result+="$service "
+                else
+                    >&2 echo "Service $service is not found in smo"
+                fi
             fi
         fi
     done

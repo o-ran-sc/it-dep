@@ -13,14 +13,41 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  ============LICENSE_END=================================================
-#
 
 apiVersion: v1
-kind: ConfigMap
+kind: ServiceAccount
 metadata:
-  name: strimzi-patch-config
+  name: policy-kafkauser-patch-sa
+  namespace: smo
   annotations:
     "helm.sh/hook": pre-install
-    "helm.sh/hook-weight": "2"
-data:
-{{ tpl (.Files.Glob "resources/patch-strimzi-kafka.sh").AsConfig . | indent 2 }}
+    "helm.sh/hook-weight": "1"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: policy-kafkauser-patch-role
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+rules:
+  - apiGroups:      ['kafka.strimzi.io']
+    resources:      ['kafkausers']
+    verbs:          ["get","list","watch","patch","update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: policy-kafkauser-patch-rb
+  namespace: onap
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: policy-kafkauser-patch-role
+subjects:
+- kind: ServiceAccount
+  name: policy-kafkauser-patch-sa
+  namespace: smo

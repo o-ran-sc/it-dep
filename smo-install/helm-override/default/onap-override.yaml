@@ -148,6 +148,7 @@ mariadb-galera:
   enabled: true
   replicaCount: 1
   mariadbOperator:
+    appVersion: 11.1.2
     persistence:
       storageClassName: mariadb-galera-sc
     galera:
@@ -193,8 +194,7 @@ sdnc:
   enabled: true
   replicaCount: 1
   elasticsearch:
-    master:
-      replicaCount: 1
+    enabled: false
   mysql:
     replicaCount: 1
   ueb-listener:
@@ -228,6 +228,8 @@ sdnc:
         address: dcae-ves-collector.onap
         port: 8443
         eventLogMsgDetail: LONG
+      mariadb:
+        enabled: true
 strimzi:
   enabled: true
   replicaCount: 1

@@ -1,0 +1,12 @@
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: John Keeney <john.keeney@est.tech>
+Code-Review+1: Saul Gill <saul.gill@est.tech>
+Verified+1: ORAN Jobbuilder <releng+oran-jobbuilder@linuxfoundation.org>
+Verified+1: Matthew Watkins <mwatkins@linuxfoundation.org>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Tue, 13 May 2025 13:12:26 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14398
+Comments-Total: 3
+Project: it/dep
+Branch: refs/heads/master

@@ -33,35 +33,6 @@ if ! command -v yq > /dev/null 2>&1; then
     sudo snap install yq --channel=v4/stable
 fi
 
-INSTALL_KONG=$(cat $OVERRIDEYAML | yq e '.nonrtric.installKong' -)
-if [ $? -ne 0 ] || [ -z "$INSTALL_KONG"  ]; then
-    echo "Error: failed to parse installKong from YAML with yq. Aborting install."
-    exit 1
-fi
-
-INSTALL_CAPIF=$(cat $OVERRIDEYAML | yq e '.nonrtric.installCapifcore' -)
-if [ $? -ne 0 ] || [ -z "$INSTALL_CAPIF"  ]; then
-    echo "Error: failed to parse installCapifcore from YAML with yq. Aborting install."
-    exit 1
-fi
-
-INSTALL_SERVICEMANAGER=$(cat $OVERRIDEYAML | yq e '.nonrtric.installServicemanager' -)
-if [ $? -ne 0 ] || [ -z "$INSTALL_SERVICEMANAGER"  ]; then
-    echo "Error: failed to parse installServicemanager from YAML with yq. Aborting install."
-    exit 1
-fi
-
-if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    if [ "$INSTALL_KONG" == "false" ]; then
-        echo "Error: INSTALL_KONG must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
-        exit 1
-    fi
-    if [ "$INSTALL_CAPIF" == "false" ]; then
-        echo "Error: INSTALL_CAPIF must be true if INSTALL_SERVICEMANAGER is true. Aborting install."
-        exit 1
-    fi
-fi
-
 MODE=$2
 
 if [ "$MODE" == "dev" ]; then
@@ -112,13 +83,4 @@ else
         check_for_secrets $secret
         kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n nonrtric -f -
     done
-fi
-
-
-if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    pushd ../../../nonrtric/servicemanager-preload
-    # Send stderr to /dev/null to turn off chatty logging
-    ./servicemanager-preload.sh config-nonrtric.yaml 2>/dev/null
-    ./servicemanager-preload.sh config-smo.yaml 2>/dev/null
-    popd
 fi

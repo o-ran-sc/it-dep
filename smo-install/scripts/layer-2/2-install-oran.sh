@@ -6,7 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
-# Modifcation Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
+# Modification Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,6 +52,10 @@ echo "Starting ONAP & NONRTRIC namespaces ..."
 ../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
 ../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
 ../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+
+echo "Starting SMO Post Configuration ..."
+../sub-scripts/postconfigure-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+echo "SMO post configuration done."
 
 kubectl get pods -n onap
 kubectl get pods -n nonrtric

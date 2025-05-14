@@ -30,7 +30,7 @@ cd $SCRIPT_PATH
 
 MODE=$2
 
-if [ MODE == "dev" ]; then
+if [ "$MODE" == "dev" ]; then
     echo "### Installing Strimzi Kafka Operator (Dev Mode) ###"
     helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.44.0.tgz local
     helm repo update

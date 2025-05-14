@@ -64,7 +64,7 @@ fi
 
 MODE=$2
 
-if [ MODE == "dev" ]; then
+if [ "$MODE" == "dev" ]; then
     echo "Installing NONRTRIC in dev mode"
     helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
 else

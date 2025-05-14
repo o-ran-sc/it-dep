@@ -27,7 +27,7 @@ fi
 OVERRIDEYAML=$1
 MODE=$2
 
-if [ MODE == "dev" ]; then
+if [ "$MODE" == "dev" ]; then
     echo "Installing SMO in dev mode"
     helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
 else

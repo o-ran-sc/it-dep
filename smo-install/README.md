@@ -35,12 +35,28 @@ Release mode uses the helm charts from the nexus helm repositories as pointed be
 * Kubernetes 1.26 or later
 * Helm deploy/undeploy plugin
 * Helm cm-push plugin
+* yq
 
 ### Installation
 
 Clone the repository using the command below,
 
 ```git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"```
+
+---
+**NOTE**
+The upload of the HELM charts for NONRTRIC and SMO components is currently in progress. Until the charts are available, these components should continue to be installed using the development mode.
+---
+
+Use the below command to setup chartmuseum and helm
+
+```./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh```
+
+```./dep/smo-install/scripts/layer-0/0-setup-helm3.sh```
+
+Charts can be build using the below command,
+
+```./dep/smo-install/scripts/layer-1/1-build-all-charts.sh```
 
 Once the pre-requisites are available, The below command can be used for the smo deployment.
 

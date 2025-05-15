@@ -61,7 +61,7 @@ spec:
       - name: dfc
         securityContext:
           runAsUser: 0     # Need to run as root - needed when writing to hostpath
-        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-datafilecollector:1.1.0
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-datafilecollector:1.2.0
         # image: aravindtga/dfc:1.2.0-SNAPSHOT
         imagePullPolicy: Always
         ports:

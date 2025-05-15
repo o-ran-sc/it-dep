@@ -50,7 +50,7 @@ spec:
           subPath: init-wait.sh
       containers:
       - name: kafka-producer-pm-json2influx
-        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-pm-file-converter:1.1.1
+        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-pm-file-converter:1.2.0
         imagePullPolicy: Always
         ports:
         - name: http

@@ -192,6 +192,7 @@ policy:
     enabled: true
 sdnc:
   enabled: true
+  image: onap/sdnc-image:2.6.1
   replicaCount: 1
   elasticsearch:
     enabled: false
@@ -199,12 +200,16 @@ sdnc:
     replicaCount: 1
   ueb-listener:
     enabled: false
+    image: onap/sdnc-ueb-listener-image:2.6.1
   sdnc-ansible-server:
     enabled: true
+    image: onap/sdnc-ansible-server-image:2.6.1
   dgbuilder:
     enabled: true
   cds:
     enabled: false
+  sdnc-web:
+    image: onap/sdnc-web-image:2.6.1
   config:
     sdnr:
       enabled: true
@@ -212,22 +217,14 @@ sdnc:
       # mode: dm - SDNC contains sdnr device manager + ODLUX components
       mode: dm
       # sdnronly: true starts sdnc container with odl and sdnrwt features only
-      sdnronly: false
+      sdnronly: true
       sdnrdbTrustAllCerts: true
       mountpointRegistrarEnabled: true
       mountpointStateProviderEnabled: true
       netconfCallHome:
         enabled: true
-      vesCollector:
+      kafka:
         enabled: true
-        tls:
-          enabled: true
-        trustAllCertificates: true
-        username: sample1
-        password: sample1
-        address: dcae-ves-collector.onap
-        port: 8443
-        eventLogMsgDetail: LONG
       mariadb:
         enabled: true
 strimzi:

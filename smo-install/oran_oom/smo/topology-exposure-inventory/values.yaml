@@ -130,3 +130,32 @@ topology-ingestion:
   kafkaTopic:
     - name: *topologyIngestionTopic
 
+ncmp-to-teiv-adapter:
+  name: ncmp-to-teiv-adapter
+  imagePullPolicy: IfNotPresent
+  image:
+    registry: "nexus3.o-ran-sc.org:10003"
+    name: o-ran-sc/smo-ncmp-to-teiv-adapter
+    tag: 0.0.1-SNAPSHOT
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        internalPort: "8080"
+        targetPort: "8080"
+        port: 8080
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  persistence:
+    size: 2Gi
+    storageClassName: standard
+  kafkaUser:
+    authenticationType: scram-sha-512
+    acls:
+      - name: *topologyIngestionTopic
+        type: topic
+        operations: [Write]

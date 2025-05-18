@@ -29,7 +29,7 @@ MODE=$2
 
 if [ "$MODE" == "dev" ]; then
     echo "Installing SMO in dev mode"
-    helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+    helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML --timeout 15m
 else
     echo "Installing SMO in release mode"
     # This following should be modified once the charts are uploaded and available in the nexus repository
@@ -37,7 +37,7 @@ else
         # helm repo add smo https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
         # helm repo update
         # helm install oran-smo smo/smo --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm install oran-smo local/smo --namespace smo -f $OVERRIDEYAML
+    helm install oran-smo local/smo --namespace smo -f $OVERRIDEYAML  --timeout 15m
 fi
 
 check_for_secrets() {

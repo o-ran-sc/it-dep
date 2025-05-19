@@ -16,6 +16,23 @@
       "message": "This should serve as first version k8s installation as a follow up discussion to have uniform cloud env for integration.",
       "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0df78ba_19ce74e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000475
+      },
+      "writtenOn": "2025-05-19T10:11:43Z",
+      "side": 1,
+      "message": "Are we going to use this script across project ?",
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

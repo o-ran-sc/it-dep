@@ -157,5 +157,7 @@ smo:
       dependsOn: smo.installTeiv
     - name: topology-ingestion-ku
       dependsOn: smo.installTeiv
+    - name: ncmp-to-teiv-adapter-ku
+      dependsOn: smo.installTeiv
     - name: redpanda-console-ku
       dependsOn: nonrtric.installRanpm

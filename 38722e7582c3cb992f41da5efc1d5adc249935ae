@@ -33,6 +33,24 @@
       "message": "Are we going to use this script across project ?",
       "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0accaf7a_367f51c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-05-20T03:11:09Z",
+      "side": 1,
+      "message": "As per discussion https://lf-o-ran-sc.atlassian.net/wiki/spaces/RSAC/pages/419725360/Release+M+Software+Versions, my idea is to have single script for base k8s installation for projects which requires to have k8s. O-Cloud and OKD will also be the options. This will make integration testing simpler.\n\nWe can modify the script structure later to accomodate more granularity for e.g pre-flight HW configuration, setup library dependencies, etc.",
+      "parentUuid": "c0df78ba_19ce74e0",
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

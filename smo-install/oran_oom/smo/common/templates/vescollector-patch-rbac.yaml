@@ -31,8 +31,8 @@ metadata:
     "helm.sh/hook": pre-install
     "helm.sh/hook-weight": "1"
 rules:
-  - apiGroups:      ['kafka.strimzi.io']
-    resources:      ['kafkausers']
+  - apiGroups:      ['apps']
+    resources:      ['deployments']
     verbs:          ["get","list","watch","patch","update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

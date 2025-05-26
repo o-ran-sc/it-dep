@@ -34,7 +34,9 @@ if [ $(kubectl get nodes --no-headers | wc -l) -gt 1 ]; then
     echo "sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0"
     echo "sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data"
     echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/kafka-0"
-    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/zk-0"    
+    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/zk-0"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/controller-0"
+    echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/broker-0"
     echo "sudo chmod -R 777 /dockerdata-nfs"
     echo "-------------------------------------------------------------------------------------------"
 fi
@@ -46,6 +48,8 @@ sudo mkdir -p /dockerdata-nfs/onap/elastic-master-0
 sudo mkdir -p /dockerdata-nfs/onap/cps-temporal/data
 sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/kafka-0
 sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/zk-0
+sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/controller-0
+sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/broker-0
 sudo chmod -R 777 /dockerdata-nfs
 
 # Mariadb operator installation
@@ -59,18 +63,6 @@ kubectl wait deployment mariadb-operator -n mariadb-operator --for=condition=ava
 # K8s Volume creation as required
 kubectl apply -f ../packages/pre-configuration/mariadb-galera-pv.yaml
 
-# Modify the volume permission as required
-# kubectl apply -f ../packages/pre-configuration/volume-permission-init.yaml
-
-# #Wait for volume permission init job to complete
-# kubectl wait job.batch/volume-permission-init --for condition=complete --timeout 300s
-
-# #Delete the job and pvc
-# kubectl delete job volume-permission-init
-# kubectl delete pvc mariadb-galera-pvc
-
-# #Patch the PV to be available for next use
-# kubectl patch pv mariadb-galera-pv -p '{"spec":{"claimRef": null}}'
 
 
 

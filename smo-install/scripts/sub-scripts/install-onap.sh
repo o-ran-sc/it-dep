@@ -32,9 +32,9 @@ MODE=$2
 
 if [ "$MODE" == "dev" ]; then
     echo "### Installing Strimzi Kafka Operator (Dev Mode) ###"
-    helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.44.0.tgz local
+    helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.45.0.tgz local
     helm repo update
-    helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
+    helm install strimzi-kafka-operator local/strimzi-kafka-operator --namespace strimzi-system --version 0.45.0 --set watchAnyNamespace=true --create-namespace
     echo "Waiting for Strimzi Kafka Operator to be ready..."
     kubectl wait --for=condition=available --timeout=600s deployment/strimzi-cluster-operator -n strimzi-system
 
@@ -46,7 +46,7 @@ else
     helm repo add strimzi https://strimzi.io/charts/
     helm repo update
 
-    helm install strimzi-kafka-operator strimzi/strimzi-kafka-operator --namespace strimzi-system --version 0.44.0 --set watchAnyNamespace=true --create-namespace
+    helm install strimzi-kafka-operator strimzi/strimzi-kafka-operator --namespace strimzi-system --version 0.45.0 --set watchAnyNamespace=true --create-namespace
     echo "Waiting for Strimzi Kafka Operator to be ready..."
     kubectl wait --for=condition=available --timeout=600s deployment/strimzi-cluster-operator -n strimzi-system
 

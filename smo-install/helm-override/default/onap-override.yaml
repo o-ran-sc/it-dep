@@ -188,8 +188,6 @@ policy:
         baseUrl: http://policymanagementservice.nonrtric:8081
   policy-clamp-ac-kserve-ppnt:
     enabled: true
-  policy-clamp-ac-dme-ppnt:
-    enabled: true
 sdnc:
   enabled: true
   image: onap/sdnc-image:2.6.1
@@ -205,8 +203,10 @@ sdnc:
     enabled: true
     image: onap/sdnc-ansible-server-image:2.6.1
   dgbuilder:
-    enabled: true
+    enabled: false
   cds:
+    enabled: false
+  network-name-gen:
     enabled: false
   sdnc-web:
     image: onap/sdnc-web-image:2.6.1

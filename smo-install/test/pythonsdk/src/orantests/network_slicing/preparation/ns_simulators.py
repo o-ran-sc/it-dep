@@ -41,7 +41,7 @@ class NsSimulators():
         logger.info("Start the network slicing simulators")
         cmd = "kubectl create namespace nssimulators"
         check_output(cmd, shell=True).decode('utf-8')
-        cmd = f"helm install --debug ns-simulators local/ns-simulators --namespace nssimulators"
+        cmd = f"helm upgrade --install --debug ns-simulators local/ns-simulators --namespace nssimulators"
         check_output(cmd, shell=True).decode('utf-8')
 
     def start_and_wait_ns_simulators(self):

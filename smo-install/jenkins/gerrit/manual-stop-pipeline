@@ -50,6 +50,7 @@ lock('smo') {
             stage('Stop SMO') {
               sh './smo-install/scripts/sub-scripts/uninstall-nonrtric.sh'
               sh './smo-install/scripts/sub-scripts/uninstall-onap.sh'
+              sh './smo-install/scripts/sub-scripts/uninstall-smo.sh'
             }
     
           }

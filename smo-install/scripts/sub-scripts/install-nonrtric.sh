@@ -29,8 +29,8 @@ echo  '### Installing ORAN NONRTRIC part ###'
 OVERRIDEYAML=$1
 
 if ! command -v yq > /dev/null 2>&1; then
-    echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq &&\
+    chmod +x /usr/local/bin/yq
 fi
 
 MODE=$2

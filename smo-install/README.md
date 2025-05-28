@@ -62,6 +62,11 @@ Once the pre-requisites are available, The below command can be used for the smo
 
 ```./dep/smo-install/scripts/layer-2/2-install-oran.sh```
 
+---
+**WARNING**
+Sometimes ONAP mariadb pod may not come up properly due to the slowness in pulling the container image. In such cases, you can try with re-installation and it should work fine.
+---
+
 Verify pods:
 
 ```kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n smo```

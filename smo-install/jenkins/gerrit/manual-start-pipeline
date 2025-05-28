@@ -16,7 +16,7 @@ podTemplate(yaml: '''
     def proxies=''
     stage('Checkout') {
       echo 'printenv'
-      checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: 'https://gerrit.o-ran-sc.org/r/it/dep']], branches: [[name: env.BRANCH]], extensions: [[$class: 'SubmoduleOption', recursiveSubmodules: true]]], poll: false
+      checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: env.REPO]], branches: [[name: env.BRANCH]], extensions: [[$class: 'SubmoduleOption', recursiveSubmodules: true]]], poll: false
     }
       container('jenkins-ubuntu') {
         stage ('Proxy settings') {

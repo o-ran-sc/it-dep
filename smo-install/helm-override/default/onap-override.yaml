@@ -45,6 +45,9 @@ global:
   # image pull policy
   pullPolicy: IfNotPresent
 
+  # Set to true to enable prometheus monitoring for all ONAP components
+  prometheusEnabled: false
+
   # override default mount path root directory
   # referenced by persistent volumes and log files
   persistence:
@@ -188,6 +191,8 @@ policy:
         baseUrl: http://policymanagementservice.nonrtric:8081
   policy-clamp-ac-kserve-ppnt:
     enabled: true
+  policy-opa-pdp:
+    enabled: false
 sdnc:
   enabled: true
   image: onap/sdnc-image:2.6.1

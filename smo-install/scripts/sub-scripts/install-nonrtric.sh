@@ -45,24 +45,15 @@ fi
 
 if [ "$MODE" == "dev" ]; then
     echo "Installing NONRTRIC in dev mode"
-<<<<<<< HEAD
-    helm upgrade --install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
-=======
-    helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
->>>>>>> gerrit/master
+    helm upgrade --install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
 else
     echo "Installing NONRTRIC in release mode"
     # This following should be modified once the charts are uploaded and available in the nexus repository
     # Till then, we are using the local chart
         # helm repo add nonrtric https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
         # helm repo update
-<<<<<<< HEAD
-        # helm upgrade --install oran-nonrtric nonrtric/nonrtric --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm upgrade --install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
-=======
         # helm install oran-nonrtric nonrtric/nonrtric --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
->>>>>>> gerrit/master
+    helm upgrade --install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
 fi
 
 

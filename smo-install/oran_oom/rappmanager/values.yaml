@@ -46,7 +46,7 @@ ingress:
 rappmanager:
   acm:
     username: cnVudGltZVVzZXI=
-    password: emIhWHp0RzM0
+    password: Wmlib1RpcGRaZXl0OV0=
 
 application:
   rappmanager:

@@ -25,6 +25,10 @@ if [ $(kubectl get nodes --no-headers | wc -l) -gt 1 ]; then
     echo "-------------------------------------------------------------------------------------------"
     echo "This installation uses /dockerdata-nfs as a volume mount point."
     echo "Each application creates its own sub-directory under /dockerdata-nfs."
+    echo "-------------------------------------------------------------------------------------------"
+    echo "If there is any previous installation, please ensure that the /dockerdata-nfs directory is empty."
+    echo "Leaving any previous data in this directory may cause issues with the new installation."
+    echo "-------------------------------------------------------------------------------------------"
     echo "The file permission of the sub-directory should be set to 777. "
     echo "Setting the permission to 777 is required for the application to work properly."
     echo "Hence, the following command should be run on all nodes in the cluster."
@@ -38,6 +42,13 @@ if [ $(kubectl get nodes --no-headers | wc -l) -gt 1 ]; then
     echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/controller-0"
     echo "sudo mkdir -p /dockerdata-nfs/onap/strimzi-kafka/broker-0"
     echo "sudo chmod -R 777 /dockerdata-nfs"
+    echo "-------------------------------------------------------------------------------------------"
+else
+    echo "This is a single-node cluster."
+    echo "The installation will proceed with the assumption that /dockerdata-nfs is available on this node."
+    echo "------------------------------------- WARNING!!! -------------------------------------------"
+    echo "If there is any previous installation, please ensure that the /dockerdata-nfs directory is empty."
+    echo "Leaving any previous data in this directory may cause issues with the new installation."
     echo "-------------------------------------------------------------------------------------------"
 fi
 

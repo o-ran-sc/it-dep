@@ -40,7 +40,7 @@ if [ "$MODE" == "dev" ]; then
 
     kubectl create namespace onap
     echo '### Installing ONAP part (Dev Mode) ###'
-    helm deploy --debug onap local/onap --namespace onap -f $1 --set global.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set dmaap.message-router.message-router-zookeeper.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set dmaap.message-router.message-router-kafka.persistence.mountPath="/dockerdata-nfs/deployment-$3"
+    helm deploy --debug onap local/onap --namespace onap -f $1
 else
     echo "### Installing Strimzi Kafka Operator (Release Mode) ###"
     helm repo add strimzi https://strimzi.io/charts/

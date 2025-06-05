@@ -39,8 +39,8 @@ readiness:
 ingress:
   enabled: false
 security:
-  username: cGFydGljaXBhbnRVc2VyCg==
-  password: emIhWHp0RzM0
+  username: cnVudGltZVVzZXI=
+  password: Wmlib1RpcGRaZXl0OV0=
 
 componentName: &componentName dmeparticipant
 

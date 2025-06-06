@@ -29,8 +29,8 @@ echo  '### Installing ORAN NONRTRIC part ###'
 OVERRIDEYAML=$1
 
 if ! command -v yq > /dev/null 2>&1; then
-    echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq &&\
+    chmod +x /usr/local/bin/yq
 fi
 
 MODE=$2
@@ -45,7 +45,7 @@ fi
 
 if [ "$MODE" == "dev" ]; then
     echo "Installing NONRTRIC in dev mode"
-    helm install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
+    helm upgrade --install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
 else
     echo "Installing NONRTRIC in release mode"
     # This following should be modified once the charts are uploaded and available in the nexus repository
@@ -53,7 +53,7 @@ else
         # helm repo add nonrtric https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
         # helm repo update
         # helm install oran-nonrtric nonrtric/nonrtric --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
+    helm upgrade --install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3" --set kong.kongpv.enabled=$kongPvEnabled
 fi
 
 

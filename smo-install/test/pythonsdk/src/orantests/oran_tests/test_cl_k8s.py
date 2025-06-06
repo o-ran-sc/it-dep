@@ -94,7 +94,7 @@ def deploy_chartmuseum():
     cmd = "kubectl create namespace test"
     check_output(cmd, shell=True).decode('utf-8')
 
-    cmd = "helm install test test/chartmuseum --version 3.1.0 --namespace test --set env.open.DISABLE_API=false"
+    cmd = "helm upgrade --install test test/chartmuseum --version 3.1.0 --namespace test --set env.open.DISABLE_API=false"
     check_output(cmd, shell=True).decode('utf-8')
     wait(lambda: is_chartmuseum_up(), sleep_seconds=10, timeout_seconds=60, waiting_for="chartmuseum to be ready")
 

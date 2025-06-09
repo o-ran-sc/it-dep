@@ -18,8 +18,11 @@
 
 # Configure service manager with the installed services
 if ! command -v yq > /dev/null 2>&1; then
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.45.4"
     echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
+    chmod +x /usr/local/bin/yq
 fi
 
 OVERRIDEYAML=$1

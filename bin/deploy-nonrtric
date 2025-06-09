@@ -52,7 +52,10 @@ fi
 
 if ! command -v yq > /dev/null 2>&1; then
     echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.5.4"
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq &&\
+    chmod +x /usr/local/bin/yq
 fi
 
 INSTALL_KONG=$(cat $OVERRIDEYAML | yq e '.nonrtric.installKong' -)

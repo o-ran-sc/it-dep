@@ -49,7 +49,7 @@ class NetworkSimulators():
         logger.info("Start the network simulators")
         cmd = "kubectl create namespace network"
         check_output(cmd, shell=True).decode('utf-8')
-        cmd = f"helm install --debug oran-simulator local/ru-du-simulators --namespace network -f {self.resources_path}/network-simulators-topology/network-simulators-override.yaml -f {self.resources_path}/network-simulators-topology/network-simulators-topology-override.yaml"
+        cmd = f"helm upgrade --install --debug oran-simulator local/ru-du-simulators --namespace network -f {self.resources_path}/network-simulators-topology/network-simulators-override.yaml -f {self.resources_path}/network-simulators-topology/network-simulators-topology-override.yaml"
         check_output(cmd, shell=True).decode('utf-8')
 
     def start_and_wait_network_simulators(self):

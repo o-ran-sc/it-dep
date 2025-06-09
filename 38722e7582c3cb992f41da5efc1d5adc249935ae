@@ -105,6 +105,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "427304d3_e3698bda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-09T05:25:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "46d3899f_614122e8",
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f0d889a_918afc70",
@@ -118,6 +136,30 @@
       "writtenOn": "2025-06-03T13:33:45Z",
       "side": 1,
       "message": "Can be removed.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 177,
+        "endChar": 23
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5339aef1_41213c41",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-09T05:25:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1f0d889a_918afc70",
       "range": {
         "startLine": 158,
         "startChar": 0,
@@ -153,6 +195,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf7d458f_6646560e",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-09T05:25:30Z",
+      "side": 1,
+      "message": "currently it requires sudo. Have tested in jenkins and it works. the non-root approach i only can think of is by utilizing ansible. Do you have some suggestion to modify this script into non-root?",
+      "parentUuid": "8422d760_6d0f8f20",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 28
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2d25e2_14c2ddd6",
         "filename": "tools/setup_k8s/setup_k8s.sh",
         "patchSetId": 1
@@ -164,6 +230,30 @@
       "writtenOn": "2025-06-03T13:33:45Z",
       "side": 1,
       "message": "Can be an argument. If not available, fallback to default value.",
+      "range": {
+        "startLine": 237,
+        "startChar": 73,
+        "endLine": 237,
+        "endChar": 86
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d7b5597_aad0b56e",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-09T05:25:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b2d25e2_14c2ddd6",
       "range": {
         "startLine": 237,
         "startChar": 73,
@@ -187,6 +277,30 @@
       "writtenOn": "2025-06-03T13:33:45Z",
       "side": 1,
       "message": "Calico cni can be used ?\n\nCalico CNI worked out of the box for some cross cluster based networking when trying with Kind (Nephio) + containerd based k8s.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 103
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15be4c15_81f37a38",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-09T05:25:30Z",
+      "side": 1,
+      "message": "yes, but if you want us to refer to nephio, they use flannel in test-infra. PLease look at https://github.com/nephio-project/test-infra/blob/main/e2e/provision/playbooks/roles/kubeadm/defaults/main.yml",
+      "parentUuid": "611bbc2c_9f2aed55",
       "range": {
         "startLine": 248,
         "startChar": 0,

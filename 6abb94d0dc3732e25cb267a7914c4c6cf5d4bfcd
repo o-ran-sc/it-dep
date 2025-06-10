@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c247a6fb_7bbffeb3",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-06-10T14:33:23Z",
+      "side": 1,
+      "message": "Use specific version rather than \"latest\". This applies to other files as well.",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "6abb94d0dc3732e25cb267a7914c4c6cf5d4bfcd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8a7d0fc_d8a942c4",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-06-10T14:33:23Z",
+      "side": 1,
+      "message": "Binary should be identified based on the architecture of the machine. This applies to other files as well.",
+      "range": {
+        "startLine": 32,
+        "startChar": 66,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "6abb94d0dc3732e25cb267a7914c4c6cf5d4bfcd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

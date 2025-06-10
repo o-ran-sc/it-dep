@@ -219,6 +219,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dafe7fe_c3136afd",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-06-10T14:18:30Z",
+      "side": 1,
+      "message": "Using sudo is fine for this installation. There are some commands executed with sudo(\"sudo sysctl --system\") and the same command executed without sudo in the later section of this file(eg. line 207,216). It\u0027s better to have it consistent.",
+      "parentUuid": "cf7d458f_6646560e",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 28
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b2d25e2_14c2ddd6",
         "filename": "tools/setup_k8s/setup_k8s.sh",
         "patchSetId": 1
@@ -301,6 +325,30 @@
       "side": 1,
       "message": "yes, but if you want us to refer to nephio, they use flannel in test-infra. PLease look at https://github.com/nephio-project/test-infra/blob/main/e2e/provision/playbooks/roles/kubeadm/defaults/main.yml",
       "parentUuid": "611bbc2c_9f2aed55",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 103
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5862b39_12f5e902",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-06-10T14:18:30Z",
+      "side": 1,
+      "message": "Yes, Nephio test-infra uses flannel as cni. If you need to communicate between kind based cluster(Nephio) with containerd based cluster, Calico provides out of the box integration(if it is installed with containerd).",
+      "parentUuid": "15be4c15_81f37a38",
       "range": {
         "startLine": 248,
         "startChar": 0,

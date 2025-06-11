@@ -45,6 +45,54 @@
       },
       "revId": "6abb94d0dc3732e25cb267a7914c4c6cf5d4bfcd",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67aef9ee_8c5de55e",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002719
+      },
+      "writtenOn": "2025-06-11T11:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8a7d0fc_d8a942c4",
+      "range": {
+        "startLine": 32,
+        "startChar": 66,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "6abb94d0dc3732e25cb267a7914c4c6cf5d4bfcd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cb93b95_fbbe48f9",
+        "filename": "smo-install/scripts/sub-scripts/install-nonrtric.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002719
+      },
+      "writtenOn": "2025-06-11T11:09:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c247a6fb_7bbffeb3",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 56
+      },
+      "revId": "6abb94d0dc3732e25cb267a7914c4c6cf5d4bfcd",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -241,6 +241,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb6101b_5478f197",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-12T13:01:52Z",
+      "side": 1,
+      "message": "I change the approach to assuming the script executed with sudo, so i removed redundant sudo within the script for consistency. Hope this approach aligned with your suggestion",
+      "parentUuid": "1dafe7fe_c3136afd",
+      "range": {
+        "startLine": 207,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 28
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b2d25e2_14c2ddd6",
@@ -349,6 +373,30 @@
       "side": 1,
       "message": "Yes, Nephio test-infra uses flannel as cni. If you need to communicate between kind based cluster(Nephio) with containerd based cluster, Calico provides out of the box integration(if it is installed with containerd).",
       "parentUuid": "15be4c15_81f37a38",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 103
+      },
+      "revId": "38722e7582c3cb992f41da5efc1d5adc249935ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c9799b9_c2228063",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-12T13:01:52Z",
+      "side": 1,
+      "message": "OK. Replaced flannel with calico",
+      "parentUuid": "e5862b39_12f5e902",
       "range": {
         "startLine": 248,
         "startChar": 0,

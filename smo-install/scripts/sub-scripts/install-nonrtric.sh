@@ -92,3 +92,6 @@ else
         kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n nonrtric -f -
     done
 fi
+
+# Wait for the Kong deployment to be ready
+kubectl wait --for=condition=available deployment/oran-nonrtric-kong -n nonrtric

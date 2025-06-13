@@ -52,6 +52,7 @@ global:
   # referenced by persistent volumes and log files
   persistence:
     mountPath: /dockerdata-nfs
+    storageClass: &smo-sc smo-storage
 
   # flag to enable debugging - application support required
   debugEnabled: false
@@ -153,7 +154,7 @@ mariadb-galera:
   mariadbOperator:
     appVersion: 11.1.2
     persistence:
-      storageClassName: mariadb-galera-sc
+      storageClassName: *smo-sc
     galera:
       enabled: false
 postgres:

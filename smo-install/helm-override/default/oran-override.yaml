@@ -47,11 +47,11 @@ nonrtric:
   volume1:
     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
-    storageClassName: pms-storage
+    storageClassName: &smo-sc smo-storage
   volume2:
      # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
     size: 2Gi
-    storageClassName: ics-storage
+    storageClassName: *smo-sc
   # List of secrets to be copied from ONAP namespace to NONRTRIC
   # Based on the dependsOn value, the secrets will be copied to the SMO namespace
   secrets:
@@ -67,7 +67,7 @@ informationservice:
     # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
     # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be for instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
     size: 2Gi
-    storageClassName: ics-storage
+    storageClassName: *smo-sc
   ingress:
     enabled: true
 
@@ -78,7 +78,7 @@ policymanagementservice:
     # Either refer to a volume created under the nonrtric by storageClassName. Then the claimed size should be the same.
     # The alternative use a dynamic volume provisioner in the cluster. Storage class can then be fon instance 'standard' or 'gluster-fs' (depeneds on which classes that are available)
     size: 2Gi
-    storageClassName: pms-storage
+    storageClassName: *smo-sc
   ingress:
     enabled: true
 

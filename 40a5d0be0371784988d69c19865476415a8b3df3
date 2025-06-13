@@ -16,6 +16,23 @@
       "message": "i also added fix some nits. PTAL @aravindhan.a@est.tech",
       "revId": "40a5d0be0371784988d69c19865476415a8b3df3",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc8873c_91352631",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-06-13T02:35:53Z",
+      "side": 1,
+      "message": "this is an installation script that apart from main project. Should not trigger ORAN Jobbuilder to verify.",
+      "revId": "40a5d0be0371784988d69c19865476415a8b3df3",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

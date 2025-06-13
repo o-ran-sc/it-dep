@@ -1,6 +1,5 @@
 ################################################################################
-#   Copyright (c) 2021-2023 Nordix Foundation.                                 #
-#   Copyright (C) 2023-2025 OpenInfra Foundation Europe                        #
+#   Copyright (C) 2025 OpenInfra Foundation Europe                             #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -15,17 +14,17 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-kind: PersistentVolume
-apiVersion: v1
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
-  name: mariadb-galera-pv
-spec:
-  capacity:
-    storage: 3Gi
-  accessModes:
-    - ReadWriteOnce
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: /dockerdata-nfs/onap/mariadb
-  storageClassName: mariadb-galera-sc
+  annotations:
+    cas.openebs.io/config: |
+      - name: StorageType
+        value: "hostpath"
+      - name: BasePath
+        value: "/dockerdata/smo"
+    openebs.io/cas-type: local
+  name: smo-storage
+provisioner: openebs.io/local
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer

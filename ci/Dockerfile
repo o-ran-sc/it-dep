@@ -15,7 +15,7 @@
 #   limitations under the License.
 #
 ##############################################################################
-FROM ubuntu:18.04
+FROM ubuntu:24.04
 RUN apt-get update && apt-get -y install curl ca-certificates wget
 ARG HELMVERSION=v2.17.0
 # often times out during LF jenkins build

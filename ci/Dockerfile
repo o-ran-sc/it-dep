@@ -16,10 +16,10 @@
 #
 ##############################################################################
 FROM ubuntu:18.04
-RUN apt-get update && apt-get -y install curl ca-certificates wget
+RUN apt-get update && apt-get upgrade -y && apt-get -y install curl ca-certificates wget
 ARG HELMVERSION=v2.17.0
 # often times out during LF jenkins build
-RUN wget https://get.helm.sh/helm-${HELMVERSION}-linux-amd64.tar.gz && tar -xvf ../helm-${HELMVERSION}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/helm
+RUN wget -d https://get.helm.sh/helm-${HELMVERSION}-linux-amd64.tar.gz && tar -xvf ../helm-${HELMVERSION}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/helm
 RUN helm init -c --skip-repos
 ARG TGT=/tmp/it-dep
 COPY . $TGT

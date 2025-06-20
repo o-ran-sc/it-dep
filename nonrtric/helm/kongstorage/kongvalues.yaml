@@ -118,6 +118,8 @@ postgresql:
       postgresql: "5432"
   volumePermissions:
     enabled: true
+    image:
+      repository: bitnami/os-shell
     # This provides permission for the initcontainer to set the correct permissions
     containerSecurityContext:
       runAsNonRoot: false

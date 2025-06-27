@@ -77,6 +77,10 @@ spec:
         - mountPath: /token-cache
           name: token-cache-volume
         env:
+        - name: FILE_READY_EVENT_TOPIC
+          value: {{ .Values.fileReadyEventTopic | default "unauthenticated.VES_NOTIFICATION_OUTPUT" }}
+        - name: FILE_READY_MESSAGE_CLASS
+          value: {{ .Values.fileReadyMessageClass | default "" }}
         - name: APPID
           valueFrom:
             fieldRef:

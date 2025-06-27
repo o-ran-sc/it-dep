@@ -13,30 +13,41 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  ============LICENSE_END=================================================
-#
 
-global:
-  #Strimzi Kafka properties
-  useStrimziKafka: true
-
-# Strimzi Kafka config
-kafkaUser:
-  name: service-account-dfc
-  acls:
-    - name: osc-dmaap-adapter-unauthenticated.VES_NOTIFICATION_OUTPUT
-      type: group
-      operations: [Read]
-    - name: unauthenticated.VES_NOTIFICATION_OUTPUT
-      type: topic
-      operations: [Read]
-    - name: collected-file
-      type: topic
-      operations: [Read,Write]
-
-# This is a reference to the list of topics used by this component
-kafkaTopic:
-  - "unauthenticated.ves-notification-output"
-  - collected-file
-
-fileReadyEventTopic: "unauthenticated.VES_NOTIFICATION_OUTPUT"
-fileReadyMessageClass: ""
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: k8s-ppnt-patch-sa
+  namespace: smo
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: k8s-ppnt-patch-role
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+rules:
+  - apiGroups:      ['apps']
+    resources:      ['deployments']
+    verbs:          ["get","list","watch","patch","update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-ppnt-patch-rb
+  namespace: onap
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-ppnt-patch-role
+subjects:
+- kind: ServiceAccount
+  name: k8s-ppnt-patch-sa
+  namespace: smo

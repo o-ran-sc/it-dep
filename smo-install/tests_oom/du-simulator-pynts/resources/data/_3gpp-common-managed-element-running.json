@@ -1,0 +1,102 @@
+{
+    "_3gpp-common-managed-element:ManagedElement": [
+      {
+        "id": "ManagedElement-002",
+        "attributes": {
+          "priorityLabel": 1
+        },
+        "_3gpp-nr-nrm-gnbdufunction:GNBDUFunction": [
+          {
+            "id": "GNBDUFunction-001",
+            "attributes": {
+              "priorityLabel": 1,
+              "gNBId": "1",
+              "gNBIdLength": 24,
+              "gNBDUId": "1",
+              "gNBDUName": "hostname_here"
+            },
+            "_3gpp-nr-nrm-nrcelldu:NRCellDU": [
+              {
+                "id": "NRCellDU-001",
+                "attributes": {
+                  "priorityLabel": 1,
+                  "cellLocalId": 1,
+                  "pLMNInfoList": [
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 1
+                    },
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 2
+                    },
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 3
+                    },
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 4
+                    },
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 5
+                    },
+                    {
+                      "mcc": "310",
+                      "mnc": "410",
+                      "sd": "ff:ff:ff",
+                      "sst": 6
+                    }
+                  ],
+                  "nPNIdentityList": [
+                    {
+                      "idx": 0,
+                      "plmnid": [
+                        {
+                          "mcc": "310",
+                          "mnc": "410"
+                        }
+                      ],
+                      "cAGIdList": "cAGIdList1",
+                      "nIDList": "nIDList1"
+                    }
+                  ],
+                  "nRPCI": 1,
+                  "arfcnDL": 1,
+                  "rimRSMonitoringStartTime": "2024-06-19T20:00:00+00:00",
+                  "rimRSMonitoringStopTime": "2024-06-19T21:00:00+00:00",
+                  "rimRSMonitoringWindowDuration": 1,
+                  "rimRSMonitoringWindowStartingOffset": 1,
+                  "rimRSMonitoringWindowPeriodicity": 1,
+                  "rimRSMonitoringOccasionInterval": 1,
+                  "rimRSMonitoringOccasionStartingOffset": 0,
+                  "ssbFrequency": 1,
+                  "ssbPeriodicity": 5,
+                  "ssbSubCarrierSpacing": 15,
+                  "ssbOffset": 1,
+                  "ssbDuration": 1,
+                  "nRSectorCarrierRef": [
+                    "CN=NR-Sector-Carrier-001"
+                  ],
+                  "victimSetRef": "CN=Victim-Set-001",
+                  "aggressorSetRef": "CN=Aggressor-Set-001"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

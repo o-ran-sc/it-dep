@@ -54,7 +54,7 @@ app:
   # Example values:
   #   file-ready-message-class: "" (empty) -> Default format(org.oran.datafile.model.DefaultFileReadyMessage)
   #   file-ready-message-class: "TS28532" (Not empty) -> org.oran.datafile.model.TS28532FileReadyMessage
-  file-ready-message-class:
+  file-ready-message-class: ${FILE_READY_MESSAGE_CLASS}
    # KAFKA boostrap servers. This is only needed if there are Information Types that uses a kafkaInputTopic
   # several redundant boostrap servers can be specified, separated by a comma ','.
   kafka:
@@ -65,7 +65,7 @@ app:
     # Override by env var
     client-id:
     # input topic
-    file-ready-event-topic: unauthenticated.VES_NOTIFICATION_OUTPUT
+    file-ready-event-topic: ${FILE_READY_EVENT_TOPIC}
       # Configues if oath2 tokens shall be used. If set to true, auth-token-file must also be configured
     use-oath-token: true
     ssl:

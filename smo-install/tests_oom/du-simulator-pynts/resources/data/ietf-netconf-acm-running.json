@@ -1,0 +1,88 @@
+{
+    "ietf-netconf-acm:nacm": {
+      "enable-nacm": true,
+      "read-default": "permit",
+      "write-default": "deny",
+      "exec-default": "permit",
+      "enable-external-groups": false,
+      "groups": {
+        "group": [
+          {
+            "name": "sudo",
+            "user-name": [
+              "sudo",
+              "admin",
+              "demx8as6",
+              "netconf"
+            ]
+          },
+          {
+            "name": "nms",
+            "user-name": [
+              "nms",
+              "nero"
+            ]
+          },
+          {
+            "name": "fm-pm",
+            "user-name": [
+              "fm-pm",
+              "filippa"
+            ]
+          },
+          {
+            "name": "swm",
+            "user-name": [
+              "swm",
+              "swami"
+            ]
+          },
+          {
+            "name": "smo",
+            "user-name": [
+              "smo",
+              "simone"
+            ]
+          },
+          {
+            "name": "hybrid-odu",
+            "user-name": [
+              "hybrid-odu",
+              "haydon"
+            ]
+          },
+          {
+            "name": "carrier",
+            "user-name": [
+              "carrier",
+              "carron"
+            ]
+          }
+        ]
+      },
+      "rule-list": [
+        {
+          "name": "admin-rule",
+          "group": [
+            "sudo",
+            "nms",
+            "fm-pm",
+            "swm",
+            "smo",
+            "hybrid-odu",
+            "carrier"
+          ],
+          "rule": [
+            {
+              "name": "allow-all",
+              "module-name": "*",
+              "access-operations": "*",
+              "action": "permit",
+              "comment": "All is allowed, no restictions!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

@@ -15,28 +15,12 @@
 #  ============LICENSE_END=================================================
 #
 
-global:
-  #Strimzi Kafka properties
-  useStrimziKafka: true
-
-# Strimzi Kafka config
-kafkaUser:
-  name: service-account-dfc
-  acls:
-    - name: osc-dmaap-adapter-unauthenticated.VES_NOTIFICATION_OUTPUT
-      type: group
-      operations: [Read]
-    - name: unauthenticated.VES_NOTIFICATION_OUTPUT
-      type: topic
-      operations: [Read]
-    - name: collected-file
-      type: topic
-      operations: [Read,Write]
-
-# This is a reference to the list of topics used by this component
-kafkaTopic:
-  - "unauthenticated.ves-notification-output"
-  - collected-file
-
-fileReadyEventTopic: "unauthenticated.VES_NOTIFICATION_OUTPUT"
-fileReadyMessageClass: ""
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cps-kafkauser-patch-config
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "2"
+data:
+{{ tpl (.Files.Glob "resources/patch-cps-kafka-users.sh").AsConfig . | indent 2 }}

@@ -1,0 +1,15 @@
+{
+    "o-ran-usermgmt:users":{
+        "user":[
+            {
+                "name":"x",
+                "account-type":"CERTIFICATE",
+                "password":"oiwtbqxj",
+                "enabled":true,
+                "sro-id":[
+                    "x"
+                ]
+            }
+        ]
+    }
+}

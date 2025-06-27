@@ -1,0 +1,468 @@
+{
+    "config": {
+        "log-period": 60,
+        "repetition-period": 180,
+        "points": [
+            "CellID",
+            "DRB.UEThpUl",
+            "RRU.PrbUsedUl",
+            "PEE.AvgPower",
+            "RRC.ConnMean",
+            "RRU.PrbTotDl",
+            "DRB.UEThpDl",
+            "DRB.UEThpUl"
+        ]
+    },
+    "values": [
+        {
+            "CellID": "S9/B20/C2",
+            "DRB.UEThpUl": 55.688756,
+            "RRU.PrbUsedUl": 15.053905,
+            "PEE.AvgPower": 50.99576,
+            "RRC.ConnMean": 20.009088,
+            "RRU.PrbTotDl": 31.060723,
+            "DRB.UEThpDl": 67.001903
+        },
+        {
+            "CellID": "S5/B10/C1",
+            "DRB.UEThpUl": 74.802445,
+            "RRU.PrbUsedUl": 46.632921,
+            "PEE.AvgPower": 75.943381,
+            "RRC.ConnMean": 87.494518,
+            "RRU.PrbTotDl": 29.638646,
+            "DRB.UEThpDl": 9.783546
+        },
+        {
+            "CellID": "S15/B1/C3",
+            "DRB.UEThpUl": 44.785681,
+            "RRU.PrbUsedUl": 67.586132,
+            "PEE.AvgPower": 87.834469,
+            "RRC.ConnMean": 24.012891,
+            "RRU.PrbTotDl": 71.406755,
+            "DRB.UEThpDl": 5.05352
+        },
+        {
+            "CellID": "S13/B4/C1",
+            "DRB.UEThpUl": 80.556617,
+            "RRU.PrbUsedUl": 17.411639,
+            "PEE.AvgPower": 21.69691,
+            "RRC.ConnMean": 22.437522,
+            "RRU.PrbTotDl": 12.315305,
+            "DRB.UEThpDl": 59.680235
+        },
+        {
+            "CellID": "S11/B1/C3",
+            "DRB.UEThpUl": 47.681464,
+            "RRU.PrbUsedUl": 42.510112,
+            "PEE.AvgPower": 84.375394,
+            "RRC.ConnMean": 76.610875,
+            "RRU.PrbTotDl": 5.793405,
+            "DRB.UEThpDl": 13.746002
+        },
+        {
+            "CellID": "S11/B11/C3",
+            "DRB.UEThpUl": 4.846106,
+            "RRU.PrbUsedUl": 35.105677,
+            "PEE.AvgPower": 59.61175,
+            "RRC.ConnMean": 30.063984,
+            "RRU.PrbTotDl": 11.656356,
+            "DRB.UEThpDl": 68.148929
+        },
+        {
+            "CellID": "S19/B4/C3",
+            "DRB.UEThpUl": 50.263694,
+            "RRU.PrbUsedUl": 75.999379,
+            "PEE.AvgPower": 90.065594,
+            "RRC.ConnMean": 85.263755,
+            "RRU.PrbTotDl": 61.004247,
+            "DRB.UEThpDl": 19.753985
+        },
+        {
+            "CellID": "S9/B18/C1",
+            "DRB.UEThpUl": 73.960835,
+            "RRU.PrbUsedUl": 62.68117,
+            "PEE.AvgPower": 85.455006,
+            "RRC.ConnMean": 30.760756,
+            "RRU.PrbTotDl": 29.130669,
+            "DRB.UEThpDl": 61.126227
+        },
+        {
+            "CellID": "S8/B15/C3",
+            "DRB.UEThpUl": 69.239303,
+            "RRU.PrbUsedUl": 9.414389,
+            "PEE.AvgPower": 62.298118,
+            "RRC.ConnMean": 91.012344,
+            "RRU.PrbTotDl": 59.053028,
+            "DRB.UEThpDl": 40.56158
+        },
+        {
+            "CellID": "S17/B6/C2",
+            "DRB.UEThpUl": 48.025391,
+            "RRU.PrbUsedUl": 15.792664,
+            "PEE.AvgPower": 7.864965,
+            "RRC.ConnMean": 86.986439,
+            "RRU.PrbTotDl": 98.98114,
+            "DRB.UEThpDl": 97.201259
+        },
+        {
+            "CellID": "S18/B11/C1",
+            "DRB.UEThpUl": 95.162461,
+            "RRU.PrbUsedUl": 82.190909,
+            "PEE.AvgPower": 72.811439,
+            "RRC.ConnMean": 35.360089,
+            "RRU.PrbTotDl": 25.845015,
+            "DRB.UEThpDl": 53.37011
+        },
+        {
+            "CellID": "S12/B20/C2",
+            "DRB.UEThpUl": 63.311125,
+            "RRU.PrbUsedUl": 3.955215,
+            "PEE.AvgPower": 9.045491,
+            "RRC.ConnMean": 13.319458,
+            "RRU.PrbTotDl": 32.696695,
+            "DRB.UEThpDl": 2.105939
+        },
+        {
+            "CellID": "S7/B11/C1",
+            "DRB.UEThpUl": 60.374614,
+            "RRU.PrbUsedUl": 7.206188,
+            "PEE.AvgPower": 25.244682,
+            "RRC.ConnMean": 31.071382,
+            "RRU.PrbTotDl": 16.630938,
+            "DRB.UEThpDl": 45.187502
+        },
+        {
+            "CellID": "S9/B7/C3",
+            "DRB.UEThpUl": 50.408351,
+            "RRU.PrbUsedUl": 81.189734,
+            "PEE.AvgPower": 68.344383,
+            "RRC.ConnMean": 57.162821,
+            "RRU.PrbTotDl": 69.000725,
+            "DRB.UEThpDl": 57.0716
+        },
+        {
+            "CellID": "S2/B16/C1",
+            "DRB.UEThpUl": 79.100147,
+            "RRU.PrbUsedUl": 57.814474,
+            "PEE.AvgPower": 29.902375,
+            "RRC.ConnMean": 8.177761,
+            "RRU.PrbTotDl": 46.670745,
+            "DRB.UEThpDl": 46.716326
+        },
+        {
+            "CellID": "S15/B14/C1",
+            "DRB.UEThpUl": 71.027044,
+            "RRU.PrbUsedUl": 53.576889,
+            "PEE.AvgPower": 39.504279,
+            "RRC.ConnMean": 72.614214,
+            "RRU.PrbTotDl": 33.89288,
+            "DRB.UEThpDl": 42.619485
+        },
+        {
+            "CellID": "S2/B8/C2",
+            "DRB.UEThpUl": 45.126957,
+            "RRU.PrbUsedUl": 0.805907,
+            "PEE.AvgPower": 7.782903,
+            "RRC.ConnMean": 63.800432,
+            "RRU.PrbTotDl": 12.832068,
+            "DRB.UEThpDl": 1.699899
+        },
+        {
+            "CellID": "S8/B12/C1",
+            "DRB.UEThpUl": 90.042313,
+            "RRU.PrbUsedUl": 92.691014,
+            "PEE.AvgPower": 12.410919,
+            "RRC.ConnMean": 40.627217,
+            "RRU.PrbTotDl": 93.99477,
+            "DRB.UEThpDl": 78.695857
+        },
+        {
+            "CellID": "S4/B6/C3",
+            "DRB.UEThpUl": 27.58126,
+            "RRU.PrbUsedUl": 81.196198,
+            "PEE.AvgPower": 70.606708,
+            "RRC.ConnMean": 24.568303,
+            "RRU.PrbTotDl": 7.545875,
+            "DRB.UEThpDl": 40.109371
+        },
+        {
+            "CellID": "S13/B12/C2",
+            "DRB.UEThpUl": 41.737173,
+            "RRU.PrbUsedUl": 41.694311,
+            "PEE.AvgPower": 56.874657,
+            "RRC.ConnMean": 51.709302,
+            "RRU.PrbTotDl": 90.356171,
+            "DRB.UEThpDl": 32.572875
+        },
+        {
+            "CellID": "S8/B12/C1",
+            "DRB.UEThpUl": 62.984781,
+            "RRU.PrbUsedUl": 52.141525,
+            "PEE.AvgPower": 73.255143,
+            "RRC.ConnMean": 1.405451,
+            "RRU.PrbTotDl": 34.954554,
+            "DRB.UEThpDl": 5.636283
+        },
+        {
+            "CellID": "S11/B2/C3",
+            "DRB.UEThpUl": 50.288956,
+            "RRU.PrbUsedUl": 46.455312,
+            "PEE.AvgPower": 92.903204,
+            "RRC.ConnMean": 97.516767,
+            "RRU.PrbTotDl": 80.389193,
+            "DRB.UEThpDl": 36.197811
+        },
+        {
+            "CellID": "S16/B9/C3",
+            "DRB.UEThpUl": 62.672124,
+            "RRU.PrbUsedUl": 90.735161,
+            "PEE.AvgPower": 76.511542,
+            "RRC.ConnMean": 61.444994,
+            "RRU.PrbTotDl": 95.087777,
+            "DRB.UEThpDl": 60.94496
+        },
+        {
+            "CellID": "S20/B12/C3",
+            "DRB.UEThpUl": 95.185838,
+            "RRU.PrbUsedUl": 7.765211,
+            "PEE.AvgPower": 67.004089,
+            "RRC.ConnMean": 37.090525,
+            "RRU.PrbTotDl": 64.560217,
+            "DRB.UEThpDl": 22.174331
+        },
+        {
+            "CellID": "S12/B9/C1",
+            "DRB.UEThpUl": 65.831316,
+            "RRU.PrbUsedUl": 17.488249,
+            "PEE.AvgPower": 39.888543,
+            "RRC.ConnMean": 83.520376,
+            "RRU.PrbTotDl": 4.896493,
+            "DRB.UEThpDl": 20.476155
+        },
+        {
+            "CellID": "S18/B18/C3",
+            "DRB.UEThpUl": 79.489817,
+            "RRU.PrbUsedUl": 20.730462,
+            "PEE.AvgPower": 11.416311,
+            "RRC.ConnMean": 72.755062,
+            "RRU.PrbTotDl": 45.998465,
+            "DRB.UEThpDl": 18.387485
+        },
+        {
+            "CellID": "S16/B9/C1",
+            "DRB.UEThpUl": 33.443946,
+            "RRU.PrbUsedUl": 60.248074,
+            "PEE.AvgPower": 44.009884,
+            "RRC.ConnMean": 79.653904,
+            "RRU.PrbTotDl": 19.403181,
+            "DRB.UEThpDl": 70.149817
+        },
+        {
+            "CellID": "S4/B13/C1",
+            "DRB.UEThpUl": 63.095925,
+            "RRU.PrbUsedUl": 95.495551,
+            "PEE.AvgPower": 14.212611,
+            "RRC.ConnMean": 20.841766,
+            "RRU.PrbTotDl": 53.523333,
+            "DRB.UEThpDl": 29.95293
+        },
+        {
+            "CellID": "S12/B14/C3",
+            "DRB.UEThpUl": 69.155954,
+            "RRU.PrbUsedUl": 11.068125,
+            "PEE.AvgPower": 80.547879,
+            "RRC.ConnMean": 9.308405,
+            "RRU.PrbTotDl": 89.339831,
+            "DRB.UEThpDl": 65.799941
+        },
+        {
+            "CellID": "S2/B5/C3",
+            "DRB.UEThpUl": 44.553478,
+            "RRU.PrbUsedUl": 92.239671,
+            "PEE.AvgPower": 40.887161,
+            "RRC.ConnMean": 21.151985,
+            "RRU.PrbTotDl": 46.814371,
+            "DRB.UEThpDl": 13.794459
+        },
+        {
+            "CellID": "S14/B11/C2",
+            "DRB.UEThpUl": 98.931479,
+            "RRU.PrbUsedUl": 34.875782,
+            "PEE.AvgPower": 71.651786,
+            "RRC.ConnMean": 38.060644,
+            "RRU.PrbTotDl": 12.638885,
+            "DRB.UEThpDl": 90.18473
+        },
+        {
+            "CellID": "S11/B17/C1",
+            "DRB.UEThpUl": 41.130714,
+            "RRU.PrbUsedUl": 54.844879,
+            "PEE.AvgPower": 93.867488,
+            "RRC.ConnMean": 48.670812,
+            "RRU.PrbTotDl": 27.960875,
+            "DRB.UEThpDl": 56.306585
+        },
+        {
+            "CellID": "S17/B15/C2",
+            "DRB.UEThpUl": 26.644504,
+            "RRU.PrbUsedUl": 35.818674,
+            "PEE.AvgPower": 86.544091,
+            "RRC.ConnMean": 86.493201,
+            "RRU.PrbTotDl": 7.982428,
+            "DRB.UEThpDl": 10.99625
+        },
+        {
+            "CellID": "S16/B15/C1",
+            "DRB.UEThpUl": 12.606888,
+            "RRU.PrbUsedUl": 15.877627,
+            "PEE.AvgPower": 53.093532,
+            "RRC.ConnMean": 71.786953,
+            "RRU.PrbTotDl": 21.951738,
+            "DRB.UEThpDl": 50.611141
+        },
+        {
+            "CellID": "S9/B3/C2",
+            "DRB.UEThpUl": 44.154315,
+            "RRU.PrbUsedUl": 10.785066,
+            "PEE.AvgPower": 44.490196,
+            "RRC.ConnMean": 0.169754,
+            "RRU.PrbTotDl": 52.315744,
+            "DRB.UEThpDl": 74.46728
+        },
+        {
+            "CellID": "S9/B14/C2",
+            "DRB.UEThpUl": 60.060083,
+            "RRU.PrbUsedUl": 0.672638,
+            "PEE.AvgPower": 5.30072,
+            "RRC.ConnMean": 70.660263,
+            "RRU.PrbTotDl": 18.989917,
+            "DRB.UEThpDl": 21.462148
+        },
+        {
+            "CellID": "S1/B12/C1",
+            "DRB.UEThpUl": 0.655559,
+            "RRU.PrbUsedUl": 94.566243,
+            "PEE.AvgPower": 87.979543,
+            "RRC.ConnMean": 50.294532,
+            "RRU.PrbTotDl": 86.176399,
+            "DRB.UEThpDl": 58.741174
+        },
+        {
+            "CellID": "S4/B18/C1",
+            "DRB.UEThpUl": 35.63286,
+            "RRU.PrbUsedUl": 66.186102,
+            "PEE.AvgPower": 6.336481,
+            "RRC.ConnMean": 15.664138,
+            "RRU.PrbTotDl": 73.7464,
+            "DRB.UEThpDl": 95.61894
+        },
+        {
+            "CellID": "S18/B15/C2",
+            "DRB.UEThpUl": 46.541233,
+            "RRU.PrbUsedUl": 48.057203,
+            "PEE.AvgPower": 8.194011,
+            "RRC.ConnMean": 25.469981,
+            "RRU.PrbTotDl": 52.513458,
+            "DRB.UEThpDl": 21.615867
+        },
+        {
+            "CellID": "S16/B18/C1",
+            "DRB.UEThpUl": 2.261787,
+            "RRU.PrbUsedUl": 52.25578,
+            "PEE.AvgPower": 98.691858,
+            "RRC.ConnMean": 12.97223,
+            "RRU.PrbTotDl": 12.555575,
+            "DRB.UEThpDl": 85.79238
+        },
+        {
+            "CellID": "S10/B9/C1",
+            "DRB.UEThpUl": 83.294321,
+            "RRU.PrbUsedUl": 47.331408,
+            "PEE.AvgPower": 85.61258,
+            "RRC.ConnMean": 61.718923,
+            "RRU.PrbTotDl": 85.296578,
+            "DRB.UEThpDl": 24.846727
+        },
+        {
+            "CellID": "S12/B4/C3",
+            "DRB.UEThpUl": 38.859805,
+            "RRU.PrbUsedUl": 86.136376,
+            "PEE.AvgPower": 12.243234,
+            "RRC.ConnMean": 53.24517,
+            "RRU.PrbTotDl": 5.062182,
+            "DRB.UEThpDl": 98.93763
+        },
+        {
+            "CellID": "S17/B5/C3",
+            "DRB.UEThpUl": 84.267554,
+            "RRU.PrbUsedUl": 38.527848,
+            "PEE.AvgPower": 55.284914,
+            "RRC.ConnMean": 67.113597,
+            "RRU.PrbTotDl": 75.472876,
+            "DRB.UEThpDl": 47.549129
+        },
+        {
+            "CellID": "S20/B10/C1",
+            "DRB.UEThpUl": 5.477223,
+            "RRU.PrbUsedUl": 95.271638,
+            "PEE.AvgPower": 37.90881,
+            "RRC.ConnMean": 7.418125,
+            "RRU.PrbTotDl": 43.054689,
+            "DRB.UEThpDl": 52.337395
+        },
+        {
+            "CellID": "S1/B20/C3",
+            "DRB.UEThpUl": 54.37483,
+            "RRU.PrbUsedUl": 83.032027,
+            "PEE.AvgPower": 76.416217,
+            "RRC.ConnMean": 56.8438,
+            "RRU.PrbTotDl": 80.489843,
+            "DRB.UEThpDl": 81.708316
+        },
+        {
+            "CellID": "S14/B8/C3",
+            "DRB.UEThpUl": 90.917934,
+            "RRU.PrbUsedUl": 89.90994,
+            "PEE.AvgPower": 70.630149,
+            "RRC.ConnMean": 84.013932,
+            "RRU.PrbTotDl": 88.783771,
+            "DRB.UEThpDl": 77.248722
+        },
+        {
+            "CellID": "S17/B14/C3",
+            "DRB.UEThpUl": 63.31313,
+            "RRU.PrbUsedUl": 31.406742,
+            "PEE.AvgPower": 41.264665,
+            "RRC.ConnMean": 72.500425,
+            "RRU.PrbTotDl": 95.62914,
+            "DRB.UEThpDl": 12.064057
+        },
+        {
+            "CellID": "S14/B13/C3",
+            "DRB.UEThpUl": 5.362581,
+            "RRU.PrbUsedUl": 80.984285,
+            "PEE.AvgPower": 2.554302,
+            "RRC.ConnMean": 19.666802,
+            "RRU.PrbTotDl": 29.109536,
+            "DRB.UEThpDl": 42.390546
+        },
+        {
+            "CellID": "S13/B2/C1",
+            "DRB.UEThpUl": 14.449009,
+            "RRU.PrbUsedUl": 58.715513,
+            "PEE.AvgPower": 24.116671,
+            "RRC.ConnMean": 99.389268,
+            "RRU.PrbTotDl": 77.161013,
+            "DRB.UEThpDl": 56.561899
+        },
+        {
+            "CellID": "S2/B18/C1",
+            "DRB.UEThpUl": 23.450076,
+            "RRU.PrbUsedUl": 24.744926,
+            "PEE.AvgPower": 59.707582,
+            "RRC.ConnMean": 67.921714,
+            "RRU.PrbTotDl": 83.540671,
+            "DRB.UEThpDl": 0.945009
+        }
+    ]
+}

@@ -1,4 +1,5 @@
 # Copyright © 2021-2022 AT&T Intellectual Property
+# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,3 +28,8 @@ dependencies:
     version: ~1.0.0
     repository: "@local"
     condition: ru-du-simulators.duSimulator
+
+  - name: du-simulator-pynts
+    version: ~1.0.0
+    repository: "@local"
+    condition: ru-du-simulators.duSimulatorPynts

@@ -22,4 +22,20 @@ metadata:
   name: pmlog-job-cm
 
 data:
-{{ (.Files.Glob "config/jobDefinition.json").AsConfig | nindent 2 }}
+  jobDefinition.json: |-
+    {
+      "info_type_id": {{ .Values.jobDefinition.infoTypeId | quote }},
+      "job_owner": {{ .Values.jobDefinition.owner | quote }},
+      "job_definition": {
+        "filter": {
+          "sourceNames": {{ .Values.jobDefinition.filter.sourceNames | toJson }},
+          "measObjInstIds": {{ .Values.jobDefinition.filter.measObjInstIds | toJson }},
+          "measTypeSpecs": {{ .Values.jobDefinition.filter.measTypesSpecs | toJson }},
+          "measuredEntityDns": {{ .Values.jobDefinition.filter.measuredEntityDns | toJson }}
+        },
+        "deliveryInfo": {
+          "bootStrapServers": {{ .Values.jobDefinition.deliveryInfo.bootStrapServers | quote }},
+          "topic": {{ .Values.jobDefinition.deliveryInfo.topic | quote }}
+        }
+      }
+    }

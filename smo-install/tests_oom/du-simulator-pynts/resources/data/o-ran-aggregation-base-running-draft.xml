@@ -1,0 +1,37 @@
+<aggregated-o-ru xmlns="urn:o-ran:agg-base:1.0">
+  <aggregation>
+    <ru-instance>Baciells_sRU67XXX_B122601202134000326</ru-instance>
+    <interfaces-model  xmlns="urn:o-ran:agg-interfaces:1.0"> 
+        <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+          <interface>
+            <name>eth2-UPlane-VLAN</name>
+            <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l2vlan</type>
+            <enabled>true</enabled>
+            <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+              <enabled>false</enabled>
+            </ipv4>
+            <vlan-id xmlns="urn:o-ran:interfaces:1.0">5</vlan-id>
+            <mac-address xmlns="urn:o-ran:interfaces:1.0">00:11:22:33:44:55</mac-address>
+          </interface>
+        </interfaces>
+    </interfaces-model>
+    <hardware-model  xmlns="urn:o-ran:agg-hardware:1.0"> 
+        <hardware xmlns="urn:ietf:params:xml:ns:yang:ietf-hardware">          
+          <component>
+            <name>slot0-logical0-bbu</name>
+            <class xmlns:ianahw="urn:ietf:params:xml:ns:yang:iana-hardware">ianahw:port</class>
+            <o-ran-name xmlns="urn:o-ran:hardware:1.0">slot0-logical0-bbu</o-ran-name> 
+          </component>
+        </hardware>
+    </hardware-model>
+    <ietf-hardware-model  xmlns="urn:o-ran:agg-ietf-hardware:1.0"> 
+        <hardware xmlns="urn:ietf:params:xml:ns:yang:ietf-hardware">          
+          <component>
+            <name>slot0-logical0-bbu</name>
+            <class xmlns:ianahw="urn:ietf:params:xml:ns:yang:iana-hardware">ianahw:port</class>
+            <o-ran-name xmlns="urn:o-ran:hardware:1.0">slot0-logical0-bbu</o-ran-name>
+          </component>
+        </hardware>
+    </ietf-hardware-model>
+  </aggregation>
+</aggregated-o-ru>

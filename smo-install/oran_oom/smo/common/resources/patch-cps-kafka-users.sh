@@ -16,18 +16,14 @@
 # ============LICENSE_END============================================
 #
 
-# TODO: THIS SHOULD BE REMOVED ONCE the OOM POLICY CHARTS ARE UPDATED TO WORK WITH SYNC TOPIC
+# TODO: THIS SHOULD BE REMOVED ONCE the OOM CPS CHARTS ARE UPDATED TO WORK WITH NEW IMAGES
 
 # This will patch the below kafka users with the new group acl
 # This acl configuration gives the user permission to read from all groups
 
 # create an array with the kafka users
 kafka_users=(
-  "policy-clamp-ac-a1pms-ppnt-ku"
-  "policy-clamp-ac-http-ppnt-ku"
-  "policy-clamp-ac-k8s-ppnt-ku"
-  "policy-clamp-ac-kserve-ppnt-ku"
-  "policy-clamp-ac-pf-ppnt-ku"
+  "cps-core-ku"
 )
 
 # Iterate over an array of kafka users and check whether the user exists or not
@@ -45,7 +41,7 @@ for user in "${kafka_users[@]}"; do
                 "name": "*",
                 "patternType": "literal"
             },
-            "operation": "Read",
+            "operation": "All",
             }
         }
     ]'

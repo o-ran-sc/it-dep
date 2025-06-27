@@ -40,6 +40,8 @@ kafkaUser:
       type: topic
       operations: [Read, Write]
 
+dataTypeFormat: ""
+
 # This is a reference to the list of topics used by this component
 kafkaTopic:
   - collected-file

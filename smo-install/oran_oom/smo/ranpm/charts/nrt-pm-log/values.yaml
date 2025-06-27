@@ -37,3 +37,18 @@ kafkaUser:
 # This is a reference to the list of topics used by this component
 kafkaTopic:
   - pmreports
+
+jobDefinition:
+  owner: console
+  infoTypeId: "PmData"
+  filter:
+    sourceNames: []
+    measObjInstIds: []
+    measTypeSpecs:
+      - measObjClass: NRCellDU
+        measTypes:
+          - pmCounterNumber101
+    measuredEntityDns: []
+  deliveryInfo:
+    topic: "pmreports"
+    bootStrapServers: "onap-strimzi-kafka-bootstrap.onap:9095"

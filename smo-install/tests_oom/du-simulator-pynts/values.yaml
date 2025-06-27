@@ -1,0 +1,166 @@
+#
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2025: OpenInfra Foundation Europe. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+#
+
+# Static Defaults
+image:
+  repository: 'nexus3.onap.org:10001/estdemoimages'
+  name: pynts-o-du-o1
+  tag: 0.9.3
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  ports:
+    port: 830
+
+dus:
+  - name: o-du-pynts-1123
+  - name: o-du-pynts-1122
+    operational:
+      administrativeState: locked
+      operationalState: enabled
+    running:
+      administrativeState: unlocked
+    cell:
+      name: cell-1
+      trafficState: active
+      localId: 1
+      physicalCellId: 1
+      operational:
+        administrativeState: locked
+        operationalState: enabled
+      running:
+        administrativeState: unlocked
+    radioResourcePolicy:
+      name: rrm-pol-1 
+      resourceType: prb
+      operational:
+        administrativeState: locked
+        operationalState: enabled
+      running:
+        administrativeState: unlocked
+  
+    simulatedFaults:
+      - name: fault1
+        condition: "CPRI Port Down"
+        severity: MAJOR
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: false
+        text: "CPRI Port Down"
+        object: "Slot-0-Port-A"
+      - name: fault1-close
+        condition: "CPRI Port Down"
+        severity: NORMAL
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: true
+        text: "CPRI Port Down"
+        object: "Slot-0-Port-A"
+
+      - name: fault2
+        condition: "CPRI Port Down"
+        severity: MAJOR
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: false
+        text: "CPRI Port Down"
+        object: "Slot-0-Port-C"
+      - name: fault2-close
+        condition: "CPRI Port Down"
+        severity: NORMAL
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: true
+        text: "CPRI Port Down"
+        object: "Slot-0-Port-C"
+      - name: fault3
+        condition: "CPRI Port Down"
+        severity: MAJOR
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: false
+        text: "CPRI Port Down"
+        object: "Slot-2-Port-B"
+      - name: fault3-close
+        condition: "CPRI Port Down"
+        severity: NORMAL
+        specificProblem: "CPRI Port Down"
+        faultSeverity: MAJOR
+        cleared: true
+        text: "CPRI Port Down"
+        object: "Slot-2-Port-B"
+
+
+# NTS NG settings
+pyntsSim:
+  endpointCount: 1
+  netconf:
+    port: 830
+    username: netconf
+    password: netconf!
+
+  odu:
+    callhomePort: 4335
+
+  sdnc:
+    url: http://sdnc.onap:8181
+    username: admin
+    password: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+
+  ves:
+    url: http://dcae-ves-collector.onap:8080/eventListener/v7
+    username: sample1
+    password: sample1
+    eventLogMsgDetail: LONG
+
+  tls:
+    listenEndpoint: false
+    callHomeEndpoint: false
+  ssh:
+    listenEndpoint: true
+    callHomeEndpoint: true
+
+
+  tlsConnections: 1
+  ntsHostBasePort: 50000
+  ntsHostNetconfSshBasePort: 0
+  ntsHostNetconfTlsBasePort: 1000
+  ntsHostTransferFtpBasePort: 2000
+  ntsHostTransferSftpBasePort: 2000
+  ntsNfMountPointAddressingMethod: docker-mapping
+
+  sdnControllerProtocol: http
+  sdnControllerCallHomeAddress: sdnc-callhome.onap
+  sdnControllerCallHomePort: 6666
+  sdnControllerUsername: admin
+  sdnControllerPassword: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  sdnControllerPort: 8443
+  sdnControllerAddress: sdnc.onap
+
+  vesCommonHeaderVersion: 7.2.1
+  vesEndpointProtocol: https
+  vesEndpointAddress: dcae-ves-collector.onap/
+  vesEndpointPort: 8443
+  vesEndpointAuthMethod: basic-auth
+  vesEndpointUsername: sample1
+  vesEndpointPassword: sample1
+
+  ntsNfStandaloneStartFeatures: datastore-populate ves-heartbeat ves-file-ready ves-pnf-registration web-cut-through

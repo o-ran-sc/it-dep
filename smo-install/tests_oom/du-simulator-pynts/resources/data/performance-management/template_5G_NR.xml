@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="MeasDataCollection.xsl"?>
+<measDataFile xmlns="http://www.3gpp.org/ftp/specs/archive/28_series/28.532#measData" xsi:schemaLocation="http://www.3gpp.org/ftp/specs/archive/28_series/28.532#measData schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<fileHeader fileFormatVersion="28.532 V18.0.0" vendorName="PyNTS" dnPrefix="DC=pynts.domain">
+		<fileSender senderName="ManagedElement=@hostname@" senderType="pynts-element"/>
+		<measData beginTime="@start-time@"/>
+	</fileHeader>
+	<measData>
+    <measEntity localDn="ManagedElement=@hostname@" />
+    <measInfo measInfoId="5.1.1.1.1">
+      <job jobId="0" />
+			<granPeriod duration="@log-period@" endTime="@end-time@"/>
+			<repPeriod duration="@rep-period@"/>
+      @point-start@<measType p="@point-id@">@point-name@</measType>@point-end@
+			<measValue measObjLdn="ManagedElement=@hostname@,GNBDUFunction=1,NRCellDU=1">
+				@value-start@<r p="@point-id@">@value@</r>@value-end@
+				@suspect@
+			</measValue>
+    </measInfo>		
+	</measData>
+	<fileFooter>
+		<measData endTime="@end-time@"/>
+	</fileFooter>
+</measDataFile>

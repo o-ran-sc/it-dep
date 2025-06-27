@@ -18,7 +18,6 @@
 
 # TODO: THIS SHOULD BE REMOVED ONCE the OOM POLICY CHARTS ARE UPDATED TO WORK WITH SYNC TOPIC
 
-
 # This will patch the below kafka users with the new group acl
 # This acl configuration gives the user permission to read from all groups
 

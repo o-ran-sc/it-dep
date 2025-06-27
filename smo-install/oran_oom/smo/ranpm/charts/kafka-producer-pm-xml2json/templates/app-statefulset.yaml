@@ -72,7 +72,7 @@ spec:
         #   DATA_TYPE_FORMAT = "" -> older 4G/Default Measurement file format
         #   DATA_TYPE_FORMAT = "TS28532" -> 5G/3GPP-TS-28.532 Measurement file format
         - name: DATA_TYPE_FORMAT
-          value: ""
+          value: {{ .Values.dataTypeFormat | quote | default "" }}
         - name: ICS
           value: informationservice.nonrtric:9082
         - name: SELF

@@ -1,0 +1,42 @@
+{
+  "ietf-yang-schema-mount:schema-mounts": {
+    "namespace": [
+      {
+        "prefix": "or-agg-base",
+        "uri": "urn:o-ran:agg-base:1.0"
+      },
+      {
+        "prefix": "o-ran-int",
+        "uri": "urn:o-ran:interfaces:1.0"
+      },
+      {
+        "prefix": "o-ran-hw",
+        "uri": "urn:o-ran:hardware:1.0"
+      },
+      {
+        "prefix": "hw",
+        "uri": "urn:ietf:params:xml:ns:yang:ietf-hardware"
+      }
+    ],
+    "mount-point": [
+      {
+        "module": "o-ran-agg-interfaces",
+        "label": "interfaces-root",
+        "config": true,
+        "shared-schema": {}
+      },
+      {
+        "module": "o-ran-agg-hardware",
+        "label": "hardware-root",
+        "config": true,
+        "shared-schema": {}
+      },
+      {
+        "module": "o-ran-agg-ietf-hardware",
+        "label": "ietf-hardware-root",
+        "config": true,
+        "shared-schema": {}
+      }
+    ]
+  }
+}

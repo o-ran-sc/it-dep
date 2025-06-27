@@ -1,0 +1,171 @@
+#
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2025: OpenInfra Foundation Europe. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+#
+
+# Static Defaults
+image:
+  repository: 'nexus3.onap.org:10001/estdemoimages'
+  name: pynts-o-du-o1
+  tag: 0.9.3
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  ports:
+    port: 830
+
+managedElement:
+  id: "ManagedElement-002"
+  priorityLabel: 1
+  gnbdufunction:
+    id: "GNBDUFunction-001"
+    priorityLabel: 1
+    gNBId: "1"
+    gNBIdLength: 24
+    gNBDUId: "1"
+    gNBDUName: "hostname_here"
+
+nrCellDUs:
+  - id: "S1-B12-C1"
+  - id: "S2-B16-C1"
+  - id: "S3-B8-C2"
+  - id: "S4-B13-C1"
+  - id: "S5-B10-C1"
+  - id: "S6-B18-C1"
+  - id: "S7-B15-C3"
+  - id: "S8-B6-C2"
+  - id: "S9-B20-C2"
+  - id: "S10-B9-C1"
+
+# Default cell attributes that will be same for all cells
+cellDefaults:
+  priorityLabel: 1
+  cellLocalId: 1
+  pLMNInfoList:
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 1
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 2
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 3
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 4
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 5
+    - mcc: "310"
+      mnc: "410"
+      sd: "ff:ff:ff"
+      sst: 6
+  nPNIdentityList:
+    - idx: 0
+      plmnid:
+        - mcc: "310"
+          mnc: "410"
+      cAGIdList: "cAGIdList1"
+      nIDList: "nIDList1"
+  nRPCI: 1
+  arfcnDL: 1
+  rimRSMonitoringStartTime: "2024-06-19T20:00:00+00:00"
+  rimRSMonitoringStopTime: "2024-06-19T21:00:00+00:00"
+  rimRSMonitoringWindowDuration: 1
+  rimRSMonitoringWindowStartingOffset: 1
+  rimRSMonitoringWindowPeriodicity: 1
+  rimRSMonitoringOccasionInterval: 1
+  rimRSMonitoringOccasionStartingOffset: 0
+  ssbFrequency: 1
+  ssbPeriodicity: 5
+  ssbSubCarrierSpacing: 15
+  ssbOffset: 1
+  ssbDuration: 1
+  nRSectorCarrierRef:
+    - "CN=NR-Sector-Carrier-001"
+  victimSetRef: "CN=Victim-Set-001"
+  aggressorSetRef: "CN=Aggressor-Set-001"
+
+
+dus:
+  - name: o-du-pynts-1123
+  - name: o-du-pynts-1122
+
+
+# NTS NG settings
+pyntsSim:
+  endpointCount: 1
+  netconf:
+    port: 830
+    username: netconf
+    password: netconf!
+
+  odu:
+    callhomePort: 4335
+
+  sdnc:
+    url: http://sdnc.onap:8282
+    username: admin
+    password: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+
+  ves:
+    url: http://dcae-ves-collector.onap:8080/eventListener/v7
+    username: sample1
+    password: sample1
+    eventLogMsgDetail: LONG
+
+  tls:
+    listenEndpoint: false
+    callHomeEndpoint: false
+  ssh:
+    listenEndpoint: true
+    callHomeEndpoint: false
+
+
+  tlsConnections: 1
+  ntsHostBasePort: 50000
+  ntsHostNetconfSshBasePort: 0
+  ntsHostNetconfTlsBasePort: 1000
+  ntsHostTransferFtpBasePort: 2000
+  ntsHostTransferSftpBasePort: 2000
+  ntsNfMountPointAddressingMethod: docker-mapping
+
+  sdnControllerProtocol: http
+  sdnControllerCallHomeAddress: sdnc-callhome.onap
+  sdnControllerCallHomePort: 4334
+  sdnControllerUsername: admin
+  sdnControllerPassword: Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+  sdnControllerPort: 8282
+  sdnControllerAddress: sdnc.onap
+
+  vesCommonHeaderVersion: 7.2.1
+  vesEndpointProtocol: https
+  vesEndpointAddress: dcae-ves-collector.onap/
+  vesEndpointPort: 8080
+  vesEndpointAuthMethod: basic-auth
+  vesEndpointUsername: sample1
+  vesEndpointPassword: sample1
+
+  ntsNfStandaloneStartFeatures: datastore-populate ves-heartbeat ves-file-ready ves-pnf-registration web-cut-through

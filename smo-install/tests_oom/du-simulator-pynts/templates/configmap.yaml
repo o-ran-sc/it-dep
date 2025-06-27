@@ -1,0 +1,97 @@
+{{/*
+#
+# ============LICENSE_START=======================================================
+#  Copyright (C) 2025: OpenInfra Foundation Europe. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+# ============LICENSE_END=========================================================
+#
+*/}}
+
+{{ $currentScope := .}}
+{{- range $i, $du := .Values.dus }}
+  {{- $_ := set $ "du" $du }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $du.name }}-configmap
+  labels:
+    sim-name: {{ $du.name }}
+    release: {{ $.Release.Name }}
+    chart: {{ $.Chart.Name }}
+data:
+  {{- range $path, $_ :=  $.Files.Glob "resources/data/*.{json,xml}" }}
+  {{- if ne $path "resources/data/_3gpp-common-managed-element-running.json" }}
+  {{ base $path }}: |
+    {{- $.Files.Get $path | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  _3gpp-common-managed-element-running.json: |-
+    {
+      "_3gpp-common-managed-element:ManagedElement": [
+        {
+          "id": {{ $.Values.managedElement.id | quote }},
+          "attributes": {
+            "priorityLabel": {{ $.Values.managedElement.priorityLabel }}
+          },
+          "_3gpp-nr-nrm-gnbdufunction:GNBDUFunction": [
+            {
+              "id": {{ $.Values.managedElement.gnbdufunction.id | quote }},
+              "attributes": {
+                "priorityLabel": {{ $.Values.managedElement.gnbdufunction.priorityLabel }},
+                "gNBId": {{ $.Values.managedElement.gnbdufunction.gNBId | quote }},
+                "gNBIdLength": {{ $.Values.managedElement.gnbdufunction.gNBIdLength }},
+                "gNBDUId": {{ $.Values.managedElement.gnbdufunction.gNBDUId | quote }},
+                "gNBDUName": {{ $.Values.managedElement.gnbdufunction.gNBDUName | quote }}
+              },
+              "_3gpp-nr-nrm-nrcelldu:NRCellDU": [
+              {{- range $index, $cell := $.Values.nrCellDUs }}
+              {{- if $index }},{{ end }}
+                {
+                  "id": {{ $cell.id | quote }},
+                  "attributes": {
+                    "priorityLabel": {{ $.Values.cellDefaults.priorityLabel }},
+                    "cellLocalId": {{ $.Values.cellDefaults.cellLocalId }},
+                    "pLMNInfoList": {{ $.Values.cellDefaults.pLMNInfoList | toJson }},
+                    "nPNIdentityList": {{ $.Values.cellDefaults.nPNIdentityList | toJson }},
+                    "nRPCI": {{ $.Values.cellDefaults.nRPCI }},
+                    "arfcnDL": {{ $.Values.cellDefaults.arfcnDL }},
+                    "rimRSMonitoringStartTime": {{ $.Values.cellDefaults.rimRSMonitoringStartTime | quote }},
+                    "rimRSMonitoringStopTime": {{ $.Values.cellDefaults.rimRSMonitoringStopTime | quote }},
+                    "rimRSMonitoringWindowDuration": {{ $.Values.cellDefaults.rimRSMonitoringWindowDuration }},
+                    "rimRSMonitoringWindowStartingOffset": {{ $.Values.cellDefaults.rimRSMonitoringWindowStartingOffset }},
+                    "rimRSMonitoringWindowPeriodicity": {{ $.Values.cellDefaults.rimRSMonitoringWindowPeriodicity }},
+                    "rimRSMonitoringOccasionInterval": {{ $.Values.cellDefaults.rimRSMonitoringOccasionInterval }},
+                    "rimRSMonitoringOccasionStartingOffset": {{ $.Values.cellDefaults.rimRSMonitoringOccasionStartingOffset }},
+                    "ssbFrequency": {{ $.Values.cellDefaults.ssbFrequency }},
+                    "ssbPeriodicity": {{ $.Values.cellDefaults.ssbPeriodicity }},
+                    "ssbSubCarrierSpacing": {{ $.Values.cellDefaults.ssbSubCarrierSpacing }},
+                    "ssbOffset": {{ $.Values.cellDefaults.ssbOffset }},
+                    "ssbDuration": {{ $.Values.cellDefaults.ssbDuration }},
+                    "nRSectorCarrierRef": {{ $.Values.cellDefaults.nRSectorCarrierRef | toJson }},
+                    "victimSetRef": {{ $.Values.cellDefaults.victimSetRef | quote }},
+                    "aggressorSetRef": {{ $.Values.cellDefaults.aggressorSetRef | quote }}
+                  }
+                }
+              {{- end }}
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+{{- end }}

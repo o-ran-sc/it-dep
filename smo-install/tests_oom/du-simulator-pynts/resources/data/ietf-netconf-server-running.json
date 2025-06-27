@@ -1,0 +1,42 @@
+{
+  "ietf-netconf-server:netconf-server": {
+    "listen": {
+      "idle-timeout": 0,
+      "endpoints": {
+        "endpoint": [
+          {
+            "name": "ssh-endpoint-830",
+            "ssh": {
+              "tcp-server-parameters": {
+                "local-address": "0.0.0.0",
+                "local-port": 830
+              },
+              "ssh-server-parameters": {
+                "server-identity": {
+                  "host-key": [
+                    {
+                      "name": "melacon-key",
+                      "public-key": {
+                        "central-keystore-reference": "serverkey-ssh"
+                      }
+                    }
+                  ]
+                },
+                "client-authentication": {
+                  "users": {
+                    "user": [
+                      {
+                        "name": "netconf",
+                        "password": "$0$netconf!"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

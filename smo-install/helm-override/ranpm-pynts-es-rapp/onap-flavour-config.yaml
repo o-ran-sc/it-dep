@@ -1,0 +1,147 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+cps:
+  cps-core:
+    image: onap/cps-and-ncmp:3.7.1-SNAPSHOT-20250806T082510Z
+    kafkaUser:
+      acls:
+        - name: cps-core-group
+          type: group
+          operations: [Read]
+        - name: cps-data-updated-events
+          type: topic
+          operations: [Write]
+        - name: dmi-cm-events
+          type: topic
+          operations: [Read]
+        - name: &ncmpAsyncM2MTopic ncmp-async-m2m
+          type: topic
+          operations: [Read]
+        - name: &cmAvcSubscriptionTopic cm-avc-subscription
+          type: topic
+          operations: [Read]
+        - name: &ncmpCmSubscriptionIn subscription
+          type: topic
+          operations: [All]
+        - name: &ncmpCmSubscriptionDmiIn ncmp-dmi-cm-avc-subscription
+          type: topic
+          operations: [Read]
+        - name: &ncmpCmSubscriptionDmiOut dmi-ncmp-cm-avc-subscription
+          type: topic
+          operations: [Read]
+        - name: &ncmpCmSubscriptionOut subscription-response
+          type: topic
+          operations: [Read]
+        - name: &ncmpCmEventsTopic cm-events
+          type: topic
+          operations: [Read]
+        - name: &dmiDeviceHeartbeatTopic dmi-device-heartbeat
+          type: topic
+          operations: [All]
+        - name: &lcmEventsTopic ncmp-events
+          type: topic
+          operations: [Read]
+  ncmp-dmi-plugin:
+    image: onap/ncmp-dmi-plugin:1.8.0-SNAPSHOT-latest
+    config:
+      dmiServiceUrl: http://ncmp-dmi-plugin:8080
+      sdnc:
+        url: http://sdnc:8282
+    kafkaUser:
+      authenticationType: scram-sha-512
+      acls:
+        - name: ncmp-dmi-plugin-group
+          type: group
+          operations: [Read]
+        - name: ncmp-dmi-cm-avc-subscription-ncmp-dmi-plugin
+          type: topic
+          operations: [Read]
+        - name: dmi-ncmp-cm-avc-subscription
+          type: topic
+          operations: [Write]
+        - name: ncmp-async-m2m
+          type: topic
+          operations: [Write]
+        - name: ncmp-events
+          type: topic
+          operations: [All]
+        - name: "unauthenticated.VES_O1_NOTIFY_PNF_REGISTRATION_OUTPUT"
+          type: topic
+          operations: [All]
+        - name: "unauthenticated.VES_PNFREG_OUTPUT"
+          type: topic
+          operations: [All]
+
+  cps-temporal:
+    config:
+      app:
+      listener:
+        dataUpdatedTopic: cps-data-updated-events
+    kafkaUser:
+      authenticationType: scram-sha-512
+      acls:
+        - name: cps-temporal-group
+          type: group
+          operations: [ Read ]
+        - name: cps-data-updated-events
+          type: topic
+          operations: [ Read ]
+
+policy:
+  policy-pap:
+    enabled: false
+  policy-apex-pdp:
+    enabled: false
+  policy-clamp-ac-k8s-ppnt:
+    repoList:
+      # This is the list of helm repositories allowed to be used
+      # by the policy-clamp-ac-k8s-ppnt chart.
+      # Helm repositories should be added as required.
+      # If you do not add your helm repository here,
+      # you will not be able to use it in the policy-clamp-ac-k8s-ppnt chart.
+      helm:
+        repos:
+          - repoName: kong
+            address: https://charts.konghq.com
+          - repoName: bitnami
+            address: https://charts.bitnami.com/bitnami
+          - repoName: local
+            address: http://10.101.3.89:18080
+
+  policy-clamp-ac-pf-ppnt:
+    enabled: false
+  policy-clamp-ac-http-ppnt:
+    enabled: false
+  policy-clamp-ac-a1pms-ppnt:
+    enabled: false
+
+mariadb-galera:
+  replicaCount: 1
+  mariadbOperator:
+    appVersion: 11.1.2
+    persistence:
+      storageClassName: smo-storage
+    livenessProbe:
+      initialDelaySeconds: 150
+    readinessProbe:
+      initialDelaySeconds: 150
+    startupProbe:
+      initialDelaySeconds: 150
+    galera:
+      enabled: false
+

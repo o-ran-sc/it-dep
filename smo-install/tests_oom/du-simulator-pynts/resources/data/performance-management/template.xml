@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="MeasDataCollection.xsl"?>
+<measCollecFile xmlns="http://www.3gpp.org/ftp/specs/archive/32_series/32.435#measCollec" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.3gpp.org/ftp/specs/archive/32_series/32.435#measCollec http://www.3gpp.org/ftp/specs/archive/32_series/32.435#measCollec">
+	<fileHeader fileFormatVersion="32.435 V7.0" vendorName="PyNTS" dnPrefix="DC=pynts.domain">
+		<fileSender localDn="ManagedElement=@hostname@" elementType="nts-element"/>
+		<measCollec beginTime="@start-time@"/>
+	</fileHeader>
+	<measData>
+		<managedElement localDn="ManagedElement=@hostname@" userLabel=""/>
+		<measInfo>
+			<job jobId="1"/>
+			<granPeriod duration="@log-period@" endTime="@end-time@"/>
+			<repPeriod duration="@rep-period@"/>
+			@point-start@<measType p="@point-id@">@point-name@</measType>@point-end@
+			<measValue measObjLdn="DuFunction=@du-id@,CellId=@cell-id@">
+				@value-start@<r p="@point-id@">@value@</r>@value-end@
+				@suspect@
+			</measValue>
+		</measInfo>
+	</measData>
+	<fileFooter>
+		<measCollec endTime="@end-time@"/>
+	</fileFooter>
+</measCollecFile>

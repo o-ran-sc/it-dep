@@ -47,6 +47,7 @@ if [ -z "$1" ]
   else
     echo "Using helm override flavour: $FLAVOUR"
     if [ -f "../../helm-override/$FLAVOUR/onap-flavour-config.yaml" ]; then
+      echo -e "\e[33mPlease ensure that the helm-override/$FLAVOUR onap override config file contains a kubernetes participant entry to add your helm repository to the whitelist.\e[0m"
       echo "Generating onap-override.yaml for flavour $FLAVOUR"
       yq eval-all '. as $item ireduce ({}; . * $item )' ../../helm-override/default/onap-override.yaml ../../helm-override/$FLAVOUR/onap-flavour-config.yaml > ../../helm-override/$FLAVOUR/onap-override.yaml
       IS_GENERATED_ONAP_OVERRIDE=true

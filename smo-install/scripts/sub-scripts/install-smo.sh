@@ -20,8 +20,11 @@ echo  '### Installing ORAN SMO part ###'
 kubectl create namespace smo
 
 if ! command -v yq > /dev/null 2>&1; then
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.45.4"
     echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
+    chmod +x /usr/local/bin/yq
 fi
 
 OVERRIDEYAML=$1
@@ -29,15 +32,15 @@ MODE=$2
 
 if [ "$MODE" == "dev" ]; then
     echo "Installing SMO in dev mode"
-    helm install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML --timeout 15m
+    helm upgrade --install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML --timeout 15m
 else
     echo "Installing SMO in release mode"
     # This following should be modified once the charts are uploaded and available in the nexus repository
     # Till then, we are using the local chart
         # helm repo add smo https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
         # helm repo update
-        # helm install oran-smo smo/smo --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm install oran-smo local/smo --namespace smo -f $OVERRIDEYAML  --timeout 15m
+        # helm upgrade --install oran-smo smo/smo --namespace nonrtric -f $OVERRIDEYAML --create-namespace
+    helm upgrade --install oran-smo local/smo --namespace smo -f $OVERRIDEYAML  --timeout 15m
 fi
 
 check_for_secrets() {

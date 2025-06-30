@@ -16,6 +16,19 @@
 # ============LICENSE_END============================================
 #
 
+if ! command -v yq > /dev/null 2>&1; then
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.45.4"
+    echo "yq is not installed. Installing yq..."
+    sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
+    sudo chmod +x /usr/local/bin/yq
+fi
+
+if ! command -v jq > /dev/null 2>&1; then
+    echo "jq is not installed. Installing jq..."
+    sudo apt-get install jq -y
+fi
+
 # OpenEBS installation
 helm repo add openebs https://openebs.github.io/openebs
 helm repo update

@@ -28,14 +28,6 @@ echo  '### Installing ORAN NONRTRIC part ###'
 
 OVERRIDEYAML=$1
 
-if ! command -v yq > /dev/null 2>&1; then
-    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
-    VERSION="v4.45.4"
-    echo "yq is not installed. Installing yq..."
-    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
-    chmod +x /usr/local/bin/yq
-fi
-
 MODE=$2
 
 defaultSc=$(kubectl get storageclass -o jsonpath='{.items[?(@.metadata.annotations.storageclass\.kubernetes\.io/is-default-class=="true")].metadata.name}')
@@ -97,4 +89,5 @@ else
 fi
 
 # Wait for the Kong deployment to be ready
-kubectl wait --for=condition=available deployment/oran-nonrtric-kong -n nonrtric
+echo "Waiting for the Kong deployment to be ready..."
+kubectl wait --for=condition=available deployment/oran-nonrtric-kong -n nonrtric --timeout=15m

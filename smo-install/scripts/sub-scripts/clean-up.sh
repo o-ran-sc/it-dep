@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Modification Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,4 +25,9 @@
 ###
 
 kubectl delete pv --all
-sudo rm -rf /dockerdata-nfs/*
+# Delete storage class for smo
+kubectl delete -f packages/pre-configuration/smo-sc.yaml
+# Delete the openebs installation
+helm delete openebs -n openebs
+# Delete the volume storage directories
+sudo rm -rf /dockerdata-nfs/* /dockerdata/*

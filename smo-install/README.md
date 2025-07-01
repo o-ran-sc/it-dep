@@ -64,7 +64,7 @@ Once the pre-requisites are available, The below command can be used for the smo
 
 ---
 **WARNING**
-Sometimes ONAP mariadb pod may not come up properly due to the slowness in pulling the container image. In such cases, you can try with re-installation and it should work fine.
+Sometimes ONAP mariadb pod may not come up properly due to the slowness in pulling the container image. In such cases, you can try with re-installation and it should work fine. Otherwise you can try to pull all the required images manually into the cluster before the installation.
 ---
 
 Verify pods:

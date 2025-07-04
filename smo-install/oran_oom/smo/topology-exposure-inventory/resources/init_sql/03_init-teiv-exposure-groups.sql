@@ -1,7 +1,7 @@
 --
 -- ============LICENSE_START=======================================================
 -- Copyright (C) 2024 Ericsson
--- Modifications Copyright (C) 2024 OpenInfra Foundation Europe
+-- Modifications Copyright (C) 2024-2025 OpenInfra Foundation Europe
 -- ================================================================================
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
@@ -21,50 +21,50 @@
 
 BEGIN;
 
-CREATE SCHEMA IF NOT EXISTS ties_groups;
-ALTER SCHEMA ties_groups OWNER TO topology_exposure_user;
+CREATE SCHEMA IF NOT EXISTS teiv_groups;
+ALTER SCHEMA teiv_groups OWNER TO topology_exposure_user;
 SET default_tablespace = '';
 SET default_table_access_method = heap;
 
-SET ROLE 'topology_exposure_user';
+SET ROLE topology_exposure_user;
 
 -- Function to create CONSTRAINT only if it does not exists
-CREATE OR REPLACE FUNCTION ties_groups.create_constraint_if_not_exists (
+CREATE OR REPLACE FUNCTION teiv_groups.create_constraint_if_not_exists (
 	t_name TEXT, c_name TEXT, constraint_sql TEXT
 )
 RETURNS void AS
 $$
 BEGIN
-	IF NOT EXISTS (SELECT constraint_name FROM information_schema.table_constraints WHERE table_schema = 'ties_groups' AND table_name = t_name AND constraint_name = c_name) THEN
+	IF NOT EXISTS (SELECT constraint_name FROM information_schema.table_constraints WHERE table_schema = 'teiv_groups' AND table_name = t_name AND constraint_name = c_name) THEN
 		EXECUTE constraint_sql;
 	END IF;
 END;
 $$ language 'plpgsql';
 
-CREATE TABLE IF NOT EXISTS ties_groups."groups" (
+CREATE TABLE IF NOT EXISTS teiv_groups."groups" (
 	"id"              VARCHAR(150) PRIMARY KEY,
 	"name"            VARCHAR(150) NOT NULL,
 	"type"            VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS ties_groups."static_groups" (
+CREATE TABLE IF NOT EXISTS teiv_groups."static_groups" (
 	"id"                    VARCHAR(150),
 	"topology_type"         TEXT NOT NULL,
 	"provided_members_ids"  TEXT[] NOT NULL,
 	PRIMARY KEY ("id", "topology_type"),
-	FOREIGN KEY ("id") REFERENCES ties_groups."groups" ("id") ON DELETE CASCADE
+	FOREIGN KEY ("id") REFERENCES teiv_groups."groups" ("id") ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS ties_groups."dynamic_groups" (
+CREATE TABLE IF NOT EXISTS teiv_groups."dynamic_groups" (
 	"id"                  VARCHAR(150) PRIMARY KEY,
 	"criteria"            JSONB NOT NULL,
-	FOREIGN KEY ("id") REFERENCES ties_groups."groups" ("id") ON DELETE CASCADE
+	FOREIGN KEY ("id") REFERENCES teiv_groups."groups" ("id") ON DELETE CASCADE
 );
 
-SELECT ties_groups.create_constraint_if_not_exists(
+SELECT teiv_groups.create_constraint_if_not_exists(
 	'groups',
 	'CHECK_groups_type',
-	'ALTER TABLE ties_groups."groups" ADD CONSTRAINT "CHECK_groups_type" CHECK ("type" IN (''static'', ''dynamic''))'
+	'ALTER TABLE teiv_groups."groups" ADD CONSTRAINT "CHECK_groups_type" CHECK ("type" IN (''static'', ''dynamic''))'
 );
 
 COMMIT;

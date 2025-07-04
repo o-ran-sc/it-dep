@@ -55,7 +55,7 @@ topology-exposure:
   image:
     registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-teiv-exposure
-    tag: 0.1.0
+    tag: 0.2.0
   service:
     type: ClusterIP
     ports:
@@ -94,7 +94,7 @@ topology-ingestion:
   image:
     registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-teiv-ingestion
-    tag: 0.1.0
+    tag: 0.2.0
   service:
     type: ClusterIP
     ports:
@@ -134,9 +134,9 @@ ncmp-to-teiv-adapter:
   name: ncmp-to-teiv-adapter
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10003"
+    registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-ncmp-to-teiv-adapter
-    tag: 0.0.1-SNAPSHOT
+    tag: 0.0.1
   service:
     type: ClusterIP
     ports:

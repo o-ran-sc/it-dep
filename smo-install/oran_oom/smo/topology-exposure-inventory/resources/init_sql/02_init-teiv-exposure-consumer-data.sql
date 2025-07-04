@@ -1,7 +1,7 @@
 --
 -- ============LICENSE_START=======================================================
 -- Copyright (C) 2024 Ericsson
--- Modifications Copyright (C) 2024 OpenInfra Foundation Europe
+-- Modifications Copyright (C) 2024-2025 OpenInfra Foundation Europe
 -- ================================================================================
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@
 
 BEGIN;
 
-CREATE SCHEMA IF NOT EXISTS ties_consumer_data;
-ALTER SCHEMA ties_consumer_data OWNER TO topology_exposure_user;
+CREATE SCHEMA IF NOT EXISTS teiv_consumer_data;
+ALTER SCHEMA teiv_consumer_data OWNER TO topology_exposure_user;
 SET default_tablespace = '';
 SET default_table_access_method = heap;
 
-SET ROLE 'topology_exposure_user';
+SET ROLE topology_exposure_user;
 
-CREATE TABLE IF NOT EXISTS ties_consumer_data."module_reference" (
+CREATE TABLE IF NOT EXISTS teiv_consumer_data."module_reference" (
     "name"            TEXT PRIMARY KEY,
     "namespace"       TEXT,
     "revision"        TEXT NOT NULL,
@@ -37,17 +37,17 @@ CREATE TABLE IF NOT EXISTS ties_consumer_data."module_reference" (
     "status"          VARCHAR(127) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS ties_consumer_data."decorators" (
+CREATE TABLE IF NOT EXISTS teiv_consumer_data."decorators" (
     "name"                TEXT PRIMARY KEY,
     "dataType"            VARCHAR(511) NOT NULL,
     "moduleReferenceName" TEXT NOT NULL,
-    FOREIGN KEY ("moduleReferenceName") REFERENCES ties_consumer_data."module_reference" ("name") ON DELETE CASCADE
+    FOREIGN KEY ("moduleReferenceName") REFERENCES teiv_consumer_data."module_reference" ("name") ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS ties_consumer_data."classifiers" (
+CREATE TABLE IF NOT EXISTS teiv_consumer_data."classifiers" (
     "name"                TEXT PRIMARY KEY,
     "moduleReferenceName" TEXT NOT NULL,
-    FOREIGN KEY ("moduleReferenceName") REFERENCES ties_consumer_data."module_reference" ("name") ON DELETE CASCADE
+    FOREIGN KEY ("moduleReferenceName") REFERENCES teiv_consumer_data."module_reference" ("name") ON DELETE CASCADE
 );
 
 COMMIT;

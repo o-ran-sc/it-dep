@@ -36,7 +36,7 @@ spec:
         command: ['sh', '-c', 'apk add --no-cache netcat-openbsd && nc -zv onap-strimzi-kafka-bootstrap.onap 9092']
       containers:
       - name: redpanda-console
-        image: redpandadata/console:v2.2.3
+        image: redpandadata/console:v3.1.2
         imagePullPolicy: IfNotPresent
         env:
         - name: KAFKA_BROKERS

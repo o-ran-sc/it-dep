@@ -44,9 +44,7 @@ spec:
           name: data-vol
       containers:
       - name: minio
-        # Note, in later releases only SSO seem to be possible
-        # so earlier release kept to be able to login with user/pwd
-        image: minio/minio:RELEASE.2022-10-21T22-37-48Z
+        image: minio/minio:RELEASE.2025-06-13T11-33-47Z
         imagePullPolicy: IfNotPresent
         ports:
         - name: tcpmain

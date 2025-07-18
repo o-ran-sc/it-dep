@@ -27,7 +27,6 @@ spec:
     - name: influxdb2
       port: 8086
       targetPort: 8086
-      nodePort: 31812
   selector:
     app: influxdb2
   type: NodePort

@@ -61,3 +61,5 @@ kubectl get pods -n onap
 kubectl get pods -n nonrtric
 kubectl get pods -n smo
 kubectl get namespaces
+
+echo "SMO Installation completed successfully in $(( ($(date +%s) - $timestamp) / 60 )) minutes."

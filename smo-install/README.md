@@ -20,6 +20,15 @@ Flavour name should be used as the directory name. It can be provided as an argu
 
 ```./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR> <MODE>```
 
+### Pre-requisites:
+* VM with 64GB Memory, 20VCPU, 60GB of disk space.
+* Helm 3.12.0 or later
+* Kubernetes 1.30 or later
+* Helm deploy/undeploy plugin
+* Helm cm-push plugin
+* yq
+* jq
+
 
 ## Release Mode Installation
 
@@ -29,13 +38,6 @@ Release mode uses the helm charts from the nexus helm repositories as pointed be
 * Strimzi: strimzi.io/charts/
 * NONRTRIC: ??? (nexus3.o-ran-sc.org/repository/o-ran-sc-helm/)
 * SMO: ??? (nexus3.o-ran-sc.org/repository/o-ran-sc-helm/)
-
-### Pre-requisites:
-* Helm 3.12.0 or later
-* Kubernetes 1.26 or later
-* Helm deploy/undeploy plugin
-* Helm cm-push plugin
-* yq
 
 ### Installation
 
@@ -74,9 +76,6 @@ Verify pods:
 ## Dev Mode Installation
 
 In this mode, the released helm charts are not used. Instead, the charts are built from the source code and installed.
-
-### Pre-requisites:
-* Kubernetes 1.26 or later
 
 ### Installation
 

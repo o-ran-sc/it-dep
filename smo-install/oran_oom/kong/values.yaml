@@ -24,6 +24,7 @@ kongpv:
     accessMode: ReadWriteOnce
     size: 2Gi
     path: "/tmp/kongpv"
+    storageClassName: kong-storage
 
 kongpvc:
   persistence:

@@ -93,6 +93,8 @@ kong:
     # This should be set to false when there is a default storage class, Which lets the PVC provisions the PV dynamically.
     # In SMO installation, this is handled as part of smo-install/scripts/sub-scripts/install-nonrtric.sh script
     enabled: true
+    persistence:
+      storageClassName: *smo-sc
 
 controlpanel:
   ingress:
@@ -151,6 +153,8 @@ dashboard:
 ######### SMO #########
 smo:
   installTeiv: true
+  pgsqlvolume:
+    storageClassName: *smo-sc
   # List of secrets to be copied from ONAP namespace to SMO
   # Based on the dependsOn value, the secrets will be copied to the SMO namespace
   secrets:
@@ -162,3 +166,9 @@ smo:
       dependsOn: smo.installTeiv
     - name: redpanda-console-ku
       dependsOn: nonrtric.installRanpm
+
+topology-exposure-inventory:
+  postgresql:
+    primary:
+      persistence:
+        storageClass: *smo-sc

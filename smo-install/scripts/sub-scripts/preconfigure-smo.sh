@@ -16,18 +16,12 @@
 # ============LICENSE_END============================================
 #
 
-if ! command -v yq > /dev/null 2>&1; then
-    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
-    VERSION="v4.45.4"
-    echo "yq is not installed. Installing yq..."
-    sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
-    sudo chmod +x /usr/local/bin/yq
-fi
-
 if ! command -v jq > /dev/null 2>&1; then
     echo "jq is not installed. Installing jq..."
     sudo apt-get install jq -y
 fi
+
+OVERRIDEYAML=$1
 
 # OpenEBS installation
 helm repo add openebs https://openebs.github.io/openebs
@@ -37,10 +31,21 @@ helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3
 # Create storage class for smo
 kubectl apply -f ../packages/pre-configuration/smo-sc.yaml
 
-# Mariadb operator installation
-kubectl create ns mariadb-operator
-helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
-helm repo update
-helm upgrade --install mariadb-operator-crds mariadb-operator/mariadb-operator-crds -n mariadb-operator
-helm upgrade --install mariadb-operator mariadb-operator/mariadb-operator -n mariadb-operator
-kubectl wait deployment mariadb-operator -n mariadb-operator --for=condition=available --timeout=120s
+INSTALL_MARIADB=$(cat $OVERRIDEYAML | yq e '.mariadb-galera.enabled' -)
+if [ $? -ne 0 ] || [ -z "$INSTALL_MARIADB"  ]; then
+    echo "Error: failed to parse INSTALL_MARIADB from YAML with yq. Aborting install."
+    exit 1
+fi
+if [ "$INSTALL_MARIADB" == "true" ]; then
+    echo "Installing MariaDB operator..."
+    # Mariadb operator installation
+    kubectl create ns mariadb-operator
+    helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
+    helm repo update
+    helm upgrade --install mariadb-operator-crds mariadb-operator/mariadb-operator-crds -n mariadb-operator
+    helm upgrade --install mariadb-operator mariadb-operator/mariadb-operator -n mariadb-operator
+    kubectl wait deployment mariadb-operator -n mariadb-operator --for=condition=available --timeout=120s
+else
+    echo "Skipping MariaDB operator installation as per configuration."
+fi
+

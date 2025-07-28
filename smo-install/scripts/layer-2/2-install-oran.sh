@@ -27,6 +27,16 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
+IS_GENERATED_ONAP_OVERRIDE=false
+IS_GENERATED_ORAN_OVERRIDE=false
+
+if ! command -v yq > /dev/null 2>&1; then
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.45.4"
+    echo "yq is not installed. Installing yq..."
+    sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
+    sudo chmod +x /usr/local/bin/yq
+fi
 
 FLAVOUR=$1
 MODE=$2
@@ -34,6 +44,25 @@ if [ -z "$1" ]
   then
     echo "No helm override flavour supplied, going to default"
     FLAVOUR="default"
+  else
+    echo "Using helm override flavour: $FLAVOUR"
+    if [ -f "../../helm-override/$FLAVOUR/onap-flavour-config.yaml" ]; then
+      echo "Generating onap-override.yaml for flavour $FLAVOUR"
+      yq eval-all '. as $item ireduce ({}; . * $item )' ../../helm-override/default/onap-override.yaml ../../helm-override/$FLAVOUR/onap-flavour-config.yaml > ../../helm-override/$FLAVOUR/onap-override.yaml
+      IS_GENERATED_ONAP_OVERRIDE=true
+    else
+      echo "No onap-flavour-config.yaml found for flavour $FLAVOUR."
+      exit 1
+    fi
+
+    if [ -f "../../helm-override/$FLAVOUR/oran-flavour-config.yaml" ]; then
+      echo "Generating oran-override.yaml for flavour $FLAVOUR"
+      yq eval-all '. as $item ireduce ({}; . * $item ) ' ../../helm-override/default/oran-override.yaml ../../helm-override/$FLAVOUR/oran-flavour-config.yaml > ../../helm-override/$FLAVOUR/oran-override.yaml
+      IS_GENERATED_ORAN_OVERRIDE=true
+    else
+      echo "No oran-flavour-config.yaml found for flavour $FLAVOUR."
+      exit 1
+    fi
 fi
 
 if [ -z "$2" ]
@@ -45,7 +74,7 @@ fi
 timestamp=$(date +%s)
 
 echo "Pre configuring SMO ..."
-../sub-scripts/preconfigure-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+../sub-scripts/preconfigure-smo.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
 echo "SMO pre configuration done."
 
 echo "Starting ONAP & NONRTRIC namespaces ..."
@@ -61,5 +90,12 @@ kubectl get pods -n onap
 kubectl get pods -n nonrtric
 kubectl get pods -n smo
 kubectl get namespaces
+
+if [ "$IS_GENERATED_ONAP_OVERRIDE" = true ]; then
+  rm -f ../../helm-override/$FLAVOUR/onap-override.yaml
+fi
+if [ "$IS_GENERATED_ORAN_OVERRIDE" = true ]; then
+  rm -f ../../helm-override/$FLAVOUR/oran-override.yaml
+fi
 
 echo "SMO Installation completed successfully in $(( ($(date +%s) - $timestamp) / 60 )) minutes."

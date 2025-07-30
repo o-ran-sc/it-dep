@@ -22,6 +22,30 @@
       },
       "revId": "effd75bd26705eee997ff1442f1960390908b697",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f03b6700_22d71570",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-07-30T11:44:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11e6d810_52eb773d",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 186,
+        "endChar": 55
+      },
+      "revId": "effd75bd26705eee997ff1442f1960390908b697",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

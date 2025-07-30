@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11e6d810_52eb773d",
+        "filename": "smo-install/helm-override/default/onap-override.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-07-30T09:16:24Z",
+      "side": 1,
+      "message": "Could add a comment about adding more repos here?",
+      "range": {
+        "startLine": 181,
+        "startChar": 5,
+        "endLine": 186,
+        "endChar": 55
+      },
+      "revId": "effd75bd26705eee997ff1442f1960390908b697",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

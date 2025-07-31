@@ -89,9 +89,7 @@ kong:
     enabled: true
   kongpv:
     # This enables/disables the PV creation for kong
-    # PV creation is necessary when there is no default storage class
-    # This should be set to false when there is a default storage class, Which lets the PVC provisions the PV dynamically.
-    # In SMO installation, this is handled as part of smo-install/scripts/sub-scripts/install-nonrtric.sh script
+    # PV creation is handled using the smo-storage storage class
     enabled: true
     persistence:
       storageClassName: *smo-sc

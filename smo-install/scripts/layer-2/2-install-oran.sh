@@ -44,6 +44,9 @@ if [ -z "$1" ]
   then
     echo "No helm override flavour supplied, going to default"
     FLAVOUR="default"
+  elif [ "$1" = "default" ]
+  then
+    echo "Using helm override flavour: $FLAVOUR"
   else
     echo "Using helm override flavour: $FLAVOUR"
     if [ -f "../../helm-override/$FLAVOUR/onap-flavour-config.yaml" ]; then

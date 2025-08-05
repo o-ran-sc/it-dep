@@ -7,6 +7,3 @@
 [submodule "smo-install/multicloud-k8s"]
 	path = smo-install/multicloud-k8s
 	url = https://github.com/onap/multicloud-k8s.git
-[submodule "ranpm"]
-	path = ranpm
-	url = https://gerrit.nordix.org/oransc/nonrtric/plt/ranpm

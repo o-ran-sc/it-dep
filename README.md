@@ -2,6 +2,7 @@
 
 Copyright (c) 2019 AT&T Intellectual Property.
 Modifications Copyright (C) 2023 Nordix.
+Modifications Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 
 Licensed under the Creative Commons License, Attribution 4.0 Intl.
 (the"Documentation License"); you may not use this documentation
@@ -87,41 +88,3 @@ Run the following to undeploy:
 ```sh
 $ . ./undeploy-ric-aux 
 ```
-
-### NOTE: To Deploy RANPM
-RANPM helm charts are integrated as a submodule in this repository. To deploy RANPM function set installRanpm: true in the RECIPE_EXAMPLE file as below:
-
-nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installRappcatalogueservice: true
-  installRappcatalogueEnhancedservice: true
-  installNonrtricgateway: true
-  installKong: true
-  installDmaapadapterservice: true
-  installDmaapmediatorservice: true
-  installHelmmanager: true
-  installOruclosedlooprecovery: true
-  installOdusliceassurance: true
-  installCapifcore: true
-  installServicemanager: true
-  installRanpm: true
-  
-   volume1:
-    # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
-    size: 2Gi
-    storageClassName: pms-storage
-  volume2:
-     # Set the size to 0 if you do not need the volume (if you are using Dynamic Volume Provisioning)
-    size: 2Gi
-    storageClassName: ics-storage
-  volume3:
-    size: 1Gi
-    storageClassName: helmmanager-storage
-
-...
-...
-...  

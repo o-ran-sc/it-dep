@@ -32,8 +32,6 @@ nonrtric:
   installDmaapadapterservice: true
   installCapifcore: true
   installServicemanager: true
-  # When enabling Ranpm switch to false installControlpanel, installInformationservice, installNonrtricgateway
-  installRanpm: false
   # rApp Manager functionality relies on ACM for its operation
   installrAppmanager: true
   # DME Participant should only be activated when ACM installation is available for this participant to utilize

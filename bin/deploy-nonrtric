@@ -144,7 +144,6 @@ COMMON_BLOCK=$(cat $OVERRIDEYAML | awk '/^common:/{getline; while ($0 ~ /^ +.*|^
 NAMESPACE_BLOCK=$(cat $OVERRIDEYAML | awk '/^  namespace:/{getline; while ($0 ~ /^    .*|^ *$/) {print $0; if (getline == 0) {break}}}')
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
-INSTALL_RANPM=$(cat $OVERRIDEYAML | awk '/^  installRanpm:/{print $2}')
 
 if ! kubectl get ns ${NONRTRIC_NAMESPACE:-nonrtric}> /dev/null 2>&1; then
     kubectl create ns ${NONRTRIC_NAMESPACE:-nonrtric}
@@ -185,15 +184,6 @@ fi
 kubectl create configmap -n ${NONRTRIC_NAMESPACE:-nonrtric} nonrtric-recipe --from-file=recipe=$OVERRIDEYAML
 
 echo "Deploying NONRTRIC"
-
-echo "Install Ranpm- $INSTALL_RANPM"
-
-if [ "$INSTALL_RANPM" = true ];then
-   echo "Running install-ranpm.sh"
-   chmod +x ${ROOT_DIR}/../ranpm/install/install-ranpm.sh
-   ${ROOT_DIR}/../ranpm/install/install-ranpm.sh
-   echo "install-ranpm.sh completed"
-fi
 
 echo "helm install -f $OVERRIDEYAML --namespace ${NONRTRIC_NAMESPACE:-nonrtric} ${HELM_NAME_OPT} ${RELEASE_PREFIX} $ROOT_DIR/../nonrtric/helm/nonrtric"
 helm install -f $OVERRIDEYAML -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"

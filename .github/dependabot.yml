@@ -1,0 +1,11 @@
+---
+# Dependabot configured for weekly NPM and Docker scans
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "Chore"

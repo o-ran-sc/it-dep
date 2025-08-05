@@ -1,5 +1,29 @@
 #!/bin/bash
 
+# Function to be executed on script exit or interruption
+cleanup() {
+  echo "" # Add a newline for cleaner output after Ctrl+C
+  echo "Caught Ctrl+C or script exiting. Performing cleanup..."
+  # Add any specific cleanup tasks here that you want to happen
+  # For example:
+  # rm -f /tmp/my_temp_file
+  # killall -SIGTERM any_background_processes_started_by_script
+
+  echo "Cleanup complete. Exiting."
+  exit 1 # Exit with a non-zero status to indicate abnormal termination
+}
+
+# Trap SIGINT (Ctrl+C) to call the cleanup function
+trap cleanup SIGINT
+
+# Trap EXIT to also call the cleanup function (useful for general cleanup)
+# If you want cleanup to *always* happen, regardless of how the script ends,
+# use EXIT. If you only want it on Ctrl+C, remove this line.
+# Note: If you trap both SIGINT and EXIT, be careful with logic to avoid
+# double-cleanup if SIGINT also causes an EXIT. A common pattern is to
+# have SIGINT *call* EXIT after its specific actions.
+trap cleanup EXIT
+
 # Capture start time
 start_time=$(date +%s)
 
@@ -274,15 +298,42 @@ apt-cache policy kubelet | grep 'Installed: (none)' -A 1000 | grep 'Candidate:' 
 apt install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
 kubeadm init --apiserver-advertise-address=${IP_ADDR} --pod-network-cidr=${POD_CIDR} --v=5
 
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-chown $(id -u):$(id -g) $HOME/.kube/config
-export KUBECONFIG=/etc/kubernetes/admin.conf
+# For CICD purpose
+TARGET_USER="${SUDO_USER}"
 
+# Get the home directory of the target user
+TARGET_HOME=$(getent passwd "${TARGET_USER}" | cut -d: -f6)
+
+if [[ -z "${TARGET_HOME}" ]]; then
+    echo "Error: Home directory for user ${TARGET_USER} could not be found."
+    exit 1
+fi
+
+echo "Setting up kubectl for user: ${TARGET_USER} in home directory: ${TARGET_HOME}"
+
+# Create the .kube directory in the correct user's home
+mkdir -p "${TARGET_HOME}/.kube"
+
+# Copy the admin.conf file
+cp -i /etc/kubernetes/admin.conf "${TARGET_HOME}/.kube/config"
+
+# Change the ownership to the correct user.
+chown "${TARGET_USER}:${TARGET_USER}" "${TARGET_HOME}/.kube/config"
+
+# Set the correct permissions for the file.
+chmod 600 "${TARGET_HOME}/.kube/config"
+
+# Release taint
 kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 kubectl taint nodes --all node.kubernetes.io/not-ready-
 
 kubectl get pods -A
+
+# Installing Kubernetes Packages
+echo "***************************************************************************************************************"
+echo "						Installing CNI-Calico						"
+echo "***************************************************************************************************************"
+
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.30.1/manifests/calico.yaml
 
 wait_for_pods_running 7 kube-system

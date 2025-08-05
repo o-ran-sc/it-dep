@@ -47,7 +47,6 @@ NAMESPACE_BLOCK=$(cat /tmp/recipe.yaml | awk '/^  namespace:/{getline; while ($0
 NONRTRIC_NAMESPACE=$(echo "$NAMESPACE_BLOCK" | awk '/^ *nonrtric:/{print $2}')
 RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 INSTALL_KONG=$(cat /tmp/recipe.yaml | awk '/^  installKong:/{print $2}')
-INSTALL_RANPM=$(cat /tmp/recipe.yaml | awk '/^  installRanpm:/{print $2}')
 
 if [ "$INSTALL_KONG" = true ];then
   echo "Warning - deleting Kong routes and services for ServiceManager"
@@ -64,14 +63,6 @@ if [ "$INSTALL_KONG" = true ];then
 fi
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
-if [ "$INSTALL_RANPM" = true ];then
-   echo "Running uninstall-ranpm.sh"
-   chmod +x ${ROOT_DIR}/../ranpm/install/uninstall-ranpm.sh
-   ${ROOT_DIR}/../ranpm/install/uninstall-ranpm.sh
-   kubectl delete ns ran
-   echo "uninstall-ranpm.sh completed"
-fi
 
 echo "Undeploying NONRTRIC components [$COMPONENTS]"
 

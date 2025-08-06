@@ -16,6 +16,23 @@
       "message": "Im not sure this is a good idea in general - but needed for another task (getting the built helm charts made available for use) \nLets try - and if needed we can reconfigure later.",
       "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b10b89c6_3c9ce560",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-06T10:41:30Z",
+      "side": 1,
+      "message": "ref https://jira.linuxfoundation.org/plugins/servlet/desk/portal/2/IT-27939",
+      "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

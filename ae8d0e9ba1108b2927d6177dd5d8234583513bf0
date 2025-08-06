@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34516e59_edb1376b",
+        "filename": ".github/workflows/github2gerrit.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-06T16:28:42Z",
+      "side": 1,
+      "message": "Possibly could check the value in the pull_request event payload to check the \u0027sender\u0027, \u0027organization\u0027 or \u0027user\u0027 fields to figure out how the PR was initiated? \nhttps://docs.github.com/en/webhooks/webhook-events-and-payloads#pull_request",
+      "parentUuid": "f93afdb3_d9acd396",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e141a14_6de9ae90",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -96,6 +120,24 @@
       "side": 1,
       "message": "The Jenkins-\u003eGitHub job migration requires that we can update action calls in deployed workflows by raising changes in Gerrit. All O-RAN-SC repositories will need both GitHub2Gerrit and dependabot enabling eventually. We have been testing this functionality in OpenDaylight, and to a limited extent in ONAP. The benefit is, updated actions/workflows do go through the change approval process, since the Issues that Dependabot raises get pushed to Gerrit as changes taht require approval.",
       "parentUuid": "8e141a14_6de9ae90",
+      "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f1c3cc_9ca116a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-06T16:28:42Z",
+      "side": 1,
+      "message": "Im not sure we want all PRs from dependabot to be automatically sent to O-RAN-SC gerrit. \nAlso, not sure we want PRs from others in GitHub either - rather they use O-RAN-SC gerrit directly. (i.e. the GitHub mirror is actually readonly) \n\nWhy not just leave that step as manual? (i.e. leave only the \"workflow_dispatch\" trigger)",
+      "parentUuid": "42389fce_a05f14fa",
       "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

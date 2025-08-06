@@ -50,9 +50,7 @@ if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
 fi
 
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    pushd ../../../nonrtric/servicemanager-preload
     # Send stderr to /dev/null to turn off chatty logging
-    ./servicemanager-preload.sh config-nonrtric.yaml 2>/dev/null
-    ./servicemanager-preload.sh config-smo.yaml 2>/dev/null
-    popd
+    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-nonrtric.yaml 2>/dev/null
+    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-smo.yaml 2>/dev/null
 fi

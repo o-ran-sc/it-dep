@@ -1,6 +1,6 @@
 <!---
 
-Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 
 Licensed under the Creative Commons License, Attribution 4.0 Intl.
 (the"Documentation License"); you may not use this documentation

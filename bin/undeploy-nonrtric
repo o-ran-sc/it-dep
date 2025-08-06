@@ -49,13 +49,6 @@ RELEASE_PREFIX=$(echo "$COMMON_BLOCK" | awk '/^ *releasePrefix:/{print $2}')
 INSTALL_KONG=$(cat /tmp/recipe.yaml | awk '/^  installKong:/{print $2}')
 
 if [ "$INSTALL_KONG" = true ];then
-  echo "Warning - deleting Kong routes and services for ServiceManager"
-  SERVICEMANAGER_POD=$(kubectl get pods -o custom-columns=NAME:.metadata.name -l app=nonrtric-servicemanager --no-headers -n ${NONRTRIC_NAMESPACE:-nonrtric})
-  if [[ -n $SERVICEMANAGER_POD ]]; then
-    kubectl exec $SERVICEMANAGER_POD -n ${NONRTRIC_NAMESPACE:-nonrtric} -- ./kongclearup
-  else
-      echo "Error - Servicemanager pod not found, didn't delete Kong routes and services for ServiceManager"
-  fi
   echo "Uninstalling kongstorage"
   helm delete kongstorage -n "${NONRTRIC_NAMESPACE:-nonrtric}"
   echo "Uninstalling Kong"

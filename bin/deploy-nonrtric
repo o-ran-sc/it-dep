@@ -187,10 +187,3 @@ echo "Deploying NONRTRIC"
 
 echo "helm install -f $OVERRIDEYAML --namespace ${NONRTRIC_NAMESPACE:-nonrtric} ${HELM_NAME_OPT} ${RELEASE_PREFIX} $ROOT_DIR/../nonrtric/helm/nonrtric"
 helm install -f $OVERRIDEYAML -n "${NONRTRIC_NAMESPACE:-nonrtric}" ${HELM_NAME_OPT} "${RELEASE_PREFIX}" "$ROOT_DIR/../nonrtric/helm/nonrtric"
-
-if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
-    pushd "$ROOT_DIR/../nonrtric/servicemanager-preload"
-    # Send stderr to null to turn off chatty logging
-    ./servicemanager-preload.sh config-nonrtric.yaml 2>/dev/null
-    popd
-fi

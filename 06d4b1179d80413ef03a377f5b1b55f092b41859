@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec0df9d_588dfdda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-08-06T05:35:06Z",
+      "side": 1,
+      "message": "@subh.singh@samsung.com ptal",
+      "revId": "06d4b1179d80413ef03a377f5b1b55f092b41859",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

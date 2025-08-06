@@ -16,6 +16,24 @@
       "message": "NB: Is it better to stick with a specific version?",
       "revId": "161e5179c7cd9a11feba4b9309119d7fba057613",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "137ca8dc_1934ab97",
+        "filename": "tools/setup_k8s/scripts/chartmuseum.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-08-06T02:36:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66ec30c7_7013e11f",
+      "revId": "161e5179c7cd9a11feba4b9309119d7fba057613",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

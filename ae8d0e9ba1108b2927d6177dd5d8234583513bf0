@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0890f9f5_f6ec37ab",
+        "filename": ".github/workflows/github2gerrit.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-08-06T11:07:41Z",
+      "side": 1,
+      "message": "Can this be configured to trigger only for pull requests created by Dependabot?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "ae8d0e9ba1108b2927d6177dd5d8234583513bf0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e141a14_6de9ae90",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

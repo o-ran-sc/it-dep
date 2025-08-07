@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8698090c_4c23d903",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-08-07T08:51:24Z",
+      "side": 1,
+      "message": "@aravindhan.a@est.tech @john.keeney@est.tech i tested for non-rt ric deployment but failed due to some parameters are not set properly. This patch includes installation cm-push plugin and setting those params.",
+      "revId": "30186a95bedbefc768e20abbe48778026c28d10f",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

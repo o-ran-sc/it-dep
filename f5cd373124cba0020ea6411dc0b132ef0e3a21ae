@@ -16,6 +16,24 @@
       "message": "Missing \"export KUBECONFIG\u003d/etc/kubernetes/admin.conf\" ?",
       "revId": "f5cd373124cba0020ea6411dc0b132ef0e3a21ae",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7a75f4_052acc80",
+        "filename": "tools/setup_k8s/setup_k8s.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-08-07T09:05:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9a3c83c_96791a48",
+      "revId": "f5cd373124cba0020ea6411dc0b132ef0e3a21ae",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

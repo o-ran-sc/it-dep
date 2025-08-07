@@ -16,6 +16,23 @@
       "message": "Required for installing chartmuseum. https://gerrit.o-ran-sc.org/r/c/it/dep/+/14788",
       "revId": "6694d7f08221e86baa3ba5a035da7f5707f63dfa",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa56820a_1fecaafe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-08-07T08:58:32Z",
+      "side": 1,
+      "message": "@aravindhan.a@est.tech @john.keeney@est.tech",
+      "revId": "6694d7f08221e86baa3ba5a035da7f5707f63dfa",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

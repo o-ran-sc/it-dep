@@ -155,6 +155,12 @@ mariadb-galera:
     appVersion: 11.1.2
     persistence:
       storageClassName: *smo-sc
+    livenessProbe:
+      initialDelaySeconds: 150
+    readinessProbe:
+      initialDelaySeconds: 150
+    startupProbe:
+      initialDelaySeconds: 150
     galera:
       enabled: false
 postgres:

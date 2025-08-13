@@ -1,0 +1,245 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2023 The Linux Foundation
+
+name: Helm/Docker Verify
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+    inputs:
+      # Mandatory Gerrit inputs
+      GERRIT_BRANCH:
+        description: "Branch that change is against"
+        required: true
+        type: string
+      GERRIT_CHANGE_ID:
+        description: "The ID for the change"
+        required: true
+        type: string
+      GERRIT_CHANGE_NUMBER:
+        description: "The Gerrit number"
+        required: true
+        type: string
+      GERRIT_CHANGE_URL:
+        description: "URL to the change"
+        required: true
+        type: string
+      GERRIT_EVENT_TYPE:
+        description: "Type of Gerrit event"
+        required: true
+        type: string
+      GERRIT_PATCHSET_NUMBER:
+        description: "The patch number for the change"
+        required: true
+        type: string
+      GERRIT_PATCHSET_REVISION:
+        description: "The revision sha"
+        required: true
+        type: string
+      GERRIT_PROJECT:
+        description: "Project in Gerrit"
+        required: true
+        type: string
+      GERRIT_REFSPEC:
+        description: "Gerrit refspec of change"
+        required: true
+        type: string
+
+    # When converted to a reusable, environment variables will become inputs
+
+    # When converted to a reusable, secrets must be explicitly referenced, e.g.
+    # secrets:
+    #   NEXUS3_PASSWORD:
+    #     description: "Nexus3 organization user's password"
+    #     required: true
+
+concurrency:
+  # yamllint disable-line rule:line-length
+  group: composed-gradle-verify-clm${{ github.workflow }}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
+  cancel-in-progress: true
+
+# Parameters used during workflow test/development
+env:
+  # Inherited from build-publish.yaml
+  CHARTS_SOURCE_DIR: 'charts'
+  CHART_ARTIFACT_NAME: 'helm-charts'
+  CHARTMUSEUM_STORAGE_DIR: './chartmuseum-storage'
+  CHARTS_BUILD_DIR: './chartmuseum-storage'
+
+  # Inherited from jenkins verify job
+  DOCKER_IMAGE_TAG: 'latest'
+  DOCKER_ARGS: '-f ci/Dockerfile'
+  # Partially dynamically generated from repository name
+  DOCKER_NAME: "${{ github.repository }}-helm"
+  CONTAINER_PULL_REGISTRY: 'nexus3.o-ran-sc.org:10001'
+  CONTAINER_PUSH_REGISTRY: 'nexus3.o-ran-sc.org:10004'
+  NEXUS3_SERVER: "${{ vars.NEXUS3_SERVER }}"
+  # Failing WGET command from jenkins job
+  # wget https://get.helm.sh/helm-v2.17.0-linux-amd64.tar.gz
+  HELM_VERSION: 'v2.17.0'  # Unused while testing updated Helm
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Allow replication
+        run: sleep 10s
+
+      - name: Notify job start
+        # yamllint disable-line rule:line-length
+        uses: lfit/gerrit-review-action@9627b9a144f2a2cad70707ddfae87c87dce60729 # v0.8
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          vote-type: clear
+
+  # ToDo: convert main job to callable/reusable workflow
+  # Call to reusable workflow will eventually replace code below
+  verify:
+    name: 'Build/Verify Helm Charts'
+    runs-on: 'ubuntu-latest'
+    outputs:
+      charts_build_dir: "${{ env.CHARTS_BUILD_DIR }}"
+      chart_artifact_name: "${{ env.CHART_ARTIFACT_NAME }}"
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      # yamllint disable-line rule:line-length
+      - uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863  # v2.12.1
+        with:
+          egress-policy: audit
+
+      - name: 'Checkout Gerrit change'
+        # yamllint disable-line rule:line-length
+        uses: lfit/checkout-gerrit-change-action@54d751e8bd167bc91f7d665dabe33fae87aaaa63  # v0.9
+        with:
+          gerrit-refspec: ${{ inputs.GERRIT_REFSPEC }}
+          delay: "0s"
+
+      - name: 'Display workflow environment'
+        shell: bash
+        run: |
+            # Display workflow environment
+            echo "CONTAINER_TAG_METHOD: $CONTAINER_TAG_METHOD"
+            echo "DOCKER_ARGS: $DOCKER_ARGS"
+            echo "DOCKER_NAME: $DOCKER_NAME"
+            echo "CONTAINER_PULL_REGISTRY: $CONTAINER_PULL_REGISTRY"
+            echo "CONTAINER_PUSH_REGISTRY: $CONTAINER_PUSH_REGISTRY"
+            echo "NEXUS3_SERVER: $NEXUS3_SERVER"
+            echo "HELM_VERSION: $HELM_VERSION"
+
+      - name: 'Setup Helm'
+        # yamllint disable-line rule:line-length
+        uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112  # v4.3.0
+        # Not explicitly used while testing updated Helm
+        # with:
+        #   version: ${{ env.HELM_VERSION }}
+
+      - name: 'Build pre-requisites, install Helm plugins'
+        id: pre-requisites
+        shell: bash
+        run: |
+          # Build pre-requisites
+          echo 'Running: git submodule update --init 💬'
+          git submodule update --init
+          echo 'Running: helm plugin installs 💬'
+            plugin_dir='smo-install/onap_oom/kubernetes/helm/plugins/'
+          helm plugin install "$plugin_dir/undeploy/"
+          helm plugin install "$plugin_dir/deploy/"
+          # Installation of helm-push fixes the error below
+          # Error: unknown command "cm-push" for "helm"
+          # yamllint disable-line rule:line-length
+          helm plugin install https://github.com/chartmuseum/helm-push
+          echo 'Listing Helm plugins 💬'
+          helm plugin list
+
+      - name: 'Start ChartMuseum'
+        id: chartmuseum
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/chartmuseum-action@4fb530a2cc2b2b46c0ea48ba11445c01247aba2a # v0.1.2
+        with:
+          username: 'chartmuseum'
+          password: "${{ secrets.GITHUB_TOKEN }}"
+          exit: false
+          directory: "${{ env.CHARTMUSEUM_STORAGE_DIR }}"
+          helm_repo_name: 'local'
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Run make'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        with:
+          make_args: "-C smo-install/oran_oom"
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Run make'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        with:
+          make_args: "-C smo-install/oran_oom/smo"
+
+      - name: 'Upload Helm Charts as artefacts'
+        # yamllint disable-line rule:line-length
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: "${{ env.CHART_ARTIFACT_NAME }}"
+          path: "${{ env.CHARTS_BUILD_DIR }}/*.tgz"
+
+      - name: 'Login to Nexus 3 (port 10001)'
+        # yamllint disable-line rule:line-length
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1  # v3.5.0
+        with:
+          # Concatenate host in secret with each port from the matrix.
+          registry: "${{ vars.NEXUS3_SERVER }}:10001"
+          username: "${{ github.event.repository.name }}"
+          password: "${{ secrets.NEXUS_PASSWORD }}"
+
+      - name: 'Login to Nexus 3 (port 10004)'
+        # yamllint disable-line rule:line-length
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1  # v3.5.0
+        with:
+          # Concatenate host in secret with each port from the matrix.
+          registry: "${{ vars.NEXUS3_SERVER }}:10004"
+          username: "${{ github.event.repository.name }}"
+          password: "${{ secrets.NEXUS_PASSWORD }}"
+
+      - name: Set up Docker Buildx
+        # yamllint disable-line rule:line-length
+        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
+
+      - name: 'Docker build'
+        shell: bash
+        run: |
+            # Docker build
+            docker_build_command="docker build ${DOCKER_ARGS:-} \
+                -t "$CONTAINER_PUSH_REGISTRY/$DOCKER_NAME:$DOCKER_IMAGE_TAG" ."
+            echo "$docker_build_command"
+            eval "$docker_build_command" |\
+              tee "$WORKSPACE/docker_build_log.txt"
+
+  report-status:
+    if: ${{ always() }}
+    needs: [notify, verify]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get conclusion
+        # yamllint disable-line rule:line-length
+        uses: im-open/workflow-conclusion@e4f7c4980600fbe0818173e30931d3550801b992 # v2.2.3
+
+      - name: Report workflow conclusion
+        # yamllint disable-line rule:line-length
+        uses: lfit/gerrit-review-action@9627b9a144f2a2cad70707ddfae87c87dce60729 # v0.8
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          vote-type: ${{ env.WORKFLOW_CONCLUSION }}

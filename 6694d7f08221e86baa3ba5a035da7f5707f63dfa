@@ -68,6 +68,24 @@
       "message": "@john.keeney@est.tech any change for this to be merge first before https://gerrit.o-ran-sc.org/r/c/it/dep/+/14788?",
       "revId": "6694d7f08221e86baa3ba5a035da7f5707f63dfa",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a7e4f8_b2486d8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-14T14:11:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fa603371_ff94c1c1",
+      "revId": "6694d7f08221e86baa3ba5a035da7f5707f63dfa",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

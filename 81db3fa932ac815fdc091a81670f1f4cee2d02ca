@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c40ee8_f917fa9e",
+        "filename": ".github/workflows/ci-verify.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-08-14T15:25:21Z",
+      "side": 1,
+      "message": "docker build version is needed for the near-rt-ric deployment (ric-aux \u0026 ric-dep) test. We don\u0027t know how to get this to work with the \u0027make\u0027 version above.",
+      "range": {
+        "startLine": 185,
+        "startChar": 5,
+        "endLine": 191,
+        "endChar": 18
+      },
+      "revId": "81db3fa932ac815fdc091a81670f1f4cee2d02ca",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

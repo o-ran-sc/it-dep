@@ -1,9 +1,0 @@
-# ignore all logs
-*.log
-*.tar
-*.tgz
-*.swp
-*.lock
-.tox
-docs/_build/
-.DS_STORE

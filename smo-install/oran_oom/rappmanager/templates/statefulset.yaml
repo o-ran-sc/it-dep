@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -26,6 +26,10 @@ spec:
     metadata: {{- include "common.templateMetadata" . | nindent 6 }}
     spec:
       hostname: {{ include "common.name" . }}
+      initContainers:
+      - name: wait-for-servicemanager
+        image: alpine:latest
+        command: ['sh', '-c', 'apk add --no-cache netcat-openbsd && nc -zv servicemanager 8095']
       containers:
       - name: {{ include "common.containername" . }}
         image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}

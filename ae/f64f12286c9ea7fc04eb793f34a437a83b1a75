@@ -1,0 +1,11 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+2: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: John Keeney <john.keeney@est.tech>
+Verified+1: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Mon, 18 Aug 2025 09:43:48 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14787
+Comments-Total: 2
+Project: it/dep
+Branch: refs/heads/master

@@ -15,6 +15,7 @@
 #  ============LICENSE_END=================================================
 #
 
+{{- if .Values.patch.cps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -24,3 +25,4 @@ metadata:
     "helm.sh/hook-weight": "2"
 data:
 {{ tpl (.Files.Glob "resources/patch-cps-kafka-users.sh").AsConfig . | indent 2 }}
+{{- end }}

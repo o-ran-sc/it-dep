@@ -22,5 +22,29 @@ nonrtric:
   installDmaapadapterservice: false
   installRanpm: false
 
+common:
+  influxdb2:
+    enabled: false
+  kafka-client:
+    enabled: false
+  keycloak:
+    enabled: false
+  keycloak-proxy:
+    enabled: false
+  minio:
+    enabled: false
+  opa:
+    enabled: false
+  opa-rule-db:
+    enabled: false
+  redpanda-console:
+    enabled: false
+  # This controls the patching in smo installation
+  patch:
+    strimzi: false
+    vescollector: false
+    policy: true
+    cps: false
+
 smo:
   installTeiv: false

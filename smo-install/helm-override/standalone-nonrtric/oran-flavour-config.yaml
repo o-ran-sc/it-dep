@@ -16,20 +16,12 @@
 #
 
 nonrtric:
-  installPms: true
-  installA1controller: true
-  installA1simulator: true
-  installControlpanel: true
-  installInformationservice: true
-  installNonrtricgateway: true
-  installKong: true
   installTopology: false
-  installDmaapadapterservice: true
   installDmeparticipant: false
-  installrAppmanager: true
-  installCapifcore: true
-  installServicemanager: true
   installRanpm: false
+
+common:
+  enabled: false
 
 smo:
   installTeiv: false

@@ -58,9 +58,33 @@ nonrtric:
     - name: dmeparticipant-ku
       dependsOn: nonrtric.installDmeparticipant
 
+# This common index used by NONRTRIC components
 common:
   releasePrefix: r3-dev-nonrtric
   ingressClassName: kong
+  # This is the common configuration for SMO components
+  enabled: true # This controls all components and patches of smo/common
+  influxdb2:
+    enabled: true
+  kafka-client:
+    enabled: true
+  keycloak:
+    enabled: true
+  keycloak-proxy:
+    enabled: true
+  minio:
+    enabled: true
+  opa:
+    enabled: true
+  opa-rule-db:
+    enabled: true
+  redpanda-console:
+    enabled: true
+  # This controls the patching in smo installation
+  patch:
+    strimzi: true # This patch adds oauth+keycloak based listener to strimzi (Used by RANPM)
+    vescollector: true # This patch adds Rel18 Schema (https://forge.3gpp.org/rep/sa5/MnS/-/archive/Rel-18/MnS-Rel-18.tar?path=OpenAPI) to VES Collector
+    policy: true # This patch adds wildcard access to the policy kafkausers
 
 informationservice:
   persistence:

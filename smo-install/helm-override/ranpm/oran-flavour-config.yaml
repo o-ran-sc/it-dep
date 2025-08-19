@@ -25,5 +25,9 @@ nonrtric:
   installCapifcore: false
   installServicemanager: false
 
+common:
+  patch:
+    policy: false
+
 smo:
   installTeiv: false

@@ -14,6 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{- if .Values.patch.vescollector }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -41,3 +42,4 @@ spec:
             name: vescollector-patch-config
             defaultMode: 0755
       restartPolicy: Never
+{{- end }}

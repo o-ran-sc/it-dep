@@ -27,24 +27,32 @@ dependencies:
   - name: influxdb2
     version: 0.1.0
     repository: "file://influxdb2"
+    condition: influxdb2.enabled
   - name: kafka-client
     version: 0.1.0
     repository: "file://kafka-client"
+    condition: kafka-client.enabled
   - name: keycloak
     version: 0.1.0
     repository: "file://keycloak"
+    condition: keycloak.enabled
   - name: keycloak-proxy
     version: 0.1.0
     repository: "file://keycloak-proxy"
+    condition: keycloak-proxy.enabled
   - name: minio
     version: 0.1.0
     repository: "file://minio"
+    condition: minio.enabled
   - name: opa
     version: 0.1.0
     repository: "file://opa"
+    condition: opa.enabled
   - name: opa-rule-db
     version: 0.1.0
     repository: "file://opa-rule-db"
+    condition: opa-rule-db.enabled
   - name: redpanda-console
     version: 0.1.0
     repository: "file://redpanda-console"
+    condition: redpanda-console.enabled

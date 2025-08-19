@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -13,24 +13,24 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #  ============LICENSE_END=================================================
-#
-apiVersion: v2
-name: smo
-version: 1.0.0
-appVersion: test
-description: Open Radio Access Network (ORAN)
-kubeVersion: ">=1.19.0-0"
 
-dependencies:
-  - name: common
-    version: ~1.0.0
-    repository: "@local"
-    condition: common.enabled
-  - name: ranpm
-    version: ~1.0.0
-    repository: "@local"
-    condition: nonrtric.installRanpm
-  - name: topology-exposure-inventory
-    version: ~1.0.0
-    repository: "@local"
-    condition: smo.installTeiv
+influxdb2:
+  enabled: true
+kafka-client:
+  enabled: true
+keycloak:
+  enabled: true
+keycloak-proxy:
+  enabled: true
+minio:
+  enabled: true
+opa:
+  enabled: true
+opa-rule-db:
+  enabled: true
+redpanda-console:
+  enabled: true
+patch:
+  strimzi: true
+  vescollector: true
+  policy: true

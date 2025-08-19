@@ -14,6 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
+{{- if .Values.patch.strimzi }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -41,3 +42,4 @@ spec:
             name: strimzi-patch-config
             defaultMode: 0755
       restartPolicy: Never
+{{- end }}

@@ -31,6 +31,9 @@ nonrtric:
   installServicemanager: true
   installRanpm: false
 
+common:
+  enabled: false
+
 smo:
   installTeiv: false
 

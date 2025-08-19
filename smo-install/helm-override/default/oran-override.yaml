@@ -58,9 +58,33 @@ nonrtric:
     - name: dmeparticipant-ku
       dependsOn: nonrtric.installDmeparticipant
 
+# This common index used by NONRTRIC components
 common:
   releasePrefix: r3-dev-nonrtric
   ingressClassName: kong
+  # This is the common configuration for SMO components
+  enabled: true # This controls all components and patches of smo/common
+  influxdb2:
+    enabled: true
+  kafka-client:
+    enabled: true
+  keycloak:
+    enabled: true
+  keycloak-proxy:
+    enabled: true
+  minio:
+    enabled: true
+  opa:
+    enabled: true
+  opa-rule-db:
+    enabled: true
+  redpanda-console:
+    enabled: true
+  # This controls the patching in smo installation
+  patch:
+    strimzi: true
+    vescollector: true
+    policy: true
 
 informationservice:
   persistence:

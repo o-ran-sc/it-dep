@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -21,3 +21,26 @@ smo:
   pgsqlvolume:
     size: 1Gi
     storageClassName: pgsql-sc
+
+common:
+  enabled: true
+  influxdb2:
+    enabled: true
+  kafka-client:
+    enabled: true
+  keycloak:
+    enabled: true
+  keycloak-proxy:
+    enabled: true
+  minio:
+    enabled: true
+  opa:
+    enabled: true
+  opa-rule-db:
+    enabled: true
+  redpanda-console:
+    enabled: true
+  patch:
+    strimzi: true
+    vescollector: true
+    policy: true

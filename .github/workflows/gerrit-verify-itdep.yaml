@@ -38,6 +38,7 @@ jobs:
     needs: notify
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
       - name: 'Call Build/Helm Verify'
         uses: ./.github/workflows/reuse-helm-verify.yaml
         with:

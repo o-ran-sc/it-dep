@@ -16,6 +16,7 @@ on:
       - main
       - master
 
+# Parameters used during workflow test/development
 env:
   # Inherited from build-publish.yaml
   CHARTS_SOURCE_DIR: 'charts'
@@ -28,7 +29,6 @@ env:
 
 
 jobs:
-
   verify:
     name: 'Call Build/Helm Verify'
     uses: ./.github/workflows/reuse-helm-verify.yaml

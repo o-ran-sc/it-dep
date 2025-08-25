@@ -58,19 +58,6 @@ jobs:
       contents: read
     timeout-minutes: 15
     steps:
-      # yamllint disable-line rule:line-length
-      # - uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863  # v2.12.1
-      #   with:
-      #     egress-policy: audit
-
-      # - name: 'Checkout Gerrit change'
-      #   # yamllint disable-line rule:line-length
-      #   uses: lfit/checkout-gerrit-change-action@54d751e8bd167bc91f7d665dabe33fae87aaaa63  # v0.9
-      #   with:
-      #     gerrit-project: ${{ inputs.GERRIT_PROJECT }}
-      #     gerrit-refspec: ${{ inputs.GERRIT_REFSPEC }}
-      #     delay: "0s"
-
       - name: 'Display workflow environment'
         shell: bash
         run: |
@@ -80,9 +67,6 @@ jobs:
       - name: 'Setup Helm'
         # yamllint disable-line rule:line-length
         uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112  # v4.3.0
-        # Not explicitly used while testing updated Helm
-        # with:
-        #   version: ${{ inputs.HELM_VERSION }}
 
       - name: 'Set up Docker Buildx'
         # yamllint disable-line rule:line-length

@@ -16,6 +16,10 @@ on:
       - main
       - master
 
+# concurrency:
+#   # yamllint disable-line rule:line-length
+#   group: composed-gradle-verify-clm${{ github.workflow }}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
+#   cancel-in-progress: true
 
 # Parameters used during workflow test/development
 env:
@@ -30,89 +34,55 @@ env:
 
 
 jobs:
+  # notify:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Allow replication
+  #       run: sleep 10s
+
+  #     - name: Notify job start
+  #       # yamllint disable-line rule:line-length
+  #       uses: lfit/gerrit-review-action@9627b9a144f2a2cad70707ddfae87c87dce60729 # v0.8
+  #       with:
+  #         host: ${{ vars.GERRIT_SERVER }}
+  #         username: ${{ vars.GERRIT_SSH_USER }}
+  #         key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+  #         known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+  #         gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+  #         gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+  #         vote-type: clear
 
   verify:
-    name: 'Build/Verify Helm Charts'
-    runs-on: 'ubuntu-latest'
-    outputs:
-      charts_build_dir: "${{ env.CHARTS_BUILD_DIR }}"
-      chart_artifact_name: "${{ env.CHART_ARTIFACT_NAME }}"
-    permissions:
-      contents: read
-    timeout-minutes: 15
-    steps:
+    name: 'Call Build/Helm Verify'
+    uses: ./.github/workflows/reuse-helm-verify.yaml
+    with:
+      GERRIT_PROJECT: ${{ inputs.GERRIT_PROJECT }}
+      GERRIT_REFSPEC: ${{ inputs.GERRIT_REFSPEC }}
+      CHARTS_BUILD_DIR: ${{ env.CHARTS_BUILD_DIR }}
+      CHART_ARTIFACT_NAME: ${{ env.CHART_ARTIFACT_NAME }}
+      HELM_VERSION: ${{ inputs.HELM_VERSION }}
+      CHARTMUSEUM_STORAGE_DIR: ${{ env.CHARTMUSEUM_STORAGE_DIR }}
+      RIC_DEP_CI_DOCKER_FILE: ${{ env.RIC_DEP_CI_DOCKER_FILE }}
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Display workflow environment'
-        shell: bash
-        run: |
-            # Display workflow environment
-            echo "RIC_DEP_CI_DOCKER_FILE: $RIC_DEP_CI_DOCKER_FILE"
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
-      - name: 'Setup Helm'
-        # yamllint disable-line rule:line-length
-        uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112  # v4.3.0
-        # Not explicitly used while testing updated Helm
-        # with:
-        #   version: ${{ env.HELM_VERSION }}
+  # report-status:
+  #   if: ${{ always() }}
+  #   needs: [notify, verify]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Get conclusion
+  #       # yamllint disable-line rule:line-length
+  #       uses: im-open/workflow-conclusion@e4f7c4980600fbe0818173e30931d3550801b992 # v2.2.3
 
-      - name: 'Set up Docker Buildx'
-        # yamllint disable-line rule:line-length
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
-
-      - name: 'Build pre-requisites, install Helm plugins'
-        id: pre-requisites
-        shell: bash
-        run: |
-          # Build pre-requisites
-          echo 'Running: git submodule update --init 💬'
-          git submodule update --init
-          echo 'Running: helm plugin installs 💬'
-            plugin_dir='smo-install/onap_oom/kubernetes/helm/plugins/'
-          helm plugin install "$plugin_dir/undeploy/"
-          helm plugin install "$plugin_dir/deploy/"
-          # Installation of helm-push fixes the error below
-          # Error: unknown command "cm-push" for "helm"
-          # yamllint disable-line rule:line-length
-          helm plugin install https://github.com/chartmuseum/helm-push
-          echo 'Listing Helm plugins 💬'
-          helm plugin list
-
-      - name: 'Start ChartMuseum'
-        id: chartmuseum
-        # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/chartmuseum-action@4fb530a2cc2b2b46c0ea48ba11445c01247aba2a # v0.1.2
-        with:
-          username: 'chartmuseum'
-          password: "${{ secrets.GITHUB_TOKEN }}"
-          exit: false
-          directory: "${{ env.CHARTMUSEUM_STORAGE_DIR }}"
-          helm_repo_name: 'local'
-
-      # Makefiles publish to Chartmeusem service locally
-      - name: 'Build onap_oom'
-        # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
-        with:
-          make_args: "-C smo-install/onap_oom/kubernetes -e SKIP_LINT=TRUE"
-
-      # Makefiles publish to Chartmeusem service locally
-      - name: 'Build oran_oom'
-        # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
-        with:
-          make_args: "-C smo-install/oran_oom"
-
-      # Makefiles publish to Chartmeusem service locally
-      - name: 'Build oran_oom/smo'
-        # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
-        with:
-          make_args: "-C smo-install/oran_oom/smo"
-
-      - name: Build ric-aux and ric-dep
-        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
-        with:
-          context: .
-          file: ${{ env.RIC_DEP_CI_DOCKER_FILE }}
-          push: false
-          tags: ""
+  #     - name: Report workflow conclusion
+  #       # yamllint disable-line rule:line-length
+  #       uses: lfit/gerrit-review-action@9627b9a144f2a2cad70707ddfae87c87dce60729 # v0.8
+  #       with:
+  #         host: ${{ vars.GERRIT_SERVER }}
+  #         username: ${{ vars.GERRIT_SSH_USER }}
+  #         key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+  #         known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+  #         gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+  #         gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+  #         vote-type: ${{ env.WORKFLOW_CONCLUSION }}

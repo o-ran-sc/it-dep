@@ -36,6 +36,24 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b15ffb6_dae60005",
+        "filename": "smo-install/helm-override/ranpm-pynts-es-rapp/onap-flavour-config.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-08-25T13:54:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f47d490d_85446e1f",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4a7c9ff_27d0db90",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Ok, removed",
       "parentUuid": "c4a7c9ff_27d0db90",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe68bcc_e8d6db8a",
+        "filename": "smo-install/oran_oom/smo/common/resources/patch-k8s-ppnt.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-08-25T13:54:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "acd16680_16520780",
       "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

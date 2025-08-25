@@ -1,0 +1,79 @@
+{
+    "ietf-hardware:hardware": {
+      "component": [
+        {
+          "name": "O-RU-Chassis",
+          "class": "iana-hardware:chassis",
+          "parent-rel-pos": 0,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          }
+        },
+        {
+          "name": "O-RU-Board",
+          "class": "o-ran-hardware:O-RAN-RADIO",
+          "parent": "O-RU-Chassis",
+          "parent-rel-pos": 0,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          },
+          "o-ran-hardware:energy-saving-enabled": true,
+          "o-ran-hardware:o-ran-name": "O-RU-Board"
+        },        
+        
+        {
+          "name": "O-RU-BF-CAL",
+          "class": "o-ran-hardware:O-RU-BF-CAL",
+          "parent": "O-RU-Chassis",
+          "parent-rel-pos": 3,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          }
+        },
+        {
+          "name": "O-RU-FEEDER",
+          "class": "o-ran-hardware:O-RU-FEEDER",
+          "parent": "O-RU-Chassis",
+          "parent-rel-pos": 4,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          }
+        },
+        {
+          "name": "O-RU-FPGA",
+          "class": "o-ran-hardware:O-RU-FPGA",
+          "parent": "O-RU-Chassis",
+          "parent-rel-pos": 5,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          },
+          "o-ran-hardware:energy-saving-enabled": true,
+          "o-ran-hardware:o-ran-name": "O-RU-FPGA"
+        },
+        {
+          "name": "O-RU-POWER-AMPLIFIER",
+          "class": "o-ran-hardware:O-RU-POWER-AMPLIFIER",
+          "parent": "O-RU-Chassis",
+          "parent-rel-pos": 6,
+          "alias": "concat(node-id, '-', component/name)",
+          "asset-id": "uuid(node-id, component/name)",          
+          "state": {
+            "admin-state": "unlocked"
+          },
+          "o-ran-hardware:energy-saving-enabled": true,
+          "o-ran-hardware:o-ran-name": "O-RU-POWER-AMPLIFIER"
+        }
+      ]
+    }
+  }
+  

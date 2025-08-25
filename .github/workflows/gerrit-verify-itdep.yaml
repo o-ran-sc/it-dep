@@ -35,10 +35,10 @@ jobs:
     with:
       GERRIT_PROJECT: ${{ inputs.GERRIT_PROJECT }}
       GERRIT_REFSPEC: ${{ inputs.GERRIT_REFSPEC }}
-      CHARTS_BUILD_DIR: ${{ env.CHARTS_BUILD_DIR }}
-      CHART_ARTIFACT_NAME: ${{ env.CHART_ARTIFACT_NAME }}
+      CHARTS_BUILD_DIR: './chartmuseum-storage'
+      CHART_ARTIFACT_NAME: 'helm-charts'
       HELM_VERSION: ${{ inputs.HELM_VERSION }}
-      CHARTMUSEUM_STORAGE_DIR: ${{ env.CHARTMUSEUM_STORAGE_DIR }}
-      RIC_DEP_CI_DOCKER_FILE: ${{ env.RIC_DEP_CI_DOCKER_FILE }}
+      CHARTMUSEUM_STORAGE_DIR: './chartmuseum-storage'
+      RIC_DEP_CI_DOCKER_FILE: 'ci/Dockerfile'
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd6be566_933c33ec",
+        "filename": "smo-install/helm-override/ranpm-pynts-es-rapp/onap-flavour-config.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-08-25T13:09:46Z",
+      "side": 1,
+      "message": "In flavour config, it is better to have the values which is different from default.  e.g enable/disable some components which is not enabled/disabled in default flavour. There is no harm in having all values. It\u0027s better to show what is different.",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a7c9ff_27d0db90",
+        "filename": "smo-install/oran_oom/smo/common/resources/patch-k8s-ppnt.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-08-25T13:09:46Z",
+      "side": 1,
+      "message": "This patch can be removed. This change included as part of onap oom update here https://gerrit.o-ran-sc.org/r/c/it/dep/+/14812.",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

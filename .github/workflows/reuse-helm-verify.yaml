@@ -38,11 +38,6 @@ on:
         required: true
         type: string
 
-    secrets:
-      GITHUB_TOKEN:
-        description: "GitHub token"
-        required: true
-
     outputs:
       charts_build_dir: 
         description: "Directory where built charts are stored"

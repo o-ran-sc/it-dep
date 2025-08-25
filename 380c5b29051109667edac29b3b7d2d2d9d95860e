@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f47d490d_85446e1f",
+        "filename": "smo-install/helm-override/ranpm-pynts-es-rapp/onap-flavour-config.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1002638
+      },
+      "writtenOn": "2025-08-25T13:39:19Z",
+      "side": 1,
+      "message": "I have removed all the non-essential values",
+      "parentUuid": "bd6be566_933c33ec",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c4a7c9ff_27d0db90",
         "filename": "smo-install/oran_oom/smo/common/resources/patch-k8s-ppnt.sh",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-25T13:09:46Z",
       "side": 1,
       "message": "This patch can be removed. This change included as part of onap oom update here https://gerrit.o-ran-sc.org/r/c/it/dep/+/14812.",
+      "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd16680_16520780",
+        "filename": "smo-install/oran_oom/smo/common/resources/patch-k8s-ppnt.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002638
+      },
+      "writtenOn": "2025-08-25T13:39:19Z",
+      "side": 1,
+      "message": "Ok, removed",
+      "parentUuid": "c4a7c9ff_27d0db90",
       "revId": "380c5b29051109667edac29b3b7d2d2d9d95860e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }

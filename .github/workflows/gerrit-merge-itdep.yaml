@@ -185,7 +185,7 @@ jobs:
         with:
           nexus_server: "${{ vars.NEXUS3_SERVER }}"
           nexus_username: "${{ github.event.repository.name }}"
-          nexus_password: "${{ secrets.NEXUS3_PASSWORD }}"
+          nexus_password: "${{ secrets.NEXUS_PASSWORD }}"
           repository_format: 'raw'
           repository_name: 'helm.snapshot'
           files_path: "${{ env.CHARTS_BUILD_DIR }}"

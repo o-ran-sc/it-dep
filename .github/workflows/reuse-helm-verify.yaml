@@ -54,8 +54,6 @@ jobs:
     outputs:
       charts_build_dir: "${{ inputs.CHARTS_BUILD_DIR }}"
       chart_artifact_name: "${{ inputs.CHART_ARTIFACT_NAME }}"
-    permissions:
-      contents: read
     timeout-minutes: 15
     steps:
       - name: 'Display workflow environment'

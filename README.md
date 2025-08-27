@@ -26,7 +26,10 @@ This is a comment, it will not be included)
 
 
 # RIC Integration
-  
+
+[![Helm CI Verification](https://github.com/o-ran-sc/it-dep/actions/workflows/gerrit-verify-itdep.yaml/badge.svg)](https://github.com/o-ran-sc/it-dep/actions/workflows/gerrit-verify-itdep.yaml)
+[![Merge and Publish Snapshots](https://github.com/o-ran-sc/it-dep/actions/workflows/gerrit-merge-itdep.yaml/badge.svg)](https://github.com/o-ran-sc/it-dep/actions/workflows/gerrit-merge-itdep.yaml)
+
 This repo contains RAN Intelligent Controller (RIC) deployments related files.
 
 

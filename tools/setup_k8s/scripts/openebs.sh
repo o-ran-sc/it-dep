@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (c) 2025 Broadband Multimedia Wireless Lab, NTUST                #                                #
+#   Copyright (c) 2025 Broadband Multimedia Wireless Lab, NTUST                #                                
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -16,14 +16,14 @@
 
 helm repo add openebs https://openebs.github.io/openebs
 helm repo update
-helm upgrade --install openebs --namespace openebs openebs/openebs 
-    --version 4.3.0 
-    --create-namespace 
-    --set engines.replicated.mayastor.enabled=false 
-    --set engines.local.lvm.enabled=false 
-    --set engines.local.zfs.enabled=false 
-    --set loki.enabled=false 
-    --set alloy.enabled=false 
+helm upgrade --install openebs --namespace openebs openebs/openebs \
+    --version 4.3.0 \
+    --create-namespace \
+    --set engines.replicated.mayastor.enabled=false \
+    --set engines.local.lvm.enabled=false \
+    --set engines.local.zfs.enabled=false \
+    --set loki.enabled=false \
+    --set alloy.enabled=false \
     --wait
 
 kubectl patch storageclass openebs-hostpath -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'

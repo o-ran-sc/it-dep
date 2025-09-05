@@ -46,7 +46,6 @@ postgresql:
       password: teiv
     persistence:
       size: 1Gi
-      volumeName: pgsql-volume
       storageClass: pgsql-sc
 
 topology-exposure:

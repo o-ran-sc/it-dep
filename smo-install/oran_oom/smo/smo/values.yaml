@@ -16,11 +16,6 @@
 
 smo:
   installTeiv: true
-  persistence:
-    mountPath: /dockerdata-nfs
-  pgsqlvolume:
-    size: 1Gi
-    storageClassName: pgsql-sc
 
 common:
   enabled: true

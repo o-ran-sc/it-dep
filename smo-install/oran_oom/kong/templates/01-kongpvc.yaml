@@ -25,6 +25,5 @@ spec:
     requests:
       storage: "{{ .Values.kongpvc.persistence.size }}"
 {{- if .Values.kongpv.enabled }}
-  volumeName: kongpv
   storageClassName: {{ .Values.kongpv.persistence.storageClassName }}
 {{- end }}

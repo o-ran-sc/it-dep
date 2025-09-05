@@ -20,10 +20,6 @@
 kongpv:
   enabled: true # Disabled for Minikube
   persistence:
-    volumeReclaimPolicy: Delete
-    accessMode: ReadWriteOnce
-    size: 2Gi
-    path: "/tmp/kongpv"
     storageClassName: kong-storage
 
 kongpvc:

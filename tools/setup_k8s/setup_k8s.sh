@@ -281,6 +281,8 @@ apt-get install -y containerd
 mkdir -p /etc/containerd
 containerd config default | tee /etc/containerd/config.toml
 sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+# increase max_concurrent_downloads to prevent queue waiting time
+sed -i '/\[plugins\."io\.containerd\.grpc\.v1\.cri"\]/,/^$/{/max_concurrent_downloads/s/=.*/= 20/}' /etc/containerd/config.toml
 systemctl restart containerd
 
 # Helm Installation

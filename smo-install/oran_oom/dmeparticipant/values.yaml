@@ -68,6 +68,11 @@ application:
   dme:
     baseUrl: http://informationservice:9082
 
+  logging:
+    level:
+      ROOT: INFO
+      org.springframework.web.client.RestTemplate: DEBUG
+
   participant:
     intermediaryParameters:
       reportingTimeIntervalMs: 120000

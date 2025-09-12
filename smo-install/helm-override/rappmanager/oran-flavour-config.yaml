@@ -16,7 +16,6 @@
 #
 
 nonrtric:
-  installPms: false
   installA1simulator: false
   installTopology: false
   installDmaapadapterservice: false

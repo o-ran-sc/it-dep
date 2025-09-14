@@ -15,30 +15,6 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-# Function to be executed on script exit or interruption
-cleanup() {
-  echo "" # Add a newline for cleaner output after Ctrl+C
-  echo "Caught Ctrl+C or script exiting. Performing cleanup..."
-  # Add any specific cleanup tasks here that you want to happen
-  # For example:
-  # rm -f /tmp/my_temp_file
-  # killall -SIGTERM any_background_processes_started_by_script
-
-  echo "Cleanup complete. Exiting."
-  exit 1 # Exit with a non-zero status to indicate abnormal termination
-}
-
-# Trap SIGINT (Ctrl+C) to call the cleanup function
-trap cleanup SIGINT
-
-# Trap EXIT to also call the cleanup function (useful for general cleanup)
-# If you want cleanup to *always* happen, regardless of how the script ends,
-# use EXIT. If you only want it on Ctrl+C, remove this line.
-# Note: If you trap both SIGINT and EXIT, be careful with logic to avoid
-# double-cleanup if SIGINT also causes an EXIT. A common pattern is to
-# have SIGINT *call* EXIT after its specific actions.
-trap cleanup EXIT
-
 # Capture start time
 start_time=$(date +%s)
 

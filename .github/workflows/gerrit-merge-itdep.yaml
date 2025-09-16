@@ -172,7 +172,6 @@ jobs:
           repository_name: 'helm.snapshot'
           files_path: "${{ env.CHARTS_BUILD_DIR }}"
           file_pattern: '*.tgz'
-          upload_path: "${{ github.event.repository.name }}"
 
   report-status:
     if: ${{ always() }}

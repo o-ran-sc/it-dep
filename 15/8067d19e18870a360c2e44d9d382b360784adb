@@ -1,0 +1,9 @@
+Code-Review+1: John Keeney <john.keeney@est.tech>
+Code-Review+2: Matthew Watkins <mwatkins@linuxfoundation.org>
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Verified+1: o-ran-sc release <collab-it+o-ran-sc-release@linuxfoundation.org>
+Submitted-by: Matthew Watkins <mwatkins@linuxfoundation.org>
+Submitted-at: Tue, 16 Sep 2025 05:30:09 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14915
+Project: it/dep
+Branch: refs/heads/master

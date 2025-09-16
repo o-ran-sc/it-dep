@@ -24,9 +24,10 @@ This guide describe the steps to install the SMO environment which involves Neph
 
 > sudo ./dep/tools/setup_k8s/setup_k8s.sh
 
-> mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+> sudo usermod -aG docker $USER
+
+> sudo chown -R ubuntu:ubuntu .kube
+
 ```
 
 ## Docker hub pull limit handling

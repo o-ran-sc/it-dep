@@ -21,8 +21,8 @@ start_time=$(date +%s)
 workspace=$(pwd)
 
 # Define default values
-DEFAULT_KUBEVERSION="1.32.3-1.1"
-DEFAULT_HELMVERSION="3.14.2"
+DEFAULT_KUBEVERSION="1.32.8"
+DEFAULT_HELMVERSION="3.18.6"
 DEFAULT_POD_CIDR="10.244.0.0/16"
 
 # Parse command-line arguments
@@ -284,11 +284,9 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 apt update
 
 
-apt-cache policy kubelet | grep 'Installed: (none)' -A 1000 | grep 'Candidate:' | awk '{print $2}'
-
 # Installing Kubectl, Kubeadm and kubelet
-
-apt install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
+VERSION=$(apt-cache madison kubeadm | awk -v ver="${KUBEVERSION#v}" '$3 == ver"-1.1" {print $3; exit}') # convert actual version to available debian versioning
+apt install -y kubeadm=${VERSION} kubelet=${VERSION} kubectl=${VERSION}
 kubeadm init --apiserver-advertise-address=${IP_ADDR} --pod-network-cidr=${POD_CIDR} --v=5
 
 # For CICD purpose

@@ -21,8 +21,8 @@ start_time=$(date +%s)
 workspace=$(pwd)
 
 # Define default values
-DEFAULT_KUBEVERSION="1.32.3-1.1"
-DEFAULT_HELMVERSION="3.14.2"
+DEFAULT_KUBEVERSION="1.32.8"
+DEFAULT_HELMVERSION="3.18.6"
 DEFAULT_POD_CIDR="10.244.0.0/16"
 
 # Parse command-line arguments
@@ -191,7 +191,6 @@ check_existing_cluster
 # Disable swap
 disable_swap
 
-# Script for Installing Docker,Kubernetes and Helm
 
 wait_for_pods_running () {
   NS="$2"
@@ -276,23 +275,31 @@ rm  helm-v${HELMVERSION}-linux-amd64.tar.gz
 echo "***************************************************************************************************************"
 echo "						Installing Kubernetes						"
 echo "***************************************************************************************************************"
+# Derive repo channel (major.minor) for Kubernetes apt source after parsing options
+KUBE_REPO_CHANNEL="$(echo "${KUBEVERSION#v}" | cut -d. -f1,2)"
+KUBE_REPO_URL="https://pkgs.k8s.io/core:/stable:/v${KUBE_REPO_CHANNEL}/deb"
 
-rm /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+rm -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 mkdir -p /etc/apt/keyrings
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL "${KUBE_REPO_URL}/Release.key" | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] ${KUBE_REPO_URL}/ /" | tee /etc/apt/sources.list.d/kubernetes.list
 apt update
 
-
-apt-cache policy kubelet | grep 'Installed: (none)' -A 1000 | grep 'Candidate:' | awk '{print $2}'
-
 # Installing Kubectl, Kubeadm and kubelet
-
-apt install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
+VERSION=$(apt-cache madison kubeadm | awk -v ver="${KUBEVERSION#v}" '$3 == ver"-1.1" {print $3; exit}') # convert actual version to available debian versioning
+apt install -y kubeadm=${VERSION} kubelet=${VERSION} kubectl=${VERSION}
 kubeadm init --apiserver-advertise-address=${IP_ADDR} --pod-network-cidr=${POD_CIDR} --v=5
 
-# For CICD purpose
+# For CICD purpose, prefer the original invoking user so kubeconfig isn't owned by root
 TARGET_USER="${SUDO_USER}"
+if [[ -z "${TARGET_USER}" || "${TARGET_USER}" == "root" ]]; then
+    if command_exists logname; then
+        TARGET_USER="$(logname 2>/dev/null || true)"
+    fi
+fi
+if [[ -z "${TARGET_USER}" || "${TARGET_USER}" == "root" ]]; then
+    TARGET_USER="${USER}"
+fi
 
 # Get the home directory of the target user
 TARGET_HOME=$(getent passwd "${TARGET_USER}" | cut -d: -f6)
@@ -301,6 +308,8 @@ if [[ -z "${TARGET_HOME}" ]]; then
     echo "Error: Home directory for user ${TARGET_USER} could not be found."
     exit 1
 fi
+
+TARGET_GROUP="$(id -gn "${TARGET_USER}")"
 
 echo "Setting up kubectl for user: ${TARGET_USER} in home directory: ${TARGET_HOME}"
 
@@ -311,7 +320,7 @@ mkdir -p "${TARGET_HOME}/.kube"
 cp -i /etc/kubernetes/admin.conf "${TARGET_HOME}/.kube/config"
 
 # Change the ownership to the correct user.
-chown "${TARGET_USER}:${TARGET_USER}" "${TARGET_HOME}/.kube/config"
+chown -R "${TARGET_USER}:${TARGET_GROUP}" "${TARGET_HOME}/.kube"
 
 # Set the correct permissions for the file.
 chmod 600 "${TARGET_HOME}/.kube/config"

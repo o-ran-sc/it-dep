@@ -1,5 +1,8 @@
+# Kubernetes Auto Deployment 
 
+This tool install kubernetes with its dependencies optimized for O-RAN SC SMO deployment.
 
+## Directory Structure
 ````
 setup_k8s/
 ├── Makefile              
@@ -9,3 +12,9 @@ setup_k8s/
 │   └── chartmuseum.sh   # Install Chartmuseum + plugins
 └── README.md               
 ````
+
+
+## How to use
+```
+ make run IP=<ip_address> SUDO=sudo
+```

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a6bc81_7b6c60d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-09-18T02:23:15Z",
+      "side": 1,
+      "message": "Thanks to Subhash for helm bump suggestion. Bump for kubernetes minor versioning is due to CVE issue. https://lf-o-ran-sc.atlassian.net/wiki/spaces/RSAC/pages/edit-v2/419725360\n\n@subh.singh@samsung.com @john.keeney@est.tech @aravindhan.a@est.tech PTAL",
+      "revId": "c83f0b56c667fa8dd28280ba7b8fdb2db5a86988",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

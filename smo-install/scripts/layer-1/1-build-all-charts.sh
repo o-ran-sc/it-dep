@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,6 +27,14 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
+
+# Adding local chartmuseum repo
+if helm repo list | awk '{print $1}' | grep -w -q "local"; then
+    echo "Helm repo 'local' already exists. Skipping addition."
+else
+    echo "Helm repo 'local' does not exist. Adding it ..."
+    helm repo add local http://localhost:18080
+fi
 
 ../sub-scripts/build-onap.sh
 ../sub-scripts/build-oran.sh

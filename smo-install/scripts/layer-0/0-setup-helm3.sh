@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -45,3 +46,8 @@ rm $TAR_FILE
 cd /tmp/
 helm repo remove local
 helm repo add local http://localhost:18080
+
+sudo apt-get install make -y
+
+helm plugin install ../../onap_oom/kubernetes/helm/plugins/undeploy/
+helm plugin install ../../onap_oom/kubernetes/helm/plugins/deploy/

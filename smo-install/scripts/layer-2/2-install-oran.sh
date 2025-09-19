@@ -77,17 +77,32 @@ fi
 
 timestamp=$(date +%s)
 
+helm repo add oran-snapshot https://nexus3.o-ran-sc.org/repository/helm.snapshot/
+helm repo add oran-release https://nexus3.o-ran-sc.org/repository/helm.release/
+helm repo add strimzi https://strimzi.io/charts/
+
+TARGET_HELM_REPO="oran-release"
+
+if [ "$MODE" == "dev" ]; then
+    helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.45.0.tgz local
+    TARGET_HELM_REPO="local"
+elif [ "$MODE" == "snapshot" ]; then
+    TARGET_HELM_REPO="oran-snapshot"
+fi
+
+helm repo update
+
 echo "Pre configuring SMO ..."
-../sub-scripts/preconfigure-smo.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
+../sub-scripts/preconfigure-smo.sh ../../helm-override/"$FLAVOUR"/onap-override.yaml
 echo "SMO pre configuration done."
 
 echo "Starting ONAP & NONRTRIC namespaces ..."
-../sub-scripts/install-onap.sh ../../helm-override/$FLAVOUR/onap-override.yaml $MODE $timestamp
-../sub-scripts/install-nonrtric.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
-../sub-scripts/install-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+../sub-scripts/install-onap.sh ../../helm-override/"$FLAVOUR"/onap-override.yaml "$TARGET_HELM_REPO" "$timestamp"
+../sub-scripts/install-nonrtric.sh ../../helm-override/"$FLAVOUR"/oran-override.yaml "$TARGET_HELM_REPO" "$timestamp"
+../sub-scripts/install-smo.sh ../../helm-override/"$FLAVOUR"/oran-override.yaml "$TARGET_HELM_REPO" "$timestamp"
 
 echo "Starting SMO Post Configuration ..."
-../sub-scripts/postconfigure-smo.sh ../../helm-override/$FLAVOUR/oran-override.yaml $MODE $timestamp
+../sub-scripts/postconfigure-smo.sh ../../helm-override/"$FLAVOUR"/oran-override.yaml
 echo "SMO post configuration done."
 
 kubectl get pods -n onap
@@ -96,10 +111,10 @@ kubectl get pods -n smo
 kubectl get namespaces
 
 if [ "$IS_GENERATED_ONAP_OVERRIDE" = true ]; then
-  rm -f ../../helm-override/$FLAVOUR/onap-override.yaml
+  rm -f ../../helm-override/"$FLAVOUR"/onap-override.yaml
 fi
 if [ "$IS_GENERATED_ORAN_OVERRIDE" = true ]; then
-  rm -f ../../helm-override/$FLAVOUR/oran-override.yaml
+  rm -f ../../helm-override/"$FLAVOUR"/oran-override.yaml
 fi
 
 echo "SMO Installation completed successfully in $(( ($(date +%s) - $timestamp) / 60 )) minutes."

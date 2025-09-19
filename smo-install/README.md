@@ -47,14 +47,14 @@ nonrtric:
 ```
 This will disable the NONRTRIC rAppmanager component in your flavour and all the other components will be installed as per the default flavour configuration.
 
-## Release Mode Installation
+## Release/Snapshot Mode Installation
 
-This is the default mode of installation. Building the charts are not required in release mode.
-Release mode uses the helm charts from the nexus helm repositories as pointed below,
-* ONAP: nexus3.onap.org/repository/onap-helm-testing/
+"Release" default mode of installation. Building the charts are not required in release/snapshot mode.
+Release/snapshot mode uses the helm charts from the nexus helm repositories as pointed below,
+* SMO - Release: https://nexus3.o-ran-sc.org/repository/helm.release/
+* SMO - Snapshot: https://nexus3.o-ran-sc.org/repository/helm.snapshot/
 * Strimzi: strimzi.io/charts/
-* NONRTRIC: ??? (nexus3.o-ran-sc.org/repository/o-ran-sc-helm/)
-* SMO: ??? (nexus3.o-ran-sc.org/repository/o-ran-sc-helm/)
+
 
 ### Installation
 
@@ -65,34 +65,38 @@ git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"
 ```
 
 > [!NOTE]
-> The upload of the HELM charts for NONRTRIC and SMO components is currently in progress. Until the charts are available, these components should continue to be installed using the development mode.
+> "Release" mode of helm charts are not available in the nexus repository. Hence, "Snapshot" mode of charts are used by default.
 
-Use the below command to setup chartmuseum and helm,
-
-```bash
-./dep/smo-install/scripts/layer-0/0-setup-charts-museum.sh
-```
+Use the below command to setup helm (Helm plugins cm-push and deploy/undeploy will be installed if not already available),
 
 ```bash
 ./dep/smo-install/scripts/layer-0/0-setup-helm3.sh
 ```
 
-Charts can be build using the below command,
+Once the pre-requisites are available, 
 
-```bash
-./dep/smo-install/scripts/layer-1/1-build-all-charts.sh
-```
-
-Once the pre-requisites are available, The below command can be used for the smo deployment of default flavour,
+The below command can be used for the smo deployment of default flavour in release mode,
 
 ```bash
 ./dep/smo-install/scripts/layer-2/2-install-oran.sh
 ```
 
-The below command can be used for the smo deployment of a specific flavour,
+The below command can be used for the smo deployment of default flavour in snapshot mode,
+
+```bash
+./dep/smo-install/scripts/layer-2/2-install-oran.sh default snapshot
+```
+
+The below command can be used for the smo deployment of a specific flavour in release mode,
 
 ```bash
 ./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR>
+```
+
+The below command can be used for the smo deployment of a specific flavour in snapshot mode,
+
+```bash
+./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR> snapshot
 ```
 
 
@@ -107,7 +111,7 @@ kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n 
 
 ## Dev Mode Installation
 
-In this mode, the released helm charts are not used. Instead, the charts are built from the source code and installed.
+In this mode, the release/snapshot helm charts are not used. Instead, the charts are built from the source code and installed.
 
 ### Installation
 

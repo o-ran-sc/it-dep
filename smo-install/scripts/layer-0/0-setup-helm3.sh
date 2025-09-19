@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +24,9 @@
 #
 ###
 #Helm package
+SCRIPT=$(readlink -f "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+
 cd /tmp
 wget https://get.helm.sh/helm-v3.12.3-linux-amd64.tar.gz
 tar xvfz /tmp/helm-v3.12.3-linux-amd64.tar.gz
@@ -42,6 +46,9 @@ cd $HELM_PLUGINS/helm-push
 wget https://nexus.o-ran-sc.org/content/repositories/thirdparty/chartmuseum/helm-push/$TAR_VERSION/$TAR_FILE
 tar zxvf $TAR_FILE >/dev/null
 rm $TAR_FILE
-cd /tmp/
-helm repo remove local
-helm repo add local http://localhost:18080
+
+sudo apt-get install make -y
+
+cd $SCRIPT_PATH
+helm plugin install ../../onap_oom/kubernetes/helm/plugins/undeploy/
+helm plugin install ../../onap_oom/kubernetes/helm/plugins/deploy/

@@ -20,20 +20,10 @@ echo  '### Installing ORAN SMO part ###'
 kubectl create namespace smo
 
 OVERRIDEYAML=$1
-MODE=$2
+HELM_REPO=$2
 
-if [ "$MODE" == "dev" ]; then
-    echo "Installing SMO in dev mode"
-    helm upgrade --install --debug oran-smo local/smo --namespace smo -f $OVERRIDEYAML --timeout 15m
-else
-    echo "Installing SMO in release mode"
-    # This following should be modified once the charts are uploaded and available in the nexus repository
-    # Till then, we are using the local chart
-        # helm repo add smo https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
-        # helm repo update
-        # helm upgrade --install oran-smo smo/smo --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm upgrade --install oran-smo local/smo --namespace smo -f $OVERRIDEYAML  --timeout 15m
-fi
+echo "Installing SMO from HELM Repo : $HELM_REPO"
+helm upgrade --install oran-smo "$HELM_REPO"/smo --namespace smo -f "$OVERRIDEYAML"  --timeout 15m
 
 check_for_secrets() {
     try=0
@@ -52,20 +42,20 @@ check_for_secrets() {
 # All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace
 # This enables the strimzi entity operator to create the secrets as necessary
 # Once the secrets are created, it should be copied to the SMO namespace
-SECRETS_SIZE=$(yq '.smo.secrets | length' $OVERRIDEYAML)
+SECRETS_SIZE=$(yq '.smo.secrets | length' "$OVERRIDEYAML")
 if [ "$SECRETS_SIZE" -eq 0 ]; then
     echo "No secrets to copy from onap namespace"
     exit 0
 else
     for i in $(seq 0 $((SECRETS_SIZE - 1))); do
-        secret=$(yq ".smo.secrets[$i].name" $OVERRIDEYAML)
-        dependsOn=$(yq ".smo.secrets[$i].dependsOn" $OVERRIDEYAML)
-        if [ $(yq ".$dependsOn" $OVERRIDEYAML) != "true" ]; then
+        secret=$(yq ".smo.secrets[$i].name" "$OVERRIDEYAML")
+        dependsOn=$(yq ".smo.secrets[$i].dependsOn" "$OVERRIDEYAML")
+        if [ "$(yq ".$dependsOn" "$OVERRIDEYAML")" != "true" ]; then
             echo "$dependsOn is not set to true. Skipping $secret copy..."
             continue
         fi
         echo "Copying $secret from onap namespace..."
-        check_for_secrets $secret
-        kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
+        check_for_secrets "$secret"
+        kubectl get secret "$secret" -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n smo -f -
     done
 fi

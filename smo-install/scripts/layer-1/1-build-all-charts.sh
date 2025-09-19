@@ -27,6 +27,10 @@ SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 cd $SCRIPT_PATH
 
+# Adding local chartmuseum repo
+helm repo remove local
+helm repo add local http://localhost:18080
+
 ../sub-scripts/build-onap.sh
 ../sub-scripts/build-oran.sh
 ../sub-scripts/build-tests.sh

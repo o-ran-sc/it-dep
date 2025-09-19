@@ -57,7 +57,7 @@ cps:
           type: topic
           operations: [Read]
   ncmp-dmi-plugin:
-    image: onap/ncmp-dmi-plugin:1.8.0-SNAPSHOT-latest
+    image: onap/ncmp-dmi-plugin:1.8.0-SNAPSHOT
     config:
       dmiServiceUrl: http://ncmp-dmi-plugin:8080
       sdnc:
@@ -78,6 +78,9 @@ cps:
           type: topic
           operations: [Write]
         - name: ncmp-events
+          type: topic
+          operations: [All]
+        - name: dmi-cm-events
           type: topic
           operations: [All]
         - name: "unauthenticated.VES_O1_NOTIFY_PNF_REGISTRATION_OUTPUT"

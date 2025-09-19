@@ -28,21 +28,10 @@ echo  '### Installing ORAN NONRTRIC part ###'
 
 OVERRIDEYAML=$1
 
-MODE=$2
+HELM_REPO=$2
 
-if [ "$MODE" == "dev" ]; then
-    echo "Installing NONRTRIC in dev mode"
-    helm upgrade --install --debug oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
-else
-    echo "Installing NONRTRIC in release mode"
-    # This following should be modified once the charts are uploaded and available in the nexus repository
-    # Till then, we are using the local chart
-        # helm repo add nonrtric https://nexus3.o-ran-sc.org/repository/smo-helm-snapshots/
-        # helm repo update
-        # helm install oran-nonrtric nonrtric/nonrtric --namespace nonrtric -f $OVERRIDEYAML --create-namespace
-    helm upgrade --install oran-nonrtric local/nonrtric --namespace nonrtric -f $OVERRIDEYAML --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
-fi
-
+echo "Installing NONRTRIC from HELM Repo : $HELM_REPO"
+helm upgrade --install oran-nonrtric "$HELM_REPO"/nonrtric --namespace nonrtric -f "$OVERRIDEYAML" --set nonrtric.persistence.mountPath="/dockerdata-nfs/deployment-$3"
 
 check_for_secrets() {
     try=0
@@ -62,21 +51,21 @@ check_for_secrets() {
 # All KafkaUser and KafkaTopic resources should be created as part of ONAP namespace
 # This enables the strimzi entity operator to create the secrets as necessary
 # Once the secrets are created, it should be copied to the SMO namespace
-SECRETS_SIZE=$(yq '.nonrtric.secrets | length' $OVERRIDEYAML)
+SECRETS_SIZE=$(yq '.nonrtric.secrets | length' "$OVERRIDEYAML")
 if [ "$SECRETS_SIZE" -eq 0 ]; then
     echo "No secrets to copy from onap namespace"
     exit 0
 else
     for i in $(seq 0 $((SECRETS_SIZE - 1))); do
-        secret=$(yq ".nonrtric.secrets[$i].name" $OVERRIDEYAML)
-        dependsOn=$(yq ".nonrtric.secrets[$i].dependsOn" $OVERRIDEYAML)
-        if [ $(yq ".$dependsOn" $OVERRIDEYAML) != "true" ]; then
+        secret=$(yq ".nonrtric.secrets[$i].name" "$OVERRIDEYAML")
+        dependsOn=$(yq ".nonrtric.secrets[$i].dependsOn" "$OVERRIDEYAML")
+        if [ "$(yq ".$dependsOn" "$OVERRIDEYAML")" != "true" ]; then
             echo "$dependsOn is not set to true. Skipping $secret copy..."
             continue
         fi
         echo "Copying $secret from onap namespace..."
-        check_for_secrets $secret
-        kubectl get secret $secret -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n nonrtric -f -
+        check_for_secrets "$secret"
+        kubectl get secret "$secret" -n onap -o json | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid","ownerReferences"])' | kubectl apply -n nonrtric -f -
     done
 fi
 

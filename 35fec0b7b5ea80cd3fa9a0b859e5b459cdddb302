@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf8a2420_6f3858e3",
+        "filename": "smo-install/scripts/layer-1/1-build-all-charts.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-09-23T05:33:53Z",
+      "side": 1,
+      "message": "these lines will remove existing \u0027local\u0027 which conflict with https://gerrit.o-ran-sc.org/r/gitweb?p\u003dit/dep.git;a\u003dblob;f\u003dtools/setup_k8s/scripts/chartmuseum.sh;h\u003d5fde14e239cc5789c074f65c9730d499bf3e76b6;hb\u003dHEAD#l63",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

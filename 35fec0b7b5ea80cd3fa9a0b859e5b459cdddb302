@@ -68,6 +68,30 @@
       },
       "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4e21cc_a51171ce",
+        "filename": "smo-install/scripts/layer-1/1-build-all-charts.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-09-23T10:00:31Z",
+      "side": 1,
+      "message": "If we require that your chartmuseum script is called, then the script fail if the helm-push \u0026 other plugins are already installed (e.g. working towards an existing environment, rather than a completely empty CI environment) \nThat script needs to split apart, with chartmuseum installed separately helm-push, helm-deploy \u0026 other plugins. \n\nWe could then call just the required scripts depending on the environment. \nWe would then need to change several scripts, documentation guides etc to point to your central chartmeuseum, but that should be doable. \n\nMaybe we can take a call together to plan what we need for different scenarios, beyond just a CI deployment.",
+      "parentUuid": "cf8a2420_6f3858e3",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

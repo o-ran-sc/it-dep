@@ -19,6 +19,11 @@ global:
   #Strimzi Kafka properties
   useStrimziKafka: true
 
+imagePullPolicy: IfNotPresent
+image:
+  name: 'o-ran-sc/nonrtric-plt-ranpm-pm-file-converter'
+  tag: 1.2.0
+
 # Strimzi Kafka config
 kafkaUser:
   # For SCRAM-SHA-512 the name need not to be filled

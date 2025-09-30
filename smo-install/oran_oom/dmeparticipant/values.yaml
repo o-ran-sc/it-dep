@@ -21,8 +21,7 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-  name: nonrtric-plt-participant-impl-dme
+  name: 'o-ran-sc/nonrtric-plt-participant-impl-dme'
   tag: 0.3.0
 service:
   type: ClusterIP

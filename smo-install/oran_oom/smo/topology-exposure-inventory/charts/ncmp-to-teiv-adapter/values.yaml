@@ -19,7 +19,6 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: "" # Will be set from parent values.yaml
   name: "" # Will be set from parent values.yaml
   tag: "" # Will be set from parent values.yaml
 service:

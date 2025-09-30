@@ -33,8 +33,8 @@ spec:
     spec:
       containers:
       - name: opa
-        image: openpolicyagent/opa:0.70.0-envoy-17
-        imagePullPolicy: Always
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - name: http
           containerPort: 8181

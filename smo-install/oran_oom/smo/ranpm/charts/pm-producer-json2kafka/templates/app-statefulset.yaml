@@ -39,7 +39,7 @@ spec:
       - name: wait-for-keycloak-and-kafka
         securityContext:
           runAsUser: 0
-        image: bitnami/kubectl
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
         command: ["/usr/bin/bash"]
         args: ["-c", "cp /opt/app/scripts/init-wait.sh /opt/ && chmod +x /opt/init-wait.sh && /opt/init-wait.sh"]
         volumeMounts:
@@ -48,7 +48,7 @@ spec:
           subPath: init-wait.sh
       containers:
       - name: pm-producer-json2kafka
-        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-pmproducer:1.1.0
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.pmproducer.name }}:{{ .Values.image.pmproducer.tag }}
         imagePullPolicy: Always
         ports:
         - name: http
@@ -75,7 +75,7 @@ spec:
         - mountPath: /token-cache
           name: token-cache-volume
       - name: auth-token
-        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-auth-token-fetch:1.1.1
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.authtoken.name }}:{{ .Values.image.authtoken.tag }}
         imagePullPolicy: Always
         env:
         - name: CREDS_GRANT_TYPE

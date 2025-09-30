@@ -1,5 +1,5 @@
 ################################################################################
-#   Copyright (C) 2025 OpenInfra Foundation Europe                             #
+#   Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.       #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -14,32 +14,7 @@
 #   limitations under the License.                                             #
 ################################################################################
 
-{{- if .Values.patch.policy }}
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: policy-kafkauser-patch
-  annotations:
-    "helm.sh/hook": pre-install
-    "helm.sh/hook-weight": "4"
-spec:
-  template:
-    spec:
-      serviceAccountName: policy-kafkauser-patch-sa
-      containers:
-      - name: policy-kafkauser-patch-container
-        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
-        command: ["bash","/scripts/patch-policy-kafka-users.sh"]
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsUser: 0
-        volumeMounts:
-          - name: policy-kafkauser-patch-config-volume
-            mountPath: /scripts
-      volumes:
-        - name: policy-kafkauser-patch-config-volume
-          configMap:
-            name: policy-kafkauser-patch-config
-            defaultMode: 0755
-      restartPolicy: Never
-{{- end }}
+imagePullPolicy: IfNotPresent
+image:
+  name: confluentinc/cp-kafka
+  tag: 7.2.2

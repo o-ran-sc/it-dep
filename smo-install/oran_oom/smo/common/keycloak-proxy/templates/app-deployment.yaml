@@ -39,7 +39,8 @@ spec:
       restartPolicy: Always
       containers:
       - name: keycloak-proxy
-        image: nginx:alpine
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - containerPort: 8080
         volumeMounts:

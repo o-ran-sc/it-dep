@@ -41,7 +41,7 @@ spec:
       - name: wait-for-keycloak-and-kafka
         securityContext:
           runAsUser: 0
-        image: bitnami/kubectl
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
         command: ["/usr/bin/bash"]
         args: ["-c", "cp /opt/app/scripts/init-wait.sh /opt/ && chmod +x /opt/init-wait.sh && /opt/init-wait.sh"]
         volumeMounts:
@@ -50,8 +50,8 @@ spec:
           subPath: init-wait.sh
       containers:
       - name: kafka-producer-pm-json2influx
-        image: nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-pm-file-converter:1.2.0
-        imagePullPolicy: Always
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - name: http
           containerPort: 80

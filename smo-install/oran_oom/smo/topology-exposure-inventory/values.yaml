@@ -52,7 +52,6 @@ topology-exposure:
   name: topology-exposure
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-teiv-exposure
     tag: 0.2.0
   service:
@@ -91,7 +90,6 @@ topology-ingestion:
   name: topology-ingestion
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-teiv-ingestion
     tag: 0.2.0
   service:
@@ -133,7 +131,6 @@ ncmp-to-teiv-adapter:
   name: ncmp-to-teiv-adapter
   imagePullPolicy: IfNotPresent
   image:
-    registry: "nexus3.o-ran-sc.org:10002"
     name: o-ran-sc/smo-ncmp-to-teiv-adapter
     tag: 0.0.1
   service:

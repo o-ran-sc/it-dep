@@ -22,9 +22,12 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-  name: nonrtric-plt-rappmanager
+  name: 'o-ran-sc/nonrtric-plt-rappmanager'
   tag: 0.3.0
+initContainer:
+  image:
+    name: alpine
+    tag: 3.22.1
 service:
   type: ClusterIP
   ports:

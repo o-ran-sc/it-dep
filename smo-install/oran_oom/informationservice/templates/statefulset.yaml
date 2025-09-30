@@ -40,7 +40,7 @@ spec:
             mountPath: /var/information-coordinator-service
       containers:
       - name: {{ include "common.containername" . }}
-        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: {{- include "common.containerPorts" . | nindent 8 }}
         {{- include "common.tcpsocketReadinessProbe" . | nindent 8 }}

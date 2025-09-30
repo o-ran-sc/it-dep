@@ -1,5 +1,6 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2020-2023 Nordix Foundation.                                 #
+#   Copyright (c) 2023-2025 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -13,3 +14,9 @@
 #   See the License for the specific language governing permissions and        #
 #   limitations under the License.                                             #
 ################################################################################
+
+global:
+  nexusProxyRepo: "nexus3.o-ran-sc.org:10001"
+  nexusReleaseRepo: "nexus3.o-ran-sc.org:10002"
+  nexusSnapshotRepo: "nexus3.o-ran-sc.org:10003"
+  nexusStagingRepo: "nexus3.o-ran-sc.org:10004"

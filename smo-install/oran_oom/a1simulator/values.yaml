@@ -16,8 +16,7 @@
 #  ============LICENSE_END==================================================
 
 image:
-  repository: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-  name: a1-simulator
+  name: 'o-ran-sc/a1-simulator'
   tag: 2.8.1
   pullPolicy: IfNotPresent
 service:

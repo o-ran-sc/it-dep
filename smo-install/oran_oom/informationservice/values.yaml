@@ -21,9 +21,12 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: "nexus3.o-ran-sc.org:10002/o-ran-sc"
-  name: "nonrtric-plt-informationcoordinatorservice"
+  name: "o-ran-sc/nonrtric-plt-informationcoordinatorservice"
   tag: 1.6.1
+initContainer:
+  image:
+    name: busybox
+    tag: 1.28
 service:
   type: ClusterIP
   ports:

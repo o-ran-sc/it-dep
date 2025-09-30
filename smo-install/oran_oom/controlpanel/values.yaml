@@ -20,8 +20,7 @@
 
 imagePullPolicy: IfNotPresent
 image:
-  registry: 'nexus3.o-ran-sc.org:10002/o-ran-sc'
-  name: nonrtric-controlpanel
+  name: 'o-ran-sc/nonrtric-controlpanel'
   tag: 2.5.0
 replicaCount: 1
 liveness:

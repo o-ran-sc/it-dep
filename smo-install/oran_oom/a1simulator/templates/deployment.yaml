@@ -25,7 +25,7 @@ spec:
       hostname: "{{ $a1sim.name }}"
       containers:
         - name: {{ $.Chart.Name }}
-          image: "{{ $.Values.image.repository }}/{{ $.Values.image.name}}:{{ $.Values.image.tag }}"
+          image: "{{ include "repository.nexusReleaseRepo" . }}/{{ $.Values.image.name}}:{{ $.Values.image.tag }}"
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           tty: true
           stdin: true

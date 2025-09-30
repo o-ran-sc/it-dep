@@ -24,7 +24,7 @@ spec:
       serviceAccountName: ranpm-component-sa
       initContainers:
       - name: wait-for-keycloak-job
-        image: bitnami/kubectl
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
         args:
           - wait
           - job.batch/keycloak-init
@@ -34,7 +34,7 @@ spec:
           - 300s
       containers:
       - name: ics-init-container
-        image: bash:latest
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.bash.name }}:{{ .Values.global.image.bash.tag }}
         command: ["bash","/scripts/configure_ics.sh"]
         env:
           - name: ICS_HOST

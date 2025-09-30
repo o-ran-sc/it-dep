@@ -28,11 +28,11 @@ spec:
       hostname: {{ include "common.name" . }}
       initContainers:
       - name: wait-for-servicemanager
-        image: alpine:latest
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.initContainer.image.name }}:{{ .Values.initContainer.image.tag }}
         command: ['sh', '-c', 'apk add --no-cache netcat-openbsd && nc -zv servicemanager 8095']
       containers:
       - name: {{ include "common.containername" . }}
-        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: {{- include "common.containerPorts" . | nindent 8 }}
         {{- include "common.tcpsocketProbes" . | nindent 8 }}

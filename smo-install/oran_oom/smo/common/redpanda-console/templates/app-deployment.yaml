@@ -32,12 +32,12 @@ spec:
     spec:
       initContainers:
       - name: kafka-readiness-check
-        image: alpine:latest
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.alpine.name }}:{{ .Values.image.alpine.tag }}
         command: ['sh', '-c', 'apk add --no-cache netcat-openbsd && nc -zv onap-strimzi-kafka-bootstrap.onap 9092']
       containers:
       - name: redpanda-console
-        image: redpandadata/console:v3.1.2
-        imagePullPolicy: IfNotPresent
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.redpanda.name }}:{{ .Values.image.redpanda.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: KAFKA_BROKERS
           value: "onap-strimzi-kafka-bootstrap.onap:9092"

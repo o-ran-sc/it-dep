@@ -35,8 +35,8 @@ spec:
     spec:
       initContainers:
       - name: init
-        image: alpine:latest
-        imagePullPolicy: IfNotPresent
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.alpine.name }}:{{ .Values.image.alpine.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         command: ["ash","-c"]
         args: ["IDX=${HOSTNAME##*-} && mkdir -p /data/ && rm -rf /data//*"]
         volumeMounts:
@@ -44,8 +44,8 @@ spec:
           name: data-vol
       containers:
       - name: minio
-        image: minio/minio:RELEASE.2025-06-13T11-33-47Z
-        imagePullPolicy: IfNotPresent
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.minio.name }}:{{ .Values.image.minio.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - name: tcpmain
           containerPort: 9000

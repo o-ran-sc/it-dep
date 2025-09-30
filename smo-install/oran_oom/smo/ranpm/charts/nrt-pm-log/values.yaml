@@ -19,6 +19,15 @@ global:
   #Strimzi Kafka properties
   useStrimziKafka: true
 
+imagePullPolicy: IfNotPresent
+image:
+  pmlog:
+    name: 'o-ran-sc/nonrtric-plt-pmlog'
+    tag: 1.1.0
+  authtoken:
+    name: 'o-ran-sc/nonrtric-plt-auth-token-fetch'
+    tag: 1.1.1
+
 # Strimzi Kafka config
 kafkaUser:
   # For SCRAM-SHA-512 the name need not to be filled

@@ -28,6 +28,6 @@ spec:
   restartPolicy: Always
   containers:
   - name: kafka-client
-    image: confluentinc/cp-kafka:7.2.2
+    image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
     command: ['sh', '-c', 'while [ true ];do sleep 60;done']
-    imagePullPolicy: IfNotPresent
+    imagePullPolicy: {{ .Values.imagePullPolicy }}

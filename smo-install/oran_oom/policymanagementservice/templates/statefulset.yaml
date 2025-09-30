@@ -27,7 +27,7 @@ spec:
       hostname: {{ include "common.name" . }}
       initContainers:
       - name: copy
-        image: busybox:1.28
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.initContainer.image.name }}:{{ .Values.initContainer.image.tag }}
         command:
         - /bin/sh
         - -c
@@ -43,7 +43,7 @@ spec:
           mountPath: /etc/app/policy-management-service/initialdata
       containers:
       - name: {{ include "common.containername" . }}
-        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: {{- include "common.containerPorts" . | nindent 8 }}
         {{- include "common.tcpsocketReadinessProbe" . | nindent 8 }}

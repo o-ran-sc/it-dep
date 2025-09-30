@@ -28,7 +28,7 @@ spec:
       serviceAccountName: strimzi-patch-sa
       containers:
       - name: strimzi-patch-container
-        image: bitnami/kubectl:1.32.2
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
         command: ["bash","/scripts/patch-strimzi-kafka.sh"]
         securityContext:
           allowPrivilegeEscalation: false

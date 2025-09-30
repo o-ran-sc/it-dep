@@ -33,14 +33,14 @@ spec:
           - -c
           - mkdir /var/information-coordinator-service/database;
             chown -R 999:1000 /var/information-coordinator-service;
-          image: busybox:1.28
+          image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.initContainer.image.name }}:{{ .Values.initContainer.image.tag }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           volumeMounts:
           - name: {{ include "common.vardataMountName" . }}
             mountPath: /var/information-coordinator-service
       containers:
       - name: {{ include "common.containername" . }}
-        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: {{- include "common.containerPorts" . | nindent 8 }}
         {{- include "common.tcpsocketReadinessProbe" . | nindent 8 }}

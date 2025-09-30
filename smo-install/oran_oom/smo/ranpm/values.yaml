@@ -17,6 +17,14 @@
 global:
   #Strimzi Kafka properties
   useStrimziKafka: true
+  image:
+    bash:
+      name: bash
+      tag: alpine3.22
+    kubectl:
+      name: bitnami/kubectl
+      tag: 1.32.2
+
 
 keycloak:
   host: "keycloak-proxy"

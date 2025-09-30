@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: bundle-server
-        image: nginx:1.21
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
         ports:
         - containerPort: 80
         volumeMounts:

@@ -25,7 +25,7 @@ metadata:
 spec:
   containers:
   - name: mc-client
-    image: minio/mc
+    image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.minioclient.name }}:{{ .Values.image.minioclient.tag }}
     command: ['sh', '-c', 'while [ true ];do sleep 60;done']
-    imagePullPolicy: Always
+    imagePullPolicy: {{ .Values.imagePullPolicy }}
   restartPolicy: Always

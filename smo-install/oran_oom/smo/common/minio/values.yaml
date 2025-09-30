@@ -16,6 +16,18 @@
 #  ============LICENSE_END=================================================
 #
 
+imagePullPolicy: IfNotPresent
+image:
+  alpine:
+    name: alpine
+    tag: 3.22.1
+  minio:
+    name: minio/minio
+    tag: RELEASE.2025-06-13T11-33-47Z
+  minioclient:
+    name: minio/mc
+    tag: RELEASE.2025-08-13T08-35-41Z
+
 minio:
   opa:
     decisionlogs: true

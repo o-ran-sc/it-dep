@@ -35,7 +35,8 @@ global:
   # repository but ONLY if your repository mirrors all ONAP
   # docker images. This includes all images from dockerhub and
   # any other repository that hosts images for ONAP components.
-  repository: nexus3.onap.org:10001
+  repository: &nexusDockerProxyRepo nexus3.onap.org:10001
+  dockerHubRepository: *nexusDockerProxyRepo
 
   # readiness check - temporary repo until images migrated to nexus3
   readinessRepository: oomk8s

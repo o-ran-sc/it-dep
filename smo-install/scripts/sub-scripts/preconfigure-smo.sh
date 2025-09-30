@@ -22,11 +22,12 @@ if ! command -v jq > /dev/null 2>&1; then
 fi
 
 OVERRIDEYAML=$1
+NEXUS_PROXY_DOCKER_IO_REPO="nexus3.o-ran-sc.org:10001"
 
 # OpenEBS installation
 helm repo add openebs https://openebs.github.io/openebs
 helm repo update
-helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --wait
+helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --set global.imageRegistry=$NEXUS_PROXY_DOCKER_IO_REPO --wait
 
 # Create storage class for smo
 kubectl apply -f ../packages/pre-configuration/smo-sc.yaml

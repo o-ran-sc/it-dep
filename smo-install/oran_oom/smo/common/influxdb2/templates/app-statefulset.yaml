@@ -34,7 +34,8 @@ spec:
         app: influxdb2
     spec:
       containers:
-      - image: influxdb:2.7.12
+      - image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         name: influxdb2
         ports:
         - containerPort: 8086

@@ -19,6 +19,15 @@ global:
   #Strimzi Kafka properties
   useStrimziKafka: true
 
+imagePullPolicy: IfNotPresent
+image:
+  dfc:
+    name: 'o-ran-sc/nonrtric-plt-ranpm-datafilecollector'
+    tag: 1.2.0
+  authtoken:
+    name: 'o-ran-sc/nonrtric-plt-auth-token-fetch'
+    tag: 1.1.1
+
 # Strimzi Kafka config
 kafkaUser:
   name: service-account-dfc

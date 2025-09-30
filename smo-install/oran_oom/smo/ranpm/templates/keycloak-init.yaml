@@ -27,7 +27,7 @@ spec:
       serviceAccountName: keycloak-init-sa
       containers:
       - name: keycloak-init-container
-        image: bitnami/kubectl:1.32.2
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.kubectl.name }}:{{ .Values.global.image.kubectl.tag }}
         command: ["bash","/scripts/configure_keycloak.sh"]
         securityContext:
           allowPrivilegeEscalation: false

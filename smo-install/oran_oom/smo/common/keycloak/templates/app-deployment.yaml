@@ -37,7 +37,8 @@ spec:
     spec:
       containers:
       - name: keycloak
-        image: quay.io/keycloak/keycloak:26.3
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         args: ["start-dev"]
         env:
         - name: KEYCLOAK_ADMIN

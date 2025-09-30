@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -27,11 +27,12 @@ spec:
       hostname: {{ include "common.name" . }}
       initContainers:
         - name: postgres-readiness-check
-          image: alpine:latest
+          image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.alpine.name }}:{{ .Values.image.alpine.tag }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           command: ['sh', '-c', 'apk add --no-cache netcat-openbsd && nc -zv oran-smo-postgresql 5432']
       containers:
       - name: {{ include "common.containername" . }}
-        image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.teiv.name }}:{{ .Values.image.teiv.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: {{- include "common.containerPorts" . | nindent 12 }}
 {{- if .Values.global.useStrimziKafka }}

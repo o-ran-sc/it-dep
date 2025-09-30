@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: influxdb2-init-container
-        image: bash:latest
+        image: {{ include "repository.nexusProxyRepo" . }}/{{ .Values.global.image.bash.name }}:{{ .Values.global.image.bash.tag }}
         command: ["bash","/scripts/configure_influx.sh"]
         env:
           - name: INFLUXDB2_HOST

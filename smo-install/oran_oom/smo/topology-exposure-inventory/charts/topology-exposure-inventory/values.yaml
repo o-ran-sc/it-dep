@@ -1,5 +1,5 @@
 #  ============LICENSE_START===============================================
-#  Copyright (C) 2024 OpenInfra Foundation Europe. All rights reserved.
+#  Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
 #  ========================================================================
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,9 +16,12 @@
 #
 imagePullPolicy: IfNotPresent
 image:
-  registry: "nexus3.o-ran-sc.org:10004/o-ran-sc"
-  name: smo-teiv-exposure
-  tag: 0.0.1
+  teiv:
+    name: 'o-ran-sc/smo-teiv-exposure'
+    tag: 0.0.1
+  alpine:
+    name: alpine
+    tag: 3.22.1
 service:
   type: ClusterIP
   ports:

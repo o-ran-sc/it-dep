@@ -1,5 +1,6 @@
 ################################################################################
-#   Copyright (c) 2020 Nordix Foundation.                                      #
+#   Copyright (c) 2020-2023 Nordix Foundation.                                 #
+#   Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -26,7 +27,7 @@ spec:
       hostname: {{ include "common.name" . }}
       containers:
         - name: {{ include "common.containername" . }}
-          image: {{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           ports: {{- include "common.containerPorts" . | nindent 10 }}
           {{- include "common.tcpsocketProbes" . | nindent 10 }}

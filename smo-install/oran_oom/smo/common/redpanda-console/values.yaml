@@ -19,6 +19,15 @@ global:
   #Strimzi Kafka properties
   useStrimziKafka: true
 
+imagePullPolicy: IfNotPresent
+image:
+  alpine:
+    name: alpine
+    tag: 3.22.1
+  redpanda:
+    name: redpandadata/console
+    tag: v3.1.2
+
 # Strimzi Kafka config
 kafkaUser:
   authenticationType: scram-sha-512

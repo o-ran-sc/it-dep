@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ include "common.containername" . }}
-          image: "{{ .Values.image.repository }}/{{ .Values.image.name}}:{{ .Values.image.tag }}"
+          image: "{{ include "repository.nexusProxyRepo" . }}/{{ .Values.image.name}}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           tty: true
           stdin: true

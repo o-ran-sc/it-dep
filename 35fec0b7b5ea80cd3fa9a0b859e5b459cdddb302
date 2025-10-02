@@ -24,6 +24,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0060af26_869028ea",
+        "filename": "smo-install/scripts/layer-0/0-setup-helm3.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-10-02T14:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee5bba39_84156d16",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 44
+      },
+      "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc41c634_c8ccd981",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-09-23T05:45:35Z",
       "side": 1,
       "message": "Duplicate https://gerrit.o-ran-sc.org/r/gitweb?p\u003dit/dep.git;a\u003dblob;f\u003dtools/setup_k8s/scripts/chartmuseum.sh;h\u003d5fde14e239cc5789c074f65c9730d499bf3e76b6;hb\u003dHEAD#l66",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3253e645_46d639a0",
+        "filename": "smo-install/scripts/layer-0/0-setup-helm3.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-10-02T14:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc41c634_c8ccd981",
       "range": {
         "startLine": 40,
         "startChar": 0,
@@ -108,6 +156,30 @@
       "side": 1,
       "message": "Im happy to address this with Non-RT RIC team.\nDiscussion in https://o-ran-sc-lf.slack.com/archives/C07DU9N275G/p1758676430394699, i also open to discuss within RSAC call.",
       "parentUuid": "fb4e21cc_a51171ce",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "35fec0b7b5ea80cd3fa9a0b859e5b459cdddb302",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c325ab9_27375616",
+        "filename": "smo-install/scripts/layer-1/1-build-all-charts.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-10-02T14:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8449c533_1ab56fdc",
       "range": {
         "startLine": 31,
         "startChar": 0,

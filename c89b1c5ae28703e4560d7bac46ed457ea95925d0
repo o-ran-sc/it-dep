@@ -16,6 +16,24 @@
       "message": "Bimo: I hope this addresses your comments. If you are happy can we merge?",
       "revId": "c89b1c5ae28703e4560d7bac46ed457ea95925d0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a2d24c_8a073a2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-10-02T03:09:55Z",
+      "side": 1,
+      "message": "Thanks John and team for addressing this. Sorry to become a blocker.",
+      "parentUuid": "3b1c000f_92c6c496",
+      "revId": "c89b1c5ae28703e4560d7bac46ed457ea95925d0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

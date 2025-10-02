@@ -335,23 +335,40 @@ function publish_services_from_config() {
     domainName="kong"
     running_services_list=$(find_running_services_from_config)
 
-    # Iterate through the configured services
+    # Iterate through the configured services in parallel
+    pids=()
+    status=0
     echo "$json_config" | jq -c 'to_entries[]' | while read -r service; do
         service_name=$(echo "$service" | jq -r '.key')
         if echo "$running_services_list" | grep -q "$service_name"; then
-            register_apf
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                break
-            fi
-
-            publish_service
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                break
-            fi
+            (
+                register_apf
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+                publish_service
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+            ) &
+            pids+=("$!")
         fi
     done
+
+    # Wait for all background jobs
+    for pid in "${pids[@]}"; do
+        wait $pid
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            status=$ret
+        fi
+    done
+    if [ $status -ne 0 ]; then
+        echo "Error: One or more service publish jobs failed."
+        exit $status
+    fi
 }
 
 # Ensure yq and jq are installed

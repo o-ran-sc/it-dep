@@ -51,6 +51,16 @@ fi
 
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
     # Send stderr to /dev/null to turn off chatty logging
-    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-nonrtric.yaml 2>/dev/null
-    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-smo.yaml 2>/dev/null
+    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-nonrtric.yaml 2>/dev/null &
+    pid1=$!
+    ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-smo.yaml 2>/dev/null &
+    pid2=$!
+    wait $pid1
+    status1=$?
+    wait $pid2
+    status2=$?
+    if [ $status1 -ne 0 ] || [ $status2 -ne 0 ]; then
+        echo "Error: One or both servicemanager-preload.sh calls failed. Aborting install."
+        exit 1
+    fi
 fi

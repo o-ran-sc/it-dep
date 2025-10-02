@@ -1,0 +1,12 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Verified+1: o-ran-sc release <collab-it+o-ran-sc-release@linuxfoundation.org>
+Code-Review+2: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-by: bimo fransiscus asisi <d11002806@gapps.ntust.edu.tw>
+Submitted-at: Thu, 02 Oct 2025 03:10:11 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/14956
+Comments-Total: 7
+Comments-Unresolved: 4
+Project: it/dep
+Branch: refs/heads/master

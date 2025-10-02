@@ -375,15 +375,6 @@ echo "Preloading Service Manager from ${yaml_file}"
 first_node_ip=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
 servicemanager_node_port=$(kubectl get service servicemanager -n nonrtric -o jsonpath='{.spec.ports[0].nodePort}')
 
-echo "Waiting for capifcore deployment"
-kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/capifcore
-
-echo "Waiting for servicemanager deployment"
-kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/servicemanager
-
-echo "Waiting for kong deployment"
-kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/oran-nonrtric-kong
-
 publish_services_from_config
 
 echo "Service Manager preload completed for ${yaml_file}"

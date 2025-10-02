@@ -44,10 +44,7 @@ if [ "$INSTALL_STRIMZI" == "true" ]; then
   fi
 
   echo "### Installing Strimzi Kafka Operator (From Helm repo $STRIMZI_HELM_REPO) ###"
-  helm upgrade --install strimzi-kafka-operator "$STRIMZI_HELM_REPO"/strimzi-kafka-operator --namespace strimzi-system --version 0.45.0 --set watchAnyNamespace=true --create-namespace
-
-  echo "Waiting for Strimzi Kafka Operator to be ready..."
-  kubectl wait --for=condition=available --timeout=600s deployment/strimzi-cluster-operator -n strimzi-system
+  helm upgrade --install strimzi-kafka-operator "$STRIMZI_HELM_REPO"/strimzi-kafka-operator --namespace strimzi-system --version 0.45.0 --set watchAnyNamespace=true --create-namespace &
 fi
 
 kubectl create namespace onap

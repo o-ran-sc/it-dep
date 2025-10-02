@@ -25,9 +25,7 @@ OVERRIDEYAML=$1
 NEXUS_PROXY_DOCKER_IO_REPO="nexus3.o-ran-sc.org:10001"
 
 # OpenEBS installation
-helm repo add openebs https://openebs.github.io/openebs
-helm repo update
-helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --set global.imageRegistry=$NEXUS_PROXY_DOCKER_IO_REPO --wait
+helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --set global.imageRegistry=$NEXUS_PROXY_DOCKER_IO_REPO &
 
 # Create storage class for smo
 kubectl apply -f ../packages/pre-configuration/smo-sc.yaml
@@ -41,11 +39,8 @@ if [ "$INSTALL_MARIADB" == "true" ]; then
     echo "Installing MariaDB operator..."
     # Mariadb operator installation
     kubectl create ns mariadb-operator
-    helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
-    helm repo update
-    helm upgrade --install mariadb-operator-crds mariadb-operator/mariadb-operator-crds -n mariadb-operator
-    helm upgrade --install mariadb-operator mariadb-operator/mariadb-operator -n mariadb-operator
-    kubectl wait deployment mariadb-operator -n mariadb-operator --for=condition=available --timeout=120s
+    helm upgrade --install mariadb-operator-crds mariadb-operator/mariadb-operator-crds -n mariadb-operator &
+    helm upgrade --install mariadb-operator mariadb-operator/mariadb-operator -n mariadb-operator &
 else
     echo "Skipping MariaDB operator installation as per configuration."
 fi

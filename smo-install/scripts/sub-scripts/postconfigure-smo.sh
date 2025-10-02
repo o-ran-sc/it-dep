@@ -50,6 +50,14 @@ if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
 fi
 
 if [ "$INSTALL_SERVICEMANAGER" == "true" ]; then
+    echo "Waiting for capifcore deployment"
+    kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/capifcore
+
+    echo "Waiting for servicemanager deployment"
+    kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/servicemanager
+
+    echo "Waiting for kong deployment"
+    kubectl wait --for=condition=Available -n nonrtric --timeout=300s deploy/oran-nonrtric-kong
     # Send stderr to /dev/null to turn off chatty logging
     ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-nonrtric.yaml 2>/dev/null
     ../sub-scripts/servicemanager-preload.sh ../packages/post-configuration/servicemanager-preconfig-smo.yaml 2>/dev/null

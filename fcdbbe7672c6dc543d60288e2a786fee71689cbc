@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae54371b_1704202f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002306
+      },
+      "writtenOn": "2025-10-02T03:15:18Z",
+      "side": 1,
+      "message": "@subh.singh@samsung.com i saw you reset the vote. anything i need to address for this commit? if not can we merge this?",
+      "revId": "fcdbbe7672c6dc543d60288e2a786fee71689cbc",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

@@ -37,6 +37,7 @@ global:
   # any other repository that hosts images for ONAP components.
   repository: &nexusDockerProxyRepo nexus3.onap.org:10001
   dockerHubRepository: *nexusDockerProxyRepo
+  imageRegistry: *nexusDockerProxyRepo
 
   # readiness check - temporary repo until images migrated to nexus3
   readinessRepository: oomk8s

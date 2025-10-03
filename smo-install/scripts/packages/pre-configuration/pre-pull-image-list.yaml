@@ -1,0 +1,70 @@
+# This is a generated file. Do not edit it manually.
+initContainerImage:
+  - nexus3.o-ran-sc.org:10001/alpine:3.22.1
+  - nexus3.o-ran-sc.org:10001/bash:alpine3.22
+  - nexus3.o-ran-sc.org:10001/bitnami/kubectl:1.32.2
+  - nexus3.o-ran-sc.org:10001/bitnami/postgresql:13.11.0-debian-11-r20
+  - nexus3.o-ran-sc.org:10001/bitnami/postgresql:16.3.0-debian-12-r14
+  - nexus3.o-ran-sc.org:10001/bitnamilegacy/os-shell:11-debian-11-r45
+  - nexus3.o-ran-sc.org:10001/bitnamilegacy/os-shell:12-debian-12-r22
+  - nexus3.o-ran-sc.org:10001/busybox:1.28
+  - nexus3.o-ran-sc.org:10001/confluentinc/cp-kafka:7.2.2
+  - nexus3.o-ran-sc.org:10001/hightec/smo-topology-api-v2:2.0.2-SNAPSHOT-20210315T160448Z
+  - nexus3.o-ran-sc.org:10001/influxdb:2.7.12
+  #  - nexus3.o-ran-sc.org:10001/kong/kubernetes-ingress-controller:3.0
+  - nexus3.o-ran-sc.org:10001/kong:3.4
+  - nexus3.o-ran-sc.org:10001/minio/mc:RELEASE.2025-08-13T08-35-41Z
+  - nexus3.o-ran-sc.org:10001/minio/minio:RELEASE.2025-06-13T11-33-47Z
+  - nexus3.o-ran-sc.org:10001/nginx:1.21
+  - nexus3.o-ran-sc.org:10001/nginx:alpine
+  #  - nexus3.o-ran-sc.org:10001/openpolicyagent/opa:0.70.0-envoy-17
+  - nexus3.o-ran-sc.org:10001/redpandadata/console:v3.1.2
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/a1-simulator:2.8.1
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-controlpanel:2.5.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-gateway:1.2.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-a1policymanagementservice:2.10.0
+  #  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-auth-token-fetch:1.1.1
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-dmaapadapter:1.4.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-informationcoordinatorservice:1.6.1
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-participant-impl-dme:0.3.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-pmlog:1.1.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-pmproducer:1.1.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-datafilecollector:1.2.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-ranpm-pm-file-converter:1.2.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-rappmanager:0.3.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/nonrtric-plt-servicemanager:0.2.2
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/smo-ncmp-to-teiv-adapter:0.0.1
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/smo-teiv-exposure:0.2.0
+  - nexus3.o-ran-sc.org:10002/o-ran-sc/smo-teiv-ingestion:0.2.0
+  - nexus3.o-ran-sc.org:10004/o-ran-sc/nonrtric-plt-capifcore:1.4.0
+  - nexus3.onap.org:10001/adorsys/keycloak-config-cli:6.2.1-26.0.5
+  - nexus3.onap.org:10001/alpine:latest
+  #  - nexus3.onap.org:10001/bitnami/redis-sentinel:7.4.1-debian-12-r2
+  #  - nexus3.onap.org:10001/bitnami/redis:7.4.1-debian-12-r2
+  - nexus3.onap.org:10001/busybox:1.37.0
+  - nexus3.onap.org:10001/crunchydata/crunchy-postgres:centos8-13.2-4.6.1
+  - nexus3.onap.org:10001/dibi/envsubst:latest
+  - nexus3.onap.org:10001/library/postgres:17.2
+  - nexus3.onap.org:10001/mariadb:11.1.2
+  - nexus3.onap.org:10001/onap/cps-and-ncmp:3.5.4
+  - nexus3.onap.org:10001/onap/cps-temporal:1.2.1
+  - nexus3.onap.org:10001/onap/ncmp-dmi-plugin:1.5.0
+  - nexus3.onap.org:10001/onap/oom/readiness:6.2.0
+  - nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.12.4
+  - nexus3.onap.org:10001/onap/policy-apex-pdp:4.2.0
+  - nexus3.onap.org:10001/onap/policy-api:4.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-ac-a1pms-ppnt:8.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-ac-http-ppnt:8.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-ac-k8s-ppnt:8.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-ac-kserve-ppnt:8.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-ac-pf-ppnt:8.2.0
+  - nexus3.onap.org:10001/onap/policy-clamp-runtime-acm:8.2.0
+  - nexus3.onap.org:10001/onap/policy-db-migrator:4.2.0
+  - nexus3.onap.org:10001/onap/policy-pap:4.2.0
+  - nexus3.onap.org:10001/onap/sdnc-ansible-server-image:2.6.1
+  - nexus3.onap.org:10001/onap/sdnc-image:2.6.1
+  - nexus3.onap.org:10001/onap/sdnc-web-image:2.6.1
+  - nexus3.onap.org:10001/prom/mysqld-exporter:v0.15.1
+  - nexus3.onap.org:10001/timescale/timescaledb:2.16.1-pg14
+  - quay.io/keycloak/keycloak:26.3
+#  - quay.io/oauth2-proxy/oauth2-proxy:v7.7.1

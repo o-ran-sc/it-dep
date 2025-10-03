@@ -12,7 +12,8 @@ This project uses different helm charts from different Linux Foundation projects
     - [Release/Snapshot Mode](#releasesnapshot-mode-installation)
     - [Dev Mode](#dev-mode-installation)
 4. [Uninstallation](#uninstallation)
-5. [Troubleshooting](#troubleshooting)
+5. [Manual Image Pulling](#manual-image-pulling)
+6. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -72,7 +73,8 @@ nonrtric:
     ```bash
     ./dep/smo-install/scripts/layer-0/0-setup-helm3.sh
     ```
-3. Deploy SMO:
+3. To speed up installation, the required images can be pulled manually before starting the installation. Refer to [Manual Image Pulling](#manual-image-pulling) section for details.
+4. Deploy SMO:
     - Default flavour, release mode:
         ```bash
         ./dep/smo-install/scripts/layer-2/2-install-oran.sh
@@ -89,7 +91,7 @@ nonrtric:
         ```bash
         ./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR> snapshot
         ```
-4. Verify pods:
+5. Verify pods:
     ```bash
     kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n smo
     ```
@@ -113,7 +115,8 @@ nonrtric:
     ```bash
     ./dep/smo-install/scripts/layer-1/1-build-all-charts.sh
     ```
-4. Deploy SMO:
+4. To speed up installation, the required images can be pulled manually before starting the installation. Refer to [Manual Image Pulling](#manual-image-pulling) section for details.
+5. Deploy SMO:
     - Default flavour:
         ```bash
         ./dep/smo-install/scripts/layer-2/2-install-oran.sh default dev
@@ -122,7 +125,7 @@ nonrtric:
         ```bash
         ./dep/smo-install/scripts/layer-2/2-install-oran.sh <FLAVOUR> dev
         ```
-5. Verify pods:
+6. Verify pods:
     ```bash
     kubectl get pods -n onap && kubectl get pods -n nonrtric && kubectl get pods -n smo
     ```
@@ -136,12 +139,40 @@ To remove all components:
 ```
 
 ---
+## Manual Image Pulling
+At times, the installation may be slower due to slow image pulls. To mitigate this, you can manually pull the required images before starting the installation.
+
+To generate the list of required images, run:
+```bash
+./dep/smo-install/scripts/sub-scripts/generate-image-list.sh <HELM_REPO>
+```
+Where `<HELM_REPO>` is either `oran-snapshot` or `oran-release` or `local` (depends on the helm repo configuration). The default is `oran-snapshot`.
+
+Command to pull the image depends on your container runtime.
+
+For example, if you are using `docker`, you can run:
+```bash
+docker pull <IMAGE_NAME>
+```
+Where `<IMAGE_NAME>` is the image uri from the generated list.
+
+If you are using `containerd`, and `crictl` is available, you can run:
+```bash
+crictl pull <IMAGE_NAME>
+```
+
+Similarly, for other container runtimes, use the appropriate command to pull the images.
+
+> [!NOTE]
+> If you are using multi node cluster, you need to pull the images on all the nodes.
+
+---
 
 ## Troubleshooting
 > [!WARNING]
 > **ONAP mariadb pod may fail to start due to slow image pulls.**
 > - Try re-installation.
-> - Manually pull required images before installation if issues persist.
+> - Manually pull required images before installation if issues persist. Refer to [Manual Image Pulling](#manual-image-pulling) section for details.
 
 ---
 

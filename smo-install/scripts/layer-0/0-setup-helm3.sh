@@ -87,3 +87,10 @@ else
     echo "Helm deploy plugin is not installed. Installing deploy plugin ..."
     helm plugin install ../../onap_oom/kubernetes/helm/plugins/deploy/
 fi
+
+helm repo add oran-snapshot https://nexus3.o-ran-sc.org/repository/helm.snapshot/
+helm repo add oran-release https://nexus3.o-ran-sc.org/repository/helm.release/
+helm repo add strimzi https://strimzi.io/charts/
+helm repo add openebs https://openebs.github.io/openebs
+helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
+helm repo update

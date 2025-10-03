@@ -77,22 +77,15 @@ fi
 
 timestamp=$(date +%s)
 
-helm repo add oran-snapshot https://nexus3.o-ran-sc.org/repository/helm.snapshot/
-helm repo add oran-release https://nexus3.o-ran-sc.org/repository/helm.release/
-helm repo add strimzi https://strimzi.io/charts/
-helm repo add openebs https://openebs.github.io/openebs
-helm repo add mariadb-operator https://helm.mariadb.com/mariadb-operator
-
 TARGET_HELM_REPO="oran-snapshot" # This should be changed to oran-release once the release charts are published
 
 if [ "$MODE" == "dev" ]; then
     helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.45.0.tgz local
+    helm repo update
     TARGET_HELM_REPO="local"
 elif [ "$MODE" == "snapshot" ]; then
     TARGET_HELM_REPO="oran-snapshot"
 fi
-
-helm repo update
 
 echo "Pre configuring SMO ..."
 ../sub-scripts/preconfigure-smo.sh ../../helm-override/"$FLAVOUR"/onap-override.yaml

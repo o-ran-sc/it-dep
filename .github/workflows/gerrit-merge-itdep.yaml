@@ -184,7 +184,7 @@ jobs:
 
       - name: Report workflow conclusion
         # yamllint disable-line rule:line-length
-        uses: lfit/gerrit-review-action@9627b9a144f2a2cad70707ddfae87c87dce60729 # v0.8
+        uses: lfit/gerrit-review-action@537251ec667665b386f70b330b05446e3fc29087 # v0.9
         with:
           host: ${{ vars.GERRIT_SERVER }}
           username: ${{ vars.GERRIT_SSH_USER }}

@@ -32,15 +32,16 @@ This project uses different helm charts from different Linux Foundation projects
 
 - Flavours are directories under `smo-install/helm-override/`.
 - The default flavour is `default` (`smo-install/helm-override/default`).
-> [!NOTE]
-> The default flavour is considered as a baseline configuration for all the installations.
+- The default flavour is considered as a baseline configuration for all the installations.
 - Flavour config files:
     - `onap-override.yaml`: ONAP components
     - `oran-override.yaml`: O-RAN components
 - To create a new flavour, add a directory with `onap-flavour-config.yaml` and `oran-flavour-config.yaml`.
-> [!NOTE]
-> These flavour configuration files doesn't needs to have entire configuration as same as in default flavour, Instead it should contain only the configuration that needs to be overridden from the default flavour.
+- These flavour configuration files doesn't needs to have entire configuration as same as in default flavour, Instead it should contain only the configuration that needs to be overridden from the default flavour.
 - Only override necessary config values from the default flavour.
+
+> [!IMPORTANT]
+> Each flavour may require its own prerequisites or additional configuration (for example: different cluster resources, storage classes, or external services). Please check the `README.md` file inside the flavour directory under `smo-install/helm-override/<FLAVOUR>/README.md` for flavour-specific prerequisites and configuration details before installing.
 
 **Example:** To disable NONRTRIC rAppmanager in your flavour:
 ```yaml
@@ -175,4 +176,3 @@ Similarly, for other container runtimes, use the appropriate command to pull the
 > - Manually pull required images before installation if issues persist. Refer to [Manual Image Pulling](#manual-image-pulling) section for details.
 
 ---
-

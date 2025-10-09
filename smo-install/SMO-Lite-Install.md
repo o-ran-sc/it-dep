@@ -182,7 +182,7 @@ Sample config.json file is provided in the repo.
         "username": "netconf",
         "password": "netconf!",
         "netconf-port": 1830,
-        "sftp-port": 122
+        "sftp-port": 1222
     },
 
     "ves": {

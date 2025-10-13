@@ -22,6 +22,30 @@
       },
       "revId": "46fe4460b76308b680d938b17c680c2e4047ad2c",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1df52c8b_5ba02ea4",
+        "filename": "smo-install/helm-override/rappmanager/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001877
+      },
+      "writtenOn": "2025-10-13T11:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18bef429_f04ab44c",
+      "range": {
+        "startLine": 16,
+        "startChar": 129,
+        "endLine": 16,
+        "endChar": 191
+      },
+      "revId": "46fe4460b76308b680d938b17c680c2e4047ad2c",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

@@ -1,0 +1,9 @@
+Verified+1: ORAN Required GHA <releng+oran.required.gha@linuxfoundation.org>
+Code-Review+2: John Keeney <john.keeney@est.tech>
+Verified+1: o-ran-sc release <collab-it+o-ran-sc-release@linuxfoundation.org>
+Submitted-by: John Keeney <john.keeney@est.tech>
+Submitted-at: Wed, 15 Oct 2025 12:39:10 +0000
+Reviewed-on: https://gerrit.o-ran-sc.org/r/c/it/dep/+/15135
+Comments-Total: 2
+Project: it/dep
+Branch: refs/heads/master

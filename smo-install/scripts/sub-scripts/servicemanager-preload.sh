@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ################################################################################
-#   Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.       #
+#   Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.  #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -372,8 +372,18 @@ json_config=$(yq eval "$yaml_file" -o=json)
 echo "Preloading Service Manager from ${yaml_file}"
 
 # Get our Node IP and nodePort
-first_node_ip=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
 servicemanager_node_port=$(kubectl get service servicemanager -n nonrtric -o jsonpath='{.spec.ports[0].nodePort}')
+first_node_ip=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="ExternalIP")].address}')
+if [ -z "$first_node_ip" ]; then
+    echo "ExternalIP not found, using InternalIP"
+    first_node_ip=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+else
+    echo "Using ExternalIP ($first_node_ip) for Service Manager access"
+    echo "Ensure the NodePort ($servicemanager_node_port) on node ($first_node_ip) is accessible from this machine"
+    echo "If the port is not accessible, the publish action will hang on curl timeout"
+fi
+
+echo "Service Manager will be accessed at: http://${first_node_ip}:${servicemanager_node_port}"
 
 publish_services_from_config
 

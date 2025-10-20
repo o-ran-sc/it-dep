@@ -25,7 +25,7 @@ OVERRIDEYAML=$1
 NEXUS_PROXY_DOCKER_IO_REPO="nexus3.o-ran-sc.org:10001"
 
 # OpenEBS installation
-helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --set global.imageRegistry=$NEXUS_PROXY_DOCKER_IO_REPO &
+helm upgrade --install openebs --namespace openebs openebs/openebs --version 4.3.0 --create-namespace --set engines.replicated.mayastor.enabled=false --set engines.local.lvm.enabled=false --set engines.local.zfs.enabled=false --set loki.enabled=false --set alloy.enabled=false --set global.imageRegistry=$NEXUS_PROXY_DOCKER_IO_REPO --set preUpgradeHook.image.registry=$NEXUS_PROXY_DOCKER_IO_REPO --set preUpgradeHook.image.repo=bitnamilegacy/kubectl &
 
 # Create storage class for smo
 kubectl apply -f ../packages/pre-configuration/smo-sc.yaml

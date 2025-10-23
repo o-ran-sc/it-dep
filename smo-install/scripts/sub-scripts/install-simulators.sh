@@ -6,6 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
+# Modification Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,4 +26,10 @@
 
 kubectl create namespace network
 echo '### Installing ORAN SIMULATORS part ###'
-helm upgrade --install --debug oran-simulator local/ru-du-simulators --namespace network -f $1 -f $2
+
+OVERRIDEYAML1=$1
+OVERRIDEYAML2=$2
+HELM_REPO=$3
+
+echo "Installing SIMULATORS from HELM Repo : $HELM_REPO"
+helm upgrade --install --debug oran-simulator "$HELM_REPO"/ru-du-simulators --namespace network -f "$OVERRIDEYAML1" -f "$OVERRIDEYAML2"

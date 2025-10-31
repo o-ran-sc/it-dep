@@ -32,6 +32,7 @@ initsql:
 postgresql:
   image:
     debug: true
+    repository: bitnamilegacy/postgresql
   auth:
     enablePostgresUser: true
     usePasswordFiles: true

@@ -164,28 +164,28 @@ jobs:
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build onap_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
         with:
           make_args: "-C smo-install/onap_oom/kubernetes -e SKIP_LINT=TRUE"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build oran_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
         with:
           make_args: "-C smo-install/oran_oom"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build oran_oom/smo'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
         with:
           make_args: "-C smo-install/oran_oom/smo"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build tests_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@361e48884a6b7d7b5fcfcb38f399aa14e45127dc  # v0.1.1
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
         with:
           make_args: "-C smo-install/tests_oom"
 

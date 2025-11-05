@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f42d106_01a86bf6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-11-05T17:21:23Z",
+      "side": 1,
+      "message": "I guess this review will not be able to auto-verify until it is itself merged? \n\nOverrides \u0026 obsoletes the conflicting review https://gerrit.o-ran-sc.org/r/c/it/dep/+/15192 ?",
+      "revId": "9c21fd1e3548dc9251139a961948f71f61ee400a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

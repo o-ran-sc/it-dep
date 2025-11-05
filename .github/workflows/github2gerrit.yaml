@@ -1,34 +1,66 @@
 ---
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2025 The Linux Foundation <mwatkins@linuxfoundation.org>
+# SPDX-FileCopyrightText: 2025 The Linux Foundation
 
-name: call-github2gerrit-reusable-workflow
+name: 'GitHub2Gerrit Python'
 
 # yamllint disable-line rule:truthy
 on:
-    workflow_dispatch:
-    pull_request_target:
-        types: [opened, reopened, edited, synchronize]
-        branches:
-            - master
-            - main
+  workflow_dispatch:
+    inputs:
+      preserve_github_prs:
+        description: "Do NOT close GitHub PRs after pushing to Gerrit"
+        required: false
+        default: false
+        type: boolean
+      allow_duplicates:
+        description: "Allow duplicate changes to be raised in Gerrit"
+        required: false
+        default: false
+        type: boolean
+
+  pull_request_target:
+    types: [opened, reopened, edited, synchronize]
+    branches:
+      - master
+      - main
 
 concurrency:
-    # yamllint disable-line rule:line-length
-    group: ${{ github.workflow }}-${{ github.run_id }}
-    cancel-in-progress: true
+  group: "${{ github.workflow }}-${{ github.run_id }}"
+  cancel-in-progress: true
 
 jobs:
-    call-in-g2g-workflow:
-        permissions:
-            contents: read
-            pull-requests: write
-        # yamllint disable-line rule:line-length
-        uses: lfit/github2gerrit/.github/workflows/github2gerrit.yaml@1daf48c1a86add1aaac7695f44f8c1b6b142f49f # v0.2
+  github2gerrit:
+    name: 'GitHub2Gerrit Python'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    timeout-minutes: 12
+    steps:
+      # Harden the runner used by this workflow
+      # yamllint disable-line rule:line-length
+      - uses: step-security/harden-runner@95d9a5deda9de15063e7595e9719c11c38c90ae2  # v2.13.2
+        name: 'Harden runner'
         with:
-            GERRIT_KNOWN_HOSTS: ${{ vars.GERRIT_KNOWN_HOSTS }}
-            GERRIT_SSH_USER_G2G: ${{ vars.GERRIT_SSH_USER_G2G }}
-            GERRIT_SSH_USER_G2G_EMAIL: ${{ vars.GERRIT_SSH_USER_G2G_EMAIL }}
-            ORGANIZATION: ${{ github.repository_owner }}
-        secrets:
-            GERRIT_SSH_PRIVKEY_G2G: ${{ secrets.GERRIT_SSH_PRIVKEY_G2G }}
+          egress-policy: audit
+
+      - name: 'Checkout repository'
+        # yamllint disable-line rule:line-length
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8  # v5.0.0
+        with:
+          fetch-depth: 10
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: 'Run GitHub2Gerrit Action'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/github2gerrit-action@260cddcd3f96af3e46a84e46fd6c10d6574b45d7  # v0.1.22
+        with:
+          USE_PR_AS_COMMIT: true
+          ALLOW_DUPLICATES: ${{ inputs.allow_duplicates }}
+          PRESERVE_GITHUB_PRS: ${{ inputs.preserve_github_prs }}
+          ISSUE_ID_LOOKUP_JSON: ${{ vars.ISSUE_ID_LOOKUP_JSON }}
+          GERRIT_SSH_PRIVKEY_G2G: ${{ secrets.GERRIT_SSH_PRIVKEY_G2G }}
+          GERRIT_KNOWN_HOSTS: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          VERBOSE: true

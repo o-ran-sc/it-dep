@@ -62,5 +62,7 @@ jobs:
           PRESERVE_GITHUB_PRS: ${{ inputs.preserve_github_prs }}
           ISSUE_ID_LOOKUP_JSON: ${{ vars.ISSUE_ID_LOOKUP_JSON }}
           GERRIT_SSH_PRIVKEY_G2G: ${{ secrets.GERRIT_SSH_PRIVKEY_G2G }}
+          GERRIT_SSH_USER_G2G: oran.gh2gerrit
+          GERRIT_SSH_USER_G2G_EMAIL: releng+oran-gh2gerrit@linuxfoundation.org
           GERRIT_KNOWN_HOSTS: ${{ vars.GERRIT_KNOWN_HOSTS }}
           VERBOSE: true

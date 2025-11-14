@@ -146,7 +146,7 @@ jobs:
           # Installation of helm-push fixes the error below
           # Error: unknown command "cm-push" for "helm"
           # yamllint disable-line rule:line-length
-          helm plugin install https://github.com/chartmuseum/helm-push
+          helm plugin install https://github.com/chartmuseum/helm-push --verify=false
           echo 'Listing Helm plugins 💬'
           helm plugin list
 

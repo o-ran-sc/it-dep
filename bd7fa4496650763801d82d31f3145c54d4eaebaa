@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d36f53b7_b1efddc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-11-17T10:45:51Z",
+      "side": 1,
+      "message": "Thanks for the suggested change. \n\nYes - the verify failure is another issue - related to your other change. \n\nAlso, it is better if reviews are uploaded directly to gerrit rather than github. The Github version should be a read-only mirror of the gerrit version, and Im not sure how this review actually made it from github to gerrit. I will investigate more.",
+      "revId": "bd7fa4496650763801d82d31f3145c54d4eaebaa",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

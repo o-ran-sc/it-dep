@@ -25,7 +25,7 @@ Two methods of deployment are supported:
  - openstack.rc
 - heat
  - env
-   - aux.env
+   - auxiliary.env
    - ric.env
  - parts
    - part-1-v6.yaml

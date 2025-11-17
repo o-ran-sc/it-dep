@@ -1,6 +1,7 @@
 #!/bin/bash
 ################################################################################
 #   Copyright (c) 2020 AT&T Intellectual Property.                             #
+#   Modifications Copyright (c) 2025 OpenInfra Foundation Europe.              #
 #                                                                              #
 #   Licensed under the Apache License, Version 2.0 (the "License");            #
 #   you may not use this file except in compliance with the License.           #
@@ -237,18 +238,18 @@ done
 #cd ${REPOROOTDIR}/ric-aux/helm/infrastructure
 #helm dep update
 #cd ..
-#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-infra --namespace ricaux ./infrastructure
+#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/RICAUX/example_recipe.yaml --name bronze-infra --namespace ricaux ./infrastructure
 #
 #cd ${REPOROOTDIR}/ric-aux/helm/ves
 #helm dep update
 #cd ..
-#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml --name bronze-ves --namespace ricaux ./ves
+#helm install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/RICAUX/example_recipe.yaml --name bronze-ves --namespace ricaux ./ves
 #
 #
-## edit RECIPE_EXAMPLE/AUX/example_recipe.yaml file
+## edit RECIPE_EXAMPLE/RICAUX/example_recipe.yaml file
 ##./bin/prepare-common-templates
 ##cd ric-aux/bin
-##./install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/AUX/example_recipe.yaml -c "ves"
+##./install -f ${REPOROOTDIR}/RECIPE_EXAMPLE/RICAUX/example_recipe.yaml -c "ves"
 #
 #cd $STARTDIR
 #kubectl get pods --all-namespaces

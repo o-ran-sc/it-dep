@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0f78bc9_44545b38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-11-17T10:44:40Z",
+      "side": 1,
+      "message": "Thanks for the suggested change. \n\nBut, the helm-push is needed for dev mode build/installs. \nHiding the error does not address the issue. We will take at look at the underlying issue. \n\nAlso, it is better if reviews are uploaded directly to gerrit rather than github. The Github version should be a read-only mirror of the gerrit version, and Im not sure how this review actually made it from github to gerrit. I will ivestigate more.",
+      "revId": "e49e99c86c8a32636cece82337c9da6857155b9a",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

@@ -81,7 +81,7 @@ $ . ./undeploy-ric-platform
 ```
 
 ### To deploy RIC Auxiliary functions
-Choose a deployment recipe (e.g, ./RECIPE_EXAMPLE/AUX/amber_example_recipe.yaml)
+Choose a deployment recipe (e.g, ./RECIPE_EXAMPLE/RICAUX/amber_example_recipe.yaml)
 Make a copy of the recipe and edit the key:value pairs in it according to your needs
 Set the values of extsvcaux/ricip and extsvcaux/auxip to be the external IP addresses of VM hosting RIC cluster and VM hosting AUX cluster, respectively.
 ```sh

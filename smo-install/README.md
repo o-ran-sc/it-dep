@@ -3,7 +3,7 @@
 ## Summary
 This project uses different helm charts from different Linux Foundation projects and integrate them into a unique SMO deployment.
 <p>The ONAP and ORAN project helm charts are built and then configured by using "helm override" so that it represents a valid ORAN SMO installation.</p>
-<p>It contains also provisioning scripts that can be used to bootstrap the platform and execute test use cases, network simulators, a1 simulators, cnf network simulators, etc ...</p>
+<p>It contains also provisioning scripts that can be used to bootstrap the platform and execute test use cases, network simulators, a1 simulators, cnf network simulators, etc ... </p>
 
 ## Table of Contents
 1. [Pre-requisites](#pre-requisites)
@@ -19,7 +19,7 @@ This project uses different helm charts from different Linux Foundation projects
 
 ## Pre-requisites
 - VM: 64GB Memory, 20VCPU, 100GB disk
-- Helm 3.12.0+
+- Helm 3.12.0+ (< 4.0.0)
 - Kubernetes 1.30+
 - Helm deploy/undeploy plugin
 - Helm cm-push plugin

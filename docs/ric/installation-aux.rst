@@ -2,6 +2,7 @@
 .. SPDX-License-Identifier: CC-BY-4.0
 .. ===============LICENSE_START=======================================================
 .. Copyright (C) 2019-2020 AT&T Intellectual Property
+.. Modifications Copyright (C) 2025 OpenInfra Foundation Europe
 .. ===================================================================================
 .. This documentation file is distributed under the Creative Commons Attribution
 .. 4.0 International License (the "License"); you may not use this file except in
@@ -34,7 +35,7 @@ Run the following commands in a root shell:
 
 **Modify the deployment recipe**
 
-Edit the recipe file ./RECIPE_EXAMPLE/AUX/example_recipe.yaml.
+Edit the recipe file ./RECIPE_EXAMPLE/RICAUX/example_recipe.yaml.
 
 - Specify the IP addresses used by the RIC and AUX cluster ingress controller (e.g., the main interface IP) in the following section.
   If you are only testing the AUX cluster, you can put down any private IPs (e.g., 10.0.2.1 and 10.0.2.2).
@@ -71,7 +72,7 @@ After the recipes are edited, the AUX group is ready to be deployed.
 .. code:: bash
 
   cd dep/bin
-  ./deploy-ric-aux ../RECIPE_EXAMPLE/AUX/example_recipe.yaml
+  ./deploy-ric-aux ../RECIPE_EXAMPLE/RICAUX/example_recipe.yaml
 
 
 **Checking the Deployment Status**

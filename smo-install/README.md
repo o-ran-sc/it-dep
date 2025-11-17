@@ -19,7 +19,7 @@ This project uses different helm charts from different Linux Foundation projects
 
 ## Pre-requisites
 - VM: 64GB Memory, 20VCPU, 100GB disk
-- Helm 3.12.0+
+- Helm 3.12.0+ (< 4.0.0)
 - Kubernetes 1.30+
 - Helm deploy/undeploy plugin
 - Helm cm-push plugin

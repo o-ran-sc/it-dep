@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1185f1_6e0f3c7e",
+        "filename": "tox.ini",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-11-17T17:01:35Z",
+      "side": 1,
+      "message": "I think this keyword/param changed. e.g. \n\nallowlist_externals \u003d\n    echo\n    git\n    sh\n\nSimilar to ONAP/oran \nOr better again, remove the echo line so theres no error when building with tox on windows",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "04dccb11991d3e692108d7ceebd98abbd700d310",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

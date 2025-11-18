@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "4c3b09e26c005f3f4751caa179978182c9fa9cc0",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a4b491_6b93daf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002638
+      },
+      "writtenOn": "2025-11-18T09:09:38Z",
+      "side": 1,
+      "message": "Seems it failed to curl the plugin. Maybe a recheck",
+      "revId": "4c3b09e26c005f3f4751caa179978182c9fa9cc0",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

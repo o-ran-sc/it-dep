@@ -357,12 +357,20 @@ function publish_services_from_config() {
 # Ensure yq and jq are installed
 if ! command -v yq &> /dev/null; then
     >&2 echo "yq is not installed. Installing yq..."
-    sudo snap install yq --channel=v4/stable
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="v4.45.4"
+    echo "yq is not installed. Installing yq..."
+    sudo wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq
+    sudo chmod +x /usr/local/bin/yq
 fi
 
 if ! command -v jq &> /dev/null; then
     >&2 echo "jq is not installed. Installing jq..."
-    sudo snap install jq
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="1.8.1"
+    echo "jq is not installed. Installing jq..."
+    sudo wget https://github.com/jqlang/jq/releases/download/jq-${VERSION}/jq-linux-${ARCH} -O /usr/local/bin/jq
+    sudo chmod +x /usr/local/bin/jq
 fi
 
 # Read and parse the YAML file

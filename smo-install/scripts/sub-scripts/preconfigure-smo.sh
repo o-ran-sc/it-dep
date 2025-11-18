@@ -18,7 +18,11 @@
 
 if ! command -v jq > /dev/null 2>&1; then
     echo "jq is not installed. Installing jq..."
-    sudo apt-get install jq -y
+    ARCH=$(case $(uname -m) in x86_64) echo "amd64";; aarch64) echo "arm64";; *) uname -m;; esac)
+    VERSION="1.8.1"
+    echo "jq is not installed. Installing jq..."
+    sudo wget https://github.com/jqlang/jq/releases/download/jq-${VERSION}/jq-linux-${ARCH} -O /usr/local/bin/jq
+    sudo chmod +x /usr/local/bin/jq
 fi
 
 OVERRIDEYAML=$1

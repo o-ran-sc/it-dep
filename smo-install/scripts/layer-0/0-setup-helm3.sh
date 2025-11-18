@@ -29,7 +29,15 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 
 # Check whether helm is installed and if not install it
 if command -v helm > /dev/null 2>&1; then
-    echo "Helm is already installed. Skipping installation."
+    HELM_VERSION=$(helm version --template='{{.Version}}')
+    if [[ $HELM_VERSION == v4* ]]; then
+        echo -e "\033[43;31mWARNING: Helm v4 detected ($HELM_VERSION) \033[0m"
+        echo -e "\033[43;31mWARNING: Helm v4 is not fully supported yet as there could be some issues with helm cm-push plugin. \033[0m"
+        echo -e "\033[43;31mWARNING: It is better to stick with Helm v3 for now. \033[0m"
+        echo -e "\033[43;31mWARNING: Consider downgrading to Helm v3 if you encounter issues. \033[0m"
+    else
+        echo "Helm is already installed. Skipping installation."
+    fi
 else
     echo "Helm is not installed. Installing helm ..."
     cd /tmp

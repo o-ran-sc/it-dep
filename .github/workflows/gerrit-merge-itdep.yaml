@@ -58,6 +58,7 @@ env:
   CHART_ARTIFACT_NAME: 'helm-charts'
   CHARTMUSEUM_STORAGE_DIR: './chartmuseum-storage'
   CHARTS_BUILD_DIR: './chartmuseum-storage'
+  HELM_VERSION: 'v3.19.2'
 
   # Inherited from jenkins verify job
   RIC_DEP_CI_DOCKER_FILE: 'ci/Dockerfile'
@@ -113,8 +114,8 @@ jobs:
         # yamllint disable-line rule:line-length
         uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4  # v4.3.1
         # Not explicitly used while testing updated Helm
-        # with:
-        #   version: ${{ env.HELM_VERSION }}
+        with:
+          version: ${{ env.HELM_VERSION }}
 
       - name: 'Set up Docker Buildx'
         # yamllint disable-line rule:line-length

@@ -142,7 +142,7 @@ jobs:
       - name: 'Start ChartMuseum'
         id: chartmuseum
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/chartmuseum-action@6d80e2f00eed1d6de21991f45af1423c731a624b # v0.1.4
+        uses: lfreleng-actions/chartmuseum-action@fd69b10b8a21548c0eb99b13f52ed40875057dbf # v0.1.5
         with:
           username: 'chartmuseum'
           password: "${{ secrets.GITHUB_TOKEN }}"

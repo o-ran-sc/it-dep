@@ -52,6 +52,11 @@ on:
         description: "Gerrit refspec of change"
         required: false
         type: string
+      GERRIT_DISABLED:
+        description: "Run without Gerrit components"
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   # yamllint disable-line rule:line-length
@@ -74,9 +79,20 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: "Gather repository metadata"
+        id: repo-metadata
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/repository-metadata-action@5fd432a3a4593f838a8a51e39be81c9afb250e0b  # v0.1.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          generate_summary: 'false'
+          artifact_upload: 'true'
+          artifact_formats: 'json'
+
       - name: Notify job start
         # yamllint disable-line rule:line-length
         uses: lfreleng-actions/gerrit-review-action@6d2e00dfd3173cd9a36d11350c8fba44731c7b4e # v0.10.0
+        if: github.event_name == 'workflow_dispatch' && inputs.GERRIT_DISABLED != true
         with:
           host: ${{ vars.GERRIT_SERVER }}
           username: ${{ vars.GERRIT_SSH_USER }}
@@ -89,6 +105,7 @@ jobs:
   verify-and-publish:
     name: 'Build/Verify Helm Charts'
     needs: [notify]
+    if: always()
     runs-on: 'ubuntu-latest'
     outputs:
       charts_build_dir: "${{ env.CHARTS_BUILD_DIR }}"
@@ -250,7 +267,7 @@ jobs:
           permit_fail: true
 
   report-status:
-    if: ${{ always() }}
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.GERRIT_DISABLED != true }}
     needs: [notify, verify-and-publish]
     runs-on: ubuntu-latest
     steps:

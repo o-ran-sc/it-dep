@@ -22,6 +22,30 @@
       },
       "revId": "2d851da339d28da87aab6556baf81f754efcf980",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "580dd540_039dce18",
+        "filename": ".github/workflows/gerrit-merge-release-itdep.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001777
+      },
+      "writtenOn": "2025-12-04T15:46:09Z",
+      "side": 1,
+      "message": "It would potentially change the path in the release repository to include a top level folder, under which all the existing unmodified chart names would be published. The existing structure in Nexus3 for snapshots is flat:\nhttps://nexus3.o-ran-sc.org/#browse/browse:helm.snapshot\nEach component is its own folder at the top.\nI\u0027ve made a patch to the workflow to allow for an empty path to be used, which should preserve the existing behaviour we have in the helm.snapshots repository. We can test that manually with workflow_dispatch to see if this is an issue or not.",
+      "parentUuid": "5d042ed6_deb93900",
+      "range": {
+        "startLine": 268,
+        "startChar": 10,
+        "endLine": 268,
+        "endChar": 29
+      },
+      "revId": "2d851da339d28da87aab6556baf81f754efcf980",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

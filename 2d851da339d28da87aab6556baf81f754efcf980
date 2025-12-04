@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d042ed6_deb93900",
+        "filename": ".github/workflows/gerrit-merge-release-itdep.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-04T15:12:13Z",
+      "side": 1,
+      "message": "I\u0027m a bit concerned about this part - but Im not sure how this would work. \n\nWill this change the root \u0027URL\u0027 or the path within the repo thats needed to actually use the charts? \nOr will this overwrite the chart version number already part of the charts? \n\nIm guessing this might make using the released charts instead of the snapshot charts (for the same version) a bit more involved than just changing the repo name? \n\nIm guessing by looking at https://github.com/lfreleng-actions/nexus-publish-action?tab\u003dreadme-ov-file#raw-files-upload that this would prepend the version number (i.e. tag) to the path which would then: \n1: change the helm artifact \u0027name\u0027 to include a version\n2: add another version, since there will also be a version later in the path based on the local chart version number? i.e. 2 possibly different version numbers?",
+      "range": {
+        "startLine": 268,
+        "startChar": 10,
+        "endLine": 268,
+        "endChar": 29
+      },
+      "revId": "2d851da339d28da87aab6556baf81f754efcf980",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    }
+  ]
+}

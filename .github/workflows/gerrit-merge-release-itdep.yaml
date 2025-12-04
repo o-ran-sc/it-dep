@@ -1,0 +1,293 @@
+---
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2023 The Linux Foundation, 2025 OpenInfra Foundation Europe
+
+name: Release Snapshots
+
+# yamllint disable-line rule:truthy
+on:
+  # Trigger on tag push events
+  push:
+    tags:
+      - '**'
+  # Manual trigger for debugging
+  # Note: Mandatory Gerrit variables switched to optional
+  workflow_dispatch:
+    inputs:
+      # Optional Gerrit inputs
+      GERRIT_BRANCH:
+        description: "Branch that change is against"
+        required: false
+        type: string
+      GERRIT_CHANGE_ID:
+        description: "The ID for the change"
+        required: false
+        type: string
+      GERRIT_CHANGE_NUMBER:
+        description: "The Gerrit number"
+        required: false
+        type: string
+      GERRIT_CHANGE_URL:
+        description: "URL to the change"
+        required: false
+        type: string
+      GERRIT_EVENT_TYPE:
+        description: "Type of Gerrit event"
+        required: false
+        type: string
+      GERRIT_PATCHSET_NUMBER:
+        description: "The patch number for the change"
+        required: false
+        type: string
+      GERRIT_PATCHSET_REVISION:
+        description: "The revision sha"
+        required: false
+        type: string
+      GERRIT_PROJECT:
+        description: "Project in Gerrit"
+        required: false
+        type: string
+      GERRIT_REFSPEC:
+        description: "Gerrit refspec of change"
+        required: false
+        type: string
+      # In the absence of a tag, use this release name
+      RELEASE_NAME:
+        description: "Name of the release"
+        required: false
+        type: string
+
+concurrency:
+  # yamllint disable-line rule:line-length
+  group: publish-release-${{ github.workflow }}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
+  cancel-in-progress: true
+
+# Parameters used during workflow test/development
+env:
+  # Inherited from build-publish.yaml
+  CHARTS_SOURCE_DIR: 'charts'
+  CHART_ARTIFACT_NAME: 'helm-charts'
+  CHARTMUSEUM_STORAGE_DIR: './chartmuseum-storage'
+  CHARTS_BUILD_DIR: './chartmuseum-storage'
+  HELM_VERSION: 'v3.19.2'
+
+  # Inherited from jenkins verify job
+  RIC_DEP_CI_DOCKER_FILE: 'ci/Dockerfile'
+
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify job start
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/gerrit-review-action@6d2e00dfd3173cd9a36d11350c8fba44731c7b4e # v0.10.0
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          comment-only: 'true'
+
+  verify-and-publish:
+    name: 'Build/Verify Helm Charts'
+    needs: [notify]
+    runs-on: 'ubuntu-latest'
+    outputs:
+      charts_build_dir: "${{ env.CHARTS_BUILD_DIR }}"
+      chart_artifact_name: "${{ env.CHART_ARTIFACT_NAME }}"
+    permissions:
+      contents: read
+    timeout-minutes: 20
+    steps:
+      # yamllint disable-line rule:line-length
+      - uses: step-security/harden-runner@95d9a5deda9de15063e7595e9719c11c38c90ae2  # v2.13.2
+        with:
+          egress-policy: audit
+
+      - name: Load secrets from 1Password
+        uses: 1password/load-secrets-action@13f58eec611f8e5db52ec16247f58c508398f3e6 # v3.0.0
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          NEXUS_PASSWORD: op://6n4qm2onchsinyyeuxmcfbo7ne/ajxfr5yoj2is2o4hpqlw766ogu/password
+
+      - name: "Check NEXUS_PASSWORD available"
+        id: check-nexus-password
+        env:
+          NEXUS_PASSWORD: ${{ env.NEXUS_PASSWORD }}
+        run: |
+          # Check NEXUS_PASSWORD available
+          # Use a temp file to avoid exposing password in process list
+          PASSWORD_FILE=$(mktemp)
+          printf '%s' "$NEXUS_PASSWORD" > "${PASSWORD_FILE}"
+          PASSWORD_SHA1=$(sha1sum "${PASSWORD_FILE}" | awk '{print $1}')
+          # Securely overwrite and remove the temp file
+          shred -vfz -n 3 "${PASSWORD_FILE}" 2>/dev/null || rm -f "${PASSWORD_FILE}"
+          echo "NEXUS_PASSWORD SHA1: ${PASSWORD_SHA1}"
+          NULL_STRING_SHA1="da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          if [ -z "$NEXUS_PASSWORD" ] || [ "${PASSWORD_SHA1}" = "${NULL_STRING_SHA1}" ]; then
+            echo "⚠️ NEXUS_PASSWORD is not set or has null value"
+            echo "⚠️ NEXUS_PASSWORD is not set or has null value" \
+              >> $GITHUB_OUTPUT
+            echo "set=false" >> $GITHUB_OUTPUT
+          elif [ "$PASSWORD_SHA1" != \
+            'eec68c052add49d3b4a0d8f4a3ada5a3c54c0d96' ]; then
+            echo "⚠️ NEXUS_PASSWORD does not match the expected value"
+            echo "⚠️ NEXUS_PASSWORD does not match the expected value" \
+              >> $GITHUB_STEP_SUMMARY
+            echo "set=false" >> $GITHUB_OUTPUT
+          else
+            echo "NEXUS_PASSWORD was validated"
+            echo "✅ NEXUS_PASSWORD was validated" >> $GITHUB_STEP_SUMMARY
+            echo "set=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 'Set release name'
+        id: release-name
+        run: |
+          # Set release name
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Extract tag name from push event
+            RELEASE_NAME="${GITHUB_REF#refs/tags/}"
+            echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_ENV
+            echo "Release name set from tag: ${RELEASE_NAME}"
+          elif [ -n "${{ inputs.RELEASE_NAME }}" ]; then
+            # Use workflow_dispatch input
+            echo "RELEASE_NAME=${{ inputs.RELEASE_NAME }}" >> $GITHUB_ENV
+            echo "Release name set from input: ${{ inputs.RELEASE_NAME }}"
+          else
+            echo "⚠️ No release name available (no tag or RELEASE_NAME input)"
+            exit 1
+          fi
+
+      - name: 'Checkout Gerrit change'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/checkout-gerrit-change-action@54d751e8bd167bc91f7d665dabe33fae87aaaa63  # v0.9
+        with:
+          gerrit-project: ${{ inputs.GERRIT_PROJECT }}
+          gerrit-refspec: ${{ inputs.GERRIT_REFSPEC }}
+          delay: "0s"
+
+      - name: 'Display workflow environment'
+        shell: bash
+        run: |
+            # Display workflow environment
+            echo "RIC_DEP_CI_DOCKER_FILE: $RIC_DEP_CI_DOCKER_FILE"
+
+      - name: 'Setup Helm'
+        # yamllint disable-line rule:line-length
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4  # v4.3.1
+        # Not explicitly used while testing updated Helm
+        with:
+          version: ${{ env.HELM_VERSION }}
+
+      - name: 'Set up Docker Buildx'
+        # yamllint disable-line rule:line-length
+        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
+
+      - name: 'Build pre-requisites, install Helm plugins'
+        id: pre-requisites
+        shell: bash
+        run: |
+          # Build pre-requisites
+          echo 'Running: git submodule update --init 💬'
+          git submodule update --init
+          echo 'Running: helm plugin installs 💬'
+            plugin_dir='smo-install/onap_oom/kubernetes/helm/plugins/'
+          helm plugin install "$plugin_dir/undeploy/"
+          helm plugin install "$plugin_dir/deploy/"
+          # Installation of helm-push fixes the error below
+          # Error: unknown command "cm-push" for "helm"
+          # yamllint disable-line rule:line-length
+          helm plugin install https://github.com/chartmuseum/helm-push
+          echo 'Listing Helm plugins 💬'
+          helm plugin list
+
+      - name: 'Start ChartMuseum'
+        id: chartmuseum
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/chartmuseum-action@fd69b10b8a21548c0eb99b13f52ed40875057dbf # v0.1.5
+        with:
+          username: 'chartmuseum'
+          password: "${{ secrets.GITHUB_TOKEN }}"
+          exit: false
+          directory: "${{ env.CHARTMUSEUM_STORAGE_DIR }}"
+          helm_repo_name: 'local'
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Build onap_oom'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        with:
+          make_args: "-C smo-install/onap_oom/kubernetes -e SKIP_LINT=TRUE"
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Build oran_oom'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        with:
+          make_args: "-C smo-install/oran_oom"
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Build oran_oom/smo'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        with:
+          make_args: "-C smo-install/oran_oom/smo"
+
+      # Makefiles publish to Chartmeusem service locally
+      - name: 'Build tests_oom'
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        with:
+          make_args: "-C smo-install/tests_oom"
+
+      - name: Build ric-aux and ric-dep
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        with:
+          context: .
+          file: ${{ env.RIC_DEP_CI_DOCKER_FILE }}
+          push: false
+          tags: ""
+
+      - name: 'Publish to Nexus3 (Helm Snapshot)'
+        uses: lfreleng-actions/nexus-publish-action@b53a4638789cba03279c97aeab7f0ce10dbfa991  # v0.1.3
+        # Note: changed from verify for 1Password integration
+        env:
+          NEXUS_PASSWORD: ${{ env.NEXUS_PASSWORD }}
+          RELEASE_NAME: ${{ env.RELEASE_NAME }}
+        with:
+          nexus_server: "${{ vars.NEXUS3_SERVER }}"
+          nexus_username: "${{ github.event.repository.name }}"
+          nexus_password: "$NEXUS_PASSWORD"
+          repository_format: 'raw'
+          repository_name: 'helm.release'
+          files_path: "${{ env.CHARTS_BUILD_DIR }}"
+          file_pattern: '*.tgz'
+          upload_path: "$RELEASE_NAME"
+
+  report-status:
+    if: ${{ always() }}
+    needs: [notify, verify-and-publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get conclusion
+        # yamllint disable-line rule:line-length
+        uses: im-open/workflow-conclusion@e4f7c4980600fbe0818173e30931d3550801b992 # v2.2.3
+
+      - name: Report workflow conclusion
+        # yamllint disable-line rule:line-length
+        uses: lfreleng-actions/gerrit-review-action@537251ec667665b386f70b330b05446e3fc29087 # v0.9
+        with:
+          host: ${{ vars.GERRIT_SERVER }}
+          username: ${{ vars.GERRIT_SSH_USER }}
+          key: ${{ secrets.GERRIT_SSH_PRIVKEY }}
+          known_hosts: ${{ vars.GERRIT_KNOWN_HOSTS }}
+          gerrit-change-number: ${{ inputs.GERRIT_CHANGE_NUMBER }}
+          gerrit-patchset-number: ${{ inputs.GERRIT_PATCHSET_NUMBER }}
+          vote-type: ${{ env.WORKFLOW_CONCLUSION }}
+          comment-only: 'true'

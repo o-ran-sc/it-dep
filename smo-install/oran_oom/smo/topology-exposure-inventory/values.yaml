@@ -162,3 +162,74 @@ ncmp-to-teiv-adapter:
       - name: *topologyIngestionTopic
         type: topic
         operations: [Write]
+
+focom-to-teiv-adapter:
+  name: focom-to-teiv-adapter
+  imagePullPolicy: IfNotPresent
+  image:
+    name: o-ran-sc/smo-focom-to-teiv-adapter
+    tag: 0.1.0
+  service:
+    type: ClusterIP
+    ports:
+      - name: http
+        internalPort: "8080"
+        targetPort: "8080"
+        port: 8080
+  liveness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 20
+    periodSeconds: 10
+  persistence:
+    size: 2Gi
+    storageClassName: standard
+  kafkaUser:
+    authenticationType: scram-sha-512
+    acls:
+      - name: *topologyIngestionTopic
+        type: topic
+        operations: [Write]
+  # Kubeconfig configuration for FOCOM and O2IMS clusters
+  # Set enabled to true and provide kubeconfig YAML content as string
+  kubeconfig:
+    enabled: false
+    focom: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - cluster:
+          certificate-authority-data: LS0tLS1CRUdJTi...
+          server: https://focom-cluster-control-plane:6443
+        name: focom-cluster
+      contexts:
+      - context:
+          cluster: focom-cluster
+          user: focom-admin
+        name: focom-context
+      current-context: focom-context
+      users:
+      - name: focom-admin
+        user:
+          client-certificate-data: LS0tLS1CRUdJTi...
+          client-key-data: LS0tLS1CRUdJTi...
+    o2ims: |
+      apiVersion: v1
+      kind: Config
+      clusters:
+      - cluster:
+          certificate-authority-data: LS0tLS1CRUdJTi...
+          server: https://kind-control-plane:6443
+        name: o2ims-cluster
+      contexts:
+      - context:
+          cluster: o2ims-cluster
+          user: o2ims-admin
+        name: o2ims-context
+      current-context: o2ims-context
+      users:
+      - name: o2ims-admin
+        user:
+          client-certificate-data: LS0tLS1CRUdJTi...
+          client-key-data: LS0tLS1CRUdJTi...

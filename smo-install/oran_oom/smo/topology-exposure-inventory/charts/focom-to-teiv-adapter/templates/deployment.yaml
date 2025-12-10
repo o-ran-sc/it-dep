@@ -1,0 +1,51 @@
+#  ============LICENSE_START===============================================
+#  Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+#  ========================================================================
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#  ============LICENSE_END=================================================
+#
+
+kind: Deployment
+apiVersion: apps/v1
+metadata: {{- include "common.resourceMetadata" . | nindent 2 }}
+spec:
+  replicas: 1
+  selector: {{- include "common.selectors" . | nindent 4 }}
+  template:
+    metadata: {{- include "common.templateMetadata" . | nindent 6 }}
+    spec:
+      hostname: {{ include "common.name" . }}
+      containers:
+      - name: {{ include "common.containername" . }}
+        image: {{ include "repository.nexusReleaseRepo" . }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+{{- if .Values.global.useStrimziKafka }}
+        env:
+        - name: SPRING_KAFKA_SECURITY_PROPERTIES_SASL_JAAS_CONFIG
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "common.name" . }}-ku
+              key: sasl.jaas.config
+{{- end }}
+        volumeMounts:
+        - name: {{ include "common.applicationConfigMountName" . }}
+          mountPath: /opt/app/teiv/config
+        - name: kubeconfig-volume
+          mountPath: /opt/app/teiv/kubeconfig
+          readOnly: true
+      volumes:
+{{- include "common.applicationConfigVolume" . | nindent 6 }}
+      - name: kubeconfig-volume
+        secret:
+          secretName: {{ include "common.name" . }}-kubeconfig
+          optional: true

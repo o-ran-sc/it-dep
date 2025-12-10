@@ -40,3 +40,6 @@ dependencies:
   - name: ncmp-to-teiv-adapter
     version: 1.0.0
     repository: "file://charts/ncmp-to-teiv-adapter"
+  - name: focom-to-teiv-adapter
+    version: 1.0.0
+    repository: "file://charts/focom-to-teiv-adapter"

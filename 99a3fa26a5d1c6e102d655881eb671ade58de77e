@@ -16,6 +16,75 @@
       "message": "This is ready for review. This should not be merged before the release of focom-to-teiv-adapter in smo/teiv repository. Because this chart refers to the release image.",
       "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "603927bd_a0c6bbb0",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T11:15:42Z",
+      "side": 1,
+      "message": "0.3.0 should be OK now\n(As mentioned - will also need the new SQL files)",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b933d15_b2c41dd8",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T11:15:42Z",
+      "side": 1,
+      "message": "0.3.0 should be OK now\n(As mentioned - will also need the new SQL files)",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 16
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c527e915_3a89453a",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T11:15:42Z",
+      "side": 1,
+      "message": "Can bump this to 0.0.2 now I think",
+      "range": {
+        "startLine": 142,
+        "startChar": 9,
+        "endLine": 142,
+        "endChar": 14
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     }
   ]
 }

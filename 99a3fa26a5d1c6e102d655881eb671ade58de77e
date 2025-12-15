@@ -65,6 +65,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fe8be5_e72c42a2",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T18:31:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c5535ba7_c79cf8a5",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 16
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b933d15_b2c41dd8",
@@ -112,6 +136,30 @@
       "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbae85e5_f6480e1a",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T18:31:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "07e4e17c_8dcd4b5a",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 16
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c527e915_3a89453a",
@@ -149,6 +197,30 @@
       "side": 1,
       "message": "Addressed as part of https://gerrit.o-ran-sc.org/r/c/it/dep/+/15378",
       "parentUuid": "c527e915_3a89453a",
+      "range": {
+        "startLine": 142,
+        "startChar": 9,
+        "endLine": 142,
+        "endChar": 14
+      },
+      "revId": "99a3fa26a5d1c6e102d655881eb671ade58de77e",
+      "serverId": "84e4e190-e623-4c37-9eda-58b1937c1b53"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae98d2d3_d5038356",
+        "filename": "smo-install/oran_oom/smo/topology-exposure-inventory/values.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000103
+      },
+      "writtenOn": "2025-12-15T18:31:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a258beab_453ff70e",
       "range": {
         "startLine": 142,
         "startChar": 9,

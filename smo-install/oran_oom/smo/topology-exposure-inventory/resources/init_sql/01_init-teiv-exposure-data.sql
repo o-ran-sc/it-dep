@@ -1,7 +1,7 @@
 --
 -- ============LICENSE_START=======================================================
 -- Copyright (C) 2024 Ericsson
--- Modifications Copyright (C) 2024 OpenInfra Foundation Europe
+-- Modifications Copyright (C) 2024-2025 OpenInfra Foundation Europe
 -- ================================================================================
 -- Licensed under the Apache License, Version 2.0 (the "License");
 -- you may not use this file except in compliance with the License.
@@ -174,7 +174,8 @@ ALTER TABLE ONLY teiv_data."D4A45C271462B28FB655CFCF2F2D826236C78062" ALTER COLU
 
 CREATE TABLE IF NOT EXISTS teiv_data."o-ran-smo-teiv-cloud_CloudifiedNF" (
 	"id"			TEXT,
-	"name"			TEXT,
+	"cloudifiedNfId"			TEXT,
+	"serviceOrchestrationId"			TEXT,
 	"CD_sourceIds"			jsonb,
 	"CD_classifiers"			jsonb,
 	"CD_decorators"			jsonb,
@@ -205,7 +206,9 @@ ALTER TABLE ONLY teiv_data."o-ran-smo-teiv-cloud_NFDEPLOYMENT_DEPLOYED_ON_OCLOUD
 
 CREATE TABLE IF NOT EXISTS teiv_data."o-ran-smo-teiv-cloud_NFDeployment" (
 	"id"			TEXT,
-	"name"			TEXT,
+	"nfDeploymentId"			TEXT,
+	"resourceOrchestrationId"			TEXT,
+	"serviceOrchestrationId"			TEXT,
 	"CD_sourceIds"			jsonb,
 	"CD_classifiers"			jsonb,
 	"CD_decorators"			jsonb,
@@ -260,7 +263,10 @@ ALTER TABLE ONLY teiv_data."o-ran-smo-teiv-cloud_NODECLUSTER_LOCATED_AT_OCLOUDSI
 
 CREATE TABLE IF NOT EXISTS teiv_data."o-ran-smo-teiv-cloud_NodeCluster" (
 	"id"			TEXT,
-	"name"			TEXT,
+	"nodeClusterId"			TEXT,
+	"nodeClusterName"			TEXT,
+	"resourceOrchestrationId"			TEXT,
+	"serviceOrchestrationId"			TEXT,
 	"CD_sourceIds"			jsonb,
 	"CD_classifiers"			jsonb,
 	"CD_decorators"			jsonb,
@@ -275,7 +281,7 @@ ALTER TABLE ONLY teiv_data."o-ran-smo-teiv-cloud_NodeCluster" ALTER COLUMN "CD_d
 
 CREATE TABLE IF NOT EXISTS teiv_data."o-ran-smo-teiv-cloud_OCloudNamespace" (
 	"id"			TEXT,
-	"name"			TEXT,
+	"oCloudNamespaceName"			TEXT,
 	"CD_sourceIds"			jsonb,
 	"CD_classifiers"			jsonb,
 	"CD_decorators"			jsonb,
@@ -302,8 +308,9 @@ ALTER TABLE ONLY teiv_data."o-ran-smo-teiv-cloud_OCloudNamespace" ALTER COLUMN "
 
 CREATE TABLE IF NOT EXISTS teiv_data."o-ran-smo-teiv-cloud_OCloudSite" (
 	"id"			TEXT,
-	"geo-location"			geography,
-	"name"			TEXT,
+	"oCloudSiteId"			TEXT,
+	"oCloudSiteLocation"			jsonb,
+	"supportedMITs"			jsonb,
 	"CD_sourceIds"			jsonb,
 	"CD_classifiers"			jsonb,
 	"CD_decorators"			jsonb,
@@ -1852,6 +1859,10 @@ CREATE INDEX IF NOT EXISTS "IDX_A7A50200F582AB86EF483F9BA74F999F17B7F653" ON tei
 CREATE INDEX IF NOT EXISTS "IDX_6EE081E80342904B676496DA42DFAEC3EDA2CE27" ON teiv_data."o-ran-smo-teiv-cloud_OCloudNamespace" USING GIN (("REL_CD_classifiers_OCLOUDNAMESPACE_DEPLOYED_ON_NODECLUSTER"::TEXT) gin_trgm_ops);
 
 CREATE INDEX IF NOT EXISTS "IDX_9AB8994DE0826F790D70614D4C52DD270AEF946B" ON teiv_data."o-ran-smo-teiv-cloud_OCloudNamespace" USING GIN ("REL_CD_decorators_OCLOUDNAMESPACE_DEPLOYED_ON_NODECLUSTER");
+
+CREATE INDEX IF NOT EXISTS "IDX_GIN_o-ran-smo-teiv-cloud_OCloudSite_oCloudSiteLocation" ON teiv_data."o-ran-smo-teiv-cloud_OCloudSite" USING GIN ("oCloudSiteLocation");
+
+CREATE INDEX IF NOT EXISTS "IDX_084CDB1A066F3D7C784ECA6FB604007A6ADF3A95" ON teiv_data."o-ran-smo-teiv-cloud_OCloudSite" USING GIN (("supportedMITs"::TEXT) gin_trgm_ops);
 
 CREATE INDEX IF NOT EXISTS "IDX_30C83E5F8447D28D8E2A73048DF751C886AF318B" ON teiv_data."o-ran-smo-teiv-cloud_OCloudSite" USING GIN (("CD_sourceIds"::TEXT) gin_trgm_ops);
 

@@ -59,7 +59,7 @@ topology-exposure:
   image:
     teiv:
       name: o-ran-sc/smo-teiv-exposure
-      tag: 0.2.0
+      tag: 0.3.0
   service:
     type: ClusterIP
     ports:
@@ -98,7 +98,7 @@ topology-ingestion:
   image:
     teiv:
       name: o-ran-sc/smo-teiv-ingestion
-      tag: 0.2.0
+      tag: 0.3.0
   service:
     type: ClusterIP
     ports:
@@ -139,7 +139,7 @@ ncmp-to-teiv-adapter:
   imagePullPolicy: IfNotPresent
   image:
     name: o-ran-sc/smo-ncmp-to-teiv-adapter
-    tag: 0.0.1
+    tag: 0.0.2
   service:
     type: ClusterIP
     ports:

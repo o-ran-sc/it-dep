@@ -22,7 +22,7 @@
 imagePullPolicy: IfNotPresent
 image:
   name: 'o-ran-sc/nonrtric-plt-participant-impl-dme'
-  tag: 0.3.0
+  tag: 0.4.0
 service:
   type: ClusterIP
   ports:

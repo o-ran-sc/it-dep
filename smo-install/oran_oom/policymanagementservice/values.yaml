@@ -22,7 +22,7 @@
 imagePullPolicy: IfNotPresent
 image:
   name: 'o-ran-sc/nonrtric-plt-a1policymanagementservice'
-  tag: 2.10.0
+  tag: 2.11.0
 initContainer:
   image:
     name: busybox

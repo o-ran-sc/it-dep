@@ -115,12 +115,12 @@ jobs:
     timeout-minutes: 20
     steps:
       # yamllint disable-line rule:line-length
-      - uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2  # v2.13.3
+      - uses: step-security/harden-runner@20cf305ff2072d973412fa9b1e3a4f227bda3c76  # v2.14.0
         with:
           egress-policy: audit
 
       - name: Load secrets from 1Password
-        uses: 1password/load-secrets-action@13f58eec611f8e5db52ec16247f58c508398f3e6 # v3.0.0
+        uses: 1password/load-secrets-action@8d0d610af187e78a2772c2d18d627f4c52d3fbfb # v3.1.0
         with:
           export-env: true
         env:
@@ -158,11 +158,6 @@ jobs:
             echo "set=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: "Exit early for 1Password integration"
-        run: |
-          # Exit early for 1Password integration
-          exit 0
-
       - name: 'Checkout Gerrit change'
         # yamllint disable-line rule:line-length
         uses: lfreleng-actions/checkout-gerrit-change-action@54d751e8bd167bc91f7d665dabe33fae87aaaa63  # v0.9
@@ -186,7 +181,7 @@ jobs:
 
       - name: 'Set up Docker Buildx'
         # yamllint disable-line rule:line-length
-        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435  # v3.11.1
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f  # v3.12.0
 
       - name: 'Build pre-requisites, install Helm plugins'
         id: pre-requisites
@@ -209,7 +204,7 @@ jobs:
       - name: 'Start ChartMuseum'
         id: chartmuseum
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/chartmuseum-action@fd69b10b8a21548c0eb99b13f52ed40875057dbf # v0.1.5
+        uses: lfreleng-actions/chartmuseum-action@7f3e1314e831894078f9a7ad74cea2ea0975d505 # v0.1.6
         with:
           username: 'chartmuseum'
           password: "${{ secrets.GITHUB_TOKEN }}"
@@ -220,28 +215,28 @@ jobs:
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build onap_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        uses: lfreleng-actions/make-action@e07201ee8e3d1f34800f1c63f58415624a8c054c  # v0.1.3
         with:
           make_args: "-C smo-install/onap_oom/kubernetes -e SKIP_LINT=TRUE"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build oran_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        uses: lfreleng-actions/make-action@e07201ee8e3d1f34800f1c63f58415624a8c054c  # v0.1.3
         with:
           make_args: "-C smo-install/oran_oom"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build oran_oom/smo'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        uses: lfreleng-actions/make-action@e07201ee8e3d1f34800f1c63f58415624a8c054c  # v0.1.3
         with:
           make_args: "-C smo-install/oran_oom/smo"
 
       # Makefiles publish to Chartmeusem service locally
       - name: 'Build tests_oom'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/make-action@d2b447abd5db8425f4fbbb27b953133861137a66  # v0.1.2
+        uses: lfreleng-actions/make-action@e07201ee8e3d1f34800f1c63f58415624a8c054c  # v0.1.3
         with:
           make_args: "-C smo-install/tests_oom"
 
@@ -254,12 +249,12 @@ jobs:
           tags: ""
 
       - name: 'Publish to Nexus3 (Helm Snapshot)'
-        uses: lfreleng-actions/nexus-publish-action@b53a4638789cba03279c97aeab7f0ce10dbfa991  # v0.1.3
+        uses: lfreleng-actions/nexus-publish-action@b53a4638789cba03279c97aeab7f0ce10dbfa991  # v0.1.4
         # Note: changed from verify for 1Password integration
         with:
           nexus_server: "${{ vars.NEXUS3_SERVER }}"
           nexus_username: "${{ github.event.repository.name }}"
-          nexus_password: "${{ env.NEXUS_PASSWORD }}"
+          nexus_password: "${{ secrets.NEXUS_PASSWORD }}"
           repository_format: 'raw'
           repository_name: 'helm.release'
           files_path: "${{ env.CHARTS_BUILD_DIR }}"

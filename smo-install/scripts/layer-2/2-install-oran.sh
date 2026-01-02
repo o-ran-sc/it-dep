@@ -6,7 +6,7 @@
 # ================================================================================
 # Copyright (C) 2021 AT&T Intellectual Property. All rights
 #                             reserved.
-# Modification Copyright (C) 2024-2025 OpenInfra Foundation Europe. All rights reserved.
+# Modification Copyright (C) 2024-2026 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ fi
 
 timestamp=$(date +%s)
 
-TARGET_HELM_REPO="oran-snapshot" # This should be changed to oran-release once the release charts are published
+TARGET_HELM_REPO="oran-release"
 
 if [ "$MODE" == "dev" ]; then
     helm cm-push ../packages/strimzi-kafka-operator-helm-3-chart-0.45.0.tgz local

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-# Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+# Copyright (C) 2025-2026 OpenInfra Foundation Europe. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ NEXUS_PROXY_DOCKER_IO_REPO="nexus3.o-ran-sc.org:10001"
 
 HELM_REPO=$1
 if [ -z "$HELM_REPO" ]; then
-  HELM_REPO="oran-snapshot"
+  HELM_REPO="oran-release"
 fi
 
 echo "Generating image list from Helm charts in repo: $HELM_REPO ..."

@@ -57,9 +57,6 @@ nonrtric:
 - Uses pre-built charts from Nexus repositories.
 - No chart building required.
 
-> [!NOTE]
-> **Release images are currently unavailable.** Snapshot images are used for deployment. Once release images become available, the installation will switch to use them automatically.
-
 **Repositories:**
 - SMO Release: https://nexus3.o-ran-sc.org/repository/helm.release/
 - SMO Snapshot: https://nexus3.o-ran-sc.org/repository/helm.snapshot/
@@ -147,7 +144,7 @@ To generate the list of required images, run:
 ```bash
 ./dep/smo-install/scripts/sub-scripts/generate-image-list.sh <HELM_REPO>
 ```
-Where `<HELM_REPO>` is either `oran-snapshot` or `oran-release` or `local` (depends on the helm repo configuration). The default is `oran-snapshot`.
+Where `<HELM_REPO>` is either `oran-snapshot` or `oran-release` or `local` (depends on the helm repo configuration). The default is `oran-release`.
 
 Command to pull the image depends on your container runtime.
 

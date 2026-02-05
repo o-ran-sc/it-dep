@@ -22,13 +22,15 @@ This guide describe the steps to install the SMO environment which involves Neph
 ```bash
 > git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"
 
-> sudo ./dep/tools/setup_k8s/setup_k8s.sh
+> sudo ./dep/tools/setup_k8s/scripts/setup_k8s.sh
 
 > sudo usermod -aG docker $USER
 
 > sudo chown -R ubuntu:ubuntu .kube
 
 ```
+**NOTE:** If you want to install on an openstack VM, refer to the [Openstack VM special steps](#openstack-special-steps) section now
+
 
 ## Docker hub pull limit handling
 
@@ -65,11 +67,10 @@ This installs a minimal OpenEBS setup with only the hostpath storage class. It w
 ## Nephio Installation (V4.0.0)(Non-Kind cluster)
 
 ```bash
-> wget -O - https://raw.githubusercontent.com/nephio-project/test-infra/v4.0.0/e2e/provision/init.sh |  \
+> wget -O - https://raw.githubusercontent.com/nephio-project/test-infra/main/e2e/provision/init.sh |  \
 sudo NEPHIO_DEBUG=false   \
-     NEPHIO_BRANCH=v4.0.0 \
+     NEPHIO_BRANCH=main \
      NEPHIO_USER=ubuntu \
-     K8S_CONTEXT=kubernetes-admin@kubernetes \
      bash
 ```
 
@@ -85,19 +86,50 @@ sudo tee -a /etc/apt/sources.list.d/netdevops.list
 
 > sudo apt update && sudo apt install containerlab
 
-> wget https://github.com/nephio-project/porch/releases/download/v4.0.0/porchctl_4.0.0_linux_amd64.tar.gz
+> wget https://github.com/nephio-project/porch/releases/download/v1.5.3/porchctl_1.5.3_linux_amd64.tar.gz
 
-> tar -xvf porchctl_4.0.0_linux_amd64.tar.gz
+> tar -xvf porchctl_1.5.3_linux_amd64.tar.gz
 
 > sudo mv porchctl /usr/local/bin
 ```
 
 Follow the instructions here, https://docs.nephio.org/docs/guides/user-guides/usecase-user-guides/exercise-2-oai/
 
+**WARNING**: Sometimes, when package revisions remain in "draft" state, when following the above steps,
+you have to manually approve the draft revision with commands like:
+
+```bash
+porchctl rpkg propose mgmt.regional.packagevariant-1 --namespace default
+
+and then
+
+porchctl rpkg approve mgmt.regional.packagevariant-1 --namespace default
+```
+
 
 ## SMO Installation
 
 Follow release mode installation from https://github.com/o-ran-sc/it-dep/tree/master/smo-install#o-ran-smo-package
+
+### SMO Install Issues
+The SMO installation will involves pulling a lot of images at the same time. Because of the time it takes,
+you may see pod install failures.
+You may have to uninstall and reinstall a second time to get all of the smo components working.
+
+If you do this, when uninstalling, you should disable the cleanup of all pvs. If you don't, some of the nephio pvs will be
+deleted.
+
+In the script **dep/smo-install/scripts/sub-scripts/clean-up.sh** change
+
+```shell
+kubectl delete pv --all
+```
+
+to
+
+```shell
+# kubectl delete pv --all
+```
 
 
 ### Patch RANPM - DFC
@@ -159,7 +191,7 @@ This sample should be created inside the docker folder of the O1 adapter repo.
 services:
   o1-oai-adapter:
     container_name: o1-oai-adapter
-    image: oai/o1-adapter:latest
+    image: library/adapter-gnb:latest
     ports:
       - "1830:830"
       - "1222:22"
@@ -315,5 +347,69 @@ sudo iptables -X
 > sudo apt-get remove -y docker docker.io containerd containernetworking-plugins kubectl kubeadm kubelet containerlab
 
 > sudo rm /etc/apt/keyrings/kubernetes-apt-keyring.gpg /etc/apt/sources.list.d/kubernetes.list
-
 ```
+
+## Openstack Special Steps
+If we deploy on kind cluster in openstack, there are some things we may need to do manually.
+
+### Adjust MTU size for the kind cluster
+  - It is sometimes the case that the MTU size of the pods created is bigger than the mtu size of the host.
+    In these cases, we need to adjust the MTU size of the kind cluster pods to be smaller (or the same size as the host)
+  - This can be done by editing the file **/etc/docker/daemon.json** on the host just after installing docker.
+
+In the host, change the mtu to whatever is needed. In this case, 1450 matched the host interface.
+
+```shell
+{
+  "mtu": 1400
+}
+```
+
+In VM host
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+Any pods created after this will have the correct MTU size.
+
+### Adjust the number of allowable pods in the kind cluster node
+This will default to 110 pods. All other pods will be in pending state.
+The fix we carried out for that was to alter the value in the config file in the container.
+This should be done keeping in mind that it could impact the system performance.
+
+```shell
+docker exec -it kind-control-plane /bin/bash
+nano /var/lib/kubelet/config.yaml
+```
+
+Change the value of maxPods to be higher than 110.
+Then, inside the same docker container, restart the kubelet
+
+```shell
+systemctl restart kubelet
+```
+
+You can check the allowable number of pods by doing.
+```shell
+kubectl get nodes -o jsonpath='{.items[*].status.capacity.pods}'
+```
+
+### inotify limit
+There was an issue, because of running so many pods in kind cluster, of inotify limit being reached.
+So, in the host, the max_user_instances had to be increased to 2048 (was 512)
+
+To do this, open the file /etc/sysctl.conf and alter the fs.inotify.max_user_instances=2048.
+
+```shell
+fs.inotify.max_user_instances=2048
+```
+
+save and close
+
+The issue was found to prevent the netconf server in the docker compose from starting properly and thus, register with SDNC.
+
+### A note on IP and ports
+1. In the openstack VM, the docker compose exposed the netconf and sftp ports to the host. This allowed any pods that had access to the host to connect to the netconf and sftp ports. So, we needed to set the netconf host to the ip of the host VM.
+2. In the VES configuration for the docker compose, the url ip was set to the ip of the kind-control-plane docker container. And the port was set to the node port of the VES collector.
+3. The telnet ip was set to the external ip on the load balancer of the deployed du in the edge cluster. The port was set to the exposed port. NOT the node port.

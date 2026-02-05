@@ -131,6 +131,27 @@ sdnc-web:
           Uri: "/"
   ApiName: sdnc-web-http
 
+sdnc:
+  AefProfiles:
+    - interfaceDescriptions:
+        - ipv4Addr: "sdnc.onap.svc.cluster.local"
+          port: 8282
+          securityMethods:
+            - PKI
+      Versions:
+        - ApiVersion: ""
+          Resources:
+            - CommType: REQUEST_RESPONSE
+              Operations:
+                - DELETE
+                - GET
+                - PATCH
+                - POST
+                - PUT
+              ResourceName: root
+              Uri: "/"
+  ApiName: sdnc-rest
+
 cps-core:
   AefProfiles:
   - interfaceDescriptions:

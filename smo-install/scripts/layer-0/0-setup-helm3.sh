@@ -30,14 +30,7 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 # Check whether helm is installed and if not install it
 if command -v helm > /dev/null 2>&1; then
     HELM_VERSION=$(helm version --template='{{.Version}}')
-    if [[ $HELM_VERSION == v4* ]]; then
-        echo -e "\033[43;31mWARNING: Helm v4 detected ($HELM_VERSION) \033[0m"
-        echo -e "\033[43;31mWARNING: Helm v4 is not fully supported yet as there could be some issues with helm cm-push plugin. \033[0m"
-        echo -e "\033[43;31mWARNING: It is better to stick with Helm v3 for now. \033[0m"
-        echo -e "\033[43;31mWARNING: Consider downgrading to Helm v3 if you encounter issues. \033[0m"
-    else
-        echo "Helm is already installed. Skipping installation."
-    fi
+    echo "Helm ($HELM_VERSION) is already installed. Skipping installation."
 else
     echo "Helm is not installed. Installing helm ..."
     cd /tmp
@@ -58,17 +51,29 @@ else
 fi
 
 # Check whether helm-push is installed and if not install it
+# To be compatible with helm 3 and 4 cm push needs to be
+# at least in version 0.11.1
+SET_VERSION=0.11.1
 if helm plugin list | awk '{print $1}' | grep -w -q "cm-push"; then
-    echo "Helm cm-push plugin is already installed. Skipping installation."
-else
-    echo "Helm cm-push plugin is not installed. Installing cm-push ..."
-    TAR_VERSION=v0.10.3
-    echo "Downloading and installing helm-push ${TAR_VERSION} ..."
-    TAR_FILE=helm-push-${TAR_VERSION}.tar.gz
+    CURRENT_VERSION=$(helm plugin list | grep cm-push | awk '{print $2}')
+    if [[ $(printf '%s\n' "$CURRENT_VERSION" "$SET_VERSION" | sort -V | head -n1) != "$SET_VERSION" ]]; then
+        echo "Helm cm-push plugin version $CURRENT_VERSION is outdated. Uninstalling..."
+        helm plugin remove cm-push
+    else
+        echo "Helm cm-push plugin version $CURRENT_VERSION is already installed. Skipping installation."
+        SET_VERSION=""
+    fi
+fi
+
+if [[ -n "$SET_VERSION" ]]; then
+    echo "Installing helm cm-push plugin version $SET_VERSION..."
+    TAR_FILE=helm-push_${SET_VERSION}_darwin_amd64.tar.gz
     HELM_PLUGINS=$(helm env HELM_PLUGINS)
     mkdir -p $HELM_PLUGINS/helm-push
     cd $HELM_PLUGINS/helm-push
-    wget https://nexus.o-ran-sc.org/content/repositories/thirdparty/chartmuseum/helm-push/$TAR_VERSION/$TAR_FILE
+    # It would be better to do this download through nexus. Sometimes, we can find that
+    # wget and curl fail when pulling from github
+    wget https://github.com/chartmuseum/helm-push/releases/download/v$SET_VERSION/$TAR_FILE
     tar zxvf $TAR_FILE >/dev/null
     rm $TAR_FILE
 fi

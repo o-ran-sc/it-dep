@@ -142,7 +142,7 @@ jobs:
       - name: 'Start ChartMuseum'
         id: chartmuseum
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/chartmuseum-action@7f3e1314e831894078f9a7ad74cea2ea0975d505 # v0.1.6
+        uses: lfreleng-actions/chartmuseum-action@a381338882e65722ebcac53c66bc2ddbe962d423 # v0.1.6 + docker container IPAddress Issue #77
         with:
           username: 'chartmuseum'
           password: "${{ secrets.GITHUB_TOKEN }}"

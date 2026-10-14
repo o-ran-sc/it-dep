@@ -187,7 +187,7 @@ jobs:
           tags: ""
 
       - name: 'Publish to Nexus3 (Helm Snapshot)'
-        uses: lfreleng-actions/nexus-publish-action@b53a4638789cba03279c97aeab7f0ce10dbfa991  # v0.1.3
+        uses: lfreleng-actions/nexus-publish-action@0b1f7998b05f3667c64648b86f620b3daff8370c  # v1.3.0
         with:
           nexus_server: "${{ vars.NEXUS3_SERVER }}"
           nexus_username: "${{ github.event.repository.name }}"

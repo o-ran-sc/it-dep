@@ -243,7 +243,7 @@ jobs:
           tags: ""
 
       - name: 'Publish to Nexus3 (Helm Snapshot)'
-        uses: lfreleng-actions/nexus-publish-action@b53a4638789cba03279c97aeab7f0ce10dbfa991  # v0.1.4
+        uses: lfreleng-actions/nexus-publish-action@0b1f7998b05f3667c64648b86f620b3daff8370c  # v1.3.0
         # Note: changed from verify for 1Password integration
         with:
           nexus_server: "${{ vars.NEXUS3_SERVER }}"

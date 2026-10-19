@@ -82,7 +82,7 @@ jobs:
       - name: 'Verify pushed tag'
         id: 'tag-validate'
         # yamllint disable-line rule:line-length
-        uses: lfreleng-actions/tag-validate-action@v1.0.1
+        uses: lfreleng-actions/tag-validate-action@v1.1.7
         with:
           require_type: 'calver'
           token: "${{ secrets.GITHUB_TOKEN }}"
